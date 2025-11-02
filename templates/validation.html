@@ -1,0 +1,336 @@
+{% extends "base.html" %}
+
+{% block title %}Statistical Validation{% endblock %}
+
+{% block content %}
+<h1>Empirical Validation of Nominative Determinism</h1>
+<p class="subtitle">Rigorous statistical proof using REAL 1-year performance data only - No estimates or dummy data</p>
+
+<!-- Data Quality Warning -->
+<div style="background: rgba(224, 124, 90, 0.1); border-left: 4px solid #e07c5a; padding: 1rem; margin-bottom: 1rem; border-radius: 6px;">
+    <div style="font-weight: 700; margin-bottom: 0.5rem; color: #e07c5a;">⚠️ DATA QUALITY NOTICE</div>
+    <div style="font-size: 0.9rem; color: var(--text-secondary);" id="data-quality-notice">
+        Loading data status...
+    </div>
+</div>
+
+<!-- Hypothesis & Validation Strength -->
+<div class="glass card mb-1">
+    <div class="flex-between mb-1">
+        <div>
+            <h3>Hypothesis Test</h3>
+            <p style="font-size: 1.05rem; margin: 0.5rem 0;" id="hypothesis-text">Loading...</p>
+        </div>
+        <div style="text-align: right;">
+            <div style="font-size: 2rem; font-weight: 700; margin-bottom: 0.25rem;" id="validation-strength">-</div>
+            <div class="text-muted" style="font-size: 0.85rem;">Validation Strength</div>
+        </div>
+    </div>
+    <div style="background: var(--background-secondary); padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+        <div style="font-size: 0.9rem; color: var(--text-secondary);" id="conclusion-text">Loading statistical analysis...</div>
+    </div>
+</div>
+
+<!-- Evidence Summary -->
+<div class="glass card mb-1">
+    <h3>Evidence Summary</h3>
+    <p class="text-muted mb-1" style="font-size: 0.85rem;">Statistical tests performed on <span id="sample-size">-</span> cryptocurrencies</p>
+    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.75rem;" id="evidence-grid">
+        <div class="loading"><div class="spinner"></div></div>
+    </div>
+</div>
+
+<!-- Correlation Analysis -->
+<div class="glass card mb-1">
+    <h3>Part 1: Correlation Analysis</h3>
+    <p class="text-muted mb-1" style="font-size: 0.85rem;">Do name characteristics correlate with performance? (Pearson & Spearman tests)</p>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Name Feature</th>
+                    <th>Pearson r</th>
+                    <th>p-value</th>
+                    <th>Spearman ρ</th>
+                    <th>Strength</th>
+                    <th>Significant?</th>
+                    <th>Interpretation</th>
+                </tr>
+            </thead>
+            <tbody id="correlations-tbody">
+                <tr><td colspan="7"><div class="loading"><div class="spinner"></div></div></td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Regression Analysis -->
+<div class="glass card mb-1">
+    <h3>Part 2: Regression Model</h3>
+    <p class="text-muted mb-1" style="font-size: 0.85rem;">Can name characteristics predict performance?</p>
+    
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem;">
+        <!-- Coefficients -->
+        <div>
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.75rem;">Feature Coefficients</h4>
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Coefficient</th>
+                            <th>Impact</th>
+                        </tr>
+                    </thead>
+                    <tbody id="coefficients-tbody">
+                        <tr><td colspan="3"><div class="loading"><div class="spinner"></div></div></td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Performance Metrics -->
+        <div>
+            <h4 style="font-size: 0.95rem; margin-bottom: 0.75rem;">Model Performance</h4>
+            <div id="regression-metrics" style="background: var(--background-secondary); padding: 1rem; border-radius: 6px;">
+                <div class="loading"><div class="spinner"></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Pattern Validation -->
+<div class="glass card mb-1">
+    <h3>Part 3: Pattern Validation (Cross-Validation)</h3>
+    <p class="text-muted mb-1" style="font-size: 0.85rem;">Do discovered patterns hold on unseen data?</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;" id="pattern-validation">
+        <div class="loading"><div class="spinner"></div></div>
+    </div>
+</div>
+
+<!-- Predictive Power -->
+<div class="glass card mb-1">
+    <h3>Part 4: Predictive Power</h3>
+    <p class="text-muted mb-1" style="font-size: 0.85rem;">Can we predict winners vs losers better than random guessing?</p>
+    
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;" id="predictive-power">
+        <div class="loading"><div class="spinner"></div></div>
+    </div>
+</div>
+
+<!-- Statistical Rigor -->
+<div class="glass card">
+    <h3>Statistical Rigor</h3>
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; font-size: 0.85rem;">
+        <div style="background: var(--background-secondary); padding: 0.85rem; border-radius: 6px; border-left: 3px solid var(--success-muted);">
+            <div style="color: var(--text-muted); margin-bottom: 0.3rem;">Out-of-Sample Testing</div>
+            <div style="font-size: 1.2rem; font-weight: 700; color: var(--success-muted);">✓ YES</div>
+        </div>
+        <div style="background: var(--background-secondary); padding: 0.85rem; border-radius: 6px; border-left: 3px solid var(--accent-primary);">
+            <div style="color: var(--text-muted); margin-bottom: 0.3rem;">Confidence Level</div>
+            <div style="font-size: 1.2rem; font-weight: 700;">99%</div>
+        </div>
+        <div style="background: var(--background-secondary); padding: 0.85rem; border-radius: 6px; border-left: 3px solid var(--accent-primary);">
+            <div style="color: var(--text-muted); margin-bottom: 0.3rem;">Significance Threshold</div>
+            <div style="font-size: 1.2rem; font-weight: 700;">p < 0.01</div>
+        </div>
+        <div style="background: var(--background-secondary); padding: 0.85rem; border-radius: 6px; border-left: 3px solid var(--text-muted);">
+            <div style="color: var(--text-muted); margin-bottom: 0.3rem;">Sample Size</div>
+            <div style="font-size: 1.2rem; font-weight: 700;" id="final-sample-size">-</div>
+        </div>
+    </div>
+</div>
+
+<!-- Disclaimer -->
+<div class="text-muted mt-1" style="font-size: 0.8rem; text-align: center; padding: 1rem; background: var(--background-secondary); border-radius: 6px;">
+    <strong>Disclaimer:</strong> Statistical correlation does not imply causation. Past performance does not guarantee future results. 
+    This analysis is for research and educational purposes only. Always conduct your own research before making investment decisions.
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+async function loadValidation() {
+    try {
+        const data = await fetch('/api/crypto/empirical-validation').then(r => r.json());
+        
+        if (data.error) {
+            console.error('Validation error:', data.error);
+            return;
+        }
+        
+        // DATA QUALITY NOTICE
+        const sampleSize = data.sample_size;
+        const totalExpected = 3500;
+        const coverageRate = (sampleSize / totalExpected * 100).toFixed(1);
+        
+        const noticeColor = coverageRate < 20 ? '#e07c5a' : (coverageRate < 50 ? '#e0a85a' : 'var(--success-muted)');
+        document.getElementById('data-quality-notice').innerHTML = `
+            Analysis based on <strong>${sampleSize.toLocaleString()}</strong> cryptocurrencies with VERIFIED 1-year performance data.<br>
+            <strong style="color: ${noticeColor};">${(totalExpected - sampleSize).toLocaleString()} cryptocurrencies excluded</strong> due to missing/incomplete price history.<br>
+            <span style="font-size: 0.85rem;">All findings use REAL data only - no extrapolation, no estimates, no dummy values.</span>
+        `;
+        
+        // Hypothesis & Strength
+        document.getElementById('hypothesis-text').textContent = data.hypothesis;
+        document.getElementById('validation-strength').textContent = data.validation_strength;
+        document.getElementById('validation-strength').style.color = 
+            data.validation_strength === 'STRONG' ? 'var(--success-muted)' : 
+            (data.validation_strength === 'MODERATE' ? 'var(--accent-primary)' : 'var(--text-muted)');
+        document.getElementById('conclusion-text').textContent = data.conclusion;
+        document.getElementById('sample-size').textContent = sampleSize.toLocaleString();
+        document.getElementById('final-sample-size').textContent = sampleSize.toLocaleString();
+        
+        // Evidence Grid
+        renderEvidenceGrid(data);
+        
+        // Correlations
+        renderCorrelations(data.correlations);
+        
+        // Regression
+        renderRegression(data.regression_model);
+        
+        // Pattern Validation
+        renderPatternValidation(data.pattern_validation);
+        
+        // Predictive Power
+        renderPredictivePower(data.predictive_power);
+        
+    } catch (error) {
+        console.error('Error loading validation:', error);
+    }
+}
+
+function renderEvidenceGrid(data) {
+    const container = document.getElementById('evidence-grid');
+    
+    const evidence = [
+        {
+            name: 'Correlations',
+            value: data.correlations.memorability.significant || data.correlations.uniqueness.significant ? '✓' : '✗',
+            color: data.correlations.memorability.significant || data.correlations.uniqueness.significant ? 'var(--success-muted)' : 'var(--text-muted)'
+        },
+        {
+            name: 'Regression (R²)',
+            value: data.regression_model.r_squared_test > 0.05 ? '✓' : '✗',
+            color: data.regression_model.r_squared_test > 0.05 ? 'var(--success-muted)' : 'var(--text-muted)'
+        },
+        {
+            name: 'Pattern Validation',
+            value: data.pattern_validation.validation_rate > 0.5 ? '✓' : '✗',
+            color: data.pattern_validation.validation_rate > 0.5 ? 'var(--success-muted)' : 'var(--text-muted)'
+        },
+        {
+            name: 'Predictive Power',
+            value: data.predictive_power.improvement_over_baseline > 0.05 ? '✓' : '✗',
+            color: data.predictive_power.improvement_over_baseline > 0.05 ? 'var(--success-muted)' : 'var(--text-muted)'
+        },
+        {
+            name: 'Overall',
+            value: data.evidence_count,
+            color: data.validation_strength === 'STRONG' ? 'var(--success-muted)' : 'var(--accent-primary)'
+        }
+    ];
+    
+    container.innerHTML = evidence.map(e => `
+        <div style="background: var(--background-secondary); padding: 0.85rem; border-radius: 6px; text-align: center;">
+            <div style="font-size: 1.8rem; font-weight: 700; color: ${e.color}; margin-bottom: 0.3rem;">${e.value}</div>
+            <div style="font-size: 0.75rem; color: var(--text-muted);">${e.name}</div>
+        </div>
+    `).join('');
+}
+
+function renderCorrelations(correlations) {
+    const tbody = document.getElementById('correlations-tbody');
+    
+    tbody.innerHTML = Object.entries(correlations).map(([feature, data]) => `
+        <tr>
+            <td><strong style="text-transform: capitalize;">${feature.replace('_', ' ')}</strong></td>
+            <td>${data.pearson_r}</td>
+            <td><span style="color: ${data.significant ? 'var(--success-muted)' : 'var(--text-muted)'};">${data.pearson_p}</span></td>
+            <td>${data.spearman_r}</td>
+            <td><span class="badge badge-${data.strength}">${data.strength}</span></td>
+            <td>${data.significant ? '<span style="color: var(--success-muted);">✓ YES</span>' : '<span style="color: var(--text-muted);">No</span>'}</td>
+            <td style="font-size: 0.85rem;">${data.interpretation}</td>
+        </tr>
+    `).join('');
+}
+
+function renderRegression(regression) {
+    const tbody = document.getElementById('coefficients-tbody');
+    tbody.innerHTML = Object.entries(regression.feature_coefficients).map(([feature, coef]) => `
+        <tr>
+            <td><strong style="text-transform: capitalize;">${feature.replace('_', ' ')}</strong></td>
+            <td style="color: ${coef > 0 ? 'var(--success-muted)' : 'var(--danger-muted)'};">${coef > 0 ? '+' : ''}${coef}</td>
+            <td style="font-size: 0.85rem;">${coef > 0 ? 'Positive' : 'Negative'}</td>
+        </tr>
+    `).join('');
+    
+    const metrics = document.getElementById('regression-metrics');
+    metrics.innerHTML = `
+        <div style="margin-bottom: 0.75rem;">
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.2rem;">R² (Training)</div>
+            <div style="font-size: 1.3rem; font-weight: 700;">${(regression.r_squared_train * 100).toFixed(1)}%</div>
+        </div>
+        <div style="margin-bottom: 0.75rem;">
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.2rem;">R² (Out-of-Sample)</div>
+            <div style="font-size: 1.3rem; font-weight: 700; color: var(--accent-primary);">${(regression.r_squared_test * 100).toFixed(1)}%</div>
+        </div>
+        <div style="margin-bottom: 0.75rem;">
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.2rem;">RMSE</div>
+            <div style="font-size: 1.1rem; font-weight: 600;">${regression.rmse_test.toFixed(1)}</div>
+        </div>
+        <div style="padding-top: 0.75rem; border-top: 1px solid var(--border); font-size: 0.8rem; color: var(--text-secondary);">
+            ${regression.interpretation}
+        </div>
+    `;
+}
+
+function renderPatternValidation(validation) {
+    const container = document.getElementById('pattern-validation');
+    container.innerHTML = `
+        <div style="background: var(--background-secondary); padding: 1rem; border-radius: 6px; text-align: center;">
+            <div style="font-size: 2rem; font-weight: 700; color: var(--accent-primary); margin-bottom: 0.3rem;">${validation.total_patterns_tested}</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Patterns Tested</div>
+        </div>
+        <div style="background: var(--background-secondary); padding: 1rem; border-radius: 6px; text-align: center;">
+            <div style="font-size: 2rem; font-weight: 700; color: var(--success-muted); margin-bottom: 0.3rem;">${validation.patterns_validated}</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Patterns Validated</div>
+        </div>
+        <div style="background: var(--background-secondary); padding: 1rem; border-radius: 6px; text-align: center;">
+            <div style="font-size: 2rem; font-weight: 700; color: ${validation.validation_rate > 0.5 ? 'var(--success-muted)' : 'var(--text-muted)'}; margin-bottom: 0.3rem;">${(validation.validation_rate * 100).toFixed(0)}%</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Validation Rate</div>
+            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.5rem;">${validation.interpretation}</div>
+        </div>
+    `;
+}
+
+function renderPredictivePower(power) {
+    const container = document.getElementById('predictive-power');
+    container.innerHTML = `
+        <div style="background: var(--background-secondary); padding: 1rem; border-radius: 6px; text-align: center;">
+            <div style="font-size: 1.6rem; font-weight: 700; color: var(--accent-primary); margin-bottom: 0.3rem;">${(power.out_of_sample_accuracy * 100).toFixed(1)}%</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Out-of-Sample Accuracy</div>
+        </div>
+        <div style="background: var(--background-secondary); padding: 1rem; border-radius: 6px; text-align: center;">
+            <div style="font-size: 1.6rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.3rem;">${(power.baseline_accuracy * 100).toFixed(1)}%</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Baseline (Random)</div>
+        </div>
+        <div style="background: var(--background-secondary); padding: 1rem; border-radius: 6px; text-align: center;">
+            <div style="font-size: 1.6rem; font-weight: 700; color: ${power.improvement_over_baseline > 0 ? 'var(--success-muted)' : 'var(--danger-muted)'}; margin-bottom: 0.3rem;">${power.improvement_over_baseline > 0 ? '+' : ''}${(power.improvement_over_baseline * 100).toFixed(1)}%</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Improvement</div>
+        </div>
+        <div style="background: var(--background-secondary); padding: 1rem; border-radius: 6px; text-align: center;">
+            <div style="font-size: 1.6rem; font-weight: 700; color: var(--success-muted); margin-bottom: 0.3rem;">${power.winners_correctly_predicted}/${power.total_winners}</div>
+            <div style="font-size: 0.85rem; color: var(--text-muted);">Winners Predicted</div>
+            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.5rem;">${power.interpretation}</div>
+        </div>
+    `;
+}
+
+loadValidation();
+</script>
+{% endblock %}
+

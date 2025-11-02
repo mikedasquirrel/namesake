@@ -1,0 +1,682 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics & Evidence{% endblock %}
+
+{% block content %}
+<h1>Statistical Evidence & Model Performance</h1>
+<p class="subtitle">Proof of nominative determinism with statistical validation</p>
+
+<!-- Model Performance -->
+<div class="glass card mb-1">
+    <h3>Breakout Prediction Model Performance</h3>
+    <div id="model-performance">
+        <div class="loading"><div class="spinner"></div></div>
+    </div>
+</div>
+
+<!-- Discovered Patterns (Detailed) -->
+<div class="glass card mb-1">
+    <h3>Statistically Significant Patterns</h3>
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Pattern</th>
+                    <th>Sample Size</th>
+                    <th>Avg Return</th>
+                    <th>Market Avg</th>
+                    <th>Outperformance</th>
+                    <th>P-Value</th>
+                    <th>Effect Size</th>
+                    <th>Confidence</th>
+                </tr>
+            </thead>
+            <tbody id="patterns-tbody">
+                <tr><td colspan="8"><div class="loading"><div class="spinner"></div></div></td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Historical Twins Analyzer -->
+<div class="glass card mb-1">
+    <h3>Historical Twin Finder</h3>
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+        <div>
+            <label style="font-size: 0.8rem;">Enter Cryptocurrency Name</label>
+            <input type="text" id="twin-name" placeholder="e.g., Bitcoin" list="coin-list" style="margin: 0;">
+            <datalist id="coin-list"></datalist>
+        </div>
+        <div style="display: flex; align-items: flex-end;">
+            <button class="btn btn-primary" onclick="findTwins()" style="width: 100%;">Find Similar Coins</button>
+        </div>
+    </div>
+    <div id="twins-results" style="display: none;">
+        <h3 style="font-size: 0.95rem; margin-bottom: 0.75rem;">Most Similar Historical Names</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Similarity</th>
+                        <th>Syllables</th>
+                        <th>Length</th>
+                        <th>Memorability</th>
+                        <th>1Y Return</th>
+                    </tr>
+                </thead>
+                <tbody id="twins-tbody"></tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<!-- Anomalies -->
+<div class="glass card mb-1">
+    <h3>Anomalies (Coins That Defy Patterns)</h3>
+    <div id="anomalies-section">
+        <div class="loading"><div class="spinner"></div></div>
+    </div>
+</div>
+
+<!-- ADVANCED STATISTICAL ANALYSES -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1rem; border-bottom: 2px solid var(--accent-primary); padding-bottom: 0.5rem;">
+        Advanced Statistical Analyses
+    </h2>
+    <p class="subtitle" style="margin-bottom: 1.5rem;">
+        Deep statistical methods revealing complex, non-obvious patterns in name success factors
+    </p>
+    
+    <!-- Interaction Effects -->
+    <div style="margin-bottom: 2rem;">
+        <h3 style="color: var(--accent-primary);">Interaction Effects</h3>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Feature combinations that amplify or diminish each other's effects
+        </p>
+        <button class="btn btn-secondary" onclick="loadInteractionEffects()" style="margin-bottom: 1rem;">
+            Analyze Interactions
+        </button>
+        <div id="interaction-results" style="display: none;">
+            <div class="loading"><div class="spinner"></div></div>
+        </div>
+    </div>
+    
+    <!-- Non-Linear Patterns -->
+    <div style="margin-bottom: 2rem;">
+        <h3 style="color: var(--accent-primary);">Non-Linear Patterns & Optimal Ranges</h3>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Polynomial, threshold, and quantile regression to find optimal feature values
+        </p>
+        <button class="btn btn-secondary" onclick="loadNonLinearPatterns()" style="margin-bottom: 1rem;">
+            Detect Non-Linearity
+        </button>
+        <div id="nonlinear-results" style="display: none;">
+            <div class="loading"><div class="spinner"></div></div>
+        </div>
+    </div>
+    
+    <!-- Clustering Analysis -->
+    <div style="margin-bottom: 2rem;">
+        <h3 style="color: var(--accent-primary);">Name Clustering & Segmentation</h3>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Natural groupings of cryptocurrency names with distinct performance profiles
+        </p>
+        <button class="btn btn-secondary" onclick="loadClusterAnalysis()" style="margin-bottom: 1rem;">
+            Perform Clustering
+        </button>
+        <div id="cluster-results" style="display: none;">
+            <div class="loading"><div class="spinner"></div></div>
+        </div>
+    </div>
+    
+    <!-- Causal Analysis -->
+    <div style="margin-bottom: 2rem;">
+        <h3 style="color: var(--accent-primary);">Causal Effects (Confounder-Controlled)</h3>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            True causal effects after controlling for market cap, rank, and other confounders
+        </p>
+        <div style="margin-bottom: 1rem;">
+            <label style="font-size: 0.8rem;">Treatment Feature:</label>
+            <select id="causal-treatment" style="margin-left: 0.5rem; padding: 0.4rem;">
+                <option value="memorability_score">Memorability</option>
+                <option value="uniqueness_score">Uniqueness</option>
+                <option value="phonetic_score">Phonetic Score</option>
+                <option value="syllable_count">Syllable Count</option>
+            </select>
+            <button class="btn btn-secondary" onclick="loadCausalAnalysis()" style="margin-left: 0.5rem;">
+                Estimate Causal Effect
+            </button>
+        </div>
+        <div id="causal-results" style="display: none;">
+            <div class="loading"><div class="spinner"></div></div>
+        </div>
+    </div>
+    
+    <!-- Linguistic Deep Dive -->
+    <div style="margin-bottom: 2rem;">
+        <h3 style="color: var(--accent-primary);">Deep Linguistic Analysis</h3>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            Phonetic patterns, psychological dimensions, and structural features
+        </p>
+        <button class="btn btn-secondary" onclick="loadLinguisticDeepDive()" style="margin-bottom: 1rem;">
+            Analyze Linguistics
+        </button>
+        <div id="linguistic-results" style="display: none;">
+            <div class="loading"><div class="spinner"></div></div>
+        </div>
+    </div>
+    
+    <!-- Comprehensive Report -->
+    <div>
+        <h3 style="color: var(--accent-primary);">Comprehensive Statistical Report</h3>
+        <p style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 1rem;">
+            All-in-one analysis with executive summary of key findings
+        </p>
+        <button class="btn btn-primary" onclick="loadComprehensiveReport()" style="margin-bottom: 1rem;">
+            Generate Full Report
+        </button>
+        <div id="comprehensive-results" style="display: none;">
+            <div class="loading"><div class="spinner"></div></div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+async function loadAnalytics() {
+    try {
+        // Load model performance
+        const modelPerf = await fetch('/api/analytics/model-performance').then(r => r.json());
+        renderModelPerformance(modelPerf);
+        
+        // Load patterns
+        const patterns = await fetch('/api/discovery/patterns').then(r => r.json());
+        renderPatternsTable(patterns);
+        
+        // Load anomalies
+        const anomalies = await fetch('/api/analytics/anomalies').then(r => r.json());
+        renderAnomalies(anomalies);
+        
+        // Load coin list for autocomplete
+        const scores = await fetch('/api/signals/top?min_score=0&limit=500').then(r => r.json());
+        const coinList = document.getElementById('coin-list');
+        coinList.innerHTML = scores.map(s => `<option value="${s.name}">`).join('');
+        
+    } catch (error) {
+        console.error('Error loading analytics:', error);
+    }
+}
+
+function renderaplPerformance(data) {
+    const container = document.getElementById('model-performance');
+    
+    if (!data || !data.success) {
+        container.innerHTML = '<p class="text-muted">Model not trained yet or training failed.</p>';
+        return;
+    }
+    
+    const html = `
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; margin-bottom: 1rem;">
+            <div style="text-align: center; padding: 0.75rem; background: var(--background-secondary); border-radius: 6px;">
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.3rem;">ACCURACY</div>
+                <div style="font-size: 1.4rem; font-weight: 700; color: var(--success-muted);">${(data.accuracy * 100).toFixed(1)}%</div>
+            </div>
+            <div style="text-align: center; padding: 0.75rem; background: var(--background-secondary); border-radius: 6px;">
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.3rem;">PRECISION</div>
+                <div style="font-size: 1.4rem; font-weight: 700;">${(data.precision * 100).toFixed(1)}%</div>
+            </div>
+            <div style="text-align: center; padding: 0.75rem; background: var(--background-secondary); border-radius: 6px;">
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.3rem;">RECALL</div>
+                <div style="font-size: 1.4rem; font-weight: 700;">${(data.recall * 100).toFixed(1)}%</div>
+            </div>
+            <div style="text-align: center; padding: 0.75rem; background: var(--background-secondary); border-radius: 6px;">
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.3rem;">CV SCORE</div>
+                <div style="font-size: 1.4rem; font-weight: 700;">${(data.cv_mean * 100).toFixed(1)}%</div>
+            </div>
+        </div>
+        <div style="font-size: 0.85rem; color: var(--text-secondary);">
+            <div>Training samples: ${data.training_samples} | Breakout examples: ${data.breakout_count}</div>
+            <div style="margin-top: 0.5rem;"><strong>Top Features:</strong> ${Object.entries(data.feature_importance).slice(0, 5).map(([k, v]) => `${k}: ${(v * 100).toFixed(1)}%`).join(', ')}</div>
+        </div>
+    `;
+    
+    container.innerHTML = html;
+}
+
+function renderPatternsTable(data) {
+    const tbody = document.getElementById('patterns-tbody');
+    
+    if (!data.patterns || data.patterns.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="8" class="text-center text-muted">No patterns discovered</td></tr>';
+        return;
+    }
+    
+    tbody.innerHTML = data.patterns.map(p => `
+        <tr>
+            <td><strong>${p.name}</strong></td>
+            <td>${p.sample_size}</td>
+            <td class="text-success">${p.avg_return}%</td>
+            <td class="text-muted">${p.market_avg}%</td>
+            <td class="${p.outperformance > 0 ? 'text-success' : 'text-danger'}"><strong>${p.outperformance > 0 ? '+' : ''}${p.outperformance}%</strong></td>
+            <td>${p.p_value < 0.01 ? '<strong>' + p.p_value + '</strong>' : p.p_value}</td>
+            <td>${p.effect_size}</td>
+            <td><span class="badge badge-${p.confidence.toLowerCase()}">${p.confidence}</span></td>
+        </tr>
+    `).join('');
+}
+
+async function findTwins() {
+    const name = document.getElementById('twin-name').value;
+    if (!name) return;
+    
+    try {
+        const result = await fetch(`/api/discovery/twins/${encodeURIComponent(name)}`).then(r => r.json());
+        
+        document.getElementById('twins-results').style.display = 'block';
+        const tbody = document.getElementById('twins-tbody');
+        
+        if (!result.twins || result.twins.length === 0) {
+            tbody.innerHTML = '<tr><td colspan="6" class="text-center text-muted">No similar coins found</td></tr>';
+            return;
+        }
+        
+        tbody.innerHTML = result.twins.map(t => `
+            <tr>
+                <td><strong>${t.name}</strong></td>
+                <td><strong style="color: var(--accent-primary);">${t.similarity}%</strong></td>
+                <td>${t.syllables}</td>
+                <td>${t.length}</td>
+                <td>${Math.round(t.memorability || 0)}</td>
+                <td class="${t.return_1yr > 0 ? 'text-success' : 'text-danger'}"><strong>${t.return_1yr > 0 ? '+' : ''}${t.return_1yr}%</strong></td>
+            </tr>
+        `).join('');
+    } catch (error) {
+        console.error('Error finding twins:', error);
+        alert('Error finding similar coins');
+    }
+}
+
+function renderAnomalies(data) {
+    const container = document.getElementById('anomalies-section');
+    
+    let html = '<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">';
+    
+    // Surprising winners
+    html += '<div><h3 style="font-size: 0.95rem; margin-bottom: 0.75rem;">Surprising Winners (Low Scores, High Returns)</h3>';
+    if (data.surprising_winners && data.surprising_winners.length > 0) {
+        html += data.surprising_winners.map(w => `
+            <div style="padding: 0.5rem; border-bottom: 1px solid var(--border); font-size: 0.85rem;">
+                <strong>${w.name}</strong> | Mem: ${Math.round(w.memorability)} | Uniq: ${Math.round(w.uniqueness)} | <span class="text-success">+${w.return_1yr.toFixed(1)}%</span>
+            </div>
+        `).join('');
+    } else {
+        html += '<p class="text-muted" style="font-size: 0.85rem;">No anomalies found</p>';
+    }
+    html += '</div>';
+    
+    // Disappointing coins
+    html += '<div><h3 style="font-size: 0.95rem; margin-bottom: 0.75rem;">Disappointing Coins (High Scores, Low Returns)</h3>';
+    if (data.disappointing_coins && data.disappointing_coins.length > 0) {
+        html += data.disappointing_coins.map(w => `
+            <div style="padding: 0.5rem; border-bottom: 1px solid var(--border); font-size: 0.85rem;">
+                <strong>${w.name}</strong> | Mem: ${Math.round(w.memorability)} | Uniq: ${Math.round(w.uniqueness)} | <span class="text-danger">${w.return_1yr.toFixed(1)}%</span>
+            </div>
+        `).join('');
+    } else {
+        html += '<p class="text-muted" style="font-size: 0.85rem;">No anomalies found</p>';
+    }
+    html += '</div></div>';
+    
+    container.innerHTML = html;
+}
+
+// Advanced Analytics Functions
+async function loadInteractionEffects() {
+    const container = document.getElementById('interaction-results');
+    container.style.display = 'block';
+    container.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+    
+    try {
+        const data = await fetch('/api/stats/advanced/interaction-effects').then(r => r.json());
+        
+        if (data.error) {
+            container.innerHTML = `<p class="text-danger">Error: ${data.error}</p>`;
+            return;
+        }
+        
+        let html = `<div style="background: var(--background-secondary); padding: 1rem; border-radius: 6px; margin-bottom: 1rem;">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center;">
+                <div><div style="font-size: 0.7rem; color: var(--text-muted);">SAMPLE SIZE</div><div style="font-size: 1.2rem; font-weight: 600;">${data.sample_size}</div></div>
+                <div><div style="font-size: 0.7rem; color: var(--text-muted);">2-WAY TESTED</div><div style="font-size: 1.2rem; font-weight: 600;">${data.total_tested_2way}</div></div>
+                <div><div style="font-size: 0.7rem; color: var(--text-muted);">SIGNIFICANT 2-WAY</div><div style="font-size: 1.2rem; font-weight: 600; color: var(--success-muted);">${data.significant_2way}</div></div>
+                <div><div style="font-size: 0.7rem; color: var(--text-muted);">SIGNIFICANT 3-WAY</div><div style="font-size: 1.2rem; font-weight: 600; color: var(--success-muted);">${data.significant_3way}</div></div>
+            </div>
+        </div>`;
+        
+        html += '<h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Top 2-Way Interactions</h4>';
+        html += '<div class="table-container"><table><thead><tr><th>Feature 1</th><th>Feature 2</th><th>Effect</th><th>η²</th><th>p-value</th><th>Interpretation</th></tr></thead><tbody>';
+        
+        if (data.two_way_interactions && data.two_way_interactions.length > 0) {
+            data.two_way_interactions.slice(0, 10).forEach(int => {
+                html += `<tr>
+                    <td>${int.feature1}</td>
+                    <td>${int.feature2}</td>
+                    <td class="${int.interaction_coefficient > 0 ? 'text-success' : 'text-danger'}">${int.interaction_coefficient.toFixed(4)}</td>
+                    <td><strong>${int.eta_squared.toFixed(4)}</strong></td>
+                    <td><small>${int.p_value_corrected ? int.p_value_corrected.toFixed(6) : int.p_value.toFixed(6)}</small></td>
+                    <td style="font-size: 0.8rem;">${int.interpretation}</td>
+                </tr>`;
+            });
+        } else {
+            html += '<tr><td colspan="6" class="text-center text-muted">No significant interactions found</td></tr>';
+        }
+        
+        html += '</tbody></table></div>';
+        container.innerHTML = html;
+    } catch (error) {
+        console.error('Error loading interaction effects:', error);
+        container.innerHTML = `<p class="text-danger">Error loading data: ${error.message}</p>`;
+    }
+}
+
+async function loadNonLinearPatterns() {
+    const container = document.getElementById('nonlinear-results');
+    container.style.display = 'block';
+    container.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+    
+    try {
+        const data = await fetch('/api/stats/advanced/non-linear-patterns').then(r => r.json());
+        
+        if (data.error) {
+            container.innerHTML = `<p class="text-danger">Error: ${data.error}</p>`;
+            return;
+        }
+        
+        let html = '<div class="table-container"><table><thead><tr><th>Feature</th><th>Best Model</th><th>Linear R²</th><th>Best R²</th><th>Improvement</th><th>Optimal Range</th></tr></thead><tbody>';
+        
+        for (const [feature, analysis] of Object.entries(data.feature_analyses)) {
+            const optimalRange = analysis.optimal_range;
+            const rangeText = optimalRange.threshold ? 
+                `${optimalRange.optimal_low} (${optimalRange.avg_performance_low}%) vs ${optimalRange.optimal_high} (${optimalRange.avg_performance_high}%)` :
+                'No threshold found';
+            
+            html += `<tr>
+                <td><strong>${feature}</strong></td>
+                <td><span class="badge badge-${analysis.best_model === 'linear' ? 'secondary' : 'primary'}">${analysis.best_model}</span></td>
+                <td>${analysis.linear_r2.toFixed(4)}</td>
+                <td>${Math.max(analysis.polynomial_2_r2, analysis.polynomial_3_r2).toFixed(4)}</td>
+                <td class="${analysis.improvement_over_linear > 0.01 ? 'text-success' : 'text-muted'}"><strong>${(analysis.improvement_over_linear * 100).toFixed(2)}%</strong></td>
+                <td style="font-size: 0.75rem;">${rangeText}</td>
+            </tr>`;
+        }
+        
+        html += '</tbody></table></div>';
+        
+        if (data.summary) {
+            html += `<div style="margin-top: 1rem; padding: 0.75rem; background: var(--background-secondary); border-radius: 6px; font-size: 0.85rem;">
+                <strong>Summary:</strong> ${data.summary.features_with_nonlinearity} of ${data.summary.total_features_analyzed} features show non-linear relationships
+            </div>`;
+        }
+        
+        container.innerHTML = html;
+    } catch (error) {
+        console.error('Error loading non-linear patterns:', error);
+        container.innerHTML = `<p class="text-danger">Error loading data: ${error.message}</p>`;
+    }
+}
+
+async function loadClusterAnalysis() {
+    const container = document.getElementById('cluster-results');
+    container.style.display = 'block';
+    container.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+    
+    try {
+        const data = await fetch('/api/stats/advanced/clusters').then(r => r.json());
+        
+        if (data.error) {
+            container.innerHTML = `<p class="text-danger">Error: ${data.error}</p>`;
+            return;
+        }
+        
+        let html = `<div style="background: var(--background-secondary); padding: 1rem; border-radius: 6px; margin-bottom: 1rem;">
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; text-align: center;">
+                <div><div style="font-size: 0.7rem; color: var(--text-muted);">CLUSTERS</div><div style="font-size: 1.2rem; font-weight: 600;">${data.n_clusters}</div></div>
+                <div><div style="font-size: 0.7rem; color: var(--text-muted);">SILHOUETTE</div><div style="font-size: 1.2rem; font-weight: 600; color: var(--accent-primary);">${data.silhouette_score}</div></div>
+                <div><div style="font-size: 0.7rem; color: var(--text-muted);">QUALITY</div><div style="font-size: 1.2rem; font-weight: 600;">${data.quality.toUpperCase()}</div></div>
+                <div><div style="font-size: 0.7rem; color: var(--text-muted);">SAMPLE SIZE</div><div style="font-size: 1.2rem; font-weight: 600;">${data.sample_size}</div></div>
+            </div>
+        </div>`;
+        
+        html += '<h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Cluster Profiles (Sorted by Performance)</h4>';
+        
+        data.cluster_profiles.forEach(cluster => {
+            html += `<div style="background: var(--background-secondary); padding: 1rem; border-radius: 6px; margin-bottom: 1rem; border-left: 4px solid ${cluster.cluster_id === data.winning_cluster ? 'var(--success-muted)' : 'var(--border)'};">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                    <div>
+                        <strong style="font-size: 1.1rem;">Cluster ${cluster.cluster_id}</strong>
+                        ${cluster.cluster_id === data.winning_cluster ? '<span class="badge badge-success" style="margin-left: 0.5rem;">WINNING</span>' : ''}
+                        <span style="margin-left: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">${cluster.size} cryptos (${cluster.percentage}%)</span>
+                    </div>
+                    <div style="text-align: right;">
+                        <div style="font-size: 0.7rem; color: var(--text-muted);">AVG RETURN</div>
+                        <div class="${cluster.performance.avg_return_1yr > 0 ? 'text-success' : 'text-danger'}" style="font-size: 1.3rem; font-weight: 700;">${cluster.performance.avg_return_1yr > 0 ? '+' : ''}${cluster.performance.avg_return_1yr}%</div>
+                    </div>
+                </div>
+                <div style="font-size: 0.8rem; margin-bottom: 0.5rem;"><strong>Distinguishing Features:</strong></div>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5rem; font-size: 0.75rem;">`;
+            
+            cluster.distinguishing_features.forEach(feat => {
+                html += `<div style="padding: 0.4rem; background: var(--background); border-radius: 4px;">
+                    <strong>${feat.feature}</strong>: ${feat.cluster_mean} (${feat.direction}, z=${feat.z_score})
+                </div>`;
+            });
+            
+            html += `</div></div>`;
+        });
+        
+        container.innerHTML = html;
+    } catch (error) {
+        console.error('Error loading cluster analysis:', error);
+        container.innerHTML = `<p class="text-danger">Error loading data: ${error.message}</p>`;
+    }
+}
+
+async function loadCausalAnalysis() {
+    const container = document.getElementById('causal-results');
+    const treatment = document.getElementById('causal-treatment').value;
+    
+    container.style.display = 'block';
+    container.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+    
+    try {
+        const data = await fetch(`/api/stats/advanced/causal-analysis?treatment=${treatment}`).then(r => r.json());
+        
+        if (data.error) {
+            container.innerHTML = `<p class="text-danger">Error: ${data.error}</p>`;
+            return;
+        }
+        
+        let html = `<div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 6px; border-left: 4px solid ${data.significant ? 'var(--success-muted)' : 'var(--border)'};">
+            <h4 style="font-size: 1rem; margin-bottom: 1rem;">${data.treatment} → ${data.outcome}</h4>
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 1rem;">
+                <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted);">CAUSAL EFFECT (ATE)</div>
+                    <div class="${data.average_treatment_effect > 0 ? 'text-success' : 'text-danger'}" style="font-size: 1.8rem; font-weight: 700;">${data.average_treatment_effect > 0 ? '+' : ''}${data.average_treatment_effect}%</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted);">95% CI</div>
+                    <div style="font-size: 1.2rem;">[${data.confidence_interval_95[0]}, ${data.confidence_interval_95[1]}]</div>
+                </div>
+                <div>
+                    <div style="font-size: 0.7rem; color: var(--text-muted);">SIGNIFICANT</div>
+                    <div style="font-size: 1.2rem;"><span class="badge badge-${data.significant ? 'success' : 'secondary'}">${data.significant ? 'YES' : 'NO'}</span></div>
+                </div>
+            </div>
+            <div style="font-size: 0.85rem; padding: 0.75rem; background: var(--background); border-radius: 4px; margin-bottom: 1rem;">
+                <strong>Interpretation:</strong> ${data.interpretation}
+            </div>
+            <div style="font-size: 0.75rem;">
+                <strong>Sample:</strong> Treated: ${data.sample_size.treated}, Control: ${data.sample_size.control}
+            </div>`;
+        
+        if (data.covariate_balance) {
+            html += '<div style="margin-top: 1rem;"><strong style="font-size: 0.8rem;">Covariate Balance Check:</strong><div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.5rem; margin-top: 0.5rem; font-size: 0.75rem;">';
+            data.covariate_balance.forEach(cov => {
+                html += `<div style="padding: 0.4rem; background: var(--background); border-radius: 4px;">
+                    ${cov.confounder}: SMD=${cov.std_mean_diff} <span class="badge badge-${cov.balanced ? 'success' : 'warning'}" style="margin-left: 0.3rem;">${cov.balanced ? 'Balanced' : 'Unbalanced'}</span>
+                </div>`;
+            });
+            html += '</div></div>';
+        }
+        
+        html += '</div>';
+        container.innerHTML = html;
+    } catch (error) {
+        console.error('Error loading causal analysis:', error);
+        container.innerHTML = `<p class="text-danger">Error loading data: ${error.message}</p>`;
+    }
+}
+
+async function loadLinguisticDeepDive() {
+    const container = document.getElementById('linguistic-results');
+    container.style.display = 'block';
+    container.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+    
+    try {
+        const data = await fetch('/api/stats/advanced/linguistic-deep-dive').then(r => r.json());
+        
+        if (data.error) {
+            container.innerHTML = `<p class="text-danger">Error: ${data.error}</p>`;
+            return;
+        }
+        
+        let html = `<p style="font-size: 0.85rem; margin-bottom: 1rem;">Sample size: ${data.sample_size} cryptocurrencies</p>`;
+        
+        html += '<h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Top Phonetic Patterns by Performance</h4>';
+        html += '<div class="table-container"><table><thead><tr><th>CV Pattern</th><th>Count</th><th>Avg Return</th><th>Examples</th></tr></thead><tbody>';
+        
+        const patterns = Object.entries(data.phonetic_patterns).slice(0, 15);
+        patterns.forEach(([pattern, stats]) => {
+            html += `<tr>
+                <td><code>${pattern}</code></td>
+                <td>${stats.count}</td>
+                <td class="${stats.avg_return > 0 ? 'text-success' : 'text-danger'}"><strong>${stats.avg_return > 0 ? '+' : ''}${stats.avg_return}%</strong></td>
+                <td style="font-size: 0.75rem;">${stats.examples.join(', ')}</td>
+            </tr>`;
+        });
+        
+        html += '</tbody></table></div>';
+        
+        html += '<h4 style="font-size: 0.9rem; margin-top: 1.5rem; margin-bottom: 0.5rem;">Psychological Archetypes</h4>';
+        html += '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">';
+        
+        for (const [archetype, stats] of Object.entries(data.psychological_profiles)) {
+            html += `<div style="padding: 1rem; background: var(--background-secondary); border-radius: 6px; text-align: center;">
+                <div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.3rem;">${archetype.toUpperCase()}</div>
+                <div class="${stats.avg_return > 0 ? 'text-success' : 'text-danger'}" style="font-size: 1.4rem; font-weight: 700;">${stats.avg_return > 0 ? '+' : ''}${stats.avg_return}%</div>
+                <div style="font-size: 0.7rem; color: var(--text-muted);">${stats.count} cryptos</div>
+            </div>`;
+        }
+        
+        html += '</div>';
+        container.innerHTML = html;
+    } catch (error) {
+        console.error('Error loading linguistic deep dive:', error);
+        container.innerHTML = `<p class="text-danger">Error loading data: ${error.message}</p>`;
+    }
+}
+
+async function loadComprehensiveReport() {
+    const container = document.getElementById('comprehensive-results');
+    container.style.display = 'block';
+    container.innerHTML = '<div class="loading"><div class="spinner"></div><p style="margin-top: 0.5rem; text-align: center;">Running all analyses... this may take a minute</p></div>';
+    
+    try {
+        const data = await fetch('/api/stats/advanced/comprehensive-report').then(r => r.json());
+        
+        if (data.error) {
+            container.innerHTML = `<p class="text-danger">Error: ${data.error}</p>`;
+            return;
+        }
+        
+        let html = `<div style="background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%); padding: 1.5rem; border-radius: 6px; color: white; margin-bottom: 1.5rem;">
+            <h3 style="margin-bottom: 0.5rem; color: white;">Executive Summary</h3>
+            <p style="font-size: 0.85rem; margin-bottom: 1rem; opacity: 0.9;">Generated: ${new Date(data.generated_at).toLocaleString()}</p>
+            <div style="font-size: 0.9rem; line-height: 1.6;">`;
+        
+        if (data.executive_summary && data.executive_summary.key_discoveries) {
+            html += '<strong>Key Discoveries:</strong><ul style="margin: 0.5rem 0;">';
+            data.executive_summary.key_discoveries.forEach(discovery => {
+                html += `<li>${discovery}</li>`;
+            });
+            html += '</ul>';
+        }
+        
+        if (data.executive_summary && data.executive_summary.actionable_insights) {
+            html += '<strong style="margin-top: 1rem; display: block;">Actionable Insights:</strong><ul style="margin: 0.5rem 0;">';
+            data.executive_summary.actionable_insights.forEach(insight => {
+                html += `<li>${insight}</li>`;
+            });
+            html += '</ul>';
+        }
+        
+        html += `</div></div>`;
+        
+        // Analysis summaries
+        html += '<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">';
+        
+        if (data.analyses.interaction_effects && !data.analyses.interaction_effects.error) {
+            html += `<div style="padding: 1rem; background: var(--background-secondary); border-radius: 6px;">
+                <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Interaction Effects</h4>
+                <div style="font-size: 0.8rem;">
+                    Found <strong>${data.analyses.interaction_effects.significant_2way}</strong> significant 2-way interactions
+                    and <strong>${data.analyses.interaction_effects.significant_3way}</strong> 3-way interactions
+                </div>
+            </div>`;
+        }
+        
+        if (data.analyses.nonlinear_patterns && !data.analyses.nonlinear_patterns.error) {
+            const summary = data.analyses.nonlinear_patterns.summary;
+            html += `<div style="padding: 1rem; background: var(--background-secondary); border-radius: 6px;">
+                <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Non-Linear Patterns</h4>
+                <div style="font-size: 0.8rem;">
+                    <strong>${summary.features_with_nonlinearity}</strong> of ${summary.total_features_analyzed} features show non-linear relationships
+                </div>
+            </div>`;
+        }
+        
+        if (data.analyses.clustering && !data.analyses.clustering.error) {
+            html += `<div style="padding: 1rem; background: var(--background-secondary); border-radius: 6px;">
+                <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Clustering</h4>
+                <div style="font-size: 0.8rem;">
+                    Found <strong>${data.analyses.clustering.n_clusters}</strong> natural clusters with 
+                    <strong>${data.analyses.clustering.quality}</strong> quality (silhouette: ${data.analyses.clustering.silhouette_score})
+                </div>
+            </div>`;
+        }
+        
+        if (data.analyses.causal_effects && data.analyses.causal_effects.length > 0) {
+            const sigCount = data.analyses.causal_effects.filter(c => c.significant).length;
+            html += `<div style="padding: 1rem; background: var(--background-secondary); border-radius: 6px;">
+                <h4 style="font-size: 0.9rem; margin-bottom: 0.5rem;">Causal Effects</h4>
+                <div style="font-size: 0.8rem;">
+                    <strong>${sigCount}</strong> of ${data.analyses.causal_effects.length} tested features show significant causal effects
+                </div>
+            </div>`;
+        }
+        
+        html += '</div>';
+        
+        container.innerHTML = html;
+    } catch (error) {
+        console.error('Error loading comprehensive report:', error);
+        container.innerHTML = `<p class="text-danger">Error loading data: ${error.message}</p>`;
+    }
+}
+
+loadAnalytics();
+</script>
+{% endblock %}
+

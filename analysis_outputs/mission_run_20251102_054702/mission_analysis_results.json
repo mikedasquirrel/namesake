@@ -1,0 +1,701 @@
+{
+  "generated_at": "2025-11-02T05:47:02.523452",
+  "descriptive_summary": {
+    "sample_size": 2740,
+    "rank_tier_distribution": {
+      "long_tail": 1739,
+      "emergent": 499,
+      "mid_cap": 298,
+      "established": 152,
+      "vanguard": 52
+    },
+    "performance": {
+      "avg_return": 29.59,
+      "median_return": 0.0,
+      "high_performer_rate": 3.6,
+      "breakout_rate": 2.1,
+      "positive_return_rate": 18.7
+    },
+    "linguistic": {
+      "composite_mean": 65.83,
+      "composite_std": 16.39,
+      "sweet_spot_avg_return": -3.23,
+      "sweet_spot_size": 819
+    },
+    "linguistic_performance_correlation": 0.015
+  },
+  "classic_statistics": {
+    "correlations": {
+      "performance_metric": "price_1yr_change",
+      "correlations": {
+        "has_numbers": 0.046,
+        "syllable_count": -0.0419,
+        "character_length": -0.0371,
+        "pronounceability_score": 0.0216,
+        "uniqueness_score": -0.0163,
+        "has_special_chars": -0.0152,
+        "phonetic_score": 0.0146,
+        "memorability_score": 0.0124,
+        "vowel_ratio": 0.0105,
+        "name_type_percentile": 0.0011
+      },
+      "p_values": {
+        "syllable_count": 0.0991,
+        "character_length": 0.1444,
+        "phonetic_score": 0.5658,
+        "vowel_ratio": 0.6798,
+        "memorability_score": 0.6248,
+        "pronounceability_score": 0.3965,
+        "uniqueness_score": 0.5211,
+        "has_numbers": 0.0705,
+        "has_special_chars": 0.5504,
+        "name_type_percentile": 0.965
+      },
+      "sample_size": 1547,
+      "significant_correlations": {}
+    },
+    "regression": {
+      "performance_metric": "price_1yr_change",
+      "linear_regression": {
+        "r_squared": 0.0059,
+        "intercept": 832.9049,
+        "coefficients": {
+          "syllable_count": -29.955,
+          "character_length": -5.9471,
+          "phonetic_score": 0.5927,
+          "vowel_ratio": 106.1169,
+          "memorability_score": -2.7669,
+          "pronounceability_score": 0.3754,
+          "uniqueness_score": -5.867,
+          "has_numbers": 263.5094,
+          "has_special_chars": 31.4591,
+          "name_type_percentile": 0.738
+        }
+      },
+      "random_forest": {
+        "r_squared": 0.6519,
+        "feature_importance": {
+          "uniqueness_score": 0.4171,
+          "character_length": 0.3099,
+          "phonetic_score": 0.1176,
+          "memorability_score": 0.0724,
+          "pronounceability_score": 0.0464,
+          "vowel_ratio": 0.0243,
+          "syllable_count": 0.007,
+          "has_special_chars": 0.004,
+          "has_numbers": 0.0014,
+          "name_type_percentile": 0.0
+        }
+      },
+      "sample_size": 1547
+    },
+    "name_type_comparison": {
+      "performance_metric": "price_1yr_change",
+      "type_statistics": {
+        "numeric": {
+          "mean": 524.72,
+          "median": 10.65,
+          "std": 2278.95,
+          "count": 20,
+          "min": -76.49,
+          "max": 10200.89
+        },
+        "acronym": {
+          "mean": 301.96,
+          "median": -35.91,
+          "std": 2375.15,
+          "count": 117,
+          "min": -100.0,
+          "max": 21831.27
+        },
+        "tech": {
+          "mean": 52.37,
+          "median": -36.76,
+          "std": 860.31,
+          "count": 378,
+          "min": -95.76,
+          "max": 16345.27
+        },
+        "animal": {
+          "mean": 43.22,
+          "median": -49.03,
+          "std": 272.19,
+          "count": 93,
+          "min": -94.48,
+          "max": 1540.66
+        },
+        "financial": {
+          "mean": 37.61,
+          "median": 0.38,
+          "std": 251.44,
+          "count": 134,
+          "min": -91.36,
+          "max": 2386.08
+        },
+        "invented": {
+          "mean": 9.45,
+          "median": -39.93,
+          "std": 274.56,
+          "count": 771,
+          "min": -99.73,
+          "max": 4592.13
+        },
+        "astronomical": {
+          "mean": -22.48,
+          "median": -63.42,
+          "std": 85.2,
+          "count": 17,
+          "min": -89.45,
+          "max": 218.45
+        },
+        "elemental": {
+          "mean": -25.35,
+          "median": -9.92,
+          "std": 28.19,
+          "count": 6,
+          "min": -72.06,
+          "max": -4.1
+        },
+        "mythological": {
+          "mean": -31.29,
+          "median": -26.81,
+          "std": 42.7,
+          "count": 11,
+          "min": -79.25,
+          "max": 43.67
+        }
+      },
+      "anova": {
+        "f_statistic": 2.3332,
+        "p_value": 0.0172,
+        "significant": true
+      },
+      "total_samples": 1547
+    },
+    "syllable_analysis": {
+      "performance_metric": "price_1yr_change",
+      "syllable_statistics": {
+        "1": {
+          "mean": 155.17,
+          "median": -40.05,
+          "count": 434,
+          "std": 1557.54
+        },
+        "2": {
+          "mean": 1.24,
+          "median": -38.7,
+          "count": 491,
+          "std": 155.98
+        },
+        "3": {
+          "mean": 41.2,
+          "median": -35.82,
+          "count": 290,
+          "std": 380.37
+        },
+        "4": {
+          "mean": 1.89,
+          "median": -37.84,
+          "count": 183,
+          "std": 171.27
+        },
+        "5": {
+          "mean": -16.38,
+          "median": -18.75,
+          "count": 63,
+          "std": 59.27
+        },
+        "6": {
+          "mean": 14.03,
+          "median": -0.24,
+          "count": 37,
+          "std": 158.63
+        },
+        "7": {
+          "mean": -10.5,
+          "median": 0.1,
+          "count": 15,
+          "std": 50.9
+        },
+        "8": {
+          "mean": -6.0,
+          "median": -0.06,
+          "count": 14,
+          "std": 59.98
+        },
+        "9": {
+          "mean": 94.17,
+          "median": 0.2,
+          "count": 12,
+          "std": 326.09
+        },
+        "10": {
+          "mean": 164.65,
+          "median": 53.31,
+          "count": 3,
+          "std": 259.15
+        },
+        "11": {
+          "mean": -4.74,
+          "median": 0.74,
+          "count": 4,
+          "std": 56.16
+        },
+        "13": {
+          "mean": -12.4,
+          "median": -12.4,
+          "count": 1,
+          "std": NaN
+        }
+      }
+    },
+    "length_analysis": {
+      "performance_metric": "price_1yr_change",
+      "length_statistics": {
+        "very_short": {
+          "mean": 169.2,
+          "median": -32.12,
+          "count": 209,
+          "std": 1781.05
+        },
+        "short": {
+          "mean": 69.36,
+          "median": -48.0,
+          "count": 406,
+          "std": 987.76
+        },
+        "medium": {
+          "mean": 0.63,
+          "median": -41.14,
+          "count": 335,
+          "std": 159.45
+        },
+        "long": {
+          "mean": 29.07,
+          "median": -12.95,
+          "count": 597,
+          "std": 293.35
+        }
+      }
+    }
+  },
+  "advanced_statistics": {
+    "interaction_effects": {
+      "two_way_interactions": [],
+      "three_way_interactions": [],
+      "total_tested_2way": 36,
+      "total_tested_3way": 10,
+      "significant_2way": 0,
+      "significant_3way": 0,
+      "sample_size": 2740
+    },
+    "non_linear_patterns": {
+      "feature_analyses": {
+        "syllable_count": {
+          "linear_r2": 0.0,
+          "polynomial_2_r2": 0.0,
+          "polynomial_3_r2": 0.0,
+          "best_model": "linear",
+          "improvement_over_linear": 0.0,
+          "optimal_range": {
+            "threshold": 2.0,
+            "optimal_low": "<= 2.0",
+            "optimal_high": "> 2.0",
+            "avg_performance_low": 42.93,
+            "avg_performance_high": 11.35,
+            "improvement_r2": 0.0036
+          },
+          "quantile_effects": {
+            "effects_by_quantile": {
+              "q10": null,
+              "q25": null,
+              "q50": null,
+              "q75": null,
+              "q90": null
+            },
+            "varies_across_performance": false,
+            "interpretation": "Effect is consistent"
+          }
+        },
+        "character_length": {
+          "linear_r2": 0.0,
+          "polynomial_2_r2": 0.0,
+          "polynomial_3_r2": 0.0,
+          "best_model": "linear",
+          "improvement_over_linear": 0.0,
+          "optimal_range": {
+            "threshold": 6.0,
+            "optimal_low": "<= 6.0",
+            "optimal_high": "> 6.0",
+            "avg_performance_low": 77.45,
+            "avg_performance_high": 8.94,
+            "improvement_r2": 0.0049
+          },
+          "quantile_effects": {
+            "effects_by_quantile": {
+              "q10": null,
+              "q25": null,
+              "q50": null,
+              "q75": null,
+              "q90": null
+            },
+            "varies_across_performance": false,
+            "interpretation": "Effect is consistent"
+          }
+        },
+        "phonetic_score": {
+          "linear_r2": 0.0,
+          "polynomial_2_r2": 0.0,
+          "polynomial_3_r2": 0.0,
+          "best_model": "linear",
+          "improvement_over_linear": 0.0,
+          "optimal_range": {
+            "threshold": 89.09,
+            "optimal_low": "<= 89.09",
+            "optimal_high": "> 89.09",
+            "avg_performance_low": 13.57,
+            "avg_performance_high": 80.61,
+            "improvement_r2": 0.0046
+          },
+          "quantile_effects": {
+            "effects_by_quantile": {
+              "q10": null,
+              "q25": null,
+              "q50": null,
+              "q75": null,
+              "q90": null
+            },
+            "varies_across_performance": false,
+            "interpretation": "Effect is consistent"
+          }
+        },
+        "vowel_ratio": {
+          "linear_r2": 0.0,
+          "polynomial_2_r2": 0.0,
+          "polynomial_3_r2": 0.0,
+          "best_model": "linear",
+          "improvement_over_linear": 0.0,
+          "optimal_range": {
+            "threshold": 0.44,
+            "optimal_low": "<= 0.44",
+            "optimal_high": "> 0.44",
+            "avg_performance_low": 13.76,
+            "avg_performance_high": 79.69,
+            "improvement_r2": 0.0031
+          },
+          "quantile_effects": {
+            "effects_by_quantile": {
+              "q10": null,
+              "q25": null,
+              "q50": null,
+              "q75": null,
+              "q90": null
+            },
+            "varies_across_performance": false,
+            "interpretation": "Effect is consistent"
+          }
+        },
+        "memorability_score": {
+          "linear_r2": 0.0,
+          "polynomial_2_r2": 0.0,
+          "polynomial_3_r2": 0.0,
+          "best_model": "linear",
+          "improvement_over_linear": 0.0,
+          "optimal_range": {
+            "threshold": 72.0,
+            "optimal_low": "<= 72.0",
+            "optimal_high": "> 72.0",
+            "avg_performance_low": 34.63,
+            "avg_performance_high": 24.41,
+            "improvement_r2": 0.0019
+          },
+          "quantile_effects": {
+            "effects_by_quantile": {
+              "q10": null,
+              "q25": null,
+              "q50": null,
+              "q75": null,
+              "q90": null
+            },
+            "varies_across_performance": false,
+            "interpretation": "Effect is consistent"
+          }
+        },
+        "pronounceability_score": {
+          "linear_r2": 0.0,
+          "polynomial_2_r2": 0.0,
+          "polynomial_3_r2": 0.0,
+          "best_model": "linear",
+          "improvement_over_linear": 0.0,
+          "optimal_range": {
+            "threshold": 41.67,
+            "optimal_low": "<= 41.67",
+            "optimal_high": "> 41.67",
+            "avg_performance_low": 12.98,
+            "avg_performance_high": 88.71,
+            "improvement_r2": 0.006
+          },
+          "quantile_effects": {
+            "effects_by_quantile": {
+              "q10": null,
+              "q25": null,
+              "q50": null,
+              "q75": null,
+              "q90": null
+            },
+            "varies_across_performance": false,
+            "interpretation": "Effect is consistent"
+          }
+        },
+        "uniqueness_score": {
+          "linear_r2": 0.0,
+          "polynomial_2_r2": 0.0,
+          "polynomial_3_r2": 0.0,
+          "best_model": "linear",
+          "improvement_over_linear": 0.0,
+          "optimal_range": {
+            "message": "No significant threshold found"
+          },
+          "quantile_effects": {
+            "effects_by_quantile": {
+              "q10": null,
+              "q25": null,
+              "q50": null,
+              "q75": null,
+              "q90": null
+            },
+            "varies_across_performance": false,
+            "interpretation": "Effect is consistent"
+          }
+        }
+      },
+      "sample_size": 2740,
+      "summary": {
+        "total_features_analyzed": 7,
+        "features_with_nonlinearity": 0,
+        "top_nonlinear_features": []
+      }
+    },
+    "clustering": {
+      "n_clusters": 2,
+      "silhouette_score": 0.401,
+      "quality": "good",
+      "cluster_profiles": [
+        {
+          "cluster_id": 0,
+          "size": 1493,
+          "percentage": 54.5,
+          "characteristics": {
+            "syllable_count": {
+              "mean": 1.75,
+              "std": 0.77
+            },
+            "character_length": {
+              "mean": 6.64,
+              "std": 2.33
+            },
+            "phonetic_score": {
+              "mean": 84.69,
+              "std": 15.28
+            },
+            "vowel_ratio": {
+              "mean": 0.42,
+              "std": 0.12
+            },
+            "memorability_score": {
+              "mean": 88.8,
+              "std": 12.49
+            },
+            "pronounceability_score": {
+              "mean": 42.28,
+              "std": 15.53
+            },
+            "uniqueness_score": {
+              "mean": 99.66,
+              "std": 2.52
+            }
+          },
+          "performance": {
+            "avg_return_1yr": 37.62,
+            "median_return_1yr": 0.0,
+            "win_rate": 16.7
+          },
+          "distinguishing_features": [
+            {
+              "feature": "memorability_score",
+              "cluster_mean": 88.8,
+              "overall_mean": 68.02,
+              "z_score": 0.78,
+              "direction": "higher"
+            },
+            {
+              "feature": "pronounceability_score",
+              "cluster_mean": 42.28,
+              "overall_mean": 26.09,
+              "z_score": 0.73,
+              "direction": "higher"
+            },
+            {
+              "feature": "phonetic_score",
+              "cluster_mean": 84.69,
+              "overall_mean": 69.39,
+              "z_score": 0.65,
+              "direction": "higher"
+            }
+          ]
+        },
+        {
+          "cluster_id": 1,
+          "size": 1247,
+          "percentage": 45.5,
+          "characteristics": {
+            "syllable_count": {
+              "mean": 3.76,
+              "std": 1.97
+            },
+            "character_length": {
+              "mean": 16.63,
+              "std": 8.5
+            },
+            "phonetic_score": {
+              "mean": 51.06,
+              "std": 18.33
+            },
+            "vowel_ratio": {
+              "mean": 0.34,
+              "std": 0.1
+            },
+            "memorability_score": {
+              "mean": 43.15,
+              "std": 15.2
+            },
+            "pronounceability_score": {
+              "mean": 6.7,
+              "std": 10.26
+            },
+            "uniqueness_score": {
+              "mean": 100.0,
+              "std": 0.0
+            }
+          },
+          "performance": {
+            "avg_return_1yr": 19.98,
+            "median_return_1yr": 0.0,
+            "win_rate": 21.1
+          },
+          "distinguishing_features": [
+            {
+              "feature": "memorability_score",
+              "cluster_mean": 43.15,
+              "overall_mean": 68.02,
+              "z_score": 0.94,
+              "direction": "lower"
+            },
+            {
+              "feature": "pronounceability_score",
+              "cluster_mean": 6.7,
+              "overall_mean": 26.09,
+              "z_score": 0.87,
+              "direction": "lower"
+            },
+            {
+              "feature": "phonetic_score",
+              "cluster_mean": 51.06,
+              "overall_mean": 69.39,
+              "z_score": 0.77,
+              "direction": "lower"
+            }
+          ]
+        }
+      ],
+      "dbscan_found_clusters": 60,
+      "sample_size": 2740,
+      "winning_cluster": 0,
+      "insights": [
+        "Cluster 0 shows highest returns (37.62%) with 1493 cryptocurrencies",
+        "Winners characterized by higher memorability_score (88.8 vs 68.02 average)"
+      ]
+    },
+    "causal_effects": [
+      {
+        "treatment": "memorability_score > 72.0",
+        "outcome": "price_1yr_change",
+        "average_treatment_effect": -9.922,
+        "confidence_interval_95": [
+          -69.211,
+          45.334
+        ],
+        "significant": false,
+        "interpretation": "Negative causal effect of 9.92%",
+        "covariate_balance": [
+          {
+            "confounder": "rank",
+            "treated_mean": 1583.19,
+            "control_mean": 1567.34,
+            "std_mean_diff": 0.013,
+            "balanced": true
+          },
+          {
+            "confounder": "market_cap",
+            "treated_mean": 2502417640.03,
+            "control_mean": 455491339.41,
+            "std_mean_diff": 0.047,
+            "balanced": "<circular>"
+          }
+        ],
+        "sample_size": {
+          "treated": 1350,
+          "control": 1390
+        }
+      },
+      {
+        "treatment": "phonetic_score > 70.0",
+        "outcome": "price_1yr_change",
+        "average_treatment_effect": 26.786,
+        "confidence_interval_95": [
+          -17.077,
+          84.437
+        ],
+        "significant": false,
+        "interpretation": "Positive causal effect of 26.79%",
+        "covariate_balance": [
+          {
+            "confounder": "rank",
+            "treated_mean": 1568.59,
+            "control_mean": 1581.27,
+            "std_mean_diff": 0.01,
+            "balanced": "<circular>"
+          },
+          {
+            "confounder": "market_cap",
+            "treated_mean": 2450964035.58,
+            "control_mean": 543880339.05,
+            "std_mean_diff": 0.043,
+            "balanced": "<circular>"
+          }
+        ],
+        "sample_size": {
+          "treated": 1322,
+          "control": 1418
+        }
+      }
+    ],
+    "comprehensive_report": {
+      "generated_at": "2025-11-02T01:46:55.861157",
+      "sample_size": 2740,
+      "executive_summary": {
+        "key_discoveries": [
+          "Cluster 0 shows highest returns (37.62%) with 1493 cryptocurrencies",
+          "Winners characterized by higher memorability_score (88.8 vs 68.02 average)"
+        ],
+        "actionable_insights": [
+          "Focus on name feature combinations (interactions), not just individual metrics",
+          "Consider non-linear optimal ranges rather than assuming 'more is better'",
+          "Target characteristics of highest-performing cluster",
+          "Account for confounders when evaluating name effectiveness"
+        ],
+        "statistical_confidence": "HIGH"
+      }
+    }
+  }
+}

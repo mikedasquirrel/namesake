@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}500 - Server Error{% endblock %}
+
+{% block content %}
+<div class="flex-center" style="min-height: 60vh; flex-direction: column;">
+    <h1 style="font-size: 4rem; color: var(--fuchsia); margin-bottom: 1rem;">500</h1>
+    <h2 style="margin-bottom: 2rem;">Server Error</h2>
+    <p class="subtitle" style="max-width: 600px; text-align: center;">
+        Something went wrong on our end. Please try again later.
+    </p>
+    <div class="flex gap-1 mt-2">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+        <button onclick="location.reload()" class="btn btn-outline">Reload Page</button>
+    </div>
+</div>
+{% endblock %}
+

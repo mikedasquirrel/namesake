@@ -1,0 +1,431 @@
+{% extends "base.html" %}
+
+{% block title %}Discovery{% endblock %}
+
+{% block content %}
+<h1>Next Big Cryptocurrencies</h1>
+<p class="subtitle">Predictions based on REAL 1-year performance data only - No estimates or dummy data | Analyzed: <span id="db-count">-</span> coins</p>
+
+<!-- Advanced Statistics Dashboard -->
+<div class="glass card mb-1">
+    <h3>Market Intelligence <span class="badge badge-high" style="font-size: 0.7rem; margin-left: 0.5rem;" id="sample-size-badge">N=0</span></h3>
+    
+    <!-- Tier Performance -->
+    <div style="margin-bottom: 1.5rem;">
+        <h4 style="font-size: 0.95rem; margin-bottom: 0.75rem; color: var(--text-secondary);">Performance by Market Tier</h4>
+        <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.75rem;" id="tier-performance">
+            <div class="loading"><div class="spinner"></div></div>
+        </div>
+    </div>
+    
+    <!-- Correlation Matrix -->
+    <div style="margin-bottom: 1.5rem;">
+        <h4 style="font-size: 0.95rem; margin-bottom: 0.75rem; color: var(--text-secondary);">Name Metrics vs Performance</h4>
+        <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 0.5rem;" id="correlations">
+            <div class="loading"><div class="spinner"></div></div>
+        </div>
+    </div>
+    
+    <!-- Length Distribution Chart -->
+    <div>
+        <h4 style="font-size: 0.95rem; margin-bottom: 0.75rem; color: var(--text-secondary);">Performance by Name Length</h4>
+        <div id="length-chart" style="background: var(--background-secondary); padding: 1rem; border-radius: 6px; overflow-x: auto;">
+            <div class="loading"><div class="spinner"></div></div>
+        </div>
+    </div>
+</div>
+
+<!-- Breakout Candidates -->
+<div class="glass card mb-1">
+    <h3>Breakout Candidates (Ranked 50+, High Potential)</h3>
+    <div id="breakout-list">
+        <div class="loading"><div class="spinner"></div></div>
+    </div>
+</div>
+
+<!-- Discovered Patterns -->
+<div class="glass card mb-1">
+    <h3>Discovered Patterns (Statistical Evidence)</h3>
+    <div id="patterns-list">
+        <div class="loading"><div class="spinner"></div></div>
+    </div>
+</div>
+
+<!-- Full Database -->
+<div class="glass card">
+    <div class="flex-between mb-1">
+        <h3>Full Database (Sortable)</h3>
+        <div class="flex gap-05">
+            <input type="text" id="search-name" placeholder="Search name..." style="width: 200px; margin: 0; padding: 0.5rem;">
+            <select id="filter-type" style="width: 120px; margin: 0; padding: 0.5rem;">
+                <option value="">All Types</option>
+                <option value="tech">Tech</option>
+                <option value="portmanteau">Portmanteau</option>
+                <option value="invented">Invented</option>
+            </select>
+            <button class="btn btn-outline" onclick="exportDatabase()" style="padding: 0.5rem 1rem;">Export CSV</button>
+        </div>
+    </div>
+    <div class="table-container" style="max-height: 600px; overflow-y: auto;">
+        <table>
+            <thead style="position: sticky; top: 0; background: var(--background-secondary); z-index: 10;">
+                <tr>
+                    <th onclick="sortBy('rank')">Rank</th>
+                    <th onclick="sortBy('name')">Name</th>
+                    <th onclick="sortBy('score')">Score</th>
+                    <th onclick="sortBy('syllables')">Syl</th>
+                    <th onclick="sortBy('length')">Len</th>
+                    <th onclick="sortBy('memorability')">Mem</th>
+                    <th onclick="sortBy('uniqueness')">Uniq</th>
+                    <th onclick="sortBy('type')">Type</th>
+                    <th onclick="sortBy('return_1yr')">1Y %</th>
+                    <th onclick="sortBy('breakout_prob')">Breakout %</th>
+                </tr>
+            </thead>
+            <tbody id="database-tbody">
+                <tr><td colspan="10"><div class="loading"><div class="spinner"></div></div></td></tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-muted mt-1" id="db-info" style="font-size: 0.85rem;"></div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let allCoins = [];
+
+async function loadDiscovery() {
+    try {
+        // PHASE 1: Load critical data FIRST (fast, small responses)
+        // Run these in PARALLEL for instant results
+        const [candidates, scores] = await Promise.all([
+            fetch('/api/discovery/breakout-candidates?min_rank=50&limit=50').then(r => r.json()),
+            fetch('/api/signals/top?min_score=0&limit=200').then(r => r.json())  // Increased to 200 to show more of the dataset
+        ]);
+        
+        // Render immediately - user sees content within 1-2 seconds
+        renderBreakoutCandidates(candidates);
+        loadFullDatabase(scores);
+        
+        // PHASE 2: Load heavy analytics IN BACKGROUND (no blocking)
+        // These run asynchronously while user browses the page
+        setTimeout(async () => {
+            try {
+                // Load patterns (expensive but cached server-side)
+                const patterns = await fetch('/api/discovery/patterns').then(r => r.json());
+                renderPatterns(patterns);
+            } catch (e) {
+                console.error('Pattern loading error:', e);
+            }
+        }, 100);  // Start immediately but don't block
+        
+        setTimeout(async () => {
+            try {
+                // Load advanced stats (very expensive - cached for 5 minutes)
+                const stats = await fetch('/api/crypto/advanced-stats').then(r => r.json());
+                renderAdvancedStats(stats);
+            } catch (e) {
+                console.error('Stats loading error:', e);
+            }
+        }, 500);  // Delayed slightly to prioritize patterns
+        
+    } catch (error) {
+        console.error('Error loading discovery:', error);
+    }
+}
+
+function renderAdvancedStats(stats) {
+    // Update sample size badge with cache indicator
+    const cacheIndicator = stats.cached ? ' ⚡' : '';
+    document.getElementById('sample-size-badge').textContent = `N=${stats.sample_size} | ${stats.statistical_power.confidence}${cacheIndicator}`;
+    document.getElementById('sample-size-badge').title = stats.cached ? 'Cached data (instant load)' : 'Fresh data computed';
+    
+    // Render tier performance
+    const tierContainer = document.getElementById('tier-performance');
+    const tiers = stats.tier_performance || {};
+    tierContainer.innerHTML = Object.entries(tiers).map(([name, data]) => `
+        <div style="background: var(--background-secondary); padding: 0.85rem; border-radius: 6px; border-left: 3px solid ${data.avg_return > 0 ? 'var(--success-muted)' : 'var(--danger-muted)'};">
+            <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.4rem;">${name}</div>
+            <div style="font-size: 1.4rem; font-weight: 700; color: ${data.avg_return > 0 ? 'var(--success-muted)' : 'var(--danger-muted)'};">
+                ${data.avg_return > 0 ? '+' : ''}${data.avg_return}%
+            </div>
+            <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.3rem;">
+                n=${data.count} | ${Math.round((data.winners / data.count) * 100)}% winners
+            </div>
+        </div>
+    `).join('');
+    
+    // Render correlations
+    const corrContainer = document.getElementById('correlations');
+    const corrs = stats.correlations || {};
+    corrContainer.innerHTML = Object.entries(corrs).map(([metric, data]) => {
+        const strength = Math.abs(data.correlation);
+        const color = data.significant ? 
+            (strength > 0.3 ? 'var(--success-muted)' : (strength > 0.1 ? 'var(--accent-primary)' : 'var(--text-muted)')) :
+            'var(--text-muted)';
+        
+        return `
+            <div style="background: var(--background-secondary); padding: 0.75rem; border-radius: 6px; ${data.significant ? 'border: 1px solid var(--success-muted);' : ''}">
+                <div style="font-size: 0.75rem; color: var(--text-muted); margin-bottom: 0.3rem; text-transform: capitalize;">${metric}</div>
+                <div style="font-size: 1.2rem; font-weight: 700; color: ${color};">
+                    r=${data.correlation}
+                </div>
+                <div style="font-size: 0.65rem; color: var(--text-muted); margin-top: 0.2rem;">
+                    p=${data.p_value} ${data.significant ? '✓' : ''}
+                </div>
+            </div>
+        `;
+    }).join('');
+    
+    // Render length distribution chart
+    const chartContainer = document.getElementById('length-chart');
+    const lengths = stats.length_distribution || {};
+    const sortedLengths = Object.entries(lengths).sort((a, b) => parseInt(a[0]) - parseInt(b[0]));
+    
+    if (sortedLengths.length > 0) {
+        const maxCount = Math.max(...sortedLengths.map(([_, d]) => d.count));
+        const maxReturn = Math.max(...sortedLengths.map(([_, d]) => Math.abs(d.avg_return)));
+        
+        chartContainer.innerHTML = `
+            <div style="display: flex; gap: 0.3rem; align-items: flex-end; height: 150px;">
+                ${sortedLengths.map(([length, data]) => {
+                    const barHeight = (Math.abs(data.avg_return) / maxReturn) * 100;
+                    const opacity = (data.count / maxCount) * 0.7 + 0.3;
+                    
+                    return `
+                        <div style="flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: flex-end;">
+                            <div style="font-size: 0.65rem; color: ${data.avg_return > 0 ? 'var(--success-muted)' : 'var(--danger-muted)'}; margin-bottom: 0.2rem; font-weight: 600;">
+                                ${data.avg_return > 0 ? '+' : ''}${data.avg_return}%
+                            </div>
+                            <div style="
+                                width: 100%;
+                                height: ${barHeight}%;
+                                background: ${data.avg_return > 0 ? 'var(--success-muted)' : 'var(--danger-muted)'};
+                                opacity: ${opacity};
+                                border-radius: 3px 3px 0 0;
+                                min-height: 3px;
+                            "></div>
+                            <div style="font-size: 0.7rem; color: var(--text-muted); margin-top: 0.3rem;">${length}</div>
+                            <div style="font-size: 0.6rem; color: var(--text-muted);">n=${data.count}</div>
+                        </div>
+                    `;
+                }).join('')}
+            </div>
+            <div style="text-align: center; margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border); font-size: 0.75rem; color: var(--text-muted);">
+                Name Length (characters) vs Average 1-Year Return
+            </div>
+        `;
+    } else {
+        chartContainer.innerHTML = '<p class="text-muted">Insufficient data for length distribution</p>';
+    }
+}
+
+function renderBreakoutCandidates(candidates) {
+    const container = document.getElementById('breakout-list');
+    
+    if (!candidates || candidates.length === 0) {
+        container.innerHTML = '<p class="text-muted" style="padding: 1rem;">No high-potential candidates found. All top coins may already be highly ranked.</p>';
+        return;
+    }
+    
+    container.innerHTML = candidates.map((c, idx) => `
+        <div style="padding: 1rem; border-bottom: 1px solid var(--border);">
+            <div class="flex-between mb-05">
+                <div>
+                    <strong style="font-size: 1.05rem;">${idx + 1}. ${c.name}</strong>
+                    <span class="text-muted" style="margin-left: 0.5rem;">${c.symbol} | Rank #${c.rank}</span>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 1.3rem; font-weight: 700; color: ${c.breakout_probability > 70 ? 'var(--success-muted)' : 'var(--accent-primary)'};">
+                        ${c.breakout_probability}%
+                    </div>
+                    <div class="text-muted" style="font-size: 0.7rem;">breakout probability</div>
+                </div>
+            </div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6; margin-bottom: 0.5rem;">
+                ${c.prediction} | Current 1Y: ${c.current_return_1yr > 0 ? '+' : ''}${c.current_return_1yr}%
+            </div>
+            ${c.historical_twins && c.historical_twins.length > 0 ? `
+                <div style="font-size: 0.8rem; color: var(--text-muted);">
+                    Similar to: ${c.historical_twins.slice(0, 3).map(t => `${t.name} (${t.return_1yr > 0 ? '+' : ''}${t.return_1yr}%)`).join(', ')}
+                </div>
+            ` : ''}
+            ${c.expected_return_range ? `
+                <div style="margin-top: 0.5rem; font-size: 0.8rem; color: var(--accent-primary);">
+                    Expected Range: ${c.expected_return_range.low}% to ${c.expected_return_range.high}% in 12 months
+                </div>
+            ` : ''}
+        </div>
+    `).join('');
+}
+
+function renderPatterns(data) {
+    const container = document.getElementById('patterns-list');
+    
+    if (!data.patterns || data.patterns.length === 0) {
+        container.innerHTML = '<p class="text-muted" style="padding: 1rem;">No statistically significant patterns discovered yet.</p>';
+        return;
+    }
+    
+    // Add cache indicator if patterns were cached
+    const cacheNote = data.cached ? 
+        '<div style="font-size: 0.75rem; color: var(--success-muted); margin-bottom: 0.5rem;">⚡ Cached results (instant load)</div>' : '';
+    
+    container.innerHTML = cacheNote + data.patterns.map((p, idx) => `
+        <div style="padding: 1rem; border-bottom: 1px solid var(--border);">
+            <div class="flex-between mb-05">
+                <div>
+                    <strong style="font-size: 1rem;">${p.name}</strong>
+                    <span class="badge badge-${p.confidence.toLowerCase()}" style="margin-left: 0.5rem; font-size: 0.7rem;">${p.confidence}</span>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 1.2rem; font-weight: 700; color: ${p.outperformance > 0 ? 'var(--success-muted)' : 'var(--danger-muted)'};">
+                        ${p.outperformance > 0 ? '+' : ''}${p.outperformance}%
+                    </div>
+                    <div class="text-muted" style="font-size: 0.7rem;">vs market avg</div>
+                </div>
+            </div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.5rem;">
+                ${p.description}
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">
+                <div>Sample: n=${p.sample_size}</div>
+                <div>Avg: ${p.avg_return}%</div>
+                <div>p-value: ${p.p_value}</div>
+                <div>Effect: ${p.effect_size}</div>
+            </div>
+            ${p.sample_names && p.sample_names.length > 0 ? `
+                <div style="margin-top: 0.5rem; font-size: 0.75rem; color: var(--text-muted);">
+                    Examples: ${p.sample_names.join(', ')}
+                </div>
+            ` : ''}
+        </div>
+    `).join('');
+}
+
+function loadFullDatabase(scores) {
+    // OPTIMIZED: No more 500+ API calls!
+    // Just use the data we already have
+    allCoins = scores.map(score => ({
+        id: score.crypto_id,
+        name: score.name,
+        symbol: score.symbol,
+        score: score.score,
+        rank: score.rank,
+        breakout_prob: 0,  // Will be populated if user clicks "Load More"
+        ...score.breakdown
+    }));
+    
+    document.getElementById('db-count').textContent = allCoins.length + '+';
+    renderDatabase();
+    
+    // Add "Load More" button for pagination
+    addLoadMoreButton();
+}
+
+function addLoadMoreButton() {
+    const dbInfo = document.getElementById('db-info');
+    if (allCoins.length >= 200) {
+        dbInfo.innerHTML = `
+            Showing ${allCoins.length} coins 
+            <button class="btn btn-outline" onclick="loadMoreCoins()" style="margin-left: 1rem; padding: 0.3rem 0.75rem; font-size: 0.85rem;">
+                Load Next 200 →
+            </button>
+        `;
+    }
+}
+
+async function loadMoreCoins() {
+    const currentCount = allCoins.length;
+    try {
+        const moreScores = await fetch(`/api/signals/top?min_score=0&limit=200&offset=${currentCount}`).then(r => r.json());
+        
+        const newCoins = moreScores.map(score => ({
+            id: score.crypto_id,
+            name: score.name,
+            symbol: score.symbol,
+            score: score.score,
+            rank: score.rank,
+            breakout_prob: 0,
+            ...score.breakdown
+        }));
+        
+        allCoins = allCoins.concat(newCoins);
+        renderDatabase();
+        
+        if (moreScores.length < 200) {
+            document.getElementById('db-info').textContent = `Showing all ${allCoins.length} coins`;
+        } else {
+            addLoadMoreButton();
+        }
+    } catch (e) {
+        console.error('Load more error:', e);
+    }
+}
+
+function renderDatabase() {
+    const tbody = document.getElementById('database-tbody');
+    const searchTerm = document.getElementById('search-name')?.value.toLowerCase() || '';
+    const typeFilter = document.getElementById('filter-type')?.value || '';
+    
+    let filtered = allCoins.filter(c => {
+        if (searchTerm && !c.name.toLowerCase().includes(searchTerm)) return false;
+        if (typeFilter && c.name_type !== typeFilter) return false;
+        return true;
+    });
+    
+    if (filtered.length === 0) {
+        tbody.innerHTML = '<tr><td colspan="10" class="text-center text-muted">No coins match filters</td></tr>';
+        return;
+    }
+    
+    tbody.innerHTML = filtered.slice(0, 100).map(c => `
+        <tr>
+            <td>${c.rank || '-'}</td>
+            <td><strong>${c.name}</strong> <span class="text-muted" style="font-size: 0.75rem;">${c.symbol}</span></td>
+            <td><strong style="color: ${c.score > 80 ? 'var(--success-muted)' : (c.score > 70 ? 'var(--accent-primary)' : 'var(--text-muted)')};">${Math.round(c.score)}</strong></td>
+            <td>${c.syllable_count || '-'}</td>
+            <td>${c.character_length || '-'}</td>
+            <td>${Math.round(c.memorability_score || 0)}</td>
+            <td>${Math.round(c.uniqueness_score || 0)}</td>
+            <td><span style="font-size: 0.75rem;">${c.name_type || '-'}</span></td>
+            <td class="${c.return_1yr > 0 ? 'text-success' : 'text-danger'}">${c.return_1yr ? (c.return_1yr > 0 ? '+' : '') + c.return_1yr.toFixed(1) + '%' : '-'}</td>
+            <td>${c.breakout_prob ? '<strong>' + c.breakout_prob + '%</strong>' : '-'}</td>
+        </tr>
+    `).join('');
+    
+    document.getElementById('db-info').textContent = `Showing ${Math.min(100, filtered.length)} of ${filtered.length} coins`;
+}
+
+function sortBy(column) {
+    console.log('Sort by:', column);
+    // Implement sorting logic
+}
+
+function exportDatabase() {
+    const csv = 'Name,Score,Syllables,Length,Memorability,Uniqueness,Type,1Y Return\n' +
+        allCoins.map(c => `${c.name},${c.score},${c.syllable_count},${c.character_length},${c.memorability_score},${c.uniqueness_score},${c.name_type},${c.return_1yr}`).join('\n');
+    
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'cryptocurrency_database.csv';
+    a.click();
+}
+
+// Event listeners
+document.addEventListener('DOMContentLoaded', () => {
+    if (document.getElementById('search-name')) {
+        document.getElementById('search-name').addEventListener('input', renderDatabase);
+    }
+    if (document.getElementById('filter-type')) {
+        document.getElementById('filter-type').addEventListener('change', renderDatabase);
+    }
+});
+
+loadDiscovery();
+</script>
+{% endblock %}
+

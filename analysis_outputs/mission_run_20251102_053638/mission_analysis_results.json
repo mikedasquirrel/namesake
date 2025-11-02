@@ -1,0 +1,171 @@
+{
+  "generated_at": "2025-11-02T05:36:38.961331",
+  "descriptive_summary": {
+    "sample_size": 2740,
+    "rank_tier_distribution": {
+      "long_tail": 1739,
+      "emergent": 499,
+      "mid_cap": 298,
+      "established": 152,
+      "vanguard": 52
+    },
+    "performance": {
+      "avg_return": 29.59,
+      "median_return": 0.0,
+      "high_performer_rate": 3.6,
+      "breakout_rate": 2.1,
+      "positive_return_rate": 18.7
+    },
+    "linguistic": {
+      "composite_mean": 65.83,
+      "composite_std": 16.39,
+      "sweet_spot_avg_return": -3.23,
+      "sweet_spot_size": 819
+    },
+    "linguistic_performance_correlation": 0.015
+  },
+  "classic_statistics": {
+    "correlations": {
+      "performance_metric": "price_1yr_change",
+      "correlations": {
+        "has_numbers": 0.046,
+        "syllable_count": -0.0419,
+        "character_length": -0.0371,
+        "pronounceability_score": 0.0216,
+        "uniqueness_score": -0.0163,
+        "has_special_chars": -0.0152,
+        "phonetic_score": 0.0146,
+        "memorability_score": 0.0124,
+        "vowel_ratio": 0.0105,
+        "name_type_percentile": 0.0011
+      },
+      "p_values": {
+        "syllable_count": 0.0991,
+        "character_length": 0.1444,
+        "phonetic_score": 0.5658,
+        "vowel_ratio": 0.6798,
+        "memorability_score": 0.6248,
+        "pronounceability_score": 0.3965,
+        "uniqueness_score": 0.5211,
+        "has_numbers": 0.0705,
+        "has_special_chars": 0.5504,
+        "name_type_percentile": 0.965
+      },
+      "sample_size": 1547,
+      "significant_correlations": {}
+    },
+    "regression": {
+      "performance_metric": "price_1yr_change",
+      "linear_regression": {
+        "r_squared": 0.0059,
+        "intercept": 832.9049,
+        "coefficients": {
+          "syllable_count": -29.955,
+          "character_length": -5.9471,
+          "phonetic_score": 0.5927,
+          "vowel_ratio": 106.1169,
+          "memorability_score": -2.7669,
+          "pronounceability_score": 0.3754,
+          "uniqueness_score": -5.867,
+          "has_numbers": 263.5094,
+          "has_special_chars": 31.4591,
+          "name_type_percentile": 0.738
+        }
+      },
+      "random_forest": {
+        "r_squared": 0.6519,
+        "feature_importance": {
+          "uniqueness_score": 0.4171,
+          "character_length": 0.3099,
+          "phonetic_score": 0.1176,
+          "memorability_score": 0.0724,
+          "pronounceability_score": 0.0464,
+          "vowel_ratio": 0.0243,
+          "syllable_count": 0.007,
+          "has_special_chars": 0.004,
+          "has_numbers": 0.0014,
+          "name_type_percentile": 0.0
+        }
+      },
+      "sample_size": 1547
+    },
+    "name_type_comparison": {
+      "performance_metric": "price_1yr_change",
+      "type_statistics": {
+        "numeric": {
+          "mean": 524.72,
+          "median": 10.65,
+          "std": 2278.95,
+          "count": 20,
+          "min": -76.49,
+          "max": 10200.89
+        },
+        "acronym": {
+          "mean": 301.96,
+          "median": -35.91,
+          "std": 2375.15,
+          "count": 117,
+          "min": -100.0,
+          "max": 21831.27
+        },
+        "tech": {
+          "mean": 52.37,
+          "median": -36.76,
+          "std": 860.31,
+          "count": 378,
+          "min": -95.76,
+          "max": 16345.27
+        },
+        "animal": {
+          "mean": 43.22,
+          "median": -49.03,
+          "std": 272.19,
+          "count": 93,
+          "min": -94.48,
+          "max": 1540.66
+        },
+        "financial": {
+          "mean": 37.61,
+          "median": 0.38,
+          "std": 251.44,
+          "count": 134,
+          "min": -91.36,
+          "max": 2386.08
+        },
+        "invented": {
+          "mean": 9.45,
+          "median": -39.93,
+          "std": 274.56,
+          "count": 771,
+          "min": -99.73,
+          "max": 4592.13
+        },
+        "astronomical": {
+          "mean": -22.48,
+          "median": -63.42,
+          "std": 85.2,
+          "count": 17,
+          "min": -89.45,
+          "max": 218.45
+        },
+        "elemental": {
+          "mean": -25.35,
+          "median": -9.92,
+          "std": 28.19,
+          "count": 6,
+          "min": -72.06,
+          "max": -4.1
+        },
+        "mythological": {
+          "mean": -31.29,
+          "median": -26.81,
+          "std": 42.7,
+          "count": 11,
+          "min": -79.25,
+          "max": 43.67
+        }
+      },
+      "anova": {
+        "f_statistic": 2.3332,
+        "p_value": 0.0172,
+        "significant": 

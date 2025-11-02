@@ -1,0 +1,155 @@
+{% extends "base.html" %}
+
+{% block title %}Portfolio{% endblock %}
+
+{% block content %}
+<h1>Predictive Portfolio Builder</h1>
+<p class="subtitle">Construct portfolio based on breakout predictions and pattern matching</p>
+
+<div class="glass card mb-1">
+    <div class="flex-between mb-1">
+        <h3>Generate Predictive Portfolio</h3>
+        <button class="btn btn-primary" onclick="generatePortfolio()">Build Portfolio</button>
+    </div>
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+        <div>
+            <label style="font-size: 0.8rem;">Portfolio Size</label>
+            <select id="portfolio-size" style="margin: 0;">
+                <option value="5">5 Assets</option>
+                <option value="10" selected>10 Assets</option>
+                <option value="15">15 Assets</option>
+                <option value="20">20 Assets</option>
+            </select>
+        </div>
+        <div>
+            <label style="font-size: 0.8rem;">Selection Criteria</label>
+            <select id="selection-criteria" style="margin: 0;">
+                <option value="breakout">Highest Breakout Potential</option>
+                <option value="score">Highest Name Scores</option>
+                <option value="balanced">Balanced (Score + Potential)</option>
+            </select>
+        </div>
+        <div>
+            <label style="font-size: 0.8rem;">Min Rank</label>
+            <input type="number" id="min-rank" value="1" min="1" style="margin: 0;">
+        </div>
+    </div>
+</div>
+
+<div id="portfolio-results" style="display: none;">
+    <div class="glass card mb-1">
+        <h3>Portfolio Allocation</h3>
+        <div class="table-container">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Rank</th>
+                        <th>Allocation %</th>
+                        <th>Name Score</th>
+                        <th>Breakout Prob</th>
+                        <th>Expected Return</th>
+                        <th>Risk</th>
+                    </tr>
+                </thead>
+                <tbody id="portfolio-tbody"></tbody>
+            </table>
+        </div>
+    </div>
+    
+    <div class="glass card">
+        <h3>Portfolio Analysis</h3>
+        <div id="portfolio-analysis"></div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+async function generatePortfolio() {
+    const size = parseInt(document.getElementById('portfolio-size').value);
+    const criteria = document.getElementById('selection-criteria').value;
+    const minRank = parseInt(document.getElementById('min-rank').value);
+    
+    try {
+        // Get breakout candidates or top scores based on criteria
+        let candidates;
+        if (criteria === 'breakout') {
+            candidates = await fetch(`/api/discovery/breakout-candidates?min_rank=${minRank}&limit=${size * 2}`).then(r => r.json());
+        } else {
+            candidates = await fetch(`/api/signals/top?min_score=70&limit=${size * 2}`).then(r => r.json());
+        }
+        
+        if (!candidates || candidates.length < size) {
+            alert('Not enough qualifying assets found. Try lowering criteria.');
+            return;
+        }
+        
+        // Select top N
+        const selected = candidates.slice(0, size);
+        
+        // Optimize weights
+        const crypto_ids = selected.map(c => c.crypto_id || c.id);
+        const optimization = await fetch('/api/portfolio/optimize', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ num_assets: size, objective: 'sharpe' })
+        }).then(r => r.json());
+        
+        // Merge optimization with predictions
+        const portfolio = optimization.allocations.map(alloc => {
+            const candidate = selected.find(c => (c.crypto_id || c.id) === alloc.crypto_id);
+            return {
+                ...alloc,
+                breakout_prob: candidate?.breakout_probability || 0,
+                expected_return_range: candidate?.expected_return_range || null,
+                rank: candidate?.rank || 999
+            };
+        });
+        
+        // Render
+        document.getElementById('portfolio-results').style.display = 'block';
+        const tbody = document.getElementById('portfolio-tbody');
+        tbody.innerHTML = portfolio.map(p => `
+            <tr>
+                <td><strong>${p.name}</strong> <span class="text-muted" style="font-size: 0.75rem;">${p.symbol}</span></td>
+                <td>#${p.rank}</td>
+                <td><strong style="color: var(--accent-primary);">${p.weight_percent}%</strong></td>
+                <td>${p.score || '-'}</td>
+                <td>${p.breakout_prob ? p.breakout_prob + '%' : '-'}</td>
+                <td>${p.expected_return_range ? p.expected_return_range.low + '% to ' + p.expected_return_range.high + '%' : '-'}</td>
+                <td><span class="badge badge-${(p.risk || 'medium').toLowerCase()}">${p.risk || 'MED'}</span></td>
+            </tr>
+        `).join('');
+        
+        // Portfolio analysis
+        const totalBreakoutProb = portfolio.reduce((sum, p) => sum + (p.breakout_prob || 0) * (p.weight_percent / 100), 0);
+        
+        document.getElementById('portfolio-analysis').innerHTML = `
+            <div style="padding: 1rem;">
+                <div class="metric-row">
+                    <span class="metric-label">Expected Portfolio Return</span>
+                    <span class="metric-value positive">${optimization.metrics.expected_return}%</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Portfolio Sharpe Ratio</span>
+                    <span class="metric-value">${optimization.metrics.sharpe_ratio}</span>
+                </div>
+                <div class="metric-row">
+                    <span class="metric-label">Avg Breakout Probability</span>
+                    <span class="metric-value">${totalBreakoutProb.toFixed(1)}%</span>
+                </div>
+                <div style="margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--border); font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                    This portfolio combines high-quality names with strong breakout potential. Diversified across ${portfolio.length} assets with proven name patterns. Based on historical analysis of ${size} similar name structures.
+                </div>
+            </div>
+        `;
+        
+    } catch (error) {
+        console.error('Portfolio generation error:', error);
+        alert('Error generating portfolio');
+    }
+}
+</script>
+{% endblock %}
+

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}404 - Page Not Found{% endblock %}
+
+{% block content %}
+<div class="flex-center" style="min-height: 60vh; flex-direction: column;">
+    <h1 style="font-size: 4rem; color: var(--fuchsia); margin-bottom: 1rem;">404</h1>
+    <h2 style="margin-bottom: 2rem;">Page Not Found</h2>
+    <p class="subtitle" style="max-width: 600px; text-align: center;">
+        The page you're looking for doesn't exist or has been moved.
+    </p>
+    <div class="flex gap-1 mt-2">
+        <a href="{{ url_for('dashboard') }}" class="btn btn-primary">Go to Dashboard</a>
+        <a href="{{ url_for('explorer') }}" class="btn btn-outline">Explore Data</a>
+    </div>
+</div>
+{% endblock %}
+

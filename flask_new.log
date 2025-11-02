@@ -1,0 +1,333 @@
+2025-10-30 23:01:14,839 - __main__ - INFO - Database initialized
+2025-10-30 23:01:14,859 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:9719
+============================================================
+
+ * Serving Flask app 'app'
+ * Debug mode: on
+2025-10-30 23:01:14,924 - werkzeug - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:9719
+ * Running on http://192.168.1.234:9719
+2025-10-30 23:01:14,924 - werkzeug - INFO - [33mPress CTRL+C to quit[0m
+2025-10-30 23:01:14,925 - werkzeug - INFO -  * Restarting with stat
+2025-10-30 23:01:16,765 - __main__ - INFO - Database initialized
+2025-10-30 23:01:16,782 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-30 23:01:16,800 - werkzeug - WARNING -  * Debugger is active!
+2025-10-30 23:01:16,818 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-30 23:01:52,167 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:11453
+============================================================
+
+2025-10-30 23:01:52,447 - werkzeug - INFO -  * Restarting with stat
+2025-10-30 23:01:54,978 - __main__ - INFO - Database initialized
+2025-10-30 23:01:54,997 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-30 23:01:55,019 - werkzeug - WARNING -  * Debugger is active!
+2025-10-30 23:01:55,033 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-30 23:35:38,063 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:23135
+============================================================
+
+2025-10-30 23:35:38,507 - werkzeug - INFO -  * Restarting with stat
+2025-10-30 23:35:41,659 - __main__ - INFO - Database initialized
+2025-10-30 23:35:41,681 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-30 23:35:41,706 - werkzeug - WARNING -  * Debugger is active!
+2025-10-30 23:35:41,722 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-30 23:36:36,663 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:11775
+============================================================
+
+2025-10-30 23:36:37,019 - werkzeug - INFO -  * Restarting with stat
+2025-10-30 23:36:40,398 - __main__ - INFO - Database initialized
+2025-10-30 23:36:40,428 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-30 23:36:40,469 - werkzeug - WARNING -  * Debugger is active!
+2025-10-30 23:36:40,495 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-30 23:36:42,845 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:29971
+============================================================
+
+2025-10-30 23:36:43,053 - werkzeug - INFO -  * Restarting with stat
+2025-10-30 23:36:45,466 - __main__ - INFO - Database initialized
+2025-10-30 23:36:45,496 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-30 23:36:45,524 - werkzeug - WARNING -  * Debugger is active!
+2025-10-30 23:36:45,561 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-30 23:38:25,252 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:60543
+============================================================
+
+2025-10-30 23:38:25,475 - werkzeug - INFO -  * Restarting with stat
+2025-10-30 23:38:28,273 - __main__ - INFO - Database initialized
+2025-10-30 23:38:28,300 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-30 23:38:28,323 - werkzeug - WARNING -  * Debugger is active!
+2025-10-30 23:38:28,339 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-30 23:41:08,493 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:44783
+============================================================
+
+2025-10-30 23:41:09,049 - werkzeug - INFO -  * Restarting with stat
+2025-10-30 23:41:16,622 - __main__ - INFO - Database initialized
+2025-10-30 23:41:16,650 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-30 23:41:16,700 - werkzeug - WARNING -  * Debugger is active!
+2025-10-30 23:41:16,774 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-30 23:42:31,795 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/analyzers/pattern_discovery.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:56647
+============================================================
+
+2025-10-30 23:42:32,685 - werkzeug - INFO -  * Restarting with stat
+2025-10-30 23:42:37,307 - __main__ - INFO - Database initialized
+2025-10-30 23:42:37,327 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-30 23:42:37,350 - werkzeug - WARNING -  * Debugger is active!
+2025-10-30 23:42:37,364 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-30 23:42:51,268 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/analyzers/pattern_discovery.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:61339
+============================================================
+
+2025-10-30 23:42:51,738 - werkzeug - INFO -  * Restarting with stat
+2025-10-30 23:42:54,965 - __main__ - INFO - Database initialized
+2025-10-30 23:42:54,985 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-30 23:42:55,011 - werkzeug - WARNING -  * Debugger is active!
+2025-10-30 23:42:55,027 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-30 23:43:18,538 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:13205
+============================================================
+
+2025-10-30 23:43:18,880 - werkzeug - INFO -  * Restarting with stat
+2025-10-30 23:43:23,853 - __main__ - INFO - Database initialized
+2025-10-30 23:43:23,881 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-30 23:43:23,914 - werkzeug - WARNING -  * Debugger is active!
+2025-10-30 23:43:23,937 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-30 23:43:51,840 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/core/models.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:39403
+============================================================
+
+2025-10-30 23:43:52,259 - werkzeug - INFO -  * Restarting with stat
+2025-10-30 23:43:54,583 - __main__ - INFO - Database initialized
+2025-10-30 23:43:54,603 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-30 23:43:54,629 - werkzeug - WARNING -  * Debugger is active!
+2025-10-30 23:43:54,643 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-30 23:44:03,670 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/core/models.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:6537
+============================================================
+
+2025-10-30 23:44:04,110 - werkzeug - INFO -  * Restarting with stat
+2025-10-30 23:44:06,353 - __main__ - INFO - Database initialized
+2025-10-30 23:44:06,372 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-30 23:44:06,392 - werkzeug - WARNING -  * Debugger is active!
+2025-10-30 23:44:06,405 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-30 23:45:15,229 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:59205
+============================================================
+
+2025-10-30 23:45:15,545 - werkzeug - INFO -  * Restarting with stat
+2025-10-30 23:45:18,140 - __main__ - INFO - Database initialized
+2025-10-30 23:45:18,160 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-30 23:45:18,181 - werkzeug - WARNING -  * Debugger is active!
+2025-10-30 23:45:18,196 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-31 01:04:29,242 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:5977
+============================================================
+
+2025-10-31 01:04:29,612 - werkzeug - INFO -  * Restarting with stat
+2025-10-31 01:04:32,765 - __main__ - INFO - Database initialized
+2025-10-31 01:04:32,787 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-31 01:04:32,814 - werkzeug - WARNING -  * Debugger is active!
+2025-10-31 01:04:32,882 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-31 03:56:04,409 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:15659
+============================================================
+
+2025-10-31 03:56:04,715 - werkzeug - INFO -  * Restarting with stat
+2025-10-31 03:56:07,109 - __main__ - INFO - Database initialized
+2025-10-31 03:56:07,131 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-31 03:56:07,156 - werkzeug - WARNING -  * Debugger is active!
+2025-10-31 03:56:07,173 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-31 03:56:24,217 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/collectors/data_collector.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:9571
+============================================================
+
+2025-10-31 03:56:24,470 - werkzeug - INFO -  * Restarting with stat
+2025-10-31 03:56:26,460 - __main__ - INFO - Database initialized
+2025-10-31 03:56:26,480 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-31 03:56:26,501 - werkzeug - WARNING -  * Debugger is active!
+2025-10-31 03:56:26,511 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-31 03:59:42,913 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/collectors/data_collector.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:7519
+============================================================
+
+2025-10-31 03:59:43,096 - werkzeug - INFO -  * Restarting with stat
+2025-10-31 03:59:45,142 - __main__ - INFO - Database initialized
+2025-10-31 03:59:45,160 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-31 03:59:45,182 - werkzeug - WARNING -  * Debugger is active!
+2025-10-31 03:59:45,195 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-31 13:20:40,032 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:20271
+============================================================
+
+2025-10-31 13:20:40,371 - werkzeug - INFO -  * Restarting with stat
+2025-10-31 13:20:45,403 - __main__ - INFO - Database initialized
+2025-10-31 13:20:45,450 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-31 13:20:45,491 - werkzeug - WARNING -  * Debugger is active!
+2025-10-31 13:20:45,507 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-31 20:44:00,424 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:35471
+============================================================
+
+2025-10-31 20:44:01,452 - werkzeug - INFO -  * Restarting with stat
+2025-10-31 20:44:08,805 - __main__ - INFO - Database initialized
+2025-10-31 20:44:08,831 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-31 20:44:08,860 - werkzeug - WARNING -  * Debugger is active!
+2025-10-31 20:44:08,881 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-31 20:44:11,134 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:62989
+============================================================
+
+2025-10-31 20:44:11,483 - werkzeug - INFO -  * Restarting with stat
+2025-10-31 20:44:14,805 - __main__ - INFO - Database initialized
+2025-10-31 20:44:14,844 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-31 20:44:14,886 - werkzeug - WARNING -  * Debugger is active!
+2025-10-31 20:44:14,915 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-31 20:44:20,886 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:62421
+============================================================
+
+2025-10-31 20:44:21,200 - werkzeug - INFO -  * Restarting with stat
+2025-10-31 20:44:24,244 - __main__ - INFO - Database initialized
+2025-10-31 20:44:24,270 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-31 20:44:24,308 - werkzeug - WARNING -  * Debugger is active!
+2025-10-31 20:44:24,420 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-31 20:44:30,700 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:35013
+============================================================
+
+2025-10-31 20:44:30,979 - werkzeug - INFO -  * Restarting with stat
+2025-10-31 20:44:33,259 - __main__ - INFO - Database initialized
+2025-10-31 20:44:33,287 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-31 20:44:33,321 - werkzeug - WARNING -  * Debugger is active!
+2025-10-31 20:44:33,349 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-31 20:47:29,498 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:30695
+============================================================
+
+2025-10-31 20:47:29,724 - werkzeug - INFO -  * Restarting with stat
+2025-10-31 20:47:32,680 - __main__ - INFO - Database initialized
+2025-10-31 20:47:32,701 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-31 20:47:32,722 - werkzeug - WARNING -  * Debugger is active!
+2025-10-31 20:47:32,736 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-31 21:04:28,046 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:48209
+============================================================
+
+2025-10-31 21:04:28,440 - werkzeug - INFO -  * Restarting with stat
+2025-10-31 21:04:31,262 - __main__ - INFO - Database initialized
+2025-10-31 21:04:31,279 - __main__ - INFO - Database ready: 3500 cryptocurrencies
+2025-10-31 21:04:31,305 - werkzeug - WARNING -  * Debugger is active!
+2025-10-31 21:04:31,319 - werkzeug - INFO -  * Debugger PIN: 234-969-874
+2025-10-31 21:59:25,033 - werkzeug - INFO -  * Detected change in '/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py', reloading
+
+============================================================
+Nominative Determinism Investment Intelligence Platform
+============================================================
+Server: http://localhost:11025
+============================================================
+
+2025-10-31 21:59:25,609 - werkzeug - INFO -  * Restarting with stat
+Traceback (most recent call last):
+  File "/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/app.py", line 65, in <module>
+    comparative_analyzer = ComparativeAnalyzer()
+NameError: name 'ComparativeAnalyzer' is not defined
