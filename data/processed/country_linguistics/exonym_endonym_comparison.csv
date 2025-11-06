@@ -1,0 +1,10 @@
+country_code,endonym,english_name,endonym_harshness,english_harshness,endonym_melodiousness,english_melodiousness,harshness_difference,melodiousness_difference,syllable_difference,english_more_melodious,endonym_more_melodious
+USA,United States of America,America,100.0,100.0,30.916666666666668,36.5,0.0,5.583333333333332,-3,True,False
+CHN,中国,China,100.0,20.0,27.884615384615387,47.5,-80.0,19.615384615384613,1,True,False
+MEX,México,Mexico,16.666666666666686,0.0,43.83333333333333,53.5,-16.666666666666686,9.666666666666671,1,True,False
+DEU,Deutschland,Germany,100.0,0.0,41.86363636363636,58.5,-100.0,16.63636363636364,1,True,False
+BRA,Brasil,Brazil,100.0,100.0,48.83333333333333,48.83333333333333,0.0,0.0,0,False,False
+IND,भारत,India,100.0,70.00000000000003,38.976190476190474,55.5,-29.99999999999997,16.523809523809526,-1,True,False
+EGY,مصر,Egypt,0.0,100.0,32.5,41.5,100.0,9.0,1,True,False
+GBR,United Kingdom,Britain,100.0,100.0,46.214285714285715,46.83333333333333,0.0,0.6190476190476133,-2,False,False
+ESP,España,Spain,100.0,100.0,48.5,44.5,0.0,-4.0,-2,False,False

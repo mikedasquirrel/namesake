@@ -1,0 +1,133 @@
+{
+  "claim": {
+    "claim_id": "M2",
+    "asset_type": "mtg",
+    "target_column": "log_price_usd",
+    "target_kind": "continuous",
+    "description": "Power connotation and memorability predict instant/sorcery value controlling for playability.",
+    "features": [
+      "power_connotation_score",
+      "memorability_score",
+      "phonetic_score",
+      "syllable_count"
+    ],
+    "control_features": [
+      "rarity_tier",
+      "converted_mana_cost",
+      "log_edhrec_rank"
+    ],
+    "filters": {
+      "is_instant_sorcery": 1,
+      "price_usd": {
+        "op": "gt",
+        "value": 0.25
+      }
+    },
+    "sample_floor": 80,
+    "breakout_threshold": null,
+    "notes": null
+  },
+  "status": "ok",
+  "sample_size": 216,
+  "model_summary": {
+    "model_type": "OLS",
+    "primary_metric": "r_squared",
+    "r_squared": 0.33790879839306154,
+    "adj_r_squared": 0.31890139547611596,
+    "aic": 677.3175634022501,
+    "bic": 700.9445122560393,
+    "rmse": 1.1422395666038252,
+    "cross_validation": {
+      "metric": "r2",
+      "folds": 5,
+      "scores": [
+        0.12026477417818615,
+        0.3154024280106362,
+        0.37883411512288956,
+        0.2923647017551806,
+        0.20091650274788886
+      ],
+      "mean_score": 0.2615565043629563,
+      "std_score": 0.09082194593826948,
+      "auxiliary": {
+        "rmse_mean": 1.1637005645684655,
+        "rmse_std": 0.06880712529014685
+      }
+    }
+  },
+  "coefficients": [
+    {
+      "name": "power_connotation_score",
+      "coefficient": -0.002290920870989928,
+      "p_value": 0.49670283833208995,
+      "ci_lower": -0.008923944130952214,
+      "ci_upper": 0.004342102388972357
+    },
+    {
+      "name": "memorability_score",
+      "coefficient": 0.0032343975682252273,
+      "p_value": 0.6512244938709965,
+      "ci_lower": -0.010850055574640553,
+      "ci_upper": 0.01731885071109101
+    },
+    {
+      "name": "phonetic_score",
+      "coefficient": 0.0007370250613284463,
+      "p_value": 0.8897635335514544,
+      "ci_lower": -0.009733031304868814,
+      "ci_upper": 0.011207081427525706
+    },
+    {
+      "name": "syllable_count",
+      "coefficient": -0.026546756468003783,
+      "p_value": 0.6391152855909253,
+      "ci_lower": -0.13798494118163887,
+      "ci_upper": 0.0848914282456313
+    },
+    {
+      "name": "rarity_tier",
+      "coefficient": 1.249187429445617,
+      "p_value": 5.704471483004919e-14,
+      "ci_lower": 0.9437579292725278,
+      "ci_upper": 1.554616929618706
+    },
+    {
+      "name": "converted_mana_cost",
+      "coefficient": -0.04845973845114441,
+      "p_value": 0.12472122257445957,
+      "ci_lower": -0.1104356989882167,
+      "ci_upper": 0.013516222085927877
+    },
+    {
+      "name": "log_edhrec_rank",
+      "coefficient": -0.487840369072131,
+      "p_value": 8.382297326105416e-17,
+      "ci_lower": -0.5937727718465974,
+      "ci_upper": -0.3819079662976646
+    }
+  ],
+  "effect_analysis": {
+    "feature_correlations": {
+      "power_connotation_score": {
+        "correlation": -0.0002278327672896388,
+        "p_value": 0.9973438353941391
+      },
+      "memorability_score": {
+        "correlation": 0.15836115262248407,
+        "p_value": 0.019878532747673285
+      },
+      "phonetic_score": {
+        "correlation": 0.09840558495671888,
+        "p_value": 0.1494802998351039
+      },
+      "syllable_count": {
+        "correlation": -0.12333904258985243,
+        "p_value": 0.0704351920257358
+      }
+    },
+    "target_mean": 1.0409523428609517,
+    "target_std": 1.3808438148831645
+  },
+  "warnings": [],
+  "timestamp": "2025-11-02T19:54:01.830674"
+}

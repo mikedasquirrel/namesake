@@ -1,0 +1,251 @@
+{
+  "dataset_summary": {
+    "total_cards": 3781,
+    "avg_price": 4.64,
+    "median_price": 0.61
+  },
+  "temporal_dynamics": {
+    "temporal_correlations": {
+      "syllable_count": {
+        "value_stability": {
+          "r": -0.071,
+          "p": 0.0,
+          "significant": "True"
+        },
+        "reprint_resilience": {
+          "r": NaN,
+          "p": NaN,
+          "significant": false
+        }
+      },
+      "character_length": {
+        "value_stability": {
+          "r": -0.101,
+          "p": 0.0,
+          "significant": "True"
+        },
+        "reprint_resilience": {
+          "r": NaN,
+          "p": NaN,
+          "significant": false
+        }
+      },
+      "memorability_score": {
+        "value_stability": {
+          "r": 0.095,
+          "p": 0.0,
+          "significant": "True"
+        },
+        "reprint_resilience": {
+          "r": NaN,
+          "p": NaN,
+          "significant": false
+        }
+      },
+      "fantasy_score": {
+        "value_stability": {
+          "r": -0.054,
+          "p": 0.0009,
+          "significant": "True"
+        },
+        "reprint_resilience": {
+          "r": NaN,
+          "p": NaN,
+          "significant": false
+        }
+      },
+      "mythic_resonance_score": {
+        "value_stability": {
+          "r": -0.109,
+          "p": 0.0,
+          "significant": "True"
+        },
+        "reprint_resilience": {
+          "r": NaN,
+          "p": NaN,
+          "significant": false
+        }
+      },
+      "constructed_language_score": {
+        "value_stability": {
+          "r": -0.053,
+          "p": 0.0012,
+          "significant": "True"
+        },
+        "reprint_resilience": {
+          "r": NaN,
+          "p": NaN,
+          "significant": false
+        }
+      }
+    },
+    "sticky_collectibles": {
+      "count": 945,
+      "avg_fantasy_score": 70.78,
+      "avg_mythic_resonance": 62.33,
+      "legendary_rate": 58.4
+    }
+  },
+  "reprint_vulnerability": {
+    "error": "Insufficient reprint data"
+  },
+  "price_trajectories": {
+    "trajectory_profiles": {
+      "steady_appreciator": {
+        "count": 946,
+        "avg_price": 16.53,
+        "avg_fantasy": 70.84,
+        "avg_mythic_resonance": 62.54,
+        "avg_memorability": 41.22,
+        "legendary_rate": 59.8
+      }
+    },
+    "distribution": {
+      "moderate": 2835,
+      "steady_appreciator": 946
+    }
+  },
+  "interaction_effects": {
+    "interactions_2way": [
+      {
+        "feature1": "syllable_count",
+        "feature2": "has_comma",
+        "interaction_coef": 0.0851,
+        "cv_r2_mean": -7.96,
+        "cv_r2_std": 9.726
+      },
+      {
+        "feature1": "fantasy_score",
+        "feature2": "has_comma",
+        "interaction_coef": 0.0179,
+        "cv_r2_mean": -7.9,
+        "cv_r2_std": 9.611
+      },
+      {
+        "feature1": "memorability_score",
+        "feature2": "has_comma",
+        "interaction_coef": -0.009,
+        "cv_r2_mean": -7.924,
+        "cv_r2_std": 9.657
+      },
+      {
+        "feature1": "fantasy_score",
+        "feature2": "syllable_count",
+        "interaction_coef": 0.0038,
+        "cv_r2_mean": -7.914,
+        "cv_r2_std": 9.615
+      },
+      {
+        "feature1": "fantasy_score",
+        "feature2": "memorability_score",
+        "interaction_coef": -0.0005,
+        "cv_r2_mean": -7.871,
+        "cv_r2_std": 9.533
+      },
+      {
+        "feature1": "memorability_score",
+        "feature2": "syllable_count",
+        "interaction_coef": -0.0001,
+        "cv_r2_mean": -7.863,
+        "cv_r2_std": 9.542
+      }
+    ],
+    "total_tested": 6
+  },
+  "nonlinear_patterns": {
+    "fantasy_score_polynomial": {
+      "linear_cv_r2": -7.955,
+      "polynomial_cv_r2": -8.9,
+      "improvement": -0.944,
+      "is_nonlinear": "False"
+    },
+    "syllable_threshold": {
+      "optimal_threshold": 2,
+      "price_difference": 0.382,
+      "interpretation": "Cards with >2 syllables differ by 0.38 log-price units"
+    }
+  },
+  "clustering": {
+    "silhouette_scores": {
+      "2": 0.274,
+      "3": 0.285,
+      "4": 0.258,
+      "5": 0.212,
+      "6": 0.244,
+      "7": 0.226,
+      "8": 0.232
+    },
+    "optimal_k": 3,
+    "cluster_profiles": {
+      "Cluster_0": {
+        "size": 166,
+        "avg_price": 3.97,
+        "avg_fantasy": 79.46,
+        "avg_syllables": 8.66,
+        "avg_memorability": 29.3,
+        "legendary_rate": 86.7
+      },
+      "Cluster_1": {
+        "size": 1362,
+        "avg_price": 6.12,
+        "avg_fantasy": 66.26,
+        "avg_syllables": 2.84,
+        "avg_memorability": 51.57,
+        "legendary_rate": 51.9
+      },
+      "Cluster_2": {
+        "size": 2253,
+        "avg_price": 3.8,
+        "avg_fantasy": 75.44,
+        "avg_syllables": 4.83,
+        "avg_memorability": 31.99,
+        "legendary_rate": 89.7
+      }
+    }
+  },
+  "rhythmic_mechanical": {
+    "syllables_vs_cmc": {
+      "r": -0.026,
+      "p": 0.1094,
+      "significant": "False",
+      "interpretation": "Lower CMC \u2192 longer names"
+    }
+  },
+  "m4_color_regression": {
+    "color_harshness_models": {
+      "W": {
+        "sample_size": 409,
+        "harshness_coef": 0.0089,
+        "cv_r2": -9.244,
+        "cv_std": 11.594
+      },
+      "U": {
+        "sample_size": 375,
+        "harshness_coef": 0.0195,
+        "cv_r2": -6.058,
+        "cv_std": 6.894
+      },
+      "B": {
+        "sample_size": 400,
+        "harshness_coef": 0.0051,
+        "cv_r2": -7.042,
+        "cv_std": 8.509
+      },
+      "R": {
+        "sample_size": 404,
+        "harshness_coef": 0.0028,
+        "cv_r2": -8.033,
+        "cv_std": 10.841
+      },
+      "G": {
+        "sample_size": 366,
+        "harshness_coef": 0.0133,
+        "cv_r2": -9.222,
+        "cv_std": 11.816
+      }
+    }
+  },
+  "m6_era_timeseries": {
+    "error": "Insufficient temporal data"
+  }
+}

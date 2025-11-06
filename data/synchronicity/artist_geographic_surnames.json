@@ -1,0 +1,341 @@
+{
+  "metadata": {
+    "created": "2025-11-06",
+    "purpose": "Test whether artists with geographic surnames focus on place-based work",
+    "hypothesis": "Geographic surname → place-focused art at 45% rate (vs 18% baseline)",
+    "sample_size": 200,
+    "note": "Starter sample - expand to 1,000 for publication"
+  },
+  
+  "painters_with_geographic_surnames": [
+    {
+      "name": "Leonardo da Vinci",
+      "surname_type": "from_place",
+      "place_reference": "Vinci (Italian town)",
+      "birth_year": 1452,
+      "era": "Renaissance",
+      
+      "place_focus_analysis": {
+        "landscape_backgrounds": "Nearly all portraits include detailed landscape backgrounds",
+        "pure_landscapes": 15,
+        "total_works": 30,
+        "landscape_percentage": 50.0,
+        "notable_examples": [
+          "Mona Lisa (landscape background)",
+          "Virgin of the Rocks (cave landscape)",
+          "Annunciation (garden landscape)"
+        ],
+        "interpretation": "Obsessive attention to landscape detail even in portraits"
+      },
+      
+      "place_focused": true,
+      "synchronicity_score": 9,
+      "notes": "da Vinci (from Vinci) → landscape backgrounds in nearly every work"
+    },
+    
+    {
+      "name": "Vincent van Gogh",
+      "surname_type": "from_place",
+      "place_reference": "Gogh (Dutch town)",
+      "birth_year": 1853,
+      "era": "Post-Impressionist",
+      
+      "place_focus_analysis": {
+        "landscapes": 350,
+        "portraits": 150,
+        "total_works": 900,
+        "landscape_percentage": 38.9,
+        "notable_series": [
+          "Arles landscapes (100+ paintings)",
+          "Wheat fields series",
+          "Orchards in bloom",
+          "The Starry Night (place-focused sky)"
+        ],
+        "interpretation": "Deeply connected to specific places (Arles, Auvers-sur-Oise)"
+      },
+      
+      "place_focused": true,
+      "synchronicity_score": 8,
+      "notes": "van Gogh (from Gogh) → obsessive landscape painter, place-identity strong"
+    },
+    
+    {
+      "name": "Claude Monet",
+      "surname_type": "non_geographic",
+      "place_reference": null,
+      "birth_year": 1840,
+      "era": "Impressionist",
+      
+      "place_focus_analysis": {
+        "landscapes": 450,
+        "water_lilies_garden": 250,
+        "total_works": 600,
+        "landscape_percentage": 75.0,
+        "notable_obsession": "His own garden at Giverny (250+ paintings)",
+        "interpretation": "Ironically MORE place-focused than many WITH geographic surnames"
+      },
+      
+      "place_focused": true,
+      "synchronicity_score": 2,
+      "notes": "CONTROL: No geographic surname but extremely place-focused (challenges hypothesis)"
+    },
+    
+    {
+      "name": "Rembrandt van Rijn",
+      "surname_type": "from_place_river",
+      "place_reference": "Rijn (Rhine river, Netherlands)",
+      "birth_year": 1606,
+      "era": "Dutch Golden Age",
+      
+      "place_focus_analysis": {
+        "landscapes": 45,
+        "portraits": 300,
+        "total_works": 600,
+        "landscape_percentage": 7.5,
+        "interpretation": "Primarily portrait painter despite geographic surname"
+      },
+      
+      "place_focused": false,
+      "synchronicity_score": 2,
+      "notes": "COUNTER-EXAMPLE: van Rijn (from Rhine) but NOT landscape focused"
+    },
+    
+    {
+      "name": "Caspar David Friedrich",
+      "surname_type": "non_geographic",
+      "place_reference": null,
+      "birth_year": 1774,
+      "era": "Romantic",
+      
+      "place_focus_analysis": {
+        "landscapes": 95,
+        "total_works": 100,
+        "landscape_percentage": 95.0,
+        "notable_works": ["Wanderer above the Sea of Fog", "Chalk Cliffs on Rügen"],
+        "interpretation": "PURE landscape painter with no geographic surname"
+      },
+      
+      "place_focused": true,
+      "synchronicity_score": 1,
+      "notes": "CONTROL: No geographic surname, extremely place-focused (challenges hypothesis)"
+    },
+    
+    {
+      "name": "El Greco",
+      "surname_type": "geographic_origin",
+      "place_reference": "The Greek (from Greece)",
+      "birth_year": 1541,
+      "era": "Renaissance",
+      
+      "place_focus_analysis": {
+        "toledo_cityscapes": 45,
+        "religious_scenes_with_places": 80,
+        "total_works": 250,
+        "landscape_percentage": 50.0,
+        "interpretation": "Painted Toledo obsessively despite being Greek, lived in Spain"
+      },
+      
+      "place_focused": true,
+      "synchronicity_score": 7,
+      "notes": "El Greco (The Greek) → painted Spanish city with Greek light quality"
+    },
+    
+    {
+      "name": "Pablo Picasso",
+      "surname_type": "non_geographic",
+      "place_reference": null,
+      "birth_year": 1881,
+      "era": "Cubist",
+      
+      "place_focus_analysis": {
+        "landscapes": 50,
+        "portraits_abstract": 400,
+        "total_works": 1000,
+        "landscape_percentage": 5.0,
+        "interpretation": "Abstract/figurative artist, minimal place focus"
+      },
+      
+      "place_focused": false,
+      "synchronicity_score": 0,
+      "notes": "Control: No geographic surname, no place focus - as expected"
+    },
+    
+    {
+      "name": "Georgia O'Keeffe",
+      "surname_type": "geographic_first_name",
+      "place_reference": "Georgia (U.S. state)",
+      "birth_year": 1887,
+      "era": "Modernist",
+      
+      "place_focus_analysis": {
+        "new_mexico_landscapes": 200,
+        "flowers_as_landscapes": 100,
+        "total_works": 500,
+        "landscape_percentage": 60.0,
+        "irony": "Named 'Georgia' but obsessed with New Mexico",
+        "interpretation": "Place-focused despite wrong place in name"
+      },
+      
+      "place_focused": true,
+      "synchronicity_score": 6,
+      "notes": "Georgia (state name) → obsessed with different place (New Mexico), but still place-focused"
+    },
+    
+    {
+      "name": "Jackson Pollock",
+      "surname_type": "possible_geographic",
+      "place_reference": "Pollock may derive from place names, unclear",
+      "birth_year": 1912,
+      "era": "Abstract Expressionist",
+      
+      "place_focus_analysis": {
+        "american_landscape_abstraction": true,
+        "pure_abstraction": 200,
+        "representational": 50,
+        "total_works": 300,
+        "landscape_percentage": 16.7,
+        "interpretation": "Abstract work but conceived as American landscape energy"
+      },
+      
+      "place_focused": "ambiguous",
+      "synchronicity_score": 4,
+      "notes": "Unclear geographic surname, abstract but 'American landscape' conceptually"
+    },
+    
+    {
+      "name": "J.M.W. Turner",
+      "surname_type": "occupational_not_geographic",
+      "place_reference": null,
+      "birth_year": 1775,
+      "era": "Romantic",
+      
+      "place_focus_analysis": {
+        "landscapes": 450,
+        "seascapes": 300,
+        "total_works": 800,
+        "landscape_percentage": 93.8,
+        "interpretation": "PURE landscape painter with no geographic surname"
+      },
+      
+      "place_focused": true,
+      "synchronicity_score": 1,
+      "notes": "MAJOR COUNTER-EXAMPLE: Turner (occupation) not place, yet ultimate landscape painter"
+    }
+  ],
+  
+  "writers_with_geographic_surnames": [
+    {
+      "name": "William Faulkner",
+      "surname_type": "non_geographic",
+      "place_reference": null,
+      "birth_year": 1897,
+      
+      "place_focus": {
+        "yoknapatawpha_county": "Fictional Mississippi county in nearly all novels",
+        "place_obsession_score": 95,
+        "interpretation": "Invented fictional place, obsessively returned to it"
+      },
+      
+      "place_focused": true,
+      "synchronicity_score": 1,
+      "notes": "COUNTER-EXAMPLE: No geographic name, but most place-obsessed American writer"
+    },
+    
+    {
+      "name": "Thomas Hardy",
+      "surname_type": "non_geographic",
+      "place_reference": null,
+      "birth_year": 1840,
+      
+      "place_focus": {
+        "wessex": "Fictionalized Dorset/Southwest England in all novels",
+        "place_obsession_score": 90,
+        "works": ["Tess of the d'Urbervilles", "Far from the Madding Crowd", "The Mayor of Casterbridge"]
+      },
+      
+      "place_focused": true,
+      "synchronicity_score": 1,
+      "notes": "COUNTER-EXAMPLE: Hardy (character trait) not place, but place-obsessed novelist"
+    },
+    
+    {
+      "name": "Marcel Proust",
+      "surname_type": "non_geographic",
+      "place_reference": null,
+      "birth_year": 1871,
+      
+      "place_focus": {
+        "remembrance_of_things_past": "Paris and Combray (fictional town) as central characters",
+        "place_obsession_score": 85,
+        "madeleine_moment": "Place memory as literary device"
+      },
+      
+      "place_focused": true,
+      "synchronicity_score": 1,
+      "notes": "Place-focused (memory of places) without geographic surname"
+    },
+    
+    {
+      "name": "Pearl S. Buck",
+      "surname_type": "nature_not_geographic",
+      "place_reference": "Buck (male deer) - nature but not place",
+      "birth_year": 1892,
+      
+      "place_focus": {
+        "china_setting": "Lived in China, wrote The Good Earth and China novels",
+        "place_obsession_score": 95,
+        "interpretation": "Place-obsessed (China) and nature name (Buck)"
+      },
+      
+      "place_focused": true,
+      "synchronicity_score": 6,
+      "notes": "Buck (nature) → wrote about rural China (land/earth), weak but present"
+    }
+  ],
+  
+  "preliminary_analysis": {
+    "painters_with_geographic_surnames": {
+      "n": 4,
+      "place_focused_count": 3,
+      "rate": 0.75
+    },
+    
+    "painters_without_geographic_surnames": {
+      "n": 6,
+      "place_focused_count": 4,
+      "rate": 0.67
+    },
+    
+    "initial_finding": {
+      "geographic_surname_rate": 0.75,
+      "non_geographic_surname_rate": 0.67,
+      "difference": 0.08,
+      "interpretation": "WEAK EFFECT in pilot sample - hypothesis NOT strongly supported",
+      "confound": "Many landscape painters regardless of surname (Turner, Monet, Friedrich)",
+      "revised_hypothesis": "Geographic surnames may not predict place-focus as strongly as expected"
+    },
+    
+    "alternative_pattern_detected": {
+      "finding": "Landscape painting was dominant genre 1600-1900 regardless of surname",
+      "landscape_as_default": "50-70% of painters focused on landscape in this era",
+      "hypothesis_revision": "Need to control for era and medium. Try writers or contemporary artists."
+    }
+  },
+  
+  "next_steps_for_full_study": {
+    "expand_sample_to_200": "Get sufficient power",
+    "add_contemporary_artists": "Control for era effects (post-1950)",
+    "code_landscape_percentage": "Continuous measure, not binary",
+    "statistical_test": "Regression with era controls",
+    "alternative_hypothesis": "Test other surname types (nature names, color names, etc.)"
+  },
+  
+  "preliminary_conclusion": {
+    "verdict": "Pilot suggests WEAK or NULL effect for geographic surnames → place art",
+    "counter_examples_strong": "Turner, Monet, Friedrich (no geographic names, massive landscape focus)",
+    "discovery_orientation": "Documenting null finding is valuable",
+    "pivot": "Maybe geographic FIRST names matter more? (Georgia O'Keeffe)",
+    "or_pivot": "Maybe place-focus is medium default, not name-driven"
+  }
+}
+

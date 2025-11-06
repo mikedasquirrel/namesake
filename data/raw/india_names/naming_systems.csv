@@ -1,0 +1,6 @@
+system,pattern,diversity
+North_India,Given + family name,Medium
+South_India,Initial(s) + given name + village/family,High
+Muslim,Arabic names - Muhammad variants common,Low (concentrated)
+Sikh,Given + Singh (M) / Kaur (F),Low (Singh/Kaur)
+Christian,Western-style given + surname,Medium-High

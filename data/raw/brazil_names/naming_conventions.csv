@@ -1,0 +1,5 @@
+aspect,description
+given_names,Multiple given names very common (Maria/João + additional names)
+surnames,"Multiple surnames from both parents, flexible order"
+source,IBGE - Instituto Brasileiro de Geografia e Estatística
+note,High diversity in compound name structures

@@ -1,0 +1,153 @@
+{
+  "claim": {
+    "claim_id": "M1",
+    "asset_type": "mtg",
+    "target_column": "log_price_usd",
+    "target_kind": "continuous",
+    "description": "Mythic resonance and fantasy score predict legendary creature trading premium beyond rarity.",
+    "features": [
+      "mythic_resonance_score",
+      "fantasy_score",
+      "memorability_score",
+      "syllable_count",
+      "constructed_language_score"
+    ],
+    "control_features": [
+      "rarity_tier",
+      "converted_mana_cost",
+      "log_edhrec_rank"
+    ],
+    "filters": {
+      "is_legendary": 1,
+      "is_creature": 1,
+      "price_usd": {
+        "op": "gt",
+        "value": 0.5
+      }
+    },
+    "sample_floor": 100,
+    "breakout_threshold": null,
+    "notes": null
+  },
+  "status": "ok",
+  "sample_size": 1144,
+  "model_summary": {
+    "model_type": "OLS",
+    "primary_metric": "r_squared",
+    "r_squared": 0.01162577831341316,
+    "adj_r_squared": 0.004659263975534067,
+    "aic": 3850.926003170064,
+    "bic": 3896.306578717522,
+    "rmse": 1.2972420154925266,
+    "cross_validation": {
+      "metric": "r2",
+      "folds": 5,
+      "scores": [
+        -0.019362807263523685,
+        -0.0031889940133729144,
+        -0.010484320987031337,
+        0.015250801404744108,
+        -0.014246098379242289
+      ],
+      "mean_score": -0.006406283847685224,
+      "std_score": 0.012044458255423787,
+      "auxiliary": {
+        "rmse_mean": 1.299988027731346,
+        "rmse_std": 0.06089782212556476
+      }
+    }
+  },
+  "coefficients": [
+    {
+      "name": "const",
+      "coefficient": -0.6085734473554116,
+      "p_value": 0.37746705498331634,
+      "ci_lower": -1.9609687398323075,
+      "ci_upper": 0.7438218451214842
+    },
+    {
+      "name": "mythic_resonance_score",
+      "coefficient": 0.007156819172720397,
+      "p_value": 0.08592124921824477,
+      "ci_lower": -0.0010128236565443375,
+      "ci_upper": 0.015326462001985132
+    },
+    {
+      "name": "fantasy_score",
+      "coefficient": 0.0018900518692462308,
+      "p_value": 0.6452302872972824,
+      "ci_lower": -0.006162535405097749,
+      "ci_upper": 0.00994263914359021
+    },
+    {
+      "name": "memorability_score",
+      "coefficient": 0.0058030507537161395,
+      "p_value": 0.1620663969213133,
+      "ci_lower": -0.0023351729200945326,
+      "ci_upper": 0.013941274427526813
+    },
+    {
+      "name": "syllable_count",
+      "coefficient": 0.0025064323516419624,
+      "p_value": 0.921582165430458,
+      "ci_lower": -0.0474389222333448,
+      "ci_upper": 0.052451786936628726
+    },
+    {
+      "name": "constructed_language_score",
+      "coefficient": -0.0029699241720156705,
+      "p_value": 0.3063969295995768,
+      "ci_lower": -0.008664552676551529,
+      "ci_upper": 0.002724704332520189
+    },
+    {
+      "name": "rarity_tier",
+      "coefficient": 0.15636940476215377,
+      "p_value": 0.023313694749226285,
+      "ci_lower": 0.021291829560975778,
+      "ci_upper": 0.2914469799633318
+    },
+    {
+      "name": "converted_mana_cost",
+      "coefficient": 0.029844741949546234,
+      "p_value": 0.19933623402466738,
+      "ci_lower": -0.015753566697577263,
+      "ci_upper": 0.07544305059666973
+    },
+    {
+      "name": "log_edhrec_rank",
+      "coefficient": 0.015497256597258882,
+      "p_value": 0.7082698552522632,
+      "ci_lower": -0.06574384482093028,
+      "ci_upper": 0.09673835801544804
+    }
+  ],
+  "effect_analysis": {
+    "feature_correlations": {
+      "mythic_resonance_score": {
+        "correlation": 0.04160986980334339,
+        "p_value": 0.15959230056177487
+      },
+      "fantasy_score": {
+        "correlation": 0.0003420001515201266,
+        "p_value": 0.9907807692028789
+      },
+      "memorability_score": {
+        "correlation": 0.024955274570583316,
+        "p_value": 0.3990760244484982
+      },
+      "syllable_count": {
+        "correlation": -0.006303238976507814,
+        "p_value": 0.831355091927122
+      },
+      "constructed_language_score": {
+        "correlation": -0.024861780718843825,
+        "p_value": 0.40084542469335055
+      }
+    },
+    "target_mean": 1.0316237882339236,
+    "target_std": 1.2997062875867336
+  },
+  "warnings": [],
+  "timestamp": "2025-11-02T19:54:01.515352"
+}

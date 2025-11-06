@@ -7,7 +7,11 @@ import yfinance as yf
 import pandas as pd
 from datetime import datetime
 import logging
+import math
 import time
+
+from analyzers.name_analyzer import NameAnalyzer
+from core.models import db, Stock, StockAnalysis
 
 logger = logging.getLogger(__name__)
 
@@ -74,56 +78,122 @@ class StockCollector:
         ]
         
         # Remove duplicates
-        self.sp500_tickers = list(set(self.sp500_tickers))
+        self.sp500_tickers = list(dict.fromkeys(self.sp500_tickers))
+        self.analyzer = NameAnalyzer()
     
-    def collect_all_stocks(self):
-        """Collect all available stock data"""
-        logger.info(f"Collecting data for {len(self.sp500_tickers)} stocks...")
-        
-        stocks_data = []
-        errors = 0
-        
-        for i, ticker in enumerate(self.sp500_tickers):
+    def collect_all_stocks(self, tickers=None, require_history_days=252, batch_commit=25):
+        """Collect stock data, persist to the database, and return a summary."""
+        tickers_to_process = tickers or self.sp500_tickers
+        tickers_to_process = [t.strip().upper() for t in tickers_to_process if t]
+        tickers_to_process = list(dict.fromkeys(tickers_to_process))
+        summary = {
+            'requested': len(tickers_to_process),
+            'processed': 0,
+            'added': 0,
+            'updated': 0,
+            'skipped_history': 0,
+            'skipped_missing_info': 0,
+            'errors': 0
+        }
+        all_company_names = [name for (name,) in db.session.query(Stock.company_name).all() if name]
+        for idx, ticker in enumerate(tickers_to_process, start=1):
             try:
-                if i % 50 == 0:
-                    logger.info(f"Progress: {i}/{len(self.sp500_tickers)}")
-                
+                summary['processed'] += 1
+                if idx % 50 == 1:
+                    logger.info("Progress: %s/%s", idx - 1, len(tickers_to_process))
                 stock = yf.Ticker(ticker)
-                info = stock.info
+                info = stock.info or {}
                 hist = stock.history(period="5y")
-                
-                if len(hist) < 10:
+                if hist.empty or len(hist.dropna(subset=['Close'])) < require_history_days:
+                    summary['skipped_history'] += 1
                     continue
-                
-                # Calculate returns
-                current_price = hist['Close'].iloc[-1] if len(hist) > 0 else 0
-                price_1yr_ago = hist['Close'].iloc[-252] if len(hist) >= 252 else hist['Close'].iloc[0]
-                price_5yr_ago = hist['Close'].iloc[0]
-                
-                return_1yr = ((current_price - price_1yr_ago) / price_1yr_ago * 100) if price_1yr_ago > 0 else 0
-                return_5yr = ((current_price - price_5yr_ago) / price_5yr_ago * 100) if price_5yr_ago > 0 else 0
-                
-                stocks_data.append({
-                    'ticker': ticker,
-                    'company_name': info.get('longName', ticker),
-                    'sector': info.get('sector', 'Unknown'),
-                    'industry': info.get('industry', 'Unknown'),
-                    'market_cap': info.get('marketCap', 0),
-                    'current_price': current_price,
-                    'return_1yr': return_1yr,
-                    'return_5yr': return_5yr,
-                    'employees': info.get('fullTimeEmployees', 0),
-                    'founded_year': info.get('Founded', None)
-                })
-                
-                time.sleep(0.1)  # Rate limiting
-                
-            except Exception as e:
-                logger.warning(f"Error collecting {ticker}: {e}")
-                errors += 1
+                hist = hist.dropna(subset=['Close'])
+                current_price = float(hist['Close'].iloc[-1])
+                price_1yr_index = max(len(hist) - require_history_days, 0)
+                price_1yr_ago = float(hist['Close'].iloc[price_1yr_index])
+                price_5yr_ago = float(hist['Close'].iloc[0])
+                if not all(math.isfinite(val) for val in (current_price, price_1yr_ago, price_5yr_ago)):
+                    summary['skipped_history'] += 1
+                    continue
+                if price_1yr_ago <= 0 or price_5yr_ago <= 0:
+                    summary['skipped_history'] += 1
+                    continue
+                return_1yr = ((current_price - price_1yr_ago) / price_1yr_ago) * 100
+                return_5yr = ((current_price - price_5yr_ago) / price_5yr_ago) * 100
+                company_name = info.get('longName') or info.get('shortName') or ticker
+                market_cap = info.get('marketCap')
+                if not company_name or market_cap is None:
+                    summary['skipped_missing_info'] += 1
+                    continue
+                existing = Stock.query.filter_by(ticker=ticker).first()
+                if existing:
+                    existing.company_name = company_name
+                    existing.sector = info.get('sector', existing.sector)
+                    existing.industry = info.get('industry', existing.industry)
+                    existing.market_cap = float(market_cap)
+                    existing.current_price = current_price
+                    existing.return_1yr = return_1yr
+                    existing.return_5yr = return_5yr
+                    existing.founded_year = info.get('foundedYear') or existing.founded_year
+                    stock_record = existing
+                    summary['updated'] += 1
+                else:
+                    stock_record = Stock(
+                        ticker=ticker,
+                        company_name=company_name,
+                        sector=info.get('sector'),
+                        industry=info.get('industry'),
+                        market_cap=float(market_cap),
+                        current_price=current_price,
+                        return_1yr=return_1yr,
+                        return_5yr=return_5yr,
+                        founded_year=info.get('foundedYear'),
+                        is_active=True
+                    )
+                    db.session.add(stock_record)
+                    summary['added'] += 1
+                db.session.flush()
+                name_analysis = self.analyzer.analyze_name(company_name, all_company_names or None)
+                ticker_analysis = self.analyzer.analyze_name(ticker)
+                stock_analysis = StockAnalysis.query.filter_by(stock_id=stock_record.id).first()
+                if stock_analysis:
+                    stock_analysis.syllable_count = name_analysis.get('syllable_count')
+                    stock_analysis.character_length = name_analysis.get('character_length')
+                    stock_analysis.memorability_score = name_analysis.get('memorability_score')
+                    stock_analysis.uniqueness_score = name_analysis.get('uniqueness_score')
+                    stock_analysis.name_type = name_analysis.get('name_type')
+                    stock_analysis.ticker_length = len(ticker)
+                    stock_analysis.ticker_pronounceability = ticker_analysis.get('pronounceability_score')
+                else:
+                    stock_analysis = StockAnalysis(
+                        stock_id=stock_record.id,
+                        syllable_count=name_analysis.get('syllable_count'),
+                        character_length=name_analysis.get('character_length'),
+                        memorability_score=name_analysis.get('memorability_score'),
+                        uniqueness_score=name_analysis.get('uniqueness_score'),
+                        name_type=name_analysis.get('name_type'),
+                        ticker_length=len(ticker),
+                        ticker_pronounceability=ticker_analysis.get('pronounceability_score')
+                    )
+                    db.session.add(stock_analysis)
+                if company_name not in all_company_names:
+                    all_company_names.append(company_name)
+                if summary['processed'] % batch_commit == 0:
+                    db.session.commit()
+                    logger.info("Committed %s records", summary['processed'])
+                time.sleep(0.1)
+            except Exception as exc:
+                summary['errors'] += 1
+                logger.warning("Error collecting %s: %s", ticker, exc)
+                db.session.rollback()
+                time.sleep(0.1)
                 continue
-        
-        logger.info(f"Collected {len(stocks_data)} stocks ({errors} errors)")
-        
-        return stocks_data
+        db.session.commit()
+        logger.info(
+            "Collected %s stocks (%s added, %s updated)",
+            summary['processed'],
+            summary['added'],
+            summary['updated']
+        )
+        return summary
 

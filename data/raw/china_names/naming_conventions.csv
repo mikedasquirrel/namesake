@@ -1,0 +1,6 @@
+aspect,description
+name_order,Family name (姓) + given name (名) - surname FIRST
+structure,Surname: 1-2 characters; Given name: 1-2 characters
+source,National Bureau of Statistics / Ministry of Public Security
+concentration,"Top 3 surnames (Wang, Li, Zhang) cover ~20% of population"
+note,Top 100 surnames cover ~85% - extreme concentration

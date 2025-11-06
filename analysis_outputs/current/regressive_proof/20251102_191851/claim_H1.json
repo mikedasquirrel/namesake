@@ -1,0 +1,159 @@
+{
+  "claim": {
+    "claim_id": "H1",
+    "asset_type": "hurricane",
+    "target_column": "log_deaths",
+    "target_kind": "continuous",
+    "description": "Phonetically harsh hurricane names correlate with higher casualty rates after controlling for storm intensity.",
+    "features": [
+      "phonetic_harshness_score",
+      "memorability_score",
+      "syllable_count",
+      "gender_male",
+      "sentiment_polarity"
+    ],
+    "control_features": [
+      "saffir_simpson_category",
+      "max_wind_mph",
+      "year",
+      "is_major_hurricane"
+    ],
+    "filters": {
+      "deaths": {
+        "op": "gte",
+        "value": 0
+      }
+    },
+    "sample_floor": 60,
+    "breakout_threshold": null,
+    "notes": null
+  },
+  "status": "ok",
+  "sample_size": 236,
+  "model_summary": {
+    "model_type": "OLS",
+    "primary_metric": "r_squared",
+    "r_squared": 0.17655451289978397,
+    "adj_r_squared": 0.14376243597986393,
+    "aic": 529.6624786019734,
+    "bic": 564.3007966522295,
+    "rmse": 0.7279690514312063,
+    "cross_validation": {
+      "metric": "r2",
+      "folds": 5,
+      "scores": [
+        0.18265651562012108,
+        -0.10082893825962458,
+        0.010205395635809689,
+        0.0,
+        0.1876718358489775
+      ],
+      "mean_score": 0.05594096176905674,
+      "std_score": 0.11243468285348641,
+      "auxiliary": {
+        "rmse_mean": 0.7219918321858907,
+        "rmse_std": 0.21687634442034734
+      }
+    }
+  },
+  "coefficients": [
+    {
+      "name": "const",
+      "coefficient": -1.1788846473184968,
+      "p_value": 0.9142116212686616,
+      "ci_lower": -22.718481242831015,
+      "ci_upper": 20.36071194819402
+    },
+    {
+      "name": "phonetic_harshness_score",
+      "coefficient": 0.0007598082414634307,
+      "p_value": 0.6163990642891175,
+      "ci_lower": -0.002224746152513429,
+      "ci_upper": 0.0037443626354402904
+    },
+    {
+      "name": "memorability_score",
+      "coefficient": 0.0031236923199480598,
+      "p_value": 0.6293043874384341,
+      "ci_lower": -0.009610542624732337,
+      "ci_upper": 0.015857927264628455
+    },
+    {
+      "name": "syllable_count",
+      "coefficient": -0.0293405644991213,
+      "p_value": 0.7221223901903258,
+      "ci_lower": -0.19171456834648376,
+      "ci_upper": 0.13303343934824113
+    },
+    {
+      "name": "gender_male",
+      "coefficient": -0.07861282651070287,
+      "p_value": 0.4684995966384159,
+      "ci_lower": -0.2919411299446234,
+      "ci_upper": 0.1347154769232177
+    },
+    {
+      "name": "sentiment_polarity",
+      "coefficient": 0.059417216238733125,
+      "p_value": 0.8734370126794619,
+      "ci_lower": -0.6747575657657048,
+      "ci_upper": 0.793591998243171
+    },
+    {
+      "name": "saffir_simpson_category",
+      "coefficient": 0.2556185734834425,
+      "p_value": 0.10644841712170738,
+      "ci_lower": -0.0551484256312566,
+      "ci_upper": 0.5663855725981417
+    },
+    {
+      "name": "max_wind_mph",
+      "coefficient": -0.0024131790341727433,
+      "p_value": 0.6362096861282572,
+      "ci_lower": -0.012452765437927418,
+      "ci_upper": 0.00762640736958193
+    },
+    {
+      "name": "year",
+      "coefficient": 0.00047616642887701743,
+      "p_value": 0.9300725285606534,
+      "ci_lower": -0.010204289725739953,
+      "ci_upper": 0.011156622583493987
+    },
+    {
+      "name": "is_major_hurricane",
+      "coefficient": 0.13006933005344656,
+      "p_value": 0.6725091531811163,
+      "ci_lower": -0.47547956141852876,
+      "ci_upper": 0.7356182215254219
+    }
+  ],
+  "effect_analysis": {
+    "feature_correlations": {
+      "phonetic_harshness_score": {
+        "correlation": -0.04953741554963924,
+        "p_value": 0.44879063234934136
+      },
+      "memorability_score": {
+        "correlation": 0.06282100392463157,
+        "p_value": 0.33660249274993587
+      },
+      "syllable_count": {
+        "correlation": 0.011642083321559075,
+        "p_value": 0.8587971943464013
+      },
+      "gender_male": {
+        "correlation": 0.03811488477018256,
+        "p_value": 0.5601391624000631
+      },
+      "sentiment_polarity": {
+        "correlation": -0.022842031768927802,
+        "p_value": 0.7270229838031509
+      }
+    },
+    "target_mean": 0.13656595168323718,
+    "target_std": 0.7850434736726084
+  },
+  "warnings": [],
+  "timestamp": "2025-11-02T19:19:12.041497"
+}

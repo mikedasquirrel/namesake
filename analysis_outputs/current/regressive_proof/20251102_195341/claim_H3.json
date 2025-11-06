@@ -1,0 +1,137 @@
+{
+  "claim": {
+    "claim_id": "H3",
+    "asset_type": "hurricane",
+    "target_column": "has_casualties",
+    "target_kind": "binary",
+    "description": "Name memorability and harshness predict presence of casualties independent of meteorological factors.",
+    "features": [
+      "memorability_score",
+      "phonetic_harshness_score",
+      "syllable_count",
+      "alphabetical_position"
+    ],
+    "control_features": [
+      "saffir_simpson_category",
+      "max_wind_mph",
+      "decade"
+    ],
+    "filters": {},
+    "sample_floor": 80,
+    "breakout_threshold": null,
+    "notes": null
+  },
+  "status": "ok",
+  "sample_size": 236,
+  "model_summary": {
+    "model_type": "Logit",
+    "primary_metric": "pseudo_r_squared",
+    "pseudo_r_squared": 0.4655698073729284,
+    "aic": 89.20573949766181,
+    "bic": 116.9163939378667,
+    "log_likelihood": -36.602869748830905,
+    "accuracy": 0.9491525423728814,
+    "cross_validation": {
+      "metric": "roc_auc",
+      "folds": 5,
+      "scores": [
+        0.9325396825396826,
+        0.8809523809523809,
+        1.0,
+        0.893939393939394,
+        0.8720930232558141
+      ],
+      "mean_score": 0.9159048961374543,
+      "std_score": 0.046845158602085844,
+      "auxiliary": {
+        "accuracy_mean": 0.8304964539007094,
+        "accuracy_std": 0.035630799112285005
+      }
+    }
+  },
+  "coefficients": [
+    {
+      "name": "const",
+      "coefficient": 85.11070993807091,
+      "p_value": 0.19328632075853047,
+      "ci_lower": -43.117087657820846,
+      "ci_upper": 213.33850753396268
+    },
+    {
+      "name": "memorability_score",
+      "coefficient": -0.0609889808014604,
+      "p_value": 0.20301279208384915,
+      "ci_lower": -0.15488907241737568,
+      "ci_upper": 0.032911110814454865
+    },
+    {
+      "name": "phonetic_harshness_score",
+      "coefficient": -0.00015012133272703757,
+      "p_value": 0.988089065913055,
+      "ci_lower": -0.01985930384070685,
+      "ci_upper": 0.019559061175252777
+    },
+    {
+      "name": "syllable_count",
+      "coefficient": -0.3105908037623174,
+      "p_value": 0.5517880093459849,
+      "ci_lower": -1.3335519982679478,
+      "ci_upper": 0.7123703907433131
+    },
+    {
+      "name": "alphabetical_position",
+      "coefficient": -0.0035662879820204173,
+      "p_value": 0.9601963766508909,
+      "ci_lower": -0.14362228190855286,
+      "ci_upper": 0.13648970594451204
+    },
+    {
+      "name": "saffir_simpson_category",
+      "coefficient": -1.255911345516969,
+      "p_value": 0.18990946215600812,
+      "ci_lower": -3.1337361545334366,
+      "ci_upper": 0.6219134634994983
+    },
+    {
+      "name": "max_wind_mph",
+      "coefficient": 0.11178861694750053,
+      "p_value": 0.013232898001788257,
+      "ci_lower": 0.023349849344036902,
+      "ci_upper": 0.20022738455096417
+    },
+    {
+      "name": "decade",
+      "coefficient": -0.044947580465180915,
+      "p_value": 0.1633316155861514,
+      "ci_lower": -0.10814598151521079,
+      "ci_upper": 0.01825082058484897
+    }
+  ],
+  "effect_analysis": {
+    "group_sizes": {
+      "positive": 20,
+      "negative": 216
+    },
+    "positive_mean": {
+      "memorability_score": 93.019,
+      "phonetic_harshness_score": 62.4255,
+      "syllable_count": 1.6,
+      "alphabetical_position": 8.95
+    },
+    "negative_mean": {
+      "memorability_score": 93.41925925925926,
+      "phonetic_harshness_score": 70.16277777777778,
+      "syllable_count": 1.5092592592592593,
+      "alphabetical_position": 9.083333333333334
+    },
+    "lift": {
+      "memorability_score": -0.40025925925925776,
+      "phonetic_harshness_score": -7.737277777777777,
+      "syllable_count": 0.09074074074074079,
+      "alphabetical_position": -0.13333333333333464
+    },
+    "positive_share": 0.0847457627118644
+  },
+  "warnings": [],
+  "timestamp": "2025-11-02T19:54:01.017429"
+}

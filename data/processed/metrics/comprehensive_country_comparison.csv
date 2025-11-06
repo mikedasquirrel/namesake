@@ -1,0 +1,12 @@
+country,primary_structure,middle_name_tradition,surname_count,surname_inheritance,name_order,diversity_hypothesis,decade,hhi_estimate,top_5_concentration_estimate,shannon_entropy_estimate,simpson_index_estimate,gini_estimate,diversity_rank,middle_name_prevalence,middle_name_category
+USA,Given + (Middle) + Surname,Very common (~85%),1,Paternal,Given-Middle-Surname,Very High (marketplace of names),2020.0,20.0,8.0,14.96,0.976,0.0019047619047619048,Very High Diversity,0.95,Very High (>80%)
+UK,Given + (Middle) + Surname,Common (~80%),1,Paternal (historically),Given-Middle-Surname,High,,,,,,,,0.85,Very High (>80%)
+Canada,Given + (Middle) + Surname,Very common (~85%),1,Paternal,Given-Middle-Surname,Very High,,,,,,,,0.9,Very High (>80%)
+Germany,Given + (Middle) + Surname,"Rare historically, increasing (now ~60%)",1,Paternal,Given-Middle-Surname,High,,,,,,,,0.59,High (50-80%)
+Mexico,Given (compound) + Apellido Paterno + Apellido Materno,No (compound given names instead),2,Both (paternal first),Given-Surname-Surname,Medium (María/José dominant),2020.0,550.0,27.5,13.9,0.87,0.05238095238095238,Moderate Diversity,0.0,None/Rare (<10%)
+Spain,Given (compound) + Apellido Paterno + Apellido Materno,No (compound given names instead),2,Both (paternal first),Given-Surname-Surname,Medium-High,,,,,,,,0.0,None/Rare (<10%)
+Brazil,Multiple Given + Multiple Surnames,No (multiple given names),2-4,Both (flexible order),Given-Given-Surnames,High,,,,,,,,0.0,None/Rare (<10%)
+China,Surname + Given,No,1,Paternal,Surname-Given,"Very Low surnames, High given",2020.0,150.0,30.0,14.7,0.95,0.014285714285714285,High Diversity,0.0,None/Rare (<10%)
+India,Highly variable by region/religion,Rare (~15%),1-2,Various,Variable,"Very High overall, pockets of concentration",2020.0,200.0,8.0,14.6,0.94,0.01904761904761905,High Diversity,0.15,Low (10-50%)
+Egypt,Given + Father + Grandfather + Family,No (patronymic chain),1,Paternal,Given-Patronymic chain-Family,Low (Muhammad ~20-25%),2020.0,1200.0,45.0,12.6,0.74,0.11428571428571428,Moderate Diversity,0.0,None/Rare (<10%)
+Nigeria,Highly variable by ethnicity,"Rare (~20%, post-colonial)",1-2,Various by ethnicity,Variable,"Very High South, Low North",2020.0,300.0,15.0,14.4,0.9199999999999999,0.02857142857142857,High Diversity,0.22999999999999998,Low (10-50%)

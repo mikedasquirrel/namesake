@@ -6,6 +6,7 @@ Proves theory works prospectively, not just in hindsight
 
 from core.models import db, ForwardPrediction, Cryptocurrency, Domain
 from datetime import datetime, timedelta
+from pathlib import Path
 import json
 import logging
 
@@ -137,41 +138,104 @@ class ForwardValidator:
             return None
     
     def get_accuracy_report(self):
-        """
-        Get overall accuracy of forward predictions
-        
-        Returns: dict with accuracy metrics
-        """
+        """Get overall accuracy of forward predictions with regressive comparison."""
         try:
-            all_predictions = ForwardPrediction.query.all()
+            all_predictions = ForwardPrediction.query.order_by(ForwardPrediction.prediction_date.desc()).all()
             resolved = [p for p in all_predictions if p.is_resolved]
             pending = [p for p in all_predictions if not p.is_resolved]
-            
-            if not resolved:
-                return {
-                    'total_predictions': len(all_predictions),
-                    'resolved': 0,
-                    'pending': len(pending),
-                    'accuracy': 0,
-                    'message': 'No resolved predictions yet'
-                }
-            
+            now = datetime.utcnow()
+            pending_due = [p for p in pending if now >= p.check_date]
             correct = sum(1 for p in resolved if p.is_correct)
             accuracy = (correct / len(resolved) * 100) if resolved else 0
-            
-            return {
+            regressive_raw = self._load_regressive_expectations()
+            regressive_summary = self._build_regressive_summary(regressive_raw, accuracy) if regressive_raw else None
+            recent_predictions = [self._serialize_prediction(p) for p in all_predictions[:20]]
+            due_predictions = [self._serialize_prediction(p) for p in pending_due[:10]]
+            report = {
                 'total_predictions': len(all_predictions),
                 'resolved': len(resolved),
                 'pending': len(pending),
+                'pending_due': len(pending_due),
                 'correct': correct,
                 'incorrect': len(resolved) - correct,
                 'accuracy_percent': round(accuracy, 2),
-                'predictions': [p.to_dict() for p in all_predictions]
+                'regressive_expectations': regressive_summary,
+                'recent_predictions': recent_predictions,
+                'due_predictions': due_predictions
             }
-        
+            if not resolved:
+                report['message'] = 'No resolved predictions yet'
+            return report
         except Exception as e:
             logger.error(f"Accuracy report error: {e}")
             return {'error': str(e)}
+    
+    def _load_regressive_expectations(self):
+        base_dir = Path(__file__).resolve().parents[1] / 'analysis_outputs' / 'regressive_proof'
+        if not base_dir.exists():
+            return None
+        run_directories = sorted([d for d in base_dir.iterdir() if d.is_dir()], reverse=True)
+        for run_dir in run_directories:
+            claim_data = {}
+            for claim_file in run_dir.glob('claim_*.json'):
+                try:
+                    with claim_file.open('r', encoding='utf-8') as handle:
+                        payload = json.load(handle)
+                    claim_id = claim_file.stem.split('_', 1)[1]
+                    claim_data[claim_id] = payload
+                except Exception as exc:
+                    logger.debug(f"Unable to parse {claim_file}: {exc}")
+                    continue
+            if claim_data:
+                return {
+                    'run_directory': run_dir.name,
+                    'claims': claim_data
+                }
+        return None
+    
+    def _build_regressive_summary(self, regressive_data, forward_accuracy):
+        expectations = []
+        for claim_id, payload in regressive_data.get('claims', {}).items():
+            summary = payload.get('model_summary', {})
+            cross = summary.get('cross_validation', {}) or {}
+            expectations.append({
+                'claim_id': claim_id,
+                'description': payload.get('claim', {}).get('description'),
+                'metric': cross.get('metric'),
+                'expected_score': cross.get('mean_score'),
+                'std_score': cross.get('std_score'),
+                'sample_size': payload.get('sample_size'),
+                'timestamp': payload.get('timestamp')
+            })
+        return {
+            'run_directory': regressive_data.get('run_directory'),
+            'expectations': expectations,
+            'forward_accuracy_percent': round(forward_accuracy, 2)
+        }
+    
+    def _serialize_prediction(self, prediction):
+        actual = json.loads(prediction.actual_outcome) if prediction.actual_outcome else None
+        predicted = json.loads(prediction.predicted_outcome) if prediction.predicted_outcome else None
+        return {
+            'id': prediction.id,
+            'asset_name': prediction.asset_name,
+            'asset_type': prediction.asset_type,
+            'prediction_type': prediction.prediction_type,
+            'confidence_score': prediction.confidence_score,
+            'name_score': prediction.name_score,
+            'prediction_date': prediction.prediction_date.isoformat() if prediction.prediction_date else None,
+            'check_date': prediction.check_date.isoformat() if prediction.check_date else None,
+            'is_resolved': prediction.is_resolved,
+            'is_correct': prediction.is_correct,
+            'is_due': datetime.utcnow() >= prediction.check_date and not prediction.is_resolved,
+            'baseline': {
+                'rank': prediction.baseline_rank,
+                'price': prediction.baseline_price,
+                'market_cap': prediction.baseline_market_cap
+            },
+            'predicted_outcome': predicted,
+            'actual_outcome': actual
+        }
     
     def make_batch_predictions(self, crypto_ids, prediction_type='will_reach_top_100'):
         """

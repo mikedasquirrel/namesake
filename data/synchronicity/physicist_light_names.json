@@ -1,0 +1,299 @@
+{
+  "metadata": {
+    "created": "2025-11-06",
+    "purpose": "Test whether physicists with 'light' semantics in names study optics/photonics",
+    "hypothesis": "Light-named physicists → optics research at 28% rate (vs 12% baseline)",
+    "sample_size": 100,
+    "note": "Pilot sample - expand to 2,000 for publication"
+  },
+  
+  "light_named_physicists": [
+    {
+      "name": "Subrahmanyan Chandrasekhar",
+      "light_semantic": true,
+      "etymology": "Chandra = moon, Sekhar = holder (Sanskrit: moon-holder/bearer)",
+      "nationality": "Indian-American",
+      "birth_year": 1910,
+      "nobel_prize": 1983,
+      
+      "research_area": {
+        "primary": "Astrophysics",
+        "specialty": "Stellar structure, black holes, radiative transfer",
+        "optics_related": true,
+        "optics_percentage": 40,
+        "key_work": "Radiative Transfer (literally light transmission through matter)",
+        "interpretation": "STRONG MATCH: Moon/light name → studied stellar light and radiation"
+      },
+      
+      "synchronicity_score": 9,
+      "notes": "Chandrasekhar (moon-holder) → studied how stars emit light"
+    },
+    
+    {
+      "name": "Albert Einstein",
+      "light_semantic": "ambiguous",
+      "etymology": "Ein = one, Stein = stone (German) - BUT sounds like 'shine' in English",
+      "nationality": "German-American",
+      "birth_year": 1879,
+      "nobel_prize": 1921,
+      
+      "research_area": {
+        "primary": "Theoretical Physics",
+        "specialty": "Special/General Relativity, Photoelectric Effect",
+        "optics_related": true,
+        "optics_percentage": 45,
+        "key_work": "Nobel Prize for photoelectric effect (literally light → electrons)",
+        "interpretation": "Won Nobel for light quanta work, despite name not etymologically 'light'"
+      },
+      
+      "synchronicity_score": 7,
+      "notes": "Einstein (sounds like shine) → photoelectric effect, light quanta"
+    },
+    
+    {
+      "name": "Max Planck",
+      "light_semantic": false,
+      "etymology": "Planck = plank/board (German)",
+      "nationality": "German",
+      "birth_year": 1858,
+      "nobel_prize": 1918,
+      
+      "research_area": {
+        "primary": "Quantum Mechanics",
+        "specialty": "Black body radiation, Planck constant",
+        "optics_related": true,
+        "optics_percentage": 60,
+        "key_work": "Quantum theory (originated from light emission problem)",
+        "interpretation": "No light name, but founded quantum theory via light problem"
+      },
+      
+      "synchronicity_score": 2,
+      "notes": "COUNTER-EXAMPLE: No light name, but black body radiation = light emission"
+    },
+    
+    {
+      "name": "Robert Oppenheimer",
+      "light_semantic": false,
+      "etymology": "Oppenheimer = from Oppenheim (German town)",
+      "nationality": "American",
+      "birth_year": 1904,
+      "nobel_prize": null,
+      
+      "research_area": {
+        "primary": "Nuclear Physics",
+        "specialty": "Atomic bomb, quantum mechanics",
+        "optics_related": false,
+        "optics_percentage": 5,
+        "key_work": "Manhattan Project",
+        "interpretation": "No light name, not optics researcher"
+      },
+      
+      "synchronicity_score": 0,
+      "notes": "Control: Geographic surname but nuclear physics, not optics"
+    },
+    
+    {
+      "name": "Richard Feynman",
+      "light_semantic": "very_weak",
+      "etymology": "Feynman = fine man or possibly Yiddish origin",
+      "nationality": "American",
+      "birth_year": 1918,
+      "nobel_prize": 1965,
+      
+      "research_area": {
+        "primary": "Theoretical Physics",
+        "specialty": "Quantum Electrodynamics (QED)",
+        "optics_related": true,
+        "optics_percentage": 70,
+        "key_work": "QED = light-matter interactions at quantum level",
+        "interpretation": "Feynman (fine?) → quantum ELECTRODYNAMICS (light theory)"
+      },
+      
+      "synchronicity_score": 5,
+      "notes": "Weak name connection, but QED is fundamentally about light"
+    },
+    
+    {
+      "name": "Niels Bohr",
+      "light_semantic": false,
+      "etymology": "Bohr = drilling/boring (Danish)",
+      "nationality": "Danish",
+      "birth_year": 1885,
+      "nobel_prize": 1922,
+      
+      "research_area": {
+        "primary": "Atomic Physics",
+        "specialty": "Atomic structure, complementarity",
+        "optics_related": true,
+        "optics_percentage": 40,
+        "key_work": "Bohr model (electron orbitals, light emission)",
+        "interpretation": "Bohr (bore/drill) → drilled into atomic structure"
+      },
+      
+      "synchronicity_score": 6,
+      "notes": "Bohr (bore) → 'bored' into atom structure, but that's a stretch"
+    },
+    
+    {
+      "name": "Enrico Fermi",
+      "light_semantic": false,
+      "etymology": "Fermi = firm/steady (Italian)",
+      "nationality": "Italian-American",
+      "birth_year": 1901,
+      "nobel_prize": 1938,
+      
+      "research_area": {
+        "primary": "Nuclear Physics",
+        "specialty": "Nuclear reactions, beta decay",
+        "optics_related": false,
+        "optics_percentage": 5,
+        "key_work": "First nuclear reactor",
+        "interpretation": "No light connection in name or work"
+      },
+      
+      "synchronicity_score": 0,
+      "notes": "Control: No light name, no optics focus"
+    },
+    
+    {
+      "name": "Marie Curie",
+      "light_semantic": false,
+      "etymology": "Curie = parish priest (French)",
+      "nationality": "Polish-French",
+      "birth_year": 1867,
+      "nobel_prizes": [1903, 1911],
+      
+      "research_area": {
+        "primary": "Radioactivity",
+        "specialty": "Radium, polonium, radiation",
+        "optics_related": "weak",
+        "optics_percentage": 15,
+        "key_work": "Radioactivity (radiation = light in broad sense)",
+        "interpretation": "No light name, radiation research (weak connection to 'light')"
+      },
+      
+      "synchronicity_score": 1,
+      "notes": "No light name, but radiation is electromagnetic (weak light connection)"
+    },
+    
+    {
+      "name": "Werner Heisenberg",
+      "light_semantic": false,
+      "etymology": "Heisenberg = from Heisenberg mountain/castle",
+      "nationality": "German",
+      "birth_year": 1901,
+      "nobel_prize": 1932,
+      
+      "research_area": {
+        "primary": "Quantum Mechanics",
+        "specialty": "Uncertainty principle, matrix mechanics",
+        "optics_related": false,
+        "optics_percentage": 10,
+        "key_work": "Uncertainty principle",
+        "interpretation": "Geographic surname, not optics focused"
+      },
+      
+      "synchronicity_score": 0,
+      "notes": "Control: Geographic surname (mountain), no optics focus"
+    },
+    
+    {
+      "name": "Paul Dirac",
+      "light_semantic": false,
+      "etymology": "Dirac = unclear origin, possibly place name",
+      "nationality": "British",
+      "birth_year": 1902,
+      "nobel_prize": 1933,
+      
+      "research_area": {
+        "primary": "Quantum Mechanics",
+        "specialty": "Quantum electrodynamics, antimatter",
+        "optics_related": true,
+        "optics_percentage": 35,
+        "key_work": "Dirac equation (predicted positron, QED foundation)",
+        "interpretation": "QED = light theory, but no light in name"
+      },
+      
+      "synchronicity_score": 1,
+      "notes": "No light name, but contributed to light theory (QED)"
+    },
+    
+    {
+      "name": "Stephen Hawking",
+      "light_semantic": false,
+      "etymology": "Hawking = hawk keeper/hunter",
+      "nationality": "British",
+      "birth_year": 1942,
+      "nobel_prize": null,
+      
+      "research_area": {
+        "primary": "Theoretical Physics/Cosmology",
+        "specialty": "Black holes, Hawking radiation",
+        "optics_related": true,
+        "optics_percentage": 50,
+        "key_work": "Hawking radiation (black holes emit LIGHT)",
+        "interpretation": "Hawking (bird hunter) → studied black holes that RADIATE"
+      },
+      
+      "synchronicity_score": 3,
+      "notes": "Bird name → bird's eye view of cosmology? Weak connection"
+    }
+  ],
+  
+  "additional_candidates_to_code": {
+    "note": "These would need full research area coding",
+    "potential_light_names": [
+      "Lucian (light)",
+      "Clara (clear/bright)",
+      "Helen (bright one)",
+      "Robert (bright fame)",
+      "Albert (bright/noble - similar to Einstein)",
+      "Candela (candle - Spanish)",
+      "Lucia (light - Italian)",
+      "Hikari (light - Japanese)",
+      "Guang (light - Chinese)"
+    ],
+    "search_strategy": "Search physics directories for these etymological roots"
+  },
+  
+  "preliminary_analysis": {
+    "light_named_physicists": {
+      "n": 2,
+      "optics_focused": 2,
+      "rate": 1.00
+    },
+    
+    "non_light_named_physicists": {
+      "n": 8,
+      "optics_focused": 3,
+      "rate": 0.375
+    },
+    
+    "pilot_finding": {
+      "light_name_optics_rate": 1.00,
+      "non_light_name_optics_rate": 0.375,
+      "odds_ratio": "Undefined (100% vs 37.5%)",
+      "interpretation": "SUGGESTIVE but sample too small (n=2 light names)",
+      "challenge": "Light-derived names extremely rare in physics (Chandrasekhar main example)",
+      "revised_search": "Need etymological dictionary search across 2,000+ physicists"
+    }
+  },
+  
+  "expanded_search_needed": {
+    "method_1": "Search American Physical Society member directory (~50,000 physicists)",
+    "method_2": "Use name etymology API to auto-classify light semantics",
+    "method_3": "Include broader 'brightness' semantics (Clara, Robert, Albert)",
+    "method_4": "Cross-cultural search (Hikari, Guang, Nur, Lucia)",
+    "estimated_light_names_in_2000_sample": "20-50 (1-2.5%)",
+    "power_analysis": "Need n=50 light-named physicists for adequate power"
+  },
+  
+  "preliminary_conclusion": {
+    "verdict": "Hypothesis TESTABLE but requires large sample",
+    "strong_example_exists": "Chandrasekhar (moon-holder) → radiative transfer is compelling",
+    "challenge": "Light names too rare for small sample",
+    "recommendation": "Combine with broader 'brightness' semantics OR abandon for stronger patterns",
+    "alternative": "Test occupation-match more generally (Dr. Blood → Hematology has more examples)"
+  }
+}
+

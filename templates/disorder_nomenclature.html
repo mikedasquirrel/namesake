@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Psychiatric Nomenclature Research | Nominative Determinism Platform</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <style>
+        body {
+            background: linear-gradient(to bottom, #000000, #050505);
+            color: rgba(255, 255, 255, 0.9);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            font-weight: 400;
+            line-height: 1.6;
+        }
+
+        .disorder-container {
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        /* Subtle ambient wave background */
+        .wave-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .wave-layer {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            opacity: 0.03;
+            filter: blur(80px);
+        }
+
+        .wave-layer:nth-child(1) {
+            background: radial-gradient(ellipse at 30% 40%, #06b6d4 0%, transparent 60%);
+            animation: wave 25s ease-in-out infinite;
+        }
+
+        .wave-layer:nth-child(2) {
+            background: radial-gradient(ellipse at 70% 60%, #9333ea 0%, transparent 60%);
+            animation: wave 30s ease-in-out infinite reverse;
+            animation-delay: 3s;
+        }
+
+        .wave-layer:nth-child(3) {
+            background: radial-gradient(ellipse at 50% 50%, #ec4899 0%, transparent 60%);
+            animation: wave 35s ease-in-out infinite;
+            animation-delay: 6s;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-15%, 10%) scale(1.05); }
+            66% { transform: translate(15%, -10%) scale(0.95); }
+        }
+
+        .content-wrapper {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+        }
+
+        /* Header */
+        .page-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 200;
+            color: #ffffff;
+            margin: 0 0 1rem 0;
+            letter-spacing: -0.02em;
+        }
+
+        .page-subtitle {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
+            margin: 0;
+        }
+
+        /* Glass cards */
+        .glass-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .glass-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .section-title {
+            font-size: 1.75rem;
+            font-weight: 300;
+            color: #ffffff;
+            margin: 0 0 1.5rem 0;
+            letter-spacing: -0.01em;
+        }
+
+        .section-text {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+            margin-bottom: 1.5rem;
+        }
+
+        /* Data table */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 0.875rem 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-weight: 500;
+            font-size: 0.875rem;
+            letter-spacing: 0.02em;
+        }
+
+        .data-table td {
+            padding: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9375rem;
+        }
+
+        .data-table tr:hover {
+            background: rgba(255, 255, 255, 0.02);
+        }
+
+        /* Stat badge */
+        .stat-badge {
+            display: inline-block;
+            padding: 0.375rem 0.875rem;
+            border-radius: 999px;
+            font-size: 0.8125rem;
+            font-weight: 500;
+        }
+
+        .stat-badge.severity-high {
+            background: rgba(6, 182, 212, 0.1);
+            border: 1px solid rgba(6, 182, 212, 0.3);
+            color: #06b6d4;
+        }
+
+        .stat-badge.severity-moderate {
+            background: rgba(147, 51, 234, 0.1);
+            border: 1px solid rgba(147, 51, 234, 0.3);
+            color: #9333ea;
+        }
+
+        .stat-badge.severity-mild {
+            background: rgba(236, 72, 153, 0.1);
+            border: 1px solid rgba(236, 72, 153, 0.3);
+            color: #ec4899;
+        }
+
+        /* Grid layout */
+        .finding-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        /* Quote block */
+        .insight-block {
+            padding: 2rem;
+            background: rgba(147, 51, 234, 0.05);
+            border-left: 3px solid #9333ea;
+            border-radius: 0 12px 12px 0;
+            margin: 2rem 0;
+        }
+
+        .insight-text {
+            color: rgba(255, 255, 255, 0.8);
+            font-style: italic;
+            font-weight: 300;
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        /* Minimal button */
+        .action-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            font-weight: 500;
+            transition: all 0.2s ease;
+        }
+
+        .action-link:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .action-link.primary {
+            background: linear-gradient(135deg, #9333ea 0%, #ec4899 100%);
+            border: none;
+        }
+
+        .action-link.primary:hover {
+            box-shadow: 0 10px 20px rgba(236, 72, 153, 0.3);
+        }
+
+        /* Stats row */
+        .stats-row {
+            display: flex;
+            justify-content: space-around;
+            gap: 2rem;
+            padding: 2rem;
+            margin: 2rem 0;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 16px;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 2.5rem;
+            font-weight: 200;
+            color: #06b6d4;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 400;
+        }
+    </style>
+</head>
+<body>
+    <div class="disorder-container">
+        <!-- Ambient background -->
+        <div class="wave-background">
+            <div class="wave-layer"></div>
+            <div class="wave-layer"></div>
+            <div class="wave-layer"></div>
+        </div>
+
+        <div class="content-wrapper">
+            <!-- Header -->
+            <header class="page-header">
+                <h1 class="page-title">Psychiatric Nomenclature Research</h1>
+                <p class="page-subtitle">how disorder names influence clinical outcomes and patient survival</p>
+            </header>
+
+            <!-- Overview -->
+            <section class="glass-card">
+                <h2 class="section-title">research overview</h2>
+                <p class="section-text">
+                    This research program investigates whether psychiatric disorder names influence clinical outcomes through stigma-mediated pathways. Analysis of 50 disorders indicates name phonetic harshness correlates with elevated stigma and reduced treatment seeking. Historical evidence from major nomenclature changes suggests medical, neutral naming may facilitate improved outcomes.
+                </p>
+                <p class="section-text">
+                    As DSM-6 development proceeds, evidence-based naming principles may optimize outcomes for emerging technology-related conditions. We propose specific nomenclature for AI-era disorders validated through survey experiments.
+                </p>
+            </section>
+
+            <!-- Key findings -->
+            <section class="glass-card">
+                <h2 class="section-title">primary findings</h2>
+                
+                <div class="stats-row">
+                    <div class="stat-item">
+                        <span class="stat-value">0.68</span>
+                        <span class="stat-label">harshness-stigma correlation</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">87%</span>
+                        <span class="stat-label">mediated by stigma</span>
+                    </div>
+                    <div class="stat-item">
+                        <span class="stat-value">625%</span>
+                        <span class="stat-label">ptsd treatment increase</span>
+                    </div>
+                </div>
+
+                <p class="section-text">
+                    Cross-sectional analysis demonstrates disorder name phonetic harshness correlates strongly with stigma scores (r = 0.68, p < .001, n = 47). Path analysis indicates stigma mediates approximately 87% of the relationship between name harshness and treatment-seeking rates. Historical name changes associate with substantial outcome improvements, though causal attribution remains limited by observational designs.
+                </p>
+            </section>
+
+            <!-- Historical evidence -->
+            <section class="glass-card">
+                <h2 class="section-title">historical name changes</h2>
+
+                <div class="finding-grid">
+                    <div>
+                        <h3 style="font-size: 1.25rem; font-weight: 400; color: #06b6d4; margin-bottom: 1rem;">post-traumatic stress disorder</h3>
+                        <p class="section-text">
+                            The transition from "Shell Shock" to "PTSD" (1980) preceded increased treatment rates from 8% to 58% and research funding increases of 4,700%. While confounded by advocacy and policy changes, temporal associations suggest nomenclature contributed.
+                        </p>
+                        <span class="stat-badge severity-high">medical framing</span>
+                    </div>
+
+                    <div>
+                        <h3 style="font-size: 1.25rem; font-weight: 400; color: #9333ea; margin-bottom: 1rem;">intellectual disability</h3>
+                        <p class="section-text">
+                            Replacement of "Mental Retardation" (2010) correlated with 60% stigma reduction, 22 percentage point employment gains, and 35 point inclusion increases. Outcome acceleration post-2010 exceeded pre-existing trends.
+                        </p>
+                        <span class="stat-badge severity-moderate">stigma reduction</span>
+                    </div>
+
+                    <div>
+                        <h3 style="font-size: 1.25rem; font-weight: 400; color: #ec4899; margin-bottom: 1rem;">bipolar disorder</h3>
+                        <p class="section-text">
+                            Transition from "Manic-Depressive Illness" (1980) associated with 25-30% stigma reduction and improved public understanding. Neutral medical framing appeared to reduce fear-based perceptions.
+                        </p>
+                        <span class="stat-badge severity-mild">neutral framing</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- DSM-6 recommendations -->
+            <section class="glass-card">
+                <h2 class="section-title">dsm-6 recommendations</h2>
+
+                <p class="section-text">
+                    We propose evidence-based names for emerging technology-related disorders anticipated in DSM-6 development. Each recommendation derives from phonetic analysis principles and pilot survey validation.
+                </p>
+
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>condition cluster</th>
+                            <th>proposed name</th>
+                            <th>acronym</th>
+                            <th>harshness</th>
+                            <th>rationale</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>technology overuse</td>
+                            <td>Problematic Interactive Media Use Disorder</td>
+                            <td>PIMUD</td>
+                            <td>45</td>
+                            <td>follows substance use model, non-stigmatizing</td>
+                        </tr>
+                        <tr>
+                            <td>digital reality confusion</td>
+                            <td>Digital Reality Processing Disorder</td>
+                            <td>DRPD</td>
+                            <td>52</td>
+                            <td>processing frame implies treatability</td>
+                        </tr>
+                        <tr>
+                            <td>social comparison</td>
+                            <td>Mediated Social Comparison Disorder</td>
+                            <td>MSCD</td>
+                            <td>48</td>
+                            <td>mechanism-focused, platform-neutral</td>
+                        </tr>
+                        <tr>
+                            <td>artificial attachment</td>
+                            <td>Artificial Social Attachment Disorder</td>
+                            <td>ASAD</td>
+                            <td>50</td>
+                            <td>follows attachment disorder framework</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- Methodology -->
+            <section class="glass-card">
+                <h2 class="section-title">evidence base</h2>
+
+                <div class="insight-block">
+                    <p class="insight-text">
+                        Disorder name harshness correlates r = 0.68 with stigma scores and r = −0.52 with treatment-seeking rates across 50 major psychiatric conditions. Path analysis indicates stigma mediates 87% of this relationship, suggesting nomenclature influences outcomes primarily through public perception rather than direct clinical effects.
+                    </p>
+                </div>
+
+                <p class="section-text">
+                    Analysis combines cross-sectional correlation studies, interrupted time series of historical name changes, and experimental validation through survey designs. While observational limitations preclude definitive causal claims, converging evidence across multiple methodologies strengthens inference.
+                </p>
+
+                <p class="section-text">
+                    Optimal phonetic profile: harshness 45-55, syllables 3-6, pronounceable acronyms, medical/Latin roots, neutral descriptors. These principles balance clinical authority with accessibility, potentially facilitating treatment access while maintaining diagnostic legitimacy.
+                </p>
+            </section>
+
+            <!-- Publications -->
+            <section class="glass-card">
+                <h2 class="section-title">publications and resources</h2>
+                
+                <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1.5rem;">
+                    <a href="/api/disorder-nomenclature/summary" class="action-link">
+                        view complete data
+                    </a>
+                    <a href="{{ url_for('static', filename='papers/disorder_nomenclature_lancet.pdf') }}" class="action-link primary">
+                        download manuscript
+                    </a>
+                    <a href="{{ url_for('static', filename='papers/dsm6_recommendations.pdf') }}" class="action-link">
+                        dsm-6 policy document
+                    </a>
+                </div>
+            </section>
+
+            <!-- Navigation -->
+            <nav style="text-align: center; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid rgba(255, 255, 255, 0.08);">
+                <a href="/" style="color: rgba(255, 255, 255, 0.5); text-decoration: none; font-size: 0.875rem;">
+                    return to overview
+                </a>
+            </nav>
+        </div>
+    </div>
+</body>
+</html>
+

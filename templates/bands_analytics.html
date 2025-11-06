@@ -1,0 +1,722 @@
+{% extends "base.html" %}
+
+{% block title %}Band Names - Advanced Statistical Analytics{% endblock %}
+
+{% block content %}
+<div style="text-align: center; margin-bottom: 2rem;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 0.5rem;">Advanced Statistical Analytics</h1>
+    <p class="subtitle" style="font-size: 1.15rem;">Interaction effects, mediation analysis, causal inference, and regression diagnostics</p>
+    <div style="margin-top: 1rem;">
+        <a href="{{ url_for('bands_page') }}" class="btn-secondary">← Back to Findings</a>
+        <a href="{{ url_for('analysis') }}" class="btn-secondary" style="margin-left: 0.5rem;">View All Spheres →</a>
+    </div>
+</div>
+
+<!-- Methods Overview -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">Statistical Methods Employed</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
+        <div style="background: var(--background-secondary); padding: 1.25rem; border-radius: 8px; text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔗</div>
+            <div style="font-weight: 600; margin-bottom: 0.5rem;">Mediation Analysis</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">How does X cause Y?</div>
+        </div>
+        <div style="background: var(--background-secondary); padding: 1.25rem; border-radius: 8px; text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔀</div>
+            <div style="font-weight: 600; margin-bottom: 0.5rem;">Interaction Effects</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">Does X depend on Z?</div>
+        </div>
+        <div style="background: var(--background-secondary); padding: 1.25rem; border-radius: 8px; text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">📈</div>
+            <div style="font-weight: 600; margin-bottom: 0.5rem;">Polynomial Regression</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">Non-linear patterns</div>
+        </div>
+        <div style="background: var(--background-secondary); padding: 1.25rem; border-radius: 8px; text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎯</div>
+            <div style="font-weight: 600; margin-bottom: 0.5rem;">Moderator Analysis</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">When does X matter?</div>
+        </div>
+        <div style="background: var(--background-secondary); padding: 1.25rem; border-radius: 8px; text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔍</div>
+            <div style="font-weight: 600; margin-bottom: 0.5rem;">Diagnostics</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">VIF, heteroskedasticity</div>
+        </div>
+        <div style="background: var(--background-secondary); padding: 1.25rem; border-radius: 8px; text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.5rem;">⚖️</div>
+            <div style="font-weight: 600; margin-bottom: 0.5rem;">Causal Inference</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">DiD, treatment effects</div>
+        </div>
+    </div>
+</div>
+
+<!-- Mediation Analysis Section -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">Mediation Analysis: How Do Names Work?</h2>
+    
+    <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+        <h3 style="margin-bottom: 1rem; font-size: 1.05rem;">Key Question: Why do shorter names predict success?</h3>
+        <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+            <p style="margin-bottom: 1rem;">
+                <strong>Hypothesis:</strong> Shorter names → More memorable → More popular (indirect effect through memorability)
+            </p>
+            <div style="background: var(--background); padding: 1.5rem; border-radius: 6px; margin-bottom: 1rem;">
+                <div style="text-align: center; font-family: monospace; font-size: 0.9rem; line-height: 2;">
+                    <div>Syllables → Memorability → Popularity</div>
+                    <div style="color: var(--text-muted);">(a path) ←→ (b path)</div>
+                    <div style="margin-top: 1rem; color: var(--text-secondary);">Direct: Syllables → Popularity (c' path)</div>
+                    <div style="color: var(--text-secondary);">Total: Syllables → Popularity (c path, no mediator)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div id="mediation-results" class="loading">Loading mediation analysis...</div>
+</div>
+
+<!-- Interaction Effects Section -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">Interaction Effects: Context-Dependent Patterns</h2>
+    
+    <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+        <h3 style="margin-bottom: 1rem; font-size: 1.05rem;">Key Questions</h3>
+        <ul style="margin-left: 1.5rem; line-height: 2; font-size: 0.95rem; color: var(--text-secondary);">
+            <li>Does harshness matter more for metal in the 1980s than other genres/decades?</li>
+            <li>Does UK fantasy premium vary by genre (prog vs punk)?</li>
+            <li>Do temporal trends differ by geography (US vs UK naming evolution)?</li>
+        </ul>
+    </div>
+    
+    <div id="interaction-results" class="loading">Loading interaction analysis...</div>
+</div>
+
+<!-- Polynomial Relationships Section -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">Non-Linear Relationships (Polynomial Regression)</h2>
+    
+    <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+        <h3 style="margin-bottom: 1rem; font-size: 1.05rem;">Testing for Inverse-U and J-Curves</h3>
+        <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+            <p style="margin-bottom: 1rem;">
+                Linear models assume constant effects (e.g., each syllable reduces popularity by X points).
+                Reality is often non-linear:
+            </p>
+            <ul style="margin-left: 1.5rem; line-height: 2;">
+                <li><strong>Inverse-U:</strong> Too low bad, moderate optimal, too high bad (like MTG fantasy)</li>
+                <li><strong>J-curve:</strong> Negative at low levels, positive at high levels</li>
+                <li><strong>S-curve:</strong> Slow start, rapid middle, plateau at high</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="polynomial-results" class="loading">Loading polynomial analysis...</div>
+</div>
+
+<!-- Moderator Analysis Section -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">Moderator Analysis: When Does X Matter?</h2>
+    
+    <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+        <h3 style="margin-bottom: 1rem; font-size: 1.05rem;">Context-Dependent Effects</h3>
+        <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+            <p style="margin-bottom: 1rem;">
+                Moderators change the strength or direction of relationships:
+            </p>
+            <ul style="margin-left: 1.5rem; line-height: 2;">
+                <li><strong>Genre moderates memorability:</strong> Does memorability matter more for pop than metal?</li>
+                <li><strong>Decade moderates fantasy:</strong> Did fantasy matter more in 1970s than 2010s?</li>
+                <li><strong>Geography moderates harshness:</strong> Does harshness predict differently in UK vs US?</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="moderator-results" class="loading">Loading moderator analysis...</div>
+</div>
+
+<!-- Regression Diagnostics Section -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">Regression Diagnostics: Model Validity Checks</h2>
+    
+    <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+        <h3 style="margin-bottom: 1rem; font-size: 1.05rem;">Assumption Testing</h3>
+        <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+            <ul style="margin-left: 1.5rem; line-height: 2;">
+                <li><strong>Multicollinearity (VIF):</strong> Are predictors too correlated? (VIF > 10 = problem)</li>
+                <li><strong>Heteroskedasticity (Breusch-Pagan):</strong> Constant error variance? (p < 0.05 = problem)</li>
+                <li><strong>Normality (Shapiro-Wilk):</strong> Are residuals normally distributed? (p < 0.05 = problem)</li>
+                <li><strong>Influential observations (Cook's D):</strong> Any outliers driving results? (D > 4/n = influential)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="diagnostics-results" class="loading">Loading regression diagnostics...</div>
+</div>
+
+<!-- Causal Inference Section -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">Causal Inference: Beyond Correlation</h2>
+    
+    <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+        <h3 style="margin-bottom: 1rem; font-size: 1.05rem;">Methods for Causal Claims</h3>
+        <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+            <p style="margin-bottom: 1rem;">
+                <strong>The fundamental problem:</strong> We observe correlation, but need causation.
+            </p>
+            <ul style="margin-left: 1.5rem; line-height: 2;">
+                <li><strong>Treatment effects:</strong> Do harsh names CAUSE metal longevity?</li>
+                <li><strong>Difference-in-differences:</strong> Did UK fantasy premium change over time vs US?</li>
+                <li><strong>Natural experiments:</strong> Name changes (rare but informative)</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="causal-results" class="loading">Loading causal inference analysis...</div>
+</div>
+
+<!-- Subgroup Analysis Section -->
+<div class="glass card">
+    <h2 style="margin-bottom: 1.5rem;">Subgroup Analysis: Heterogeneous Effects</h2>
+    
+    <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+        <h3 style="margin-bottom: 1rem; font-size: 1.05rem;">Context-Specific Patterns</h3>
+        <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+            <p style="margin-bottom: 1rem;">
+                Overall effects may mask important heterogeneity. We analyze specific contexts:
+            </p>
+            <ul style="margin-left: 1.5rem; line-height: 2;">
+                <li><strong>UK Prog Rock 1970s:</strong> Does fantasy predict longevity?</li>
+                <li><strong>US Metal 1980s:</strong> Does harshness predict success?</li>
+                <li><strong>Seattle Grunge 1990s:</strong> Unique naming patterns?</li>
+                <li><strong>UK Indie 2000s:</strong> Abstraction-success correlation?</li>
+            </ul>
+        </div>
+    </div>
+    
+    <div id="subgroup-results" class="loading">Loading subgroup analysis...</div>
+</div>
+
+<style>
+.glass.card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 2rem;
+    border-radius: 15px;
+}
+
+.mb-1 {
+    margin-bottom: 1.5rem;
+}
+
+.loading {
+    padding: 2rem;
+    text-align: center;
+    color: #888;
+    font-style: italic;
+}
+
+.stat-box {
+    background: var(--background-secondary);
+    padding: 1rem;
+    border-radius: 8px;
+    margin-bottom: 0.75rem;
+}
+
+.stat-box h4 {
+    margin: 0 0 0.5rem 0;
+    font-size: 1rem;
+    color: #ec4899;
+}
+
+.stat-box .value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 0.25rem;
+}
+
+.stat-box .label {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.result-card {
+    background: var(--background-secondary);
+    padding: 1.25rem;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.result-card.significant {
+    border-left: 4px solid #5eead4;
+}
+
+.result-card.non-significant {
+    border-left: 4px solid #888;
+}
+
+.btn-secondary {
+    display: inline-block;
+    padding: 0.5rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+</style>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Load mediation analysis
+async function loadMediationAnalysis() {
+    try {
+        const response = await fetch('/api/bands/advanced/mediation-analysis');
+        const data = await response.json();
+        
+        if (data.error) {
+            document.getElementById('mediation-results').innerHTML = `<p class="error">${data.error}</p>`;
+            return;
+        }
+        
+        let html = '';
+        
+        // Display each mediation test
+        for (const [key, result] of Object.entries(data)) {
+            if (result.error) continue;
+            
+            const mediationType = result.mediation_type || 'No mediation';
+            const significant = mediationType.includes('mediation');
+            
+            html += `
+                <div class="result-card ${significant ? 'significant' : 'non-significant'}">
+                    <h4>${result.predictor} → ${result.mediator} → ${result.outcome}</h4>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+                        <div>
+                            <div class="label">Total Effect</div>
+                            <div class="value">${result.total_effect?.toFixed(3)}</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">
+                                p = ${result.total_effect_p?.toFixed(4)}
+                            </div>
+                        </div>
+                        <div>
+                            <div class="label">Direct Effect</div>
+                            <div class="value">${result.direct_effect?.toFixed(3)}</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">
+                                p = ${result.direct_effect_p?.toFixed(4)}
+                            </div>
+                        </div>
+                        <div>
+                            <div class="label">Indirect Effect</div>
+                            <div class="value" style="color: #ec4899;">${result.indirect_effect?.toFixed(3)}</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">
+                                p = ${result.indirect_effect_p?.toFixed(4)}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 1rem; padding: 0.75rem; background: ${significant ? 'rgba(94, 234, 212, 0.1)' : 'rgba(136, 136, 136, 0.1)'}; border-radius: 6px;">
+                        <strong>Mediation Type:</strong> ${mediationType}<br>
+                        <strong>Proportion Mediated:</strong> ${(result.proportion_mediated * 100).toFixed(1)}%<br>
+                        <strong>Sobel Z:</strong> ${result.sobel_z?.toFixed(3)}
+                    </div>
+                    
+                    <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+                        <strong>Interpretation:</strong> 
+                        ${result.proportion_mediated > 0.5 
+                            ? `Most of the effect (${(result.proportion_mediated * 100).toFixed(0)}%) operates through ${result.mediator}.`
+                            : `Direct effect dominates (${((1 - result.proportion_mediated) * 100).toFixed(0)}%).`
+                        }
+                    </div>
+                </div>
+            `;
+        }
+        
+        document.getElementById('mediation-results').innerHTML = html || '<p>No mediation tests available.</p>';
+        
+    } catch (error) {
+        console.error('Error loading mediation analysis:', error);
+        document.getElementById('mediation-results').innerHTML = `<p class="error">Error loading analysis</p>`;
+    }
+}
+
+// Load interaction effects
+async function loadInteractionEffects() {
+    try {
+        const response = await fetch('/api/bands/advanced/interaction-effects');
+        const data = await response.json();
+        
+        if (data.error) {
+            document.getElementById('interaction-results').innerHTML = `<p class="error">${data.error}</p>`;
+            return;
+        }
+        
+        let html = '';
+        
+        // Display top interactions
+        if (data.decade_genre_interactions) {
+            for (const [metric, interaction] of Object.entries(data.decade_genre_interactions)) {
+                if (interaction.top_interactions) {
+                    html += `<h3 style="margin-top: 1rem;">${metric.replace('_', ' ').toUpperCase()} Interactions</h3>`;
+                    
+                    interaction.top_interactions.slice(0, 5).forEach(int => {
+                        html += `
+                            <div class="result-card ${int.significant ? 'significant' : 'non-significant'}">
+                                <strong>${int.formation_decade}s: ${int.genre_cluster_a} vs ${int.genre_cluster_b}</strong>
+                                <div style="margin-top: 0.5rem;">
+                                    Mean difference: ${int.mean_difference.toFixed(2)} 
+                                    (p = ${int.p_value.toFixed(4)})
+                                    ${int.significant ? '⭐' : ''}
+                                </div>
+                            </div>
+                        `;
+                    });
+                }
+            }
+        }
+        
+        document.getElementById('interaction-results').innerHTML = html || '<p>No interaction results available.</p>';
+        
+    } catch (error) {
+        console.error('Error loading interaction effects:', error);
+    }
+}
+
+// Load polynomial analysis
+async function loadPolynomialAnalysis() {
+    try {
+        const response = await fetch('/api/bands/advanced/polynomial-analysis');
+        const data = await response.json();
+        
+        if (data.error) {
+            document.getElementById('polynomial-results').innerHTML = `<p class="error">${data.error}</p>`;
+            return;
+        }
+        
+        let html = '';
+        
+        for (const [feature, result] of Object.entries(data)) {
+            html += `
+                <div class="result-card ${result.non_linear ? 'significant' : 'non-significant'}">
+                    <h4>${feature.replace('_', ' ').toUpperCase()}</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 0.75rem;">
+                        <div>
+                            <div class="label">Linear R²</div>
+                            <div style="font-weight: 600;">${result.r2_linear?.toFixed(3)}</div>
+                        </div>
+                        <div>
+                            <div class="label">Quadratic R²</div>
+                            <div style="font-weight: 600;">${result.r2_quadratic?.toFixed(3)}</div>
+                        </div>
+                        <div>
+                            <div class="label">Cubic R²</div>
+                            <div style="font-weight: 600;">${result.r2_cubic?.toFixed(3)}</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 0.75rem; padding: 0.75rem; background: ${result.non_linear ? 'rgba(94, 234, 212, 0.1)' : 'rgba(136, 136, 136, 0.1)'}; border-radius: 6px;">
+                        <strong>Best Model:</strong> ${result.best_model}<br>
+                        <strong>Relationship:</strong> ${result.relationship_type}
+                        ${result.non_linear ? '<br><strong>Non-linear pattern detected!</strong>' : ''}
+                    </div>
+                </div>
+            `;
+        }
+        
+        document.getElementById('polynomial-results').innerHTML = html || '<p>No polynomial results available.</p>';
+        
+    } catch (error) {
+        console.error('Error loading polynomial analysis:', error);
+    }
+}
+
+// Load moderator analysis
+async function loadModeratorAnalysis() {
+    try {
+        const response = await fetch('/api/bands/advanced/moderator-analysis');
+        const data = await response.json();
+        
+        if (data.error) {
+            document.getElementById('moderator-results').innerHTML = `<p class="error">${data.error}</p>`;
+            return;
+        }
+        
+        let html = '';
+        
+        for (const [key, result] of Object.entries(data)) {
+            if (result.error) continue;
+            
+            html += `
+                <div class="result-card ${result.moderation_present ? 'significant' : 'non-significant'}">
+                    <h4>${result.predictor} → ${result.outcome} (moderated by ${result.moderator})</h4>
+                    
+                    ${result.strongest_effect ? `
+                        <div style="margin-top: 0.75rem;">
+                            <strong>Strongest effect:</strong> ${result.strongest_effect.moderator_level} 
+                            (r = ${result.strongest_effect.correlation.toFixed(3)}, p = ${result.strongest_effect.p_value.toFixed(4)})
+                        </div>
+                    ` : ''}
+                    
+                    ${result.weakest_effect ? `
+                        <div style="margin-top: 0.5rem;">
+                            <strong>Weakest effect:</strong> ${result.weakest_effect.moderator_level} 
+                            (r = ${result.weakest_effect.correlation.toFixed(3)})
+                        </div>
+                    ` : ''}
+                    
+                    <div style="margin-top: 0.75rem; padding: 0.75rem; background: ${result.moderation_present ? 'rgba(236, 72, 153, 0.1)' : 'rgba(136, 136, 136, 0.1)'}; border-radius: 6px;">
+                        <strong>Range:</strong> ${result.range?.toFixed(3)}<br>
+                        <strong>Moderation Present:</strong> ${result.moderation_present ? 'YES ⭐' : 'No'}
+                    </div>
+                </div>
+            `;
+        }
+        
+        document.getElementById('moderator-results').innerHTML = html || '<p>No moderator results available.</p>';
+        
+    } catch (error) {
+        console.error('Error loading moderator analysis:', error);
+    }
+}
+
+// Load regression diagnostics
+async function loadRegressionDiagnostics() {
+    try {
+        const response = await fetch('/api/bands/advanced/regression-diagnostics');
+        const data = await response.json();
+        
+        if (data.error) {
+            document.getElementById('diagnostics-results').innerHTML = `<p class="error">${data.error}</p>`;
+            return;
+        }
+        
+        let html = '<div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;">';
+        
+        // Multicollinearity
+        if (data.multicollinearity) {
+            const mc = data.multicollinearity;
+            html += `
+                <div class="stat-box">
+                    <h4>Multicollinearity (VIF)</h4>
+                    <div class="value" style="color: ${mc.has_multicollinearity ? 'var(--danger-muted)' : 'var(--success-muted)'};">
+                        ${mc.has_multicollinearity ? 'PROBLEM' : 'OK'}
+                    </div>
+                    <div class="label">Max VIF: ${mc.max_vif?.toFixed(2)}</div>
+                </div>
+            `;
+        }
+        
+        // Heteroskedasticity
+        if (data.heteroskedasticity) {
+            const het = data.heteroskedasticity;
+            html += `
+                <div class="stat-box">
+                    <h4>Heteroskedasticity</h4>
+                    <div class="value" style="color: ${het.has_heteroskedasticity ? 'var(--warning)' : 'var(--success-muted)'};">
+                        ${het.has_heteroskedasticity ? 'DETECTED' : 'OK'}
+                    </div>
+                    <div class="label">BP p-value: ${het.p_value?.toFixed(4)}</div>
+                </div>
+            `;
+        }
+        
+        // Normality
+        if (data.normality) {
+            const norm = data.normality;
+            html += `
+                <div class="stat-box">
+                    <h4>Residual Normality</h4>
+                    <div class="value" style="color: ${norm.residuals_normal ? 'var(--success-muted)' : 'var(--warning)'};">
+                        ${norm.residuals_normal ? 'NORMAL' : 'NON-NORMAL'}
+                    </div>
+                    <div class="label">Shapiro p-value: ${norm.p_value?.toFixed(4)}</div>
+                </div>
+            `;
+        }
+        
+        // Influential observations
+        if (data.influential_observations) {
+            const inf = data.influential_observations;
+            html += `
+                <div class="stat-box">
+                    <h4>Influential Observations</h4>
+                    <div class="value">${inf.count}</div>
+                    <div class="label">${inf.percentage?.toFixed(2)}% of sample</div>
+                </div>
+            `;
+        }
+        
+        html += '</div>';
+        
+        // Model summary
+        if (data.model_summary) {
+            const summary = data.model_summary;
+            html += `
+                <div style="margin-top: 1.5rem; background: var(--background-secondary); padding: 1.5rem; border-radius: 8px;">
+                    <h4>Model Summary Statistics</h4>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+                        <div>
+                            <div class="label">R²</div>
+                            <div style="font-size: 1.3rem; font-weight: 600;">${summary.r2?.toFixed(3)}</div>
+                        </div>
+                        <div>
+                            <div class="label">Adjusted R²</div>
+                            <div style="font-size: 1.3rem; font-weight: 600;">${summary.adj_r2?.toFixed(3)}</div>
+                        </div>
+                        <div>
+                            <div class="label">F-statistic</div>
+                            <div style="font-size: 1.3rem; font-weight: 600;">${summary.f_statistic?.toFixed(2)}</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+                        <strong>AIC:</strong> ${summary.aic?.toFixed(1)} | 
+                        <strong>BIC:</strong> ${summary.bic?.toFixed(1)} | 
+                        <strong>N:</strong> ${summary.n_observations}
+                    </div>
+                </div>
+            `;
+        }
+        
+        document.getElementById('diagnostics-results').innerHTML = html;
+        
+    } catch (error) {
+        console.error('Error loading diagnostics:', error);
+    }
+}
+
+// Load causal inference
+async function loadCausalInference() {
+    try {
+        const response = await fetch('/api/bands/advanced/causal-inference');
+        const data = await response.json();
+        
+        if (data.error) {
+            document.getElementById('causal-results').innerHTML = `<p class="error">${data.error}</p>`;
+            return;
+        }
+        
+        let html = '';
+        
+        // Treatment effects
+        if (data.harsh_name_treatment_metal) {
+            const te = data.harsh_name_treatment_metal;
+            html += `
+                <div class="result-card ${te.significant ? 'significant' : 'non-significant'}">
+                    <h4>Treatment Effect: ${te.treatment}</h4>
+                    <div style="margin-top: 0.75rem;">
+                        <strong>Subgroup:</strong> ${te.subgroup}<br>
+                        <strong>Outcome:</strong> ${te.outcome}
+                    </div>
+                    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+                        <div>
+                            <div class="label">Treated Mean</div>
+                            <div style="font-size: 1.3rem; font-weight: 600;">${te.treated_mean?.toFixed(2)}</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">n = ${te.n_treated}</div>
+                        </div>
+                        <div>
+                            <div class="label">Control Mean</div>
+                            <div style="font-size: 1.3rem; font-weight: 600;">${te.control_mean?.toFixed(2)}</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">n = ${te.n_control}</div>
+                        </div>
+                        <div>
+                            <div class="label">Treatment Effect</div>
+                            <div style="font-size: 1.3rem; font-weight: 600; color: #ec4899;">${te.treatment_effect?.toFixed(2)}</div>
+                            <div style="font-size: 0.8rem; color: var(--text-muted);">p = ${te.p_value?.toFixed(4)}</div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Difference-in-differences
+        if (data.did_uk_fantasy_premium) {
+            const did = data.did_uk_fantasy_premium;
+            html += `
+                <div class="result-card significant">
+                    <h4>Difference-in-Differences: UK Fantasy Premium Over Time</h4>
+                    <div style="margin-top: 0.75rem; display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                        <div>
+                            <strong>UK:</strong> ${did.uk_early?.toFixed(2)} → ${did.uk_late?.toFixed(2)} 
+                            (change: ${did.uk_change > 0 ? '+' : ''}${did.uk_change?.toFixed(2)})
+                        </div>
+                        <div>
+                            <strong>US:</strong> ${did.us_early?.toFixed(2)} → ${did.us_late?.toFixed(2)} 
+                            (change: ${did.us_change > 0 ? '+' : ''}${did.us_change?.toFixed(2)})
+                        </div>
+                    </div>
+                    <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(236, 72, 153, 0.1); border-radius: 6px;">
+                        <strong>DiD Estimate:</strong> ${did.did_estimate?.toFixed(2)}<br>
+                        <strong>Interpretation:</strong> ${did.interpretation}
+                    </div>
+                </div>
+            `;
+        }
+        
+        document.getElementById('causal-results').innerHTML = html || '<p>No causal inference results available.</p>';
+        
+    } catch (error) {
+        console.error('Error loading causal inference:', error);
+    }
+}
+
+// Load subgroup analysis
+async function loadSubgroupAnalysis() {
+    try {
+        const response = await fetch('/api/bands/advanced/subgroup-analysis');
+        const data = await response.json();
+        
+        if (data.error) {
+            document.getElementById('subgroup-results').innerHTML = `<p class="error">${data.error}</p>`;
+            return;
+        }
+        
+        let html = '';
+        
+        for (const [subgroup_name, result] of Object.entries(data)) {
+            html += `
+                <div class="result-card">
+                    <h4>${subgroup_name.replace(/_/g, ' ').toUpperCase()}</h4>
+                    <div style="margin-top: 0.75rem;">
+                        <strong>Sample size:</strong> ${result.sample_size}<br>
+                        <strong>Avg popularity:</strong> ${result.avg_popularity?.toFixed(2)}
+                    </div>
+                    
+                    ${result.top_predictors && result.top_predictors.length > 0 ? `
+                        <div style="margin-top: 1rem;">
+                            <strong>Top Predictors:</strong>
+                            <ul style="margin-left: 1.5rem; margin-top: 0.5rem; font-size: 0.9rem;">
+                                ${result.top_predictors.map(p => 
+                                    `<li>${p.feature}: r = ${p.correlation.toFixed(3)}</li>`
+                                ).join('')}
+                            </ul>
+                        </div>
+                    ` : ''}
+                </div>
+            `;
+        }
+        
+        document.getElementById('subgroup-results').innerHTML = html || '<p>No subgroup results available.</p>';
+        
+    } catch (error) {
+        console.error('Error loading subgroup analysis:', error);
+    }
+}
+
+// Initialize on page load
+document.addEventListener('DOMContentLoaded', () => {
+    loadMediationAnalysis();
+    loadInteractionEffects();
+    loadPolynomialAnalysis();
+    loadModeratorAnalysis();
+    loadRegressionDiagnostics();
+    loadCausalInference();
+    loadSubgroupAnalysis();
+});
+</script>
+{% endblock %}
+

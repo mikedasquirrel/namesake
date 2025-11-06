@@ -1,0 +1,69 @@
+{
+  "uk_ons": {
+    "source": "UK Office for National Statistics",
+    "status": "manual_download_required",
+    "base_url": "https://www.ons.gov.uk/peoplepopulationandcommunity/birthsdeathsandmarriages/livebirths/datasets/babynamesenglandandwalesbabynamesstatisticsgirls",
+    "expected_years": "1996-2023"
+  },
+  "canada": {
+    "source": "Provincial vital statistics agencies",
+    "status": "manual_aggregation_required",
+    "coverage": "varies by province"
+  },
+  "usa_ssa": {
+    "source": "U.S. Social Security Administration",
+    "url": "https://www.ssa.gov/oact/babynames/names.zip",
+    "downloaded": "2025-11-02T23:17:42.703045",
+    "years": "1880-2024",
+    "records": 2149477
+  },
+  "mexico": {
+    "source": "INEGI",
+    "naming_structure": "compound_given_double_surname",
+    "status": "structure_created"
+  },
+  "spain": {
+    "source": "INE Spain",
+    "naming_structure": "double_surname",
+    "status": "structure_created"
+  },
+  "brazil": {
+    "source": "IBGE",
+    "naming_structure": "compound_flexible",
+    "status": "structure_created"
+  },
+  "germany": {
+    "source": "Destatis / GfdS",
+    "naming_structure": "single_surname_optional_middle",
+    "middle_name_trend": "increasing_post_1950",
+    "status": "structure_created"
+  },
+  "china": {
+    "source": "NBS China / MPS",
+    "naming_structure": "surname_first_given_second",
+    "surname_concentration": "extreme_top_100_covers_85pct",
+    "status": "structure_created"
+  },
+  "india": {
+    "source": "Census of India",
+    "naming_structure": "highly_regional_religious_variation",
+    "status": "structure_created"
+  },
+  "egypt": {
+    "source": "CAPMAS Egypt",
+    "naming_structure": "patronymic_chain",
+    "muhammad_dominance": "very_high_20_25_pct",
+    "status": "structure_created"
+  },
+  "nigeria": {
+    "source": "National Population Commission Nigeria",
+    "naming_structure": "ethnic_regional_religious_variation",
+    "diversity": "very_high_except_muslim_north",
+    "status": "structure_created"
+  },
+  "country_names": {
+    "source": "compiled from ISO 3166, native sources",
+    "purpose": "exonym/endonym aesthetic analysis",
+    "status": "initial_dataset_created"
+  }
+}

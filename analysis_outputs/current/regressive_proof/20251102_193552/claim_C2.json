@@ -1,0 +1,114 @@
+{
+  "claim": {
+    "claim_id": "C2",
+    "asset_type": "crypto",
+    "target_column": "normalized_return_1yr",
+    "target_kind": "continuous",
+    "description": "Optimal syllable structure lifts one-year returns after standardization.",
+    "features": [
+      "is_optimal_syllable",
+      "tech_tag",
+      "memorability_score"
+    ],
+    "control_features": [
+      "log_market_cap",
+      "rank"
+    ],
+    "filters": {},
+    "sample_floor": 120,
+    "breakout_threshold": null,
+    "notes": null
+  },
+  "status": "ok",
+  "sample_size": 1640,
+  "model_summary": {
+    "model_type": "OLS",
+    "primary_metric": "r_squared",
+    "r_squared": 0.005095902718316725,
+    "adj_r_squared": 0.0020515205356922417,
+    "aic": 4657.739741890326,
+    "bic": 4690.154451015235,
+    "rmse": 0.9992784176098434,
+    "cross_validation": {
+      "metric": "r2",
+      "folds": 5,
+      "scores": [
+        0.0012359016929974764,
+        0.005500095967993723,
+        0.0015071697571199527,
+        -0.00898290269996127,
+        -0.3513767347189125
+      ],
+      "mean_score": -0.07042329400015253,
+      "std_score": 0.14055828017076125,
+      "auxiliary": {
+        "rmse_mean": 0.9259401434820234,
+        "rmse_std": 0.37832430205363615
+      }
+    }
+  },
+  "coefficients": [
+    {
+      "name": "const",
+      "coefficient": -0.26173057087940826,
+      "p_value": 0.583575955752675,
+      "ci_lower": -1.1980489975316726,
+      "ci_upper": 0.6745878557728562
+    },
+    {
+      "name": "is_optimal_syllable",
+      "coefficient": -0.1082142415949496,
+      "p_value": 0.0326135243709457,
+      "ci_lower": -0.2074615232045344,
+      "ci_upper": -0.008966959985364814
+    },
+    {
+      "name": "tech_tag",
+      "coefficient": 0.005513792640567745,
+      "p_value": 0.9267704562938738,
+      "ci_lower": -0.11213730190239378,
+      "ci_upper": 0.12316488718352926
+    },
+    {
+      "name": "memorability_score",
+      "coefficient": 0.0008351457848950524,
+      "p_value": 0.4122366127370034,
+      "ci_lower": -0.0011620758508071012,
+      "ci_upper": 0.002832367420597206
+    },
+    {
+      "name": "log_market_cap",
+      "coefficient": 0.015837236209326765,
+      "p_value": 0.5117200583214115,
+      "ci_lower": -0.0314935073206673,
+      "ci_upper": 0.06316797973932084
+    },
+    {
+      "name": "rank",
+      "coefficient": -1.3345884443839147e-05,
+      "p_value": 0.7639479744384862,
+      "ci_lower": -0.00010050018294515005,
+      "ci_upper": 7.380841405747176e-05
+    }
+  ],
+  "effect_analysis": {
+    "feature_correlations": {
+      "is_optimal_syllable": {
+        "correlation": -0.048806404368771206,
+        "p_value": 0.048134456964261656
+      },
+      "tech_tag": {
+        "correlation": -0.004019020883492612,
+        "p_value": 0.870806220862726
+      },
+      "memorability_score": {
+        "correlation": 0.008600167534142555,
+        "p_value": 0.7278243182844595
+      }
+    },
+    "target_mean": 1.2997732971221346e-17,
+    "target_std": 1.0
+  },
+  "warnings": [],
+  "timestamp": "2025-11-02T19:36:13.723927"
+}

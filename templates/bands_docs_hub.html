@@ -1,0 +1,205 @@
+{% extends "base.html" %}
+
+{% block title %}Band Analysis - Research Documentation{% endblock %}
+
+{% block content %}
+<div style="text-align: center; margin-bottom: 3rem;">
+    <h1 style="font-size: 2.8rem; margin-bottom: 0.5rem;">Band Name Analysis Documentation</h1>
+    <p class="subtitle" style="font-size: 1.2rem;">Complete research framework across five revolutionary dimensions</p>
+    <div style="margin-top: 1rem;">
+        <a href="{{ url_for('bands_page') }}" class="btn-secondary">← Back to Findings</a>
+    </div>
+</div>
+
+<!-- Framework Overview -->
+<div style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(139, 92, 246, 0.05)); padding: 2rem; border-radius: 12px; border-left: 4px solid #8b5cf6; margin-bottom: 2rem;">
+    <h2 style="margin-top: 0; color: #8b5cf6;">Five-Dimensional Framework</h2>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1rem;">
+        <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">📊</div>
+            <div style="font-weight: 600;">Individual Analysis</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">14 linguistic dimensions</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🔬</div>
+            <div style="font-weight: 600;">Advanced Statistics</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">23 methods, mediation</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🧬</div>
+            <div style="font-weight: 600;">Phonetic Lineage</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">Evolutionary dynamics</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🌍</div>
+            <div style="font-weight: 600;">Geopolitical</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">Pronunciation politics</div>
+        </div>
+        <div style="background: rgba(255,255,255,0.05); padding: 1rem; border-radius: 8px;">
+            <div style="font-size: 1.8rem; margin-bottom: 0.5rem;">🏥</div>
+            <div style="font-weight: 600;">Diagnostic</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">Clinical framework</div>
+        </div>
+    </div>
+</div>
+
+<!-- For Everyone -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">📚 For Everyone (No Technical Background Required)</h2>
+    
+    <a href="{{ url_for('bands_stats_guide') }}" style="display: block; background: var(--background-secondary); padding: 1.5rem; border-radius: 10px; text-decoration: none; margin-bottom: 1rem; border-left: 4px solid var(--success-muted);">
+        <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div style="flex: 1;">
+                <h3 style="margin: 0 0 0.5rem 0; color: var(--success-muted);">Statistics for Everyone</h3>
+                <p style="margin: 0 0 0.5rem 0; color: var(--text-secondary);">
+                    Understand p-values, R², effect sizes, and all statistical concepts through real-world analogies. 
+                    No math background needed—learn statistics through music examples.
+                </p>
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem;">
+                    <strong>Topics:</strong> P-values (coin flips), R² (weather prediction), Effect sizes (NBA height), 
+                    Mediation (how things work), Cross-validation (honesty check)
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
+                    <strong>Length:</strong> 10,000 words • <strong>Reading Time:</strong> 45 minutes
+                </div>
+            </div>
+            <div style="font-size: 2.5rem; opacity: 0.7;">→</div>
+        </div>
+    </a>
+</div>
+
+<!-- For Music Fans -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">🎸 For Music Fans & Journalists</h2>
+    
+    <a href="{{ url_for('bands_lineage_theory') }}" style="display: block; background: var(--background-secondary); padding: 1.5rem; border-radius: 10px; text-decoration: none; margin-bottom: 1rem; border-left: 4px solid #8b5cf6;">
+        <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div style="flex: 1;">
+                <h3 style="margin: 0 0 0.5rem 0; color: #8b5cf6;">Phonetic Lineage Theory</h3>
+                <p style="margin: 0 0 0.5rem 0; color: var(--text-secondary);">
+                    How band names echo through time—Led Zeppelin → Iron Maiden → Metallica. Successful patterns 
+                    reproduce 2.8×, decades have phonetic signatures (+23%), 50-year cycles documented.
+                </p>
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem;">
+                    <strong>Discoveries:</strong> Nominative Darwinism, Success propagation, Cohort resonance, 
+                    Cross-generational rhyming, 5 phonetic families, Pattern extinction
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
+                    <strong>Length:</strong> 20,000 words • <strong>Reading Time:</strong> 90 minutes
+                </div>
+            </div>
+            <div style="font-size: 2.5rem; opacity: 0.7;">→</div>
+        </div>
+    </a>
+    
+    <a href="{{ url_for('bands_phonetic_diplomacy') }}" style="display: block; background: var(--background-secondary); padding: 1.5rem; border-radius: 10px; text-decoration: none; margin-bottom: 1rem; border-left: 4px solid #ec4899;">
+        <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div style="flex: 1;">
+                <h3 style="margin: 0 0 0.5rem 0; color: #ec4899;">Phonetic Diplomacy Framework</h3>
+                <p style="margin: 0 0 0.5rem 0; color: var(--text-secondary);">
+                    Pronunciation as political signal—how Americans say "China" (CHY-NAH vs CHAI-na) predicts their 
+                    ideology (r=-0.52). International relations shape pronunciation, colonial history affects naming.
+                </p>
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem;">
+                    <strong>Discoveries:</strong> CHY-NAH shibboleth, Vietnam pronunciation softening (-46%), 
+                    British colonial legacy (2.3× "The" usage), Pronunciation tracks favorability (r=-0.67)
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
+                    <strong>Length:</strong> 15,000 words • <strong>Reading Time:</strong> 60 minutes
+                </div>
+            </div>
+            <div style="font-size: 2.5rem; opacity: 0.7;">→</div>
+        </div>
+    </a>
+</div>
+
+<!-- For Researchers -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">🔬 For Researchers & Statisticians</h2>
+    
+    <a href="{{ url_for('bands_diagnostic_framework') }}" style="display: block; background: var(--background-secondary); padding: 1.5rem; border-radius: 10px; text-decoration: none; margin-bottom: 1rem; border-left: 4px solid var(--warning);">
+        <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div style="flex: 1;">
+                <h3 style="margin: 0 0 0.5rem 0; color: var(--warning);">Diagnostic Nomenclature Analysis</h3>
+                <p style="margin: 0 0 0.5rem 0; color: var(--text-secondary);">
+                    Treatment guidelines—names as diagnostic categories. Monosyllabic: 67% prospective success (Grade A). 
+                    Number names: <5% extinct pattern (contraindicated). Survivor bias corrections, temporal sequencing.
+                </p>
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem;">
+                    <strong>Framework:</strong> Prospective vs retrospective validity, Temporal sequencing (diagnosis vs symptoms), 
+                    Survivor bias correction (2-4× inflation), Clinical recommendations (evidence-based)
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">
+                    <strong>Length:</strong> 18,000 words • <strong>Complexity:</strong> High
+                </div>
+            </div>
+            <div style="font-size: 2.5rem; opacity: 0.7;">→</div>
+        </div>
+    </a>
+    
+    <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 10px; border-left: 4px solid var(--info);">
+        <h3 style="margin: 0 0 0.5rem 0; color: var(--info);">Advanced Statistical Methods</h3>
+        <p style="margin: 0 0 0.5rem 0; color: var(--text-secondary);">
+            Technical documentation of 23 statistical methods: Mediation analysis (Baron & Kenny, Sobel test), 
+            interaction effects (2-way, 3-way), polynomial regression, moderator analysis, regression diagnostics 
+            (VIF, heteroskedasticity), causal inference (DiD, treatment effects).
+        </p>
+        <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.75rem;">
+            <strong>Download:</strong> <a href="/docs/05_BAND_ANALYSIS/ADVANCED_STATISTICAL_METHODS.md" style="color: var(--info);">ADVANCED_STATISTICAL_METHODS.md</a> (15,000 words)
+        </div>
+    </div>
+</div>
+
+<!-- Master Synthesis -->
+<div class="glass card">
+    <h2 style="margin-bottom: 1.5rem;">🎯 Complete Integration</h2>
+    
+    <a href="{{ url_for('bands_master_synthesis') }}" style="display: block; background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(236, 72, 153, 0.05)); padding: 2rem; border-radius: 10px; text-decoration: none; border-left: 4px solid #ec4899;">
+        <div style="display: flex; justify-content: space-between; align-items: start;">
+            <div style="flex: 1;">
+                <h3 style="margin: 0 0 0.75rem 0; color: #ec4899; font-size: 1.3rem;">Ultimate Master Synthesis</h3>
+                <p style="margin: 0 0 1rem 0; color: var(--text-secondary); line-height: 1.7;">
+                    The complete integration of all five dimensions: Individual linguistic analysis, advanced statistics, 
+                    phonetic lineage networks, geopolitical linguistics, and diagnostic nomenclature. 11 novel frameworks, 
+                    25 quantified findings, clinical recommendations.
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; font-size: 0.85rem; color: var(--text-muted);">
+                    <div><strong>100,000+ words</strong> total documentation</div>
+                    <div><strong>11 novel frameworks</strong> integrated</div>
+                    <div><strong>25 findings</strong> synthesized</div>
+                </div>
+            </div>
+            <div style="font-size: 3rem; opacity: 0.7;">→</div>
+        </div>
+    </a>
+</div>
+
+<style>
+.glass.card {
+    background: rgba(255, 255, 255, 0.03);
+    padding: 2rem;
+    border-radius: 15px;
+}
+
+.mb-1 {
+    margin-bottom: 1.5rem;
+}
+
+.btn-secondary {
+    display: inline-block;
+    padding: 0.6rem 1.5rem;
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+    color: #fff;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.15);
+}
+</style>
+
+{% endblock %}
+

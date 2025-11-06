@@ -19,59 +19,83 @@ class DomainDataCollector:
         self.analyzer = DomainAnalyzer()
         self.namebio = NameBioClient()
     
-    def collect_real_sales(self, limit=1000, min_price=1000):
-        """
-        Collect REAL domain sales from NameBio (NO DUMMY DATA)
-        
-        Args:
-            limit: Number of sales to collect
-            min_price: Minimum sale price filter
-        
-        Returns: Statistics on collection
-        """
+    def collect_real_sales(self, limit=500, min_price=10000, tlds=None, earliest_year=2005):
+        """Collect verified historical domain sales with quality gating."""
+        stats = {
+            'requested_limit': limit,
+            'min_price': min_price,
+            'earliest_year': earliest_year,
+            'domains_added': 0,
+            'skipped_existing': 0,
+            'skipped_low_price': 0,
+            'skipped_invalid': 0,
+            'skipped_tld': 0,
+            'skipped_analysis': 0
+        }
         try:
-            logger.info(f"Collecting {limit} real domain sales (min price: ${min_price})")
-            
-            # Get real sales from NameBio
-            real_sales = self.namebio.get_free_tier_data()  # Real verified sales
-            
-            if not real_sales:
-                logger.warning("No sales data available from NameBio")
-                return {'domains_added': 0, 'error': 'No data from NameBio'}
-            
-            logger.info(f"Retrieved {len(real_sales)} verified domain sales")
-            
-            # Get all domain names for uniqueness analysis
-            all_names = [sale['name'] for sale in real_sales]
-            
-            added_count = 0
-            
-            for sale in real_sales:
-                # Check if already exists
-                existing = Domain.query.filter_by(full_domain=sale['domain']).first()
-                if existing:
+            raw_sales = self.namebio.get_free_tier_data()
+            if not raw_sales:
+                logger.warning("No sales data available from NameBio sources")
+                stats['message'] = 'No data from NameBio'
+                return stats
+            normalized_tlds = {t.lower().lstrip('.') for t in tlds} if tlds else None
+            existing_full_domains = {
+                (full_domain or '').lower()
+                for (full_domain,) in db.session.query(Domain.full_domain).all()
+                if full_domain
+            }
+            all_domain_names = [name for (name,) in db.session.query(Domain.name).all() if name]
+            seen_this_run = set()
+            for sale in raw_sales:
+                if stats['domains_added'] >= limit:
+                    break
+                normalized = self._normalize_sale(sale)
+                if not normalized:
+                    stats['skipped_invalid'] += 1
                     continue
-                
-                # Analyze the domain name
-                analysis_results = self.analyzer.analyze_domain(sale['name'], sale['tld'], all_names)
-                
-                # Create domain record with REAL data
-                domain = Domain(
-                    name=sale['name'],
-                    tld=sale['tld'],
-                    full_domain=sale['domain'],
-                    is_available=False,  # Sold domains are not available
-                    sale_price=sale['price'],
-                    sale_date=sale['date'],
-                    keyword_score=analysis_results.get('keyword_score', 50),
-                    brandability_score=analysis_results.get('brandability_score', 50),
-                    tld_premium_multiplier=analysis_results.get('tld_premium_multiplier', 1.0)
+                if normalized_tlds and normalized['tld'].lstrip('.') not in normalized_tlds:
+                    stats['skipped_tld'] += 1
+                    continue
+                if normalized['price'] < min_price:
+                    stats['skipped_low_price'] += 1
+                    continue
+                if normalized['sale_date'] and normalized['sale_date'].year < earliest_year:
+                    stats['skipped_invalid'] += 1
+                    continue
+                domain_key = normalized['full_domain'].lower()
+                if domain_key in existing_full_domains or domain_key in seen_this_run:
+                    stats['skipped_existing'] += 1
+                    continue
+                analysis_results = self.analyzer.analyze_domain(
+                    normalized['name'],
+                    normalized['tld'],
+                    all_domain_names or None
                 )
-                
+                if not analysis_results:
+                    stats['skipped_analysis'] += 1
+                    continue
+                valuation = self.analyzer.estimate_value(
+                    normalized['name'],
+                    normalized['tld'],
+                    analysis_results
+                ) or {}
+                domain = Domain(
+                    name=normalized['name'],
+                    tld=normalized['tld'],
+                    full_domain=normalized['full_domain'],
+                    is_available=False,
+                    sale_price=normalized['price'],
+                    sale_date=normalized['sale_date'],
+                    keyword_score=analysis_results.get('keyword_score'),
+                    brandability_score=analysis_results.get('brandability_score'),
+                    tld_premium_multiplier=analysis_results.get('tld_premium_multiplier'),
+                    days_on_market=None
+                )
+                estimated = valuation.get('estimated_value', {})
+                domain.estimated_value_low = estimated.get('low')
+                domain.estimated_value_high = estimated.get('high')
                 db.session.add(domain)
                 db.session.flush()
-                
-                # Create analysis record
                 domain_analysis = DomainAnalysis(
                     domain_id=domain.id,
                     syllable_count=analysis_results.get('syllable_count'),
@@ -86,24 +110,57 @@ class DomainDataCollector:
                     uniqueness_score=analysis_results.get('uniqueness_score'),
                     analyzed_date=datetime.utcnow()
                 )
-                
                 db.session.add(domain_analysis)
-                added_count += 1
-            
+                stats['domains_added'] += 1
+                seen_this_run.add(domain_key)
+                all_domain_names.append(normalized['name'])
             db.session.commit()
-            
-            logger.info(f"✅ Added {added_count} real domain sales to database")
-            
-            return {
-                'domains_added': added_count,
-                'total_in_db': Domain.query.count(),
-                'source': 'NameBio/Public Records'
-            }
-        
+            stats['total_in_db'] = Domain.query.count()
+            logger.info("Added %s domain sales (limit=%s)", stats['domains_added'], limit)
+            return stats
         except Exception as e:
             logger.error(f"Real domain collection error: {e}")
             db.session.rollback()
-            return {'domains_added': 0, 'error': str(e)}
+            stats['error'] = str(e)
+            return stats
+    
+    def _normalize_sale(self, sale):
+        domain_str = sale.get('domain') or sale.get('name')
+        if not domain_str:
+            return None
+        name, tld = self._split_domain(domain_str)
+        if not name or not tld:
+            return None
+        price = sale.get('price')
+        try:
+            price_val = float(price)
+        except (TypeError, ValueError):
+            return None
+        sale_date = sale.get('date')
+        if isinstance(sale_date, str):
+            try:
+                sale_date = datetime.fromisoformat(sale_date)
+            except ValueError:
+                return None
+        elif sale_date and not isinstance(sale_date, datetime):
+            return None
+        return {
+            'name': name,
+            'tld': tld,
+            'full_domain': f"{name}{tld}",
+            'price': price_val,
+            'sale_date': sale_date,
+            'source': sale.get('source')
+        }
+    
+    def _split_domain(self, full_domain):
+        cleaned = (full_domain or '').strip().lower()
+        if '.' not in cleaned:
+            return cleaned, ''
+        parts = cleaned.rsplit('.', 1)
+        name = parts[0]
+        tld = f".{parts[1]}"
+        return name, tld
     
     def bootstrap_with_known_sales(self):
         """DEPRECATED - Use collect_real_sales() instead"""

@@ -1,0 +1,138 @@
+{
+  "claim": {
+    "claim_id": "M3",
+    "asset_type": "mtg",
+    "target_column": "is_premium",
+    "target_kind": "binary",
+    "description": "Fantasy and mythic resonance predict premium collectible status (>$20) with minimal playability controls.",
+    "features": [
+      "fantasy_score",
+      "mythic_resonance_score",
+      "memorability_score",
+      "uniqueness_score",
+      "constructed_language_score"
+    ],
+    "control_features": [
+      "is_mythic",
+      "log_edhrec_rank"
+    ],
+    "filters": {
+      "price_usd": {
+        "op": "gt",
+        "value": 0.5
+      }
+    },
+    "sample_floor": 150,
+    "breakout_threshold": null,
+    "notes": null
+  },
+  "status": "ok",
+  "sample_size": 2046,
+  "model_summary": {
+    "model_type": "Logit",
+    "primary_metric": "pseudo_r_squared",
+    "pseudo_r_squared": 0.05331329988946443,
+    "aic": 1299.7364752052258,
+    "bic": 1339.1019688308068,
+    "log_likelihood": -642.8682376026129,
+    "accuracy": 0.8973607038123167,
+    "cross_validation": {
+      "metric": "roc_auc",
+      "folds": 5,
+      "scores": [
+        0.5883010432190761,
+        0.5643236074270558,
+        0.659888004715591,
+        0.5734286565385761,
+        0.565084835630965
+      ],
+      "mean_score": 0.5902052295062529,
+      "std_score": 0.03589334488935568,
+      "auxiliary": {
+        "accuracy_mean": 0.6221825988431033,
+        "accuracy_std": 0.04438007623956626
+      }
+    }
+  },
+  "coefficients": [
+    {
+      "name": "fantasy_score",
+      "coefficient": 0.009196803771509884,
+      "p_value": 0.2210219483132988,
+      "ci_lower": -0.005532057366425857,
+      "ci_upper": 0.023925664909445622
+    },
+    {
+      "name": "mythic_resonance_score",
+      "coefficient": -0.0024207936865105707,
+      "p_value": 0.6976897703050889,
+      "ci_lower": -0.014635440105365802,
+      "ci_upper": 0.009793852732344663
+    },
+    {
+      "name": "memorability_score",
+      "coefficient": 0.009612594418851856,
+      "p_value": 0.07777326792995606,
+      "ci_lower": -0.0010693545109072087,
+      "ci_upper": 0.020294543348610923
+    },
+    {
+      "name": "uniqueness_score",
+      "coefficient": 0.007087552644499242,
+      "p_value": 0.4043049431529081,
+      "ci_lower": -0.009569589006074773,
+      "ci_upper": 0.023744694295073258
+    },
+    {
+      "name": "constructed_language_score",
+      "coefficient": -0.017254227727460655,
+      "p_value": 0.004038509620185807,
+      "ci_lower": -0.029016329262876672,
+      "ci_upper": -0.005492126192044639
+    },
+    {
+      "name": "is_mythic",
+      "coefficient": -0.2421595809632049,
+      "p_value": 0.18734964151685263,
+      "ci_lower": -0.6021431882983489,
+      "ci_upper": 0.11782402637193912
+    },
+    {
+      "name": "log_edhrec_rank",
+      "coefficient": -0.41424277211376365,
+      "p_value": 1.6153841128902049e-13,
+      "ci_lower": -0.5242967916003277,
+      "ci_upper": -0.3041887526271995
+    }
+  ],
+  "effect_analysis": {
+    "group_sizes": {
+      "positive": 211,
+      "negative": 1835
+    },
+    "positive_mean": {
+      "fantasy_score": 70.71090047393365,
+      "mythic_resonance_score": 61.4218009478673,
+      "memorability_score": 42.72175355450237,
+      "uniqueness_score": 100.0,
+      "constructed_language_score": 11.374407582938389
+    },
+    "negative_mean": {
+      "fantasy_score": 71.71117166212534,
+      "mythic_resonance_score": 64.68937329700273,
+      "memorability_score": 39.76277929155314,
+      "uniqueness_score": 100.0,
+      "constructed_language_score": 14.795640326975477
+    },
+    "lift": {
+      "fantasy_score": -1.0002711881916895,
+      "mythic_resonance_score": -3.2675723491354347,
+      "memorability_score": 2.9589742629492335,
+      "uniqueness_score": 0.0,
+      "constructed_language_score": -3.4212327440370878
+    },
+    "positive_share": 0.10312805474095797
+  },
+  "warnings": [],
+  "timestamp": "2025-11-02T19:54:02.372991"
+}

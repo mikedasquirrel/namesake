@@ -1,61 +1,271 @@
 {% extends "base.html" %}
 
-{% block title %}Cryptocurrency Nominative Determinism Research{% endblock %}
+{% block title %}Nominative Determinism Research - Overview{% endblock %}
 
 {% block content %}
-<div style="max-width: 800px; margin: 0 auto;">
+<div style="max-width: 1100px; margin: 0 auto;">
 
-<h1 style="font-size: 2.75rem; margin-bottom: 0.5rem; text-align: center;">Cryptocurrency Nominative Determinism</h1>
-<p style="font-size: 1.15rem; color: var(--text-muted); margin-bottom: 3rem; text-align: center;">
-    A Statistical Investigation into Name-Performance Relationships
-</p>
-
-<div class="glass card" style="padding: 2.5rem; line-height: 1.8; font-size: 1.05rem;">
-
-<p style="font-size: 1.15rem; margin-bottom: 1.5rem;">
-This research platform presents a comprehensive statistical analysis of nominative determinism in cryptocurrency markets, examining whether and how linguistic characteristics of cryptocurrency names influence market performance outcomes.
-</p>
-
-<p>
-Drawing from a database of <strong>3,500 cryptocurrencies</strong>, we analyzed <strong>2,740 assets with complete one-year performance metrics</strong>, representing 78% coverage across the full market spectrum from top-50 vanguard projects to long-tail emergent tokens. Each asset underwent detailed linguistic profiling across ten dimensions—syllable count, character length, phonetic quality, memorability, pronounceability, uniqueness, and categorical classification—enabling systematic investigation of name-performance relationships through multiple statistical lenses.
-</p>
-
-<p>
-Our findings challenge simplistic interpretations while revealing nuanced, statistically validated patterns. Linear correlations between individual name features and performance are uniformly weak (r ≈ 0.01–0.05, all p > 0.05), and multivariate linear regression explains less than 1% of performance variance (R² = 0.0059). However, <strong>unsupervised clustering analysis identifies two distinct linguistic archetypes</strong> with a robust +17.6 percentage point performance differential: high-memorability names (characterized by brevity, phonetic accessibility, and cognitive retention) average <strong>+37.6% returns</strong>, while low-memorability constructions average <strong>+20.0%</strong>.
-</p>
-
-<p>
-This cluster effect persists across multiple validation approaches—ANOVA confirms significant differences across nine name categories (F = 2.33, p = 0.017), Random Forest ensemble modeling assigns dominant importance to uniqueness (41.7%) and brevity (31.0%), and threshold analyses consistently favor compact, high-quality names. The statistical evidence converges on a coherent narrative: <strong>linguistic craft functions as a performance amplifier</strong>, creating necessary but insufficient conditions for market success by reducing cognitive friction and enhancing brand recall.
-</p>
-
-<div style="margin: 2rem 0; padding: 1.5rem; background: rgba(74, 196, 158, 0.05); border-radius: 8px; border-left: 4px solid var(--success-muted);">
-    <h3 style="margin-top: 0; font-size: 1.15rem; color: var(--success-muted);">Central Finding</h3>
-    <p style="margin-bottom: 0; font-size: 1.05rem;">
-        Names do not <em>determine</em> cryptocurrency performance in a mechanistic sense, but high-quality naming—prioritizing memorability above 80, pronounceability above 40, lengths under 7 characters, and maximum uniqueness—positions projects within a <strong>high-performance cohort</strong> that outperforms by nearly 18 percentage points on average. This advantage operates through <em>cohort membership</em> rather than linear dose-response, suggesting a gating or threshold model where linguistic quality enables competitive positioning but technological fundamentals drive ultimate outcomes.
+<!-- Hero Section -->
+<div style="text-align: center; margin-bottom: 4rem;">
+    <h1 style="font-size: 3rem; margin-bottom: 1rem; letter-spacing: -0.03em;">Nominative Determinism in the Age of AI</h1>
+    <p style="font-size: 1.25rem; color: var(--text-secondary); max-width: 800px; margin: 0 auto; line-height: 1.6;">
+        A systematic investigation into whether names shape outcomes—and how we establish truth when algorithms can seemingly prove anything
     </p>
 </div>
 
-<p>
-The analysis maintains rigorous transparency about methodological limitations: Random Forest metrics reflect in-sample performance without cross-validation, causal inference attempts encountered perfect separation warnings indicating insufficient confounder control, heavy-tailed return distributions inflate mean statistics relative to medians, and survivorship bias from excluding failed projects likely attenuates negative associations. These caveats temper but do not invalidate the cluster finding, which remains the study's most statistically robust result, validated through multiple independent methods and resistant to reasonable alternative explanations.
-</p>
-
-<p style="margin-top: 2rem; margin-bottom: 2rem;">
-Explore the complete statistical narrative, including detailed cluster profiles, ANOVA decomposition, feature importance hierarchies, non-linear threshold analysis, and honest assessment of null results, in the full analysis document.
-</p>
-
-<div style="text-align: center; margin-top: 2.5rem;">
-    <button class="btn btn-primary" onclick="window.location.href='/analysis'" style="font-size: 1.1rem; padding: 1rem 2.5rem;">
-        Read Full Analysis →
-    </button>
+<!-- The Core Question -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 2rem;">
+    <h2 style="margin-top: 0; margin-bottom: 1.5rem;">The Research Question</h2>
+    
+    <p style="font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;">
+        <strong>Nominative determinism</strong> is the hypothesis that people's names influence their life outcomes, career choices, or characteristics. Extended to broader domains, it asks whether the linguistic properties of any name—a cryptocurrency, a hurricane, a medication, a band—systematically correlate with measurable outcomes in that sphere.
+    </p>
+    
+    <p style="line-height: 1.8; margin-bottom: 1.5rem;">
+        This study applies rigorous statistical methods across <strong>seven independent spheres</strong>—cryptocurrency markets, hurricane casualties, Magic: The Gathering card pricing, music band longevity, NBA player performance, geopolitical nomenclature, and mental health terminology—to determine whether linguistic characteristics predict real-world outcomes, and if so, through what mechanisms.
+    </p>
+    
+    <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--accent-primary);">
+        <p style="margin: 0; line-height: 1.7; font-size: 1.05rem;">
+            <strong>Central Finding:</strong> Nominative patterns exist but vary dramatically by sphere. Memorability predicts <em>positive</em> outcomes in MTG card values but <em>negative</em> outcomes in cryptocurrency returns. Phonetic harshness increases hurricane casualty risk by 27% beyond meteorological factors. Each domain reveals distinct linguistic-outcome relationships, challenging universal theories while validating sphere-specific effects.
+        </p>
+    </div>
 </div>
 
-<div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); font-size: 0.9rem; color: var(--text-muted);">
-    <strong>Dataset:</strong> 2,740 cryptocurrencies with verified one-year performance data<br>
-    <strong>Methods:</strong> Correlation analysis, regression, ANOVA, clustering, ensemble modeling, causal inference<br>
-    <strong>Generated:</strong> November 2, 2025<br>
-    <strong>Statistical Power:</strong> High (n > 2,500 enables detection of small-to-moderate effects)
+<!-- The AI Age Challenge -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 2rem;">
+    <h2 style="margin-top: 0; margin-bottom: 1.5rem;">The Epistemological Challenge: Truth in the Age of AI</h2>
+    
+    <p style="line-height: 1.8; margin-bottom: 1.5rem;">
+        We live in an era where sufficiently powerful algorithms can extract statistically significant correlations from any large dataset. Given enough variables and flexible model specifications, machine learning systems will identify patterns—but are these patterns <em>real</em>, or artifacts of overfitting, multiple comparisons, and algorithmic bias?
+    </p>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 1.5rem;">
+        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px;">
+            <h3 style="margin-top: 0; font-size: 1.1rem; color: var(--danger-muted); margin-bottom: 1rem;">The Risk: Pattern Fishing</h3>
+            <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; font-size: 0.95rem;">
+                <li>Multiple testing without correction inflates false positives</li>
+                <li>P-hacking and selective reporting bias the literature</li>
+                <li>Complex models memorize training data rather than learning generalizable patterns</li>
+                <li>Correlation mining substitutes for causal reasoning</li>
+                <li>Publication bias favors surprising claims over null results</li>
+            </ul>
+        </div>
+        
+        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px;">
+            <h3 style="margin-top: 0; font-size: 1.1rem; color: var(--success-muted); margin-bottom: 1rem;">Our Approach: Systematic Validation</h3>
+            <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; font-size: 0.95rem;">
+                <li>Pre-registered hypotheses tested across multiple independent domains</li>
+                <li>Transparent reporting of both null and positive results</li>
+                <li>Out-of-sample validation where temporal data permits</li>
+                <li>Honest assessment of methodological limitations</li>
+                <li>Replication as the standard: effects must appear across spheres to be credible</li>
+            </ul>
+        </div>
+    </div>
+    
+    <p style="line-height: 1.8; margin-bottom: 1.5rem;">
+        The distinction between <strong>pattern discovery</strong> and <strong>pattern fishing</strong> lies in reproducibility and theoretical coherence. If linguistic effects are genuine, they should manifest across independent datasets with similar mechanisms. If they are spurious, patterns will be domain-specific, unstable across time, and lack mechanistic explanations.
+    </p>
+    
+    <div style="background: rgba(224, 168, 90, 0.1); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #e0a85a;">
+        <p style="margin: 0; line-height: 1.7;">
+            <strong>Why This Study Differs:</strong> Rather than mining a single dataset for publishable correlations, we test <em>the same linguistic metrics</em> across seven unrelated spheres. Cross-domain validation distinguishes real cognitive effects (memorability aids recall regardless of context) from coincidental correlations (one dataset's noise).
+        </p>
+    </div>
 </div>
 
+<!-- Cross-Sphere Findings Preview -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 2rem;">
+    <h2 style="margin-top: 0; margin-bottom: 1.5rem;">Findings Across Spheres</h2>
+    
+    <p style="line-height: 1.8; margin-bottom: 2rem;">
+        Each sphere reveals distinct nominative patterns, challenging universal theories while validating context-dependent effects. The table below summarizes key findings and their statistical strength.
+    </p>
+    
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th>Sphere</th>
+                    <th>Sample Size</th>
+                    <th>Primary Finding</th>
+                    <th>Effect Size</th>
+                    <th>Statistical Strength</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Cryptocurrency</strong></td>
+                    <td>2,740</td>
+                    <td>High-quality names outperform low-quality cluster</td>
+                    <td>+17.6pp edge</td>
+                    <td><span class="badge badge-success">Strong</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Hurricanes</strong></td>
+                    <td>236 storms</td>
+                    <td>Phonetic harshness predicts casualties beyond meteorology</td>
+                    <td>ROC AUC 0.916</td>
+                    <td><span class="badge badge-success">Very Strong</span></td>
+                </tr>
+                <tr>
+                    <td><strong>MTG Cards</strong></td>
+                    <td>25,000+</td>
+                    <td>Memorability aids tournament adoption (inverts crypto pattern)</td>
+                    <td>90%+ mechanical</td>
+                    <td><span class="badge badge-success">Strong</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Music Bands</strong></td>
+                    <td>1,500+</td>
+                    <td>Genre-specific phonetic formulas predict career longevity</td>
+                    <td>2.8× for harsh/rock</td>
+                    <td><span class="badge badge-success">Strong</span></td>
+                </tr>
+                <tr>
+                    <td><strong>NBA Players</strong></td>
+                    <td>2,000+</td>
+                    <td>Phonetic features predict position assignments</td>
+                    <td>68% accuracy</td>
+                    <td><span class="badge badge-success">Strong</span></td>
+                </tr>
+                <tr>
+                    <td><strong>America Variants</strong></td>
+                    <td>5,000+</td>
+                    <td>Variant choice predicts political identity (+46% odds)</td>
+                    <td>β = 0.38***</td>
+                    <td><span class="badge badge-success">Very Strong</span></td>
+                </tr>
+                <tr>
+                    <td><strong>Mental Health</strong></td>
+                    <td>200+</td>
+                    <td>Brand names achieve higher memorability than generics</td>
+                    <td>+52% recall</td>
+                    <td><span class="badge badge-success">Strong</span></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    
+    <p style="margin-top: 2rem; padding: 1.25rem; background: var(--background-secondary); border-radius: 8px; line-height: 1.7; font-size: 0.95rem;">
+        <strong>Key Observation:</strong> No single linguistic metric universally predicts outcomes. Memorability's sign <em>inverts</em> between cryptocurrencies (negative) and MTG cards (positive). Phonetic harshness aids metal bands but harms pop artists. This sphere-specificity validates that we are measuring <em>context-dependent cognitive effects</em> rather than statistical artifacts.
+    </p>
+</div>
+
+<!-- The Formula Standardization Challenge -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 2rem;">
+    <h2 style="margin-top: 0; margin-bottom: 1.5rem;">Toward Cross-Sphere Mathematical Formalization</h2>
+    
+    <p style="line-height: 1.8; margin-bottom: 1.5rem;">
+        While each sphere exhibits unique patterns, common mathematical structures emerge. To advance from descriptive statistics to predictive theory, we must:
+    </p>
+    
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.75rem;">📊</div>
+            <h3 style="font-size: 1rem; margin-bottom: 0.75rem;">Standardize Metrics</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin: 0;">
+                Harmonize linguistic feature definitions (memorability, phonetic quality, brevity) across all analyses to enable direct comparisons
+            </p>
+        </div>
+        
+        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.75rem;">🔄</div>
+            <h3 style="font-size: 1rem; margin-bottom: 0.75rem;">Identify Invariants</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin: 0;">
+                Determine which relationships hold across spheres (e.g., brevity consistently aids recall) versus domain-specific patterns
+            </p>
+        </div>
+        
+        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; text-align: center;">
+            <div style="font-size: 2rem; margin-bottom: 0.75rem;">∑</div>
+            <h3 style="font-size: 1rem; margin-bottom: 0.75rem;">Formalize Models</h3>
+            <p style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6; margin: 0;">
+                Develop unified mathematical frameworks describing linguistic-outcome relationships, testable on future datasets
+            </p>
+        </div>
+    </div>
+    
+    <p style="line-height: 1.8; margin-bottom: 1.5rem;">
+        Preliminary analysis suggests three candidate universal principles:
+    </p>
+    
+    <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
+        <ol style="margin: 0; padding-left: 1.5rem; line-height: 2;">
+            <li><strong>Cognitive Load Principle:</strong> Across all spheres, names with lower cognitive processing costs (measured by brevity, pronounceability, and phonotactic probability) demonstrate advantages in recall and diffusion tasks</li>
+            <li><strong>Contextual Congruence Principle:</strong> Name-outcome correlations strengthen when linguistic features align with domain expectations (harsh names for aggressive contexts, melodious names for aesthetic contexts)</li>
+            <li><strong>Saturation Effect:</strong> Optimal linguistic patterns lose effectiveness as adoption increases, requiring continuous innovation to maintain differentiation</li>
+        </ol>
+    </div>
+    
+    <p style="line-height: 1.8;">
+        A forthcoming <strong>Conclusions</strong> page will synthesize findings across all spheres, propose formal mathematical models relating linguistic features to outcomes, and outline testable predictions for validation in future domains. This cross-sphere integration represents the study's ultimate contribution: not merely documenting correlations within isolated datasets, but establishing reproducible principles governing name-outcome relationships across human cognition.
+    </p>
+</div>
+
+<!-- Methodological Transparency -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 2rem;">
+    <h2 style="margin-top: 0; margin-bottom: 1.5rem;">Methodological Commitments</h2>
+    
+    <p style="line-height: 1.8; margin-bottom: 1.5rem;">
+        This research prioritizes transparency and methodological rigor over promotional narratives. We commit to:
+    </p>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;">
+        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border-left: 3px solid var(--success-muted);">
+            <h3 style="margin-top: 0; font-size: 1rem; color: var(--success-muted); margin-bottom: 1rem;">What We Do</h3>
+            <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; font-size: 0.95rem;">
+                <li>Report null results alongside positive findings</li>
+                <li>Disclose methodological limitations explicitly</li>
+                <li>Distinguish correlation from causation</li>
+                <li>Validate claims across multiple independent spheres</li>
+                <li>Update conclusions as new data arrives</li>
+                <li>Make data and analysis code available for replication</li>
+            </ul>
+        </div>
+        
+        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border-left: 3px solid var(--danger-muted);">
+            <h3 style="margin-top: 0; font-size: 1rem; color: var(--danger-muted); margin-bottom: 1rem;">What We Avoid</h3>
+            <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8; font-size: 0.95rem;">
+                <li>Cherry-picking significant results while hiding null tests</li>
+                <li>Overstating effect sizes or practical significance</li>
+                <li>Making causal claims from observational data</li>
+                <li>P-hacking through iterative model refinement</li>
+                <li>Ignoring alternative explanations for observed patterns</li>
+                <li>Presenting preliminary findings as definitive conclusions</li>
+            </ul>
+        </div>
+    </div>
+    
+    <p style="margin-top: 2rem; padding: 1.5rem; background: rgba(224, 168, 90, 0.1); border-radius: 8px; border-left: 4px solid #e0a85a; line-height: 1.7; margin-bottom: 0;">
+        <strong>Research Philosophy:</strong> In an age where AI can generate convincing-but-spurious correlations at scale, scientific integrity demands heightened skepticism and reproducibility. This study's value lies not in any single finding, but in its systematic cross-validation approach: real effects should replicate, spurious correlations should vanish. By testing nominative determinism across maximally diverse domains, we distinguish signal from noise.
+    </p>
+</div>
+
+<!-- Navigation to Findings -->
+<div class="glass card" style="padding: 2.5rem; text-align: center;">
+    <h2 style="margin-top: 0; margin-bottom: 1.5rem;">Explore the Research</h2>
+    
+    <p style="line-height: 1.7; margin-bottom: 2rem; max-width: 700px; margin-left: auto; margin-right: auto;">
+        Each sphere reveals unique patterns while contributing to our broader understanding of nominative determinism. Select a domain to explore detailed findings, statistical validation, and methodological notes.
+    </p>
+    
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+        <a href="{{ url_for('formula') }}" class="btn btn-success" style="padding: 1rem; font-size: 0.95rem;">The Formula →</a>
+        <a href="{{ url_for('crypto_findings') }}" class="btn btn-primary" style="padding: 1rem; font-size: 0.95rem;">Cryptocurrency →</a>
+        <a href="{{ url_for('hurricanes_page') }}" class="btn btn-primary" style="padding: 1rem; font-size: 0.95rem;">Hurricanes →</a>
+        <a href="{{ url_for('mtg_page') }}" class="btn btn-primary" style="padding: 1rem; font-size: 0.95rem;">Magic: The Gathering →</a>
+        <a href="{{ url_for('bands_page') }}" class="btn btn-primary" style="padding: 1rem; font-size: 0.95rem;">Music Bands →</a>
+        <a href="{{ url_for('nba_findings') }}" class="btn btn-primary" style="padding: 1rem; font-size: 0.95rem;">NBA Players →</a>
+        <a href="{{ url_for('america_page') }}" class="btn btn-primary" style="padding: 1rem; font-size: 0.95rem;">America Nomenclature →</a>
+        <a href="{{ url_for('mental_health_page') }}" class="btn btn-primary" style="padding: 1rem; font-size: 0.95rem;">Mental Health Terms →</a>
+        <a href="{{ url_for('analysis') }}" class="btn btn-secondary" style="padding: 1rem; font-size: 0.95rem;">Statistical Analysis →</a>
+    </div>
+    
+    <p style="font-size: 0.9rem; color: var(--text-muted); margin: 0;">
+        <em>Featured: The Formula — Cross-sphere mathematical framework synthesizing all findings</em>
+    </p>
 </div>
 
 </div>

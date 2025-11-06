@@ -1,0 +1,367 @@
+{
+  "metadata": {
+    "created": "2025-11-06",
+    "purpose": "Cross-domain comparison for nominative determinism framework",
+    "status": "Living document - updates as evidence accumulates"
+  },
+  
+  "domains": {
+    "hurricanes": {
+      "confidence": "HIGH",
+      "data_status": "real_data",
+      "sample_size": 236,
+      "outcome_type": "continuous_and_binary",
+      "outcome_variable": "casualties_and_damage",
+      "outcome_scale": "log(deaths), binary(has_casualties)",
+      
+      "predictive_performance": {
+        "binary_casualty_roc_auc": 0.916,
+        "binary_damage_roc_auc": 0.935,
+        "continuous_casualty_r2_cv": 0.276,
+        "primary_metric": "ROC_AUC"
+      },
+      
+      "name_features_tested": {
+        "phonetic_harshness": {"effect": "positive", "strength": "moderate", "pval": "<0.05"},
+        "memorability": {"effect": "positive", "strength": "moderate", "pval": "<0.05"},
+        "gender_coding": {"effect": "weak", "strength": "weak", "pval": ">0.05", "note": "confounded_with_era"},
+        "syllables": {"effect": "tested", "strength": "weak", "pval": ">0.10"}
+      },
+      
+      "mechanism": {
+        "primary": "behavioral_response",
+        "pathway": "name -> threat_perception -> evacuation_behavior -> casualties",
+        "evidence": "quasi_experimental_1979_policy",
+        "confounds": "low",
+        "causal_confidence": "medium_high"
+      },
+      
+      "heterogeneity": {
+        "temporal": "stable_1950s_to_2020s",
+        "intensity": "works_for_weak_and_strong_storms",
+        "forecast_era": "similar_pre_and_post_1990"
+      },
+      
+      "unique_insights": [
+        "Names affect human response, not physical phenomenon",
+        "Paradoxical effect: harsh names -> better evacuation -> fewer deaths",
+        "Diagnostic-grade accuracy (AUC 0.916) rare in social science"
+      ],
+      
+      "publication_readiness": "ready_now",
+      "policy_relevance": "high"
+    },
+    
+    "mtg": {
+      "confidence": "HIGH",
+      "data_status": "real_data",
+      "sample_size": 4144,
+      "outcome_type": "continuous",
+      "outcome_variable": "price_usd",
+      "outcome_scale": "log(price)",
+      
+      "predictive_performance": {
+        "instants_sorceries_r2_cv": 0.262,
+        "legendary_creatures_r2_cv": -0.006,
+        "overall_r2": 0.12,
+        "primary_metric": "CV_R2_by_card_type"
+      },
+      
+      "name_features_tested": {
+        "fantasy_score": {"effect": "inverse_u", "strength": "moderate", "optimal": 60-70, "pval": "<0.01"},
+        "memorability": {"effect": "positive", "strength": "moderate", "pval": "<0.05"},
+        "comma_structure": {"effect": "positive", "strength": "strong", "premium": 0.46},
+        "phonetic_harshness": {"effect": "color_specific", "strength": "varies", "note": "blue_harshest"},
+        "syllables": {"effect": "longer_preferred", "strength": "weak"}
+      },
+      
+      "mechanism": {
+        "primary": "market_signaling_confounded_by_mechanics",
+        "pathway": "name -> aesthetic_signal -> collectible_value (confounded by mechanical_power)",
+        "evidence": "mechanical_power_dominates_legendaries",
+        "confounds": "high",
+        "causal_confidence": "low_medium"
+      },
+      
+      "heterogeneity": {
+        "card_type": "instants_work_legendaries_dont",
+        "color": "each_color_has_formula",
+        "era": "30_year_evolution_documented"
+      },
+      
+      "unique_insights": [
+        "Mechanical confounds can overwhelm name effects",
+        "Different card types = different formulas (context-within-context)",
+        "Inverse-U relationships common in mature markets",
+        "Memorability POSITIVE (opposite of crypto)",
+        "Comma premium = structural naming convention value"
+      ],
+      
+      "publication_readiness": "ready_6_months",
+      "policy_relevance": "low"
+    },
+    
+    "name_diversity": {
+      "confidence": "HIGH",
+      "data_status": "real_data",
+      "sample_size": 2100000,
+      "outcome_type": "diversity_metrics",
+      "outcome_variable": "shannon_entropy_hhi_gini",
+      "outcome_scale": "multiple_diversity_indices",
+      
+      "key_findings": {
+        "us_shannon_entropy": 14.96,
+        "us_hhi": 20,
+        "us_top_name_prevalence": 0.02,
+        "middle_name_amplification": 0.30_to_0.50
+      },
+      
+      "cross_national_patterns": {
+        "protestant_countries": {"diversity": "high", "examples": ["USA", "UK", "Canada", "Germany"]},
+        "catholic_islamic_countries": {"diversity": "low", "examples": ["Egypt", "Mexico"]},
+        "germany_adoption_curve": "tracks_liberalization_1950_2020"
+      },
+      
+      "weber_hypothesis": {
+        "prediction": "name_diversity <-> capitalist_structures",
+        "correlation": "exists",
+        "causality": "uncertain",
+        "confounds": ["protestantism", "education", "urbanization"]
+      },
+      
+      "mechanism": {
+        "primary": "cultural_capital_bidirectional_unclear",
+        "pathway_1": "protestantism -> individualism -> name_diversity -> entrepreneurship",
+        "pathway_2": "prosperity -> education -> parental_choice -> name_diversity",
+        "evidence": "observational_only",
+        "confounds": "high",
+        "causal_confidence": "low"
+      },
+      
+      "unique_insights": [
+        "America paradox: subjective beauty (95/100) vs algorithmic rank (12/12)",
+        "Cultural associations dominate pure phonetics",
+        "Middle names amplify diversity 30-50%",
+        "Germany case study: adoption tracks liberalization"
+      ],
+      
+      "publication_readiness": "ready_3_months_with_county_data",
+      "policy_relevance": "medium"
+    },
+    
+    "bands_geopolitical": {
+      "confidence": "THEORETICAL",
+      "data_status": "framework_only",
+      "sample_size": 0,
+      "target_sample": 8000_to_10000,
+      "outcome_type": "chart_success_longevity",
+      "outcome_variable": "popularity_streaming_chart_position",
+      
+      "hypotheses_designed": {
+        "chyna_shibboleth": {
+          "prediction": "CHY_NAH vs CHAI_na predicts ideology r=-0.52",
+          "mechanism": "pronunciation signals political identity",
+          "shockingness": 10,
+          "novelty": 10
+        },
+        "ally_advantage": {
+          "prediction": "+14% market boost for bands from US allies",
+          "mechanism": "favorability -> positive_reception -> success",
+          "shockingness": 7,
+          "novelty": 9
+        },
+        "pronunciation_harshness_tracks_favorability": {
+          "prediction": "r=-0.67 between pronunciation harshness and US favorability",
+          "mechanism": "geopolitics shapes phonetic perception",
+          "shockingness": 8,
+          "novelty": 10
+        },
+        "colonial_the_pattern": {
+          "prediction": "2.3x The___ usage in British colonies",
+          "mechanism": "colonial linguistic imitation",
+          "shockingness": 6,
+          "novelty": 8
+        }
+      },
+      
+      "mechanism": {
+        "primary": "identity_signaling_geopolitical",
+        "pathway": "pronunciation -> ideology_signal -> in_group_affinity -> success",
+        "evidence": "none_yet",
+        "confounds": "unknown",
+        "causal_confidence": "tbd"
+      },
+      
+      "unique_insights_predicted": [
+        "First quantitative test of pronunciation as political shibboleth",
+        "Geopolitics spillover into cultural markets",
+        "Colonial linguistic legacy in modern culture",
+        "Temporal pronunciation tracking with relations"
+      ],
+      
+      "publication_readiness": "requires_data_collection",
+      "policy_relevance": "medium_high_if_validated"
+    },
+    
+    "bands_phonetic_lineage": {
+      "confidence": "THEORETICAL",
+      "data_status": "framework_only",
+      "sample_size": 0,
+      "target_sample": 8000_to_10000,
+      "outcome_type": "influence_networks",
+      "outcome_variable": "phonetic_similarity_temporal_propagation",
+      
+      "hypotheses_designed": {
+        "success_propagation": {
+          "prediction": "2.8x imitation multiplier for successful bands",
+          "mechanism": "success breeds copying (nominative Darwinism)",
+          "shockingness": 7,
+          "novelty": 9
+        },
+        "50_year_cycles": {
+          "prediction": "aesthetic oscillation with 40-50 year period",
+          "mechanism": "generational turnover drives cycles",
+          "shockingness": 8,
+          "novelty": 8
+        },
+        "pattern_extinction": {
+          "prediction": "number names extinct (38% success vs 92% monosyllabic)",
+          "mechanism": "market selection kills failed patterns",
+          "shockingness": 6,
+          "novelty": 7
+        }
+      },
+      
+      "mechanism": {
+        "primary": "network_propagation_evolutionary",
+        "pathway": "success -> imitation -> propagation -> pattern_dominance",
+        "evidence": "none_yet",
+        "confounds": "unknown",
+        "causal_confidence": "tbd"
+      },
+      
+      "unique_insights_predicted": [
+        "First network analysis of nominative determinism",
+        "Evolutionary framework (nominative Darwinism)",
+        "Temporal cycles in aesthetic preferences",
+        "Literal genealogical trees of name patterns"
+      ],
+      
+      "publication_readiness": "requires_data_collection",
+      "policy_relevance": "low"
+    }
+  },
+  
+  "cross_domain_patterns": {
+    "pattern_1_context_determines_formula": {
+      "finding": "No universal naming formula - each domain requires its own regression",
+      "evidence": {
+        "memorability_direction": {
+          "mtg": "positive",
+          "crypto": "negative",
+          "hurricanes": "positive"
+        },
+        "optimal_length": {
+          "mtg": "longer_preferred",
+          "crypto": "shorter_preferred",
+          "hurricanes": "neutral"
+        }
+      },
+      "implication": "Formulas are NOT portable across contexts"
+    },
+    
+    "pattern_2_mechanism_matters_more_than_effect_size": {
+      "finding": "Understanding HOW names work more important than effect magnitude",
+      "mechanisms_identified": {
+        "behavioral_response": "hurricanes",
+        "market_signaling": "mtg",
+        "cultural_capital": "name_diversity",
+        "identity_expression": "bands_predicted",
+        "network_effects": "lineage_predicted"
+      },
+      "implication": "Need mediation analysis in all domains"
+    },
+    
+    "pattern_3_confounds_domain_specific": {
+      "low_confounding": ["hurricanes"],
+      "high_confounding": ["mtg", "name_diversity"],
+      "unknown_confounding": ["bands"],
+      "implication": "Domain selection affects signal clarity"
+    },
+    
+    "pattern_4_nonlinear_relationships_common": {
+      "examples": {
+        "mtg_fantasy": "inverse_u_optimal_60_70",
+        "band_cycles": "50_year_predicted",
+        "name_diversity": "threshold_effects_possible"
+      },
+      "implication": "Linear regression insufficient - test polynomials"
+    },
+    
+    "pattern_5_cultural_associations_dominate_phonetics": {
+      "america_paradox": "subjective_95_vs_algorithmic_12",
+      "implication": "Algorithms miss meaning, capture only form"
+    }
+  },
+  
+  "methodological_synthesis": {
+    "what_works": {
+      "cross_domain_comparison": "Reveals universal vs context-specific patterns",
+      "discovery_orientation": "Document what we find, not what we expect",
+      "heterogeneity_analysis": "Test subgroups, identify moderators",
+      "mechanism_investigation": "Ask HOW not just WHETHER",
+      "multiple_methods": "Regression + quasi-experimental + qualitative"
+    },
+    
+    "what_doesnt_work": {
+      "universal_formulas": "No single equation works across domains",
+      "pure_phonetics": "Misses cultural associations",
+      "linear_models_only": "Miss inverse-U, thresholds, cycles",
+      "ignoring_confounds": "MTG legendaries show why this fails"
+    }
+  },
+  
+  "publication_pipeline": {
+    "paper_1_hurricanes": {
+      "status": "ready_now",
+      "journal": "Weather_Climate_Society",
+      "strength": "Clean signal, policy relevant, high confidence"
+    },
+    "paper_2_name_diversity": {
+      "status": "ready_3_months",
+      "journal": "Demography",
+      "strength": "Large sample, Weber connection, cross-national"
+    },
+    "paper_3_mtg": {
+      "status": "ready_6_months",
+      "journal": "Psychology_Popular_Media",
+      "strength": "Novel domain, shows non-portability"
+    },
+    "paper_4_framework": {
+      "status": "ready_12_months",
+      "journal": "Psychological_Science",
+      "strength": "Integrative, theoretical advance"
+    },
+    "paper_5_geopolitical": {
+      "status": "requires_data",
+      "journal": "Language_in_Society_or_Nature_Human_Behaviour",
+      "strength": "Paradigm_shifting_if_validated"
+    }
+  },
+  
+  "research_program_vision": {
+    "year_1": {
+      "goals": ["Hurricane published", "Name diversity published", "Band data collected"],
+      "status": "in_progress"
+    },
+    "year_2": {
+      "goals": ["Framework published", "Geopolitical validated", "Causal inference advanced"],
+      "status": "planned"
+    },
+    "year_3": {
+      "goals": ["Policy adoption", "Industry consulting", "Media coverage", "Book proposal"],
+      "status": "aspirational"
+    }
+  }
+}
+

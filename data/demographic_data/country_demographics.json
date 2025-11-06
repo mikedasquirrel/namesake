@@ -1,0 +1,1218 @@
+{
+  "metadata": {
+    "description": "Comprehensive demographic, cultural, linguistic, and socioeconomic data for band name cross-cultural analysis",
+    "sources": [
+      "World Bank World Development Indicators",
+      "Hofstede Insights Cultural Dimensions",
+      "World Values Survey",
+      "Ethnologue Language Database",
+      "WALS (World Atlas of Language Structures)",
+      "KOF Globalization Index",
+      "EF English Proficiency Index",
+      "UN Human Development Index",
+      "Pew Research Religious Landscape",
+      "UNESCO Linguistic Diversity"
+    ],
+    "last_updated": "2025-11-06",
+    "variables_count": 45
+  },
+  "countries": {
+    "US": {
+      "country_name": "United States",
+      "country_code": "US",
+      
+      "linguistic": {
+        "language_family": "Germanic",
+        "primary_language": "English",
+        "linguistic_diversity_index": 0.39,
+        "number_of_languages": 430,
+        "primary_script": "Latin",
+        "phonological_features": {
+          "allows_consonant_clusters": true,
+          "max_onset_complexity": 3,
+          "vowel_system_size": 15,
+          "has_tones": false,
+          "stress_pattern": "variable",
+          "allows_final_consonants": true
+        }
+      },
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "independence_year": 1776,
+        "years_independent": 249,
+        "post_colonial_assertion": "strong"
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd": 76398,
+        "hdi_score": 0.921,
+        "education_index": 0.900,
+        "gini_coefficient": 41.4,
+        "urbanization_rate": 82.7,
+        "population_millions": 331.9,
+        "internet_penetration": 90.0,
+        "media_market_size_billions": 720.0
+      },
+      
+      "cultural_dimensions": {
+        "hofstede_individualism": 91,
+        "hofstede_power_distance": 40,
+        "hofstede_masculinity": 62,
+        "hofstede_uncertainty_avoidance": 46,
+        "hofstede_long_term_orientation": 26,
+        "hofstede_indulgence": 68,
+        "world_values_traditional_secular": 1.2,
+        "world_values_survival_expression": 1.7,
+        "globalization_index": 82.3,
+        "cultural_tightness_looseness": 5.1
+      },
+      
+      "religious_cultural": {
+        "majority_religion": "Christian",
+        "christian_percentage": 65.0,
+        "muslim_percentage": 1.1,
+        "unaffiliated_percentage": 26.0,
+        "religious_diversity_index": 0.61,
+        "secular_score": 6.2
+      },
+      
+      "music_industry": {
+        "music_revenues_billions": 15.9,
+        "music_market_rank": 1,
+        "english_proficiency_index": 100.0,
+        "bands_per_million_population": 18.4
+      }
+    },
+    
+    "GB": {
+      "country_name": "United Kingdom",
+      "country_code": "GB",
+      
+      "linguistic": {
+        "language_family": "Germanic",
+        "primary_language": "English",
+        "linguistic_diversity_index": 0.12,
+        "number_of_languages": 14,
+        "primary_script": "Latin",
+        "phonological_features": {
+          "allows_consonant_clusters": true,
+          "max_onset_complexity": 3,
+          "vowel_system_size": 20,
+          "has_tones": false,
+          "stress_pattern": "variable",
+          "allows_final_consonants": true
+        }
+      },
+      
+      "colonial_history": {
+        "former_colony": false,
+        "colonial_power": null,
+        "independence_year": null,
+        "years_independent": null,
+        "was_colonial_power": true,
+        "former_colonies_count": 50
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd": 46344,
+        "hdi_score": 0.929,
+        "education_index": 0.918,
+        "gini_coefficient": 35.1,
+        "urbanization_rate": 84.0,
+        "population_millions": 67.3,
+        "internet_penetration": 95.0,
+        "media_market_size_billions": 8.2
+      },
+      
+      "cultural_dimensions": {
+        "hofstede_individualism": 89,
+        "hofstede_power_distance": 35,
+        "hofstede_masculinity": 66,
+        "hofstede_uncertainty_avoidance": 35,
+        "hofstede_long_term_orientation": 51,
+        "hofstede_indulgence": 69,
+        "world_values_traditional_secular": 1.4,
+        "world_values_survival_expression": 1.5,
+        "globalization_index": 88.7,
+        "cultural_tightness_looseness": 4.8
+      },
+      
+      "religious_cultural": {
+        "majority_religion": "Christian",
+        "christian_percentage": 46.0,
+        "muslim_percentage": 6.3,
+        "unaffiliated_percentage": 37.0,
+        "religious_diversity_index": 0.68,
+        "secular_score": 7.8
+      },
+      
+      "music_industry": {
+        "music_revenues_billions": 1.5,
+        "music_market_rank": 3,
+        "english_proficiency_index": 100.0,
+        "bands_per_million_population": 32.7
+      }
+    },
+    
+    "DE": {
+      "country_name": "Germany",
+      "country_code": "DE",
+      
+      "linguistic": {
+        "language_family": "Germanic",
+        "primary_language": "German",
+        "linguistic_diversity_index": 0.18,
+        "number_of_languages": 28,
+        "primary_script": "Latin",
+        "phonological_features": {
+          "allows_consonant_clusters": true,
+          "max_onset_complexity": 4,
+          "vowel_system_size": 16,
+          "has_tones": false,
+          "stress_pattern": "initial",
+          "allows_final_consonants": true,
+          "compound_word_formation": "very_productive"
+        }
+      },
+      
+      "colonial_history": {
+        "former_colony": false,
+        "colonial_power": null,
+        "independence_year": null,
+        "was_colonial_power": true,
+        "former_colonies_count": 8
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd": 48756,
+        "hdi_score": 0.942,
+        "education_index": 0.947,
+        "gini_coefficient": 31.7,
+        "urbanization_rate": 77.5,
+        "population_millions": 83.2,
+        "internet_penetration": 91.0,
+        "media_market_size_billions": 5.1
+      },
+      
+      "cultural_dimensions": {
+        "hofstede_individualism": 67,
+        "hofstede_power_distance": 35,
+        "hofstede_masculinity": 66,
+        "hofstede_uncertainty_avoidance": 65,
+        "hofstede_long_term_orientation": 83,
+        "hofstede_indulgence": 40,
+        "world_values_traditional_secular": 1.8,
+        "world_values_survival_expression": 1.1,
+        "globalization_index": 86.9,
+        "cultural_tightness_looseness": 6.7
+      },
+      
+      "religious_cultural": {
+        "majority_religion": "Christian",
+        "christian_percentage": 54.0,
+        "muslim_percentage": 5.2,
+        "unaffiliated_percentage": 38.0,
+        "religious_diversity_index": 0.58,
+        "secular_score": 8.1
+      },
+      
+      "music_industry": {
+        "music_revenues_billions": 1.4,
+        "music_market_rank": 4,
+        "english_proficiency_index": 63.8,
+        "bands_per_million_population": 14.2
+      }
+    },
+    
+    "SE": {
+      "country_name": "Sweden",
+      "country_code": "SE",
+      
+      "linguistic": {
+        "language_family": "Germanic",
+        "primary_language": "Swedish",
+        "linguistic_diversity_index": 0.21,
+        "number_of_languages": 23,
+        "primary_script": "Latin",
+        "phonological_features": {
+          "allows_consonant_clusters": true,
+          "max_onset_complexity": 3,
+          "vowel_system_size": 18,
+          "has_tones": true,
+          "stress_pattern": "variable",
+          "allows_final_consonants": true
+        }
+      },
+      
+      "colonial_history": {
+        "former_colony": false,
+        "colonial_power": null,
+        "independence_year": null,
+        "was_colonial_power": false
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd": 60239,
+        "hdi_score": 0.947,
+        "education_index": 0.917,
+        "gini_coefficient": 28.8,
+        "urbanization_rate": 88.2,
+        "population_millions": 10.4,
+        "internet_penetration": 96.0,
+        "media_market_size_billions": 0.42
+      },
+      
+      "cultural_dimensions": {
+        "hofstede_individualism": 71,
+        "hofstede_power_distance": 31,
+        "hofstede_masculinity": 5,
+        "hofstede_uncertainty_avoidance": 29,
+        "hofstede_long_term_orientation": 53,
+        "hofstede_indulgence": 78,
+        "world_values_traditional_secular": 2.3,
+        "world_values_survival_expression": 1.9,
+        "globalization_index": 90.2,
+        "cultural_tightness_looseness": 3.2
+      },
+      
+      "religious_cultural": {
+        "majority_religion": "Christian",
+        "christian_percentage": 63.0,
+        "muslim_percentage": 8.1,
+        "unaffiliated_percentage": 27.0,
+        "religious_diversity_index": 0.52,
+        "secular_score": 9.1
+      },
+      
+      "music_industry": {
+        "music_revenues_billions": 0.24,
+        "music_market_rank": 15,
+        "english_proficiency_index": 70.4,
+        "bands_per_million_population": 42.3
+      }
+    },
+    
+    "JP": {
+      "country_name": "Japan",
+      "country_code": "JP",
+      
+      "linguistic": {
+        "language_family": "Japonic",
+        "primary_language": "Japanese",
+        "linguistic_diversity_index": 0.02,
+        "number_of_languages": 16,
+        "primary_script": "Mixed (Kanji, Hiragana, Katakana)",
+        "phonological_features": {
+          "allows_consonant_clusters": false,
+          "max_onset_complexity": 1,
+          "vowel_system_size": 5,
+          "has_tones": false,
+          "stress_pattern": "pitch_accent",
+          "allows_final_consonants": false,
+          "no_l_r_distinction": true,
+          "cv_syllable_preference": true
+        }
+      },
+      
+      "colonial_history": {
+        "former_colony": false,
+        "colonial_power": null,
+        "independence_year": null,
+        "was_colonial_power": true,
+        "former_colonies_count": 7
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd": 39313,
+        "hdi_score": 0.925,
+        "education_index": 0.873,
+        "gini_coefficient": 32.9,
+        "urbanization_rate": 91.8,
+        "population_millions": 125.7,
+        "internet_penetration": 82.0,
+        "media_market_size_billions": 2.9
+      },
+      
+      "cultural_dimensions": {
+        "hofstede_individualism": 46,
+        "hofstede_power_distance": 54,
+        "hofstede_masculinity": 95,
+        "hofstede_uncertainty_avoidance": 92,
+        "hofstede_long_term_orientation": 88,
+        "hofstede_indulgence": 42,
+        "world_values_traditional_secular": 1.6,
+        "world_values_survival_expression": 0.8,
+        "globalization_index": 71.2,
+        "cultural_tightness_looseness": 8.6
+      },
+      
+      "religious_cultural": {
+        "majority_religion": "Shinto/Buddhist",
+        "christian_percentage": 1.5,
+        "buddhist_percentage": 67.0,
+        "shinto_percentage": 70.0,
+        "unaffiliated_percentage": 31.0,
+        "religious_diversity_index": 0.51,
+        "secular_score": 7.4
+      },
+      
+      "music_industry": {
+        "music_revenues_billions": 2.8,
+        "music_market_rank": 2,
+        "english_proficiency_index": 47.0,
+        "bands_per_million_population": 8.3
+      }
+    },
+    
+    "FR": {
+      "country_name": "France",
+      "country_code": "FR",
+      
+      "linguistic": {
+        "language_family": "Romance",
+        "primary_language": "French",
+        "linguistic_diversity_index": 0.25,
+        "number_of_languages": 29,
+        "primary_script": "Latin",
+        "phonological_features": {
+          "allows_consonant_clusters": false,
+          "max_onset_complexity": 2,
+          "vowel_system_size": 16,
+          "has_tones": false,
+          "stress_pattern": "final",
+          "allows_final_consonants": true,
+          "nasal_vowels": true,
+          "liaison": true
+        }
+      },
+      
+      "colonial_history": {
+        "former_colony": false,
+        "colonial_power": null,
+        "independence_year": null,
+        "was_colonial_power": true,
+        "former_colonies_count": 35
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd": 43659,
+        "hdi_score": 0.903,
+        "education_index": 0.883,
+        "gini_coefficient": 32.4,
+        "urbanization_rate": 81.0,
+        "population_millions": 67.5,
+        "internet_penetration": 85.0,
+        "media_market_size_billions": 3.2
+      },
+      
+      "cultural_dimensions": {
+        "hofstede_individualism": 71,
+        "hofstede_power_distance": 68,
+        "hofstede_masculinity": 43,
+        "hofstede_uncertainty_avoidance": 86,
+        "hofstede_long_term_orientation": 63,
+        "hofstede_indulgence": 48,
+        "world_values_traditional_secular": 1.5,
+        "world_values_survival_expression": 1.3,
+        "globalization_index": 84.1,
+        "cultural_tightness_looseness": 6.2
+      },
+      
+      "religious_cultural": {
+        "majority_religion": "Christian",
+        "christian_percentage": 48.0,
+        "muslim_percentage": 8.8,
+        "unaffiliated_percentage": 40.0,
+        "religious_diversity_index": 0.64,
+        "secular_score": 8.7
+      },
+      
+      "music_industry": {
+        "music_revenues_billions": 0.91,
+        "music_market_rank": 6,
+        "english_proficiency_index": 55.8,
+        "bands_per_million_population": 11.2
+      }
+    },
+    
+    "ES": {
+      "country_name": "Spain",
+      "country_code": "ES",
+      
+      "linguistic": {
+        "language_family": "Romance",
+        "primary_language": "Spanish",
+        "linguistic_diversity_index": 0.42,
+        "number_of_languages": 16,
+        "primary_script": "Latin",
+        "phonological_features": {
+          "allows_consonant_clusters": false,
+          "max_onset_complexity": 2,
+          "vowel_system_size": 5,
+          "has_tones": false,
+          "stress_pattern": "penultimate_default",
+          "allows_final_consonants": true,
+          "simple_syllable_structure": true
+        }
+      },
+      
+      "colonial_history": {
+        "former_colony": false,
+        "colonial_power": null,
+        "independence_year": null,
+        "was_colonial_power": true,
+        "former_colonies_count": 25
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd": 30103,
+        "hdi_score": 0.905,
+        "education_index": 0.896,
+        "gini_coefficient": 34.7,
+        "urbanization_rate": 81.0,
+        "population_millions": 47.4,
+        "internet_penetration": 91.0,
+        "media_market_size_billions": 0.63
+      },
+      
+      "cultural_dimensions": {
+        "hofstede_individualism": 51,
+        "hofstede_power_distance": 57,
+        "hofstede_masculinity": 42,
+        "hofstede_uncertainty_avoidance": 86,
+        "hofstede_long_term_orientation": 48,
+        "hofstede_indulgence": 44,
+        "world_values_traditional_secular": 0.9,
+        "world_values_survival_expression": 1.2,
+        "globalization_index": 83.4,
+        "cultural_tightness_looseness": 5.8
+      },
+      
+      "religious_cultural": {
+        "majority_religion": "Christian",
+        "christian_percentage": 66.0,
+        "muslim_percentage": 4.0,
+        "unaffiliated_percentage": 28.0,
+        "religious_diversity_index": 0.48,
+        "secular_score": 6.9
+      },
+      
+      "music_industry": {
+        "music_revenues_billions": 0.29,
+        "music_market_rank": 13,
+        "english_proficiency_index": 56.2,
+        "bands_per_million_population": 9.1
+      }
+    },
+    
+    "BR": {
+      "country_name": "Brazil",
+      "country_code": "BR",
+      
+      "linguistic": {
+        "language_family": "Romance",
+        "primary_language": "Portuguese",
+        "linguistic_diversity_index": 0.05,
+        "number_of_languages": 228,
+        "primary_script": "Latin",
+        "phonological_features": {
+          "allows_consonant_clusters": false,
+          "max_onset_complexity": 2,
+          "vowel_system_size": 14,
+          "has_tones": false,
+          "stress_pattern": "variable",
+          "allows_final_consonants": true,
+          "nasal_vowels": true
+        }
+      },
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Portugal",
+        "independence_year": 1822,
+        "years_independent": 203,
+        "post_colonial_assertion": "moderate"
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd": 8917,
+        "hdi_score": 0.754,
+        "education_index": 0.673,
+        "gini_coefficient": 53.4,
+        "urbanization_rate": 87.1,
+        "population_millions": 214.3,
+        "internet_penetration": 74.0,
+        "media_market_size_billions": 1.2
+      },
+      
+      "cultural_dimensions": {
+        "hofstede_individualism": 38,
+        "hofstede_power_distance": 69,
+        "hofstede_masculinity": 49,
+        "hofstede_uncertainty_avoidance": 76,
+        "hofstede_long_term_orientation": 44,
+        "hofstede_indulgence": 59,
+        "world_values_traditional_secular": 0.3,
+        "world_values_survival_expression": 0.6,
+        "globalization_index": 63.2,
+        "cultural_tightness_looseness": 4.1
+      },
+      
+      "religious_cultural": {
+        "majority_religion": "Christian",
+        "christian_percentage": 87.0,
+        "muslim_percentage": 0.1,
+        "unaffiliated_percentage": 8.0,
+        "religious_diversity_index": 0.21,
+        "secular_score": 3.2
+      },
+      
+      "music_industry": {
+        "music_revenues_billions": 0.32,
+        "music_market_rank": 10,
+        "english_proficiency_index": 50.0,
+        "bands_per_million_population": 3.4
+      }
+    },
+    
+    "NO": {
+      "country_name": "Norway",
+      "country_code": "NO",
+      
+      "linguistic": {
+        "language_family": "Germanic",
+        "primary_language": "Norwegian",
+        "linguistic_diversity_index": 0.08,
+        "number_of_languages": 11,
+        "primary_script": "Latin",
+        "phonological_features": {
+          "allows_consonant_clusters": true,
+          "max_onset_complexity": 3,
+          "vowel_system_size": 18,
+          "has_tones": true,
+          "stress_pattern": "variable",
+          "allows_final_consonants": true
+        }
+      },
+      
+      "colonial_history": {
+        "former_colony": false,
+        "colonial_power": null,
+        "independence_year": 1905,
+        "years_independent": 120,
+        "post_colonial_assertion": "n/a"
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd": 89203,
+        "hdi_score": 0.961,
+        "education_index": 0.933,
+        "gini_coefficient": 27.7,
+        "urbanization_rate": 83.0,
+        "population_millions": 5.5,
+        "internet_penetration": 98.0,
+        "media_market_size_billions": 0.18
+      },
+      
+      "cultural_dimensions": {
+        "hofstede_individualism": 69,
+        "hofstede_power_distance": 31,
+        "hofstede_masculinity": 8,
+        "hofstede_uncertainty_avoidance": 50,
+        "hofstede_long_term_orientation": 35,
+        "hofstede_indulgence": 55,
+        "world_values_traditional_secular": 2.1,
+        "world_values_survival_expression": 1.8,
+        "globalization_index": 87.9,
+        "cultural_tightness_looseness": 3.8
+      },
+      
+      "religious_cultural": {
+        "majority_religion": "Christian",
+        "christian_percentage": 73.0,
+        "muslim_percentage": 3.7,
+        "unaffiliated_percentage": 22.0,
+        "religious_diversity_index": 0.42,
+        "secular_score": 8.3
+      },
+      
+      "music_industry": {
+        "music_revenues_billions": 0.11,
+        "music_market_rank": 25,
+        "english_proficiency_index": 68.4,
+        "bands_per_million_population": 61.8
+      }
+    },
+    
+    "PL": {
+      "country_name": "Poland",
+      "country_code": "PL",
+      
+      "linguistic": {
+        "language_family": "Slavic",
+        "primary_language": "Polish",
+        "linguistic_diversity_index": 0.05,
+        "number_of_languages": 21,
+        "primary_script": "Latin",
+        "phonological_features": {
+          "allows_consonant_clusters": true,
+          "max_onset_complexity": 5,
+          "vowel_system_size": 8,
+          "has_tones": false,
+          "stress_pattern": "penultimate",
+          "allows_final_consonants": true,
+          "extreme_clusters": true,
+          "palatalization": true
+        }
+      },
+      
+      "colonial_history": {
+        "former_colony": false,
+        "colonial_power": null,
+        "independence_year": 1918,
+        "years_independent": 107,
+        "occupation_history": "partitioned_1795_1918"
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd": 18282,
+        "hdi_score": 0.876,
+        "education_index": 0.867,
+        "gini_coefficient": 30.2,
+        "urbanization_rate": 60.1,
+        "population_millions": 37.7,
+        "internet_penetration": 84.0,
+        "media_market_size_billions": 0.42
+      },
+      
+      "cultural_dimensions": {
+        "hofstede_individualism": 60,
+        "hofstede_power_distance": 68,
+        "hofstede_masculinity": 64,
+        "hofstede_uncertainty_avoidance": 93,
+        "hofstede_long_term_orientation": 38,
+        "hofstede_indulgence": 29,
+        "world_values_traditional_secular": 0.8,
+        "world_values_survival_expression": 0.3,
+        "globalization_index": 72.8,
+        "cultural_tightness_looseness": 7.1
+      },
+      
+      "religious_cultural": {
+        "majority_religion": "Christian",
+        "christian_percentage": 87.0,
+        "muslim_percentage": 0.1,
+        "unaffiliated_percentage": 10.0,
+        "religious_diversity_index": 0.22,
+        "secular_score": 3.8
+      },
+      
+      "music_industry": {
+        "music_revenues_billions": 0.12,
+        "music_market_rank": 22,
+        "english_proficiency_index": 62.0,
+        "bands_per_million_population": 7.8
+      }
+    },
+    
+    "AU": {
+      "country_name": "Australia",
+      "country_code": "AU",
+      
+      "linguistic": {
+        "language_family": "Germanic",
+        "primary_language": "English",
+        "linguistic_diversity_index": 0.32,
+        "number_of_languages": 313,
+        "primary_script": "Latin",
+        "phonological_features": {
+          "allows_consonant_clusters": true,
+          "max_onset_complexity": 3,
+          "vowel_system_size": 15,
+          "has_tones": false,
+          "stress_pattern": "variable",
+          "allows_final_consonants": true,
+          "distinct_phonology": "australian_english"
+        }
+      },
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "independence_year": 1901,
+        "years_independent": 124,
+        "post_colonial_assertion": "moderate",
+        "cultural_cringe": "historical_issue"
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd": 64491,
+        "hdi_score": 0.951,
+        "education_index": 0.935,
+        "gini_coefficient": 34.4,
+        "urbanization_rate": 86.2,
+        "population_millions": 26.0,
+        "internet_penetration": 88.0,
+        "media_market_size_billions": 0.82
+      },
+      
+      "cultural_dimensions": {
+        "hofstede_individualism": 90,
+        "hofstede_power_distance": 38,
+        "hofstede_masculinity": 61,
+        "hofstede_uncertainty_avoidance": 51,
+        "hofstede_long_term_orientation": 21,
+        "hofstede_indulgence": 71,
+        "world_values_traditional_secular": 1.3,
+        "world_values_survival_expression": 1.6,
+        "globalization_index": 81.7,
+        "cultural_tightness_looseness": 4.2
+      },
+      
+      "religious_cultural": {
+        "majority_religion": "Christian",
+        "christian_percentage": 44.0,
+        "muslim_percentage": 2.6,
+        "unaffiliated_percentage": 38.0,
+        "religious_diversity_index": 0.64,
+        "secular_score": 7.1
+      },
+      
+      "music_industry": {
+        "music_revenues_billions": 0.58,
+        "music_market_rank": 7,
+        "english_proficiency_index": 100.0,
+        "bands_per_million_population": 24.6
+      }
+    },
+    
+    "MX": {
+      "country_name": "Mexico",
+      "country_code": "MX",
+      
+      "linguistic": {
+        "language_family": "Romance",
+        "primary_language": "Spanish",
+        "linguistic_diversity_index": 0.17,
+        "number_of_languages": 297,
+        "primary_script": "Latin",
+        "phonological_features": {
+          "allows_consonant_clusters": false,
+          "max_onset_complexity": 2,
+          "vowel_system_size": 5,
+          "has_tones": false,
+          "stress_pattern": "penultimate_default",
+          "allows_final_consonants": true
+        }
+      },
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Spain",
+        "independence_year": 1821,
+        "years_independent": 204,
+        "post_colonial_assertion": "strong"
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd": 10045,
+        "hdi_score": 0.758,
+        "education_index": 0.698,
+        "gini_coefficient": 45.4,
+        "urbanization_rate": 80.7,
+        "population_millions": 126.7,
+        "internet_penetration": 72.0,
+        "media_market_size_billions": 1.1
+      },
+      
+      "cultural_dimensions": {
+        "hofstede_individualism": 30,
+        "hofstede_power_distance": 81,
+        "hofstede_masculinity": 69,
+        "hofstede_uncertainty_avoidance": 82,
+        "hofstede_long_term_orientation": 24,
+        "hofstede_indulgence": 97,
+        "world_values_traditional_secular": -0.4,
+        "world_values_survival_expression": 0.2,
+        "globalization_index": 64.8,
+        "cultural_tightness_looseness": 4.9
+      },
+      
+      "religious_cultural": {
+        "majority_religion": "Christian",
+        "christian_percentage": 92.0,
+        "muslim_percentage": 0.1,
+        "unaffiliated_percentage": 7.0,
+        "religious_diversity_index": 0.14,
+        "secular_score": 2.8
+      },
+      
+      "music_industry": {
+        "music_revenues_billions": 0.21,
+        "music_market_rank": 16,
+        "english_proficiency_index": 49.0,
+        "bands_per_million_population": 2.9
+      }
+    },
+    
+    "FI": {
+      "country_name": "Finland",
+      "country_code": "FI",
+      
+      "linguistic": {
+        "language_family": "Uralic",
+        "primary_language": "Finnish",
+        "linguistic_diversity_index": 0.14,
+        "number_of_languages": 17,
+        "primary_script": "Latin",
+        "phonological_features": {
+          "allows_consonant_clusters": false,
+          "max_onset_complexity": 2,
+          "vowel_system_size": 8,
+          "has_tones": false,
+          "stress_pattern": "initial",
+          "allows_final_consonants": true,
+          "vowel_harmony": true,
+          "agglutinative": true,
+          "no_voiced_stops": true
+        }
+      },
+      
+      "colonial_history": {
+        "former_colony": false,
+        "colonial_power": null,
+        "independence_year": 1917,
+        "years_independent": 108,
+        "former_ruled_by": "Russia/Sweden"
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd": 53982,
+        "hdi_score": 0.940,
+        "education_index": 0.934,
+        "gini_coefficient": 27.3,
+        "urbanization_rate": 85.5,
+        "population_millions": 5.5,
+        "internet_penetration": 94.0,
+        "media_market_size_billions": 0.14
+      },
+      
+      "cultural_dimensions": {
+        "hofstede_individualism": 63,
+        "hofstede_power_distance": 33,
+        "hofstede_masculinity": 26,
+        "hofstede_uncertainty_avoidance": 59,
+        "hofstede_long_term_orientation": 38,
+        "hofstede_indulgence": 57,
+        "world_values_traditional_secular": 2.2,
+        "world_values_survival_expression": 1.7,
+        "globalization_index": 84.6,
+        "cultural_tightness_looseness": 4.1
+      },
+      
+      "religious_cultural": {
+        "majority_religion": "Christian",
+        "christian_percentage": 69.0,
+        "muslim_percentage": 2.7,
+        "unaffiliated_percentage": 28.0,
+        "religious_diversity_index": 0.45,
+        "secular_score": 8.9
+      },
+      
+      "music_industry": {
+        "music_revenues_billions": 0.09,
+        "music_market_rank": 27,
+        "english_proficiency_index": 70.7,
+        "bands_per_million_population": 87.3
+      }
+    },
+    
+    "CA": {
+      "country_name": "Canada",
+      "country_code": "CA",
+      
+      "linguistic": {
+        "language_family": "Germanic",
+        "primary_language": "English",
+        "secondary_language": "French",
+        "linguistic_diversity_index": 0.58,
+        "number_of_languages": 214,
+        "primary_script": "Latin",
+        "phonological_features": {
+          "allows_consonant_clusters": true,
+          "max_onset_complexity": 3,
+          "vowel_system_size": 15,
+          "has_tones": false,
+          "stress_pattern": "variable",
+          "allows_final_consonants": true,
+          "bilingual_influence": true
+        }
+      },
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain/France",
+        "independence_year": 1867,
+        "years_independent": 158,
+        "post_colonial_assertion": "moderate"
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd": 52051,
+        "hdi_score": 0.936,
+        "education_index": 0.903,
+        "gini_coefficient": 33.3,
+        "urbanization_rate": 81.6,
+        "population_millions": 38.2,
+        "internet_penetration": 93.0,
+        "media_market_size_billions": 0.93
+      },
+      
+      "cultural_dimensions": {
+        "hofstede_individualism": 80,
+        "hofstede_power_distance": 39,
+        "hofstede_masculinity": 52,
+        "hofstede_uncertainty_avoidance": 48,
+        "hofstede_long_term_orientation": 36,
+        "hofstede_indulgence": 68,
+        "world_values_traditional_secular": 1.6,
+        "world_values_survival_expression": 1.5,
+        "globalization_index": 85.1,
+        "cultural_tightness_looseness": 4.7
+      },
+      
+      "religious_cultural": {
+        "majority_religion": "Christian",
+        "christian_percentage": 67.0,
+        "muslim_percentage": 3.2,
+        "unaffiliated_percentage": 24.0,
+        "religious_diversity_index": 0.52,
+        "secular_score": 7.2
+      },
+      
+      "music_industry": {
+        "music_revenues_billions": 0.62,
+        "music_market_rank": 6,
+        "english_proficiency_index": 100.0,
+        "bands_per_million_population": 19.4
+      }
+    },
+    
+    "IT": {
+      "country_name": "Italy",
+      "country_code": "IT",
+      
+      "linguistic": {
+        "language_family": "Romance",
+        "primary_language": "Italian",
+        "linguistic_diversity_index": 0.13,
+        "number_of_languages": 34,
+        "primary_script": "Latin",
+        "phonological_features": {
+          "allows_consonant_clusters": false,
+          "max_onset_complexity": 2,
+          "vowel_system_size": 7,
+          "has_tones": false,
+          "stress_pattern": "penultimate_default",
+          "allows_final_consonants": false,
+          "open_syllable_preference": true,
+          "gemination": true
+        }
+      },
+      
+      "colonial_history": {
+        "former_colony": false,
+        "colonial_power": null,
+        "independence_year": null,
+        "was_colonial_power": true,
+        "former_colonies_count": 9
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd": 34997,
+        "hdi_score": 0.895,
+        "education_index": 0.846,
+        "gini_coefficient": 35.9,
+        "urbanization_rate": 71.0,
+        "population_millions": 59.1,
+        "internet_penetration": 75.0,
+        "media_market_size_billions": 0.71
+      },
+      
+      "cultural_dimensions": {
+        "hofstede_individualism": 76,
+        "hofstede_power_distance": 50,
+        "hofstede_masculinity": 70,
+        "hofstede_uncertainty_avoidance": 75,
+        "hofstede_long_term_orientation": 61,
+        "hofstede_indulgence": 30,
+        "world_values_traditional_secular": 1.1,
+        "world_values_survival_expression": 1.0,
+        "globalization_index": 81.2,
+        "cultural_tightness_looseness": 6.8
+      },
+      
+      "religious_cultural": {
+        "majority_religion": "Christian",
+        "christian_percentage": 79.0,
+        "muslim_percentage": 4.9,
+        "unaffiliated_percentage": 15.0,
+        "religious_diversity_index": 0.34,
+        "secular_score": 5.4
+      },
+      
+      "music_industry": {
+        "music_revenues_billions": 0.28,
+        "music_market_rank": 12,
+        "english_proficiency_index": 56.0,
+        "bands_per_million_population": 8.7
+      }
+    },
+    
+    "IN": {
+      "country_name": "India",
+      "country_code": "IN",
+      
+      "linguistic": {
+        "language_family": "Indo-Aryan",
+        "primary_language": "Hindi",
+        "linguistic_diversity_index": 0.93,
+        "number_of_languages": 780,
+        "primary_script": "Devanagari",
+        "phonological_features": {
+          "allows_consonant_clusters": true,
+          "max_onset_complexity": 2,
+          "vowel_system_size": 11,
+          "has_tones": false,
+          "stress_pattern": "variable",
+          "allows_final_consonants": true,
+          "aspirated_stops": true,
+          "retroflex_consonants": true
+        }
+      },
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "independence_year": 1947,
+        "years_independent": 78,
+        "post_colonial_assertion": "strong",
+        "english_legacy": "official_language"
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd": 2389,
+        "hdi_score": 0.633,
+        "education_index": 0.558,
+        "gini_coefficient": 35.7,
+        "urbanization_rate": 35.4,
+        "population_millions": 1407.6,
+        "internet_penetration": 43.0,
+        "media_market_size_billions": 0.43
+      },
+      
+      "cultural_dimensions": {
+        "hofstede_individualism": 48,
+        "hofstede_power_distance": 77,
+        "hofstede_masculinity": 56,
+        "hofstede_uncertainty_avoidance": 40,
+        "hofstede_long_term_orientation": 51,
+        "hofstede_indulgence": 26,
+        "world_values_traditional_secular": -1.1,
+        "world_values_survival_expression": -0.3,
+        "globalization_index": 55.9,
+        "cultural_tightness_looseness": 7.9
+      },
+      
+      "religious_cultural": {
+        "majority_religion": "Hindu",
+        "hindu_percentage": 79.8,
+        "muslim_percentage": 14.2,
+        "christian_percentage": 2.3,
+        "unaffiliated_percentage": 0.2,
+        "religious_diversity_index": 0.35,
+        "secular_score": 3.1
+      },
+      
+      "music_industry": {
+        "music_revenues_billions": 0.16,
+        "music_market_rank": 18,
+        "english_proficiency_index": 49.0,
+        "bands_per_million_population": 0.4
+      }
+    },
+    
+    "NL": {
+      "country_name": "Netherlands",
+      "country_code": "NL",
+      
+      "linguistic": {
+        "language_family": "Germanic",
+        "primary_language": "Dutch",
+        "linguistic_diversity_index": 0.31,
+        "number_of_languages": 34,
+        "primary_script": "Latin",
+        "phonological_features": {
+          "allows_consonant_clusters": true,
+          "max_onset_complexity": 3,
+          "vowel_system_size": 16,
+          "has_tones": false,
+          "stress_pattern": "variable",
+          "allows_final_consonants": true,
+          "guttural_sounds": true
+        }
+      },
+      
+      "colonial_history": {
+        "former_colony": false,
+        "colonial_power": null,
+        "independence_year": null,
+        "was_colonial_power": true,
+        "former_colonies_count": 12
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd": 57101,
+        "hdi_score": 0.941,
+        "education_index": 0.910,
+        "gini_coefficient": 28.1,
+        "urbanization_rate": 92.0,
+        "population_millions": 17.5,
+        "internet_penetration": 93.0,
+        "media_market_size_billions": 0.44
+      },
+      
+      "cultural_dimensions": {
+        "hofstede_individualism": 80,
+        "hofstede_power_distance": 38,
+        "hofstede_masculinity": 14,
+        "hofstede_uncertainty_avoidance": 53,
+        "hofstede_long_term_orientation": 67,
+        "hofstede_indulgence": 68,
+        "world_values_traditional_secular": 2.0,
+        "world_values_survival_expression": 1.8,
+        "globalization_index": 92.1,
+        "cultural_tightness_looseness": 3.5
+      },
+      
+      "religious_cultural": {
+        "majority_religion": "Christian",
+        "christian_percentage": 44.0,
+        "muslim_percentage": 5.0,
+        "unaffiliated_percentage": 51.0,
+        "religious_diversity_index": 0.62,
+        "secular_score": 9.3
+      },
+      
+      "music_industry": {
+        "music_revenues_billions": 0.27,
+        "music_market_rank": 14,
+        "english_proficiency_index": 71.5,
+        "bands_per_million_population": 23.1
+      }
+    }
+  }
+}
+

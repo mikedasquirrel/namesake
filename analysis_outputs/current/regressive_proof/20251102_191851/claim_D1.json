@@ -1,0 +1,151 @@
+{
+  "claim": {
+    "claim_id": "D1",
+    "asset_type": "domain",
+    "target_column": "log_sale_price",
+    "target_kind": "continuous",
+    "description": "Memorability and syllabic optimization predict historical domain sale price.",
+    "features": [
+      "syllable_count",
+      "is_optimal_syllable",
+      "memorability_score",
+      "phonetic_score",
+      "pronounceability_score"
+    ],
+    "control_features": [
+      "tld_premium_multiplier",
+      "brandability_score",
+      "keyword_score"
+    ],
+    "filters": {
+      "sale_price": {
+        "op": "gt",
+        "value": 0
+      }
+    },
+    "sample_floor": 20,
+    "breakout_threshold": null,
+    "notes": null
+  },
+  "status": "ok",
+  "sample_size": 300,
+  "model_summary": {
+    "model_type": "OLS",
+    "primary_metric": "r_squared",
+    "r_squared": 0.3979067353153074,
+    "adj_r_squared": 0.3813543431590273,
+    "aic": 1049.8329515843566,
+    "bic": 1083.1669938562625,
+    "rmse": 1.371647615790156,
+    "cross_validation": {
+      "metric": "r2",
+      "folds": 5,
+      "scores": [
+        0.47586221246965654,
+        0.46587129579487263,
+        0.20409040927009758,
+        0.19843696542194167,
+        0.2972755257687675
+      ],
+      "mean_score": 0.32830728174506724,
+      "std_score": 0.12161859717242061,
+      "auxiliary": {
+        "rmse_mean": 1.3864650893284138,
+        "rmse_std": 0.26500765305792745
+      }
+    }
+  },
+  "coefficients": [
+    {
+      "name": "const",
+      "coefficient": 19.60187936709482,
+      "p_value": 1.788727168212385e-24,
+      "ci_lower": 16.159602996834817,
+      "ci_upper": 23.044155737354824
+    },
+    {
+      "name": "syllable_count",
+      "coefficient": -0.07114298149758769,
+      "p_value": 0.7850805592648321,
+      "ci_lower": -0.5841193313739529,
+      "ci_upper": 0.4418333683787775
+    },
+    {
+      "name": "is_optimal_syllable",
+      "coefficient": -0.07517699243622444,
+      "p_value": 0.7740348557774107,
+      "ci_lower": -0.5900548041569502,
+      "ci_upper": 0.43970081928450133
+    },
+    {
+      "name": "memorability_score",
+      "coefficient": 0.13183593264220966,
+      "p_value": 0.0002318476111323585,
+      "ci_lower": 0.062236162352216906,
+      "ci_upper": 0.20143570293220242
+    },
+    {
+      "name": "phonetic_score",
+      "coefficient": -0.01994976999721047,
+      "p_value": 0.004145668146741661,
+      "ci_lower": -0.03353723134341906,
+      "ci_upper": -0.006362308651001883
+    },
+    {
+      "name": "pronounceability_score",
+      "coefficient": 0.03064824609622632,
+      "p_value": 1.7590466663652287e-05,
+      "ci_lower": 0.016833003140796006,
+      "ci_upper": 0.04446348905165663
+    },
+    {
+      "name": "tld_premium_multiplier",
+      "coefficient": 0.2454451460601325,
+      "p_value": 4.0645812194495316e-12,
+      "ci_lower": 0.17870591938545435,
+      "ci_upper": 0.3121843727348107
+    },
+    {
+      "name": "brandability_score",
+      "coefficient": -0.22734761350767577,
+      "p_value": 9.84557060737195e-06,
+      "ci_lower": -0.3267869225413075,
+      "ci_upper": -0.12790830447404403
+    },
+    {
+      "name": "keyword_score",
+      "coefficient": -0.07229753930260706,
+      "p_value": 0.002724952973063653,
+      "ci_lower": -0.11936616494937118,
+      "ci_upper": -0.02522891365584294
+    }
+  ],
+  "effect_analysis": {
+    "feature_correlations": {
+      "syllable_count": {
+        "correlation": -0.36908043245693656,
+        "p_value": 4.098698770499303e-11
+      },
+      "is_optimal_syllable": {
+        "correlation": -0.1473794484014287,
+        "p_value": 0.010588229906645454
+      },
+      "memorability_score": {
+        "correlation": 0.2714900081981096,
+        "p_value": 1.8181530634770887e-06
+      },
+      "phonetic_score": {
+        "correlation": 0.06592183096239626,
+        "p_value": 0.2550071231687326
+      },
+      "pronounceability_score": {
+        "correlation": 0.2859811228523736,
+        "p_value": 4.697476933257032e-07
+      }
+    },
+    "target_mean": 11.068160324042495,
+    "target_std": 1.7409910381506288
+  },
+  "warnings": [],
+  "timestamp": "2025-11-02T19:19:11.986973"
+}

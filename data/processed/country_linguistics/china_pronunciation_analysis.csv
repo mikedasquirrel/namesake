@@ -1,0 +1,4 @@
+variant,transcription,plosives,sibilants,harshness,emphasis,perceived_tone,harshness_vs_standard
+Standard English (CHY-nuh),China,0,1,20.0,soft terminal,neutral,0.0
+Trump emphasis (CHY-NAH),CHINA,1,1,26.0,"hard terminal, stressed initial plosive",aggressive/assertive,6.0
+Mandarin (Zhōngguó),Zhongguo,2,1,100.0,nasal quality,neutral/cultural,80.0

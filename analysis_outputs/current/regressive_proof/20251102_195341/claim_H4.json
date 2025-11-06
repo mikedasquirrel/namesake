@@ -1,0 +1,137 @@
+{
+  "claim": {
+    "claim_id": "H4",
+    "asset_type": "hurricane",
+    "target_column": "has_major_damage",
+    "target_kind": "binary",
+    "description": "Phonetic features predict billion-dollar damage events beyond storm category.",
+    "features": [
+      "phonetic_harshness_score",
+      "gender_male",
+      "sentiment_polarity",
+      "memorability_score"
+    ],
+    "control_features": [
+      "is_major_hurricane",
+      "max_wind_mph",
+      "year"
+    ],
+    "filters": {},
+    "sample_floor": 60,
+    "breakout_threshold": null,
+    "notes": null
+  },
+  "status": "ok",
+  "sample_size": 236,
+  "model_summary": {
+    "model_type": "Logit",
+    "primary_metric": "pseudo_r_squared",
+    "pseudo_r_squared": 0.4866984286627012,
+    "aic": 86.31156104849777,
+    "bic": 114.02221548870264,
+    "log_likelihood": -35.15578052424888,
+    "accuracy": 0.9449152542372882,
+    "cross_validation": {
+      "metric": "roc_auc",
+      "folds": 5,
+      "scores": [
+        0.9246031746031746,
+        0.8714285714285714,
+        1.0,
+        0.9696969696969697,
+        0.9069767441860466
+      ],
+      "mean_score": 0.9345410919829524,
+      "std_score": 0.04552482860741043,
+      "auxiliary": {
+        "accuracy_mean": 0.8390070921985815,
+        "accuracy_std": 0.04157262663759671
+      }
+    }
+  },
+  "coefficients": [
+    {
+      "name": "const",
+      "coefficient": 48.46170969624296,
+      "p_value": 0.49268265208356965,
+      "ci_lower": -89.98802605624783,
+      "ci_upper": 186.91144544873376
+    },
+    {
+      "name": "phonetic_harshness_score",
+      "coefficient": -0.000305249976188664,
+      "p_value": 0.9762635082070036,
+      "ci_lower": -0.020412986446094974,
+      "ci_upper": 0.019802486493717644
+    },
+    {
+      "name": "gender_male",
+      "coefficient": 0.20049698050720421,
+      "p_value": 0.7574810499538044,
+      "ci_lower": -1.0721040811083746,
+      "ci_upper": 1.4730980421227828
+    },
+    {
+      "name": "sentiment_polarity",
+      "coefficient": -19.104812191462294,
+      "p_value": 0.9998785106722958,
+      "ci_lower": -245938.50721294887,
+      "ci_upper": 245900.29758856597
+    },
+    {
+      "name": "memorability_score",
+      "coefficient": -0.06696675697179723,
+      "p_value": 0.18643229945763495,
+      "ci_lower": -0.16630956691197601,
+      "ci_upper": 0.03237605296838157
+    },
+    {
+      "name": "is_major_hurricane",
+      "coefficient": -2.841649515171386,
+      "p_value": 0.02149380166238468,
+      "ci_lower": -5.264031192425691,
+      "ci_upper": -0.41926783791708067
+    },
+    {
+      "name": "max_wind_mph",
+      "coefficient": 0.08829497757552923,
+      "p_value": 7.348747095800512e-06,
+      "ci_lower": 0.049695317953237145,
+      "ci_upper": 0.12689463719782132
+    },
+    {
+      "name": "year",
+      "coefficient": -0.026191778969236065,
+      "p_value": 0.449438477197568,
+      "ci_lower": -0.09406358636989491,
+      "ci_upper": 0.04168002843142278
+    }
+  ],
+  "effect_analysis": {
+    "group_sizes": {
+      "positive": 20,
+      "negative": 216
+    },
+    "positive_mean": {
+      "phonetic_harshness_score": 62.4255,
+      "gender_male": 0.45,
+      "sentiment_polarity": 0.0,
+      "memorability_score": 93.019
+    },
+    "negative_mean": {
+      "phonetic_harshness_score": 70.16277777777778,
+      "gender_male": 0.2916666666666667,
+      "sentiment_polarity": 0.018518518518518517,
+      "memorability_score": 93.41925925925926
+    },
+    "lift": {
+      "phonetic_harshness_score": -7.737277777777777,
+      "gender_male": 0.15833333333333333,
+      "sentiment_polarity": -0.018518518518518517,
+      "memorability_score": -0.40025925925925776
+    },
+    "positive_share": 0.0847457627118644
+  },
+  "warnings": [],
+  "timestamp": "2025-11-02T19:54:01.193233"
+}

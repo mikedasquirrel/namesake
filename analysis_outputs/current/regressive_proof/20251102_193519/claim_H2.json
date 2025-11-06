@@ -1,0 +1,38 @@
+{
+  "claim": {
+    "claim_id": "H2",
+    "asset_type": "hurricane",
+    "target_column": "log_damage_usd",
+    "target_kind": "continuous",
+    "description": "Gender coding and memorability predict inflation-adjusted damage totals after controlling for intensity and time period.",
+    "features": [
+      "gender_male",
+      "gender_female",
+      "memorability_score",
+      "phonetic_harshness_score"
+    ],
+    "control_features": [
+      "saffir_simpson_category",
+      "max_wind_mph",
+      "year"
+    ],
+    "filters": {
+      "damage_usd": {
+        "op": "gt",
+        "value": 0
+      }
+    },
+    "sample_floor": 50,
+    "breakout_threshold": null,
+    "notes": null
+  },
+  "status": "insufficient_sample",
+  "sample_size": 20,
+  "model_summary": {},
+  "coefficients": [],
+  "effect_analysis": {},
+  "warnings": [
+    "Sample size 20 below floor 50 for claim H2"
+  ],
+  "timestamp": "2025-11-02T19:35:43.470961"
+}

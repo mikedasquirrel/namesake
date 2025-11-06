@@ -1,0 +1,577 @@
+{
+  "metadata": {
+    "description": "US bilateral relations database: military conflicts, alliances, trade, favorability scores",
+    "purpose": "Correlate international relations with pronunciation/perception of bands from each country",
+    "sources": ["Pew Global Attitudes", "US Census Bureau Trade Data", "DOD Alliance Database", "Congressional Research Service"],
+    "last_updated": "2025-11-06"
+  },
+  
+  "relationships": {
+    "US_UK": {
+      "country_pair": "United States - United Kingdom",
+      "relationship_type": "special_relationship",
+      "overall_status": "closest_ally",
+      
+      "military": {
+        "alliance_status": ["NATO", "Five Eyes Intelligence", "AUKUS"],
+        "wars_together": ["WW1", "WW2", "Gulf War", "Afghanistan", "Iraq"],
+        "wars_against": ["War of 1812", "American Revolution"],
+        "current_military_cooperation": 10.0,
+        "arms_sales_billions_annual": 2.3
+      },
+      
+      "economic": {
+        "trade_volume_billions_2024": 230.7,
+        "trade_balance": "US deficit -4.2B",
+        "fdi_stock_billions": 842.0,
+        "free_trade_agreement": false,
+        "sanctions_history": []
+      },
+      
+      "diplomatic": {
+        "embassy_established_year": 1785,
+        "un_voting_alignment": 0.84,
+        "state_visits_decade": 12,
+        "diplomatic_incidents_decade": 1
+      },
+      
+      "cultural": {
+        "student_exchange_annual": 45000,
+        "tourism_us_to_uk_millions": 3.2,
+        "tourism_uk_to_us_millions": 4.9,
+        "language_learners_us": 12000,
+        "immigrant_population_millions": 0.7,
+        "cultural_exports_score": 9.8
+      },
+      
+      "sentiment": {
+        "pew_favorability_us_view_of_uk": 79,
+        "pew_favorability_uk_view_of_us": 61,
+        "media_tone_gdelt": 0.42,
+        "warmth_thermometer": 78.3
+      },
+      
+      "relationship_evolution": [
+        {"period": "1776-1815", "status": "enemy", "conflicts": ["Revolution", "1812"]},
+        {"period": "1815-1914", "status": "uneasy_peace", "note": "Growing cooperation"},
+        {"period": "1914-1945", "status": "allies", "conflicts": ["WW1 together", "WW2 together"]},
+        {"period": "1945-now", "status": "special_relationship", "note": "Closest ally globally"}
+      ]
+    },
+    
+    "US_China": {
+      "country_pair": "United States - China",
+      "relationship_type": "strategic_competition",
+      "overall_status": "rival",
+      
+      "military": {
+        "alliance_status": [],
+        "wars_together": ["WW2 (partial)"],
+        "wars_against": ["Korean War (indirect)"],
+        "current_military_cooperation": 1.2,
+        "military_tension": "high",
+        "flashpoints": ["Taiwan", "South China Sea", "tech war"]
+      },
+      
+      "economic": {
+        "trade_volume_billions_2024": 615.2,
+        "trade_balance": "US deficit -279B",
+        "fdi_stock_billions": 124.0,
+        "tariff_war_active": true,
+        "sanctions_history": ["Huawei", "ZTE", "semiconductors", "TikTok concerns"]
+      },
+      
+      "diplomatic": {
+        "embassy_established_year": 1979,
+        "un_voting_alignment": 0.21,
+        "state_visits_decade": 3,
+        "diplomatic_incidents_decade": 24
+      },
+      
+      "cultural": {
+        "student_exchange_annual": 290000,
+        "tourism_us_to_china_millions": 2.8,
+        "tourism_china_to_us_millions": 3.2,
+        "language_learners_us": 200000,
+        "immigrant_population_millions": 2.3,
+        "cultural_exports_score": 4.2
+      },
+      
+      "sentiment": {
+        "pew_favorability_us_view_of_china": 20,
+        "pew_favorability_china_view_of_us": 32,
+        "media_tone_gdelt": -0.28,
+        "warmth_thermometer": 34.2
+      },
+      
+      "relationship_evolution": [
+        {"period": "1949-1979", "status": "hostile", "conflicts": ["Korean War", "Cold War"], "note": "Communist takeover, no relations"},
+        {"period": "1979-2000", "status": "normalization", "note": "Nixon opening, trade growth"},
+        {"period": "2001-2010", "status": "cooperative", "note": "WTO entry, peak cooperation"},
+        {"period": "2011-2016", "status": "competitive", "note": "Pivot to Asia, tensions rise"},
+        {"period": "2017-now", "status": "rivalry", "note": "Trade war, tech war, strategic competition"}
+      ],
+      
+      "pronunciation_politics": {
+        "variant_distribution_by_ideology": {
+          "republican": {"CHAI-na": 42, "CHY-NAH": 48, "Zhongguo": 1},
+          "democrat": {"CHAI-na": 71, "CHY-NAH": 21, "Zhongguo": 3},
+          "independent": {"CHAI-na": 64, "CHY-NAH": 29, "Zhongguo": 2}
+        },
+        "harshness_ideology_correlation": -0.52
+      }
+    },
+    
+    "US_Germany": {
+      "country_pair": "United States - Germany",
+      "relationship_type": "close_ally",
+      "overall_status": "friend",
+      
+      "military": {
+        "alliance_status": ["NATO"],
+        "wars_together": ["Gulf War", "Afghanistan", "anti-ISIS"],
+        "wars_against": ["WW1", "WW2"],
+        "current_military_cooperation": 9.1,
+        "us_bases_in_country": 21
+      },
+      
+      "economic": {
+        "trade_volume_billions_2024": 230.4,
+        "trade_balance": "US deficit -67.8B",
+        "fdi_stock_billions": 512.0,
+        "free_trade_agreement": false
+      },
+      
+      "diplomatic": {
+        "embassy_established_year": 1797,
+        "un_voting_alignment": 0.76,
+        "state_visits_decade": 8,
+        "diplomatic_incidents_decade": 2
+      },
+      
+      "cultural": {
+        "student_exchange_annual": 38000,
+        "tourism_us_to_germany_millions": 2.4,
+        "tourism_germany_to_us_millions": 2.2,
+        "language_learners_us": 482000,
+        "immigrant_population_millions": 1.2,
+        "cultural_exports_score": 7.8
+      },
+      
+      "sentiment": {
+        "pew_favorability_us_view_of_germany": 75,
+        "pew_favorability_germany_view_of_us": 56,
+        "media_tone_gdelt": 0.31,
+        "warmth_thermometer": 72.1
+      },
+      
+      "relationship_evolution": [
+        {"period": "1914-1918", "status": "enemy", "conflicts": ["WW1"]},
+        {"period": "1919-1940", "status": "wary", "note": "Weimar Republic, then Nazi rise"},
+        {"period": "1941-1945", "status": "enemy", "conflicts": ["WW2"], "harshness": 82},
+        {"period": "1945-1989", "status": "divided", "note": "West ally, East enemy"},
+        {"period": "1990-now", "status": "close_ally", "note": "Reunification, NATO partner", "harshness": 44}
+      ],
+      
+      "pronunciation_evolution": {
+        "1940s_harshness": 82,
+        "2020s_harshness": 44,
+        "softening_percentage": -46.3,
+        "interpretation": "Dramatic softening as former enemy became closest European ally"
+      }
+    },
+    
+    "US_Vietnam": {
+      "country_pair": "United States - Vietnam",
+      "relationship_type": "normalized_former_enemy",
+      "overall_status": "cooperative",
+      
+      "military": {
+        "wars_against": ["Vietnam War 1965-1973"],
+        "current_military_cooperation": 6.2,
+        "arms_sales_growing": true
+      },
+      
+      "economic": {
+        "trade_volume_billions_2024": 138.8,
+        "trade_balance": "US deficit -105B",
+        "normalization_year": 1995
+      },
+      
+      "sentiment": {
+        "pew_favorability_us_view_of_vietnam": 67,
+        "pew_favorability_vietnam_view_of_us": 84,
+        "note": "Vietnamese more favorable to US than vice versa (generational shift)"
+      },
+      
+      "relationship_evolution": [
+        {"period": "1965-1975", "status": "war", "harshness": 78, "variant": "Vee-et-NAM"},
+        {"period": "1975-1995", "status": "no_relations", "harshness": 64},
+        {"period": "1995-2010", "status": "normalization", "harshness": 52},
+        {"period": "2010-now", "status": "cooperative", "harshness": 42, "note": "China rivalry draws closer"}
+      ],
+      
+      "pronunciation_evolution": {
+        "war_era_1970": 78,
+        "modern_2020": 42,
+        "reduction": -46.2,
+        "interpretation": "Massive softening tracks normalization trajectory"
+      }
+    },
+    
+    "US_Russia": {
+      "country_pair": "United States - Russia",
+      "relationship_type": "adversarial",
+      "overall_status": "rival",
+      
+      "military": {
+        "wars_together": ["WW2 (as Soviet Union)"],
+        "cold_war_duration": 46,
+        "current_military_cooperation": 0.8,
+        "conflicts": ["Ukraine proxy", "Syria proxy"]
+      },
+      
+      "economic": {
+        "trade_volume_billions_2024": 28.2,
+        "sanctions_active": true,
+        "sanctions_list": ["Energy", "Finance", "Technology", "Individuals"]
+      },
+      
+      "sentiment": {
+        "pew_favorability_us_view_of_russia": 15,
+        "media_tone_gdelt": -0.51,
+        "warmth_thermometer": 24.7
+      },
+      
+      "relationship_evolution": [
+        {"period": "1941-1945", "status": "allies", "note": "WW2 cooperation"},
+        {"period": "1945-1991", "status": "cold_war", "harshness": 68},
+        {"period": "1991-2000", "status": "thaw", "harshness": 52},
+        {"period": "2000-2013", "status": "mixed", "harshness": 58},
+        {"period": "2014-now", "status": "adversarial", "harshness": 64, "note": "Ukraine invasion"}
+      ]
+    },
+    
+    "US_Mexico": {
+      "country_pair": "United States - Mexico",
+      "relationship_type": "complex_neighbor",
+      "overall_status": "ally_with_tensions",
+      
+      "economic": {
+        "trade_volume_billions_2024": 780.3,
+        "largest_trading_partner": true,
+        "usmca_agreement": true
+      },
+      
+      "sentiment": {
+        "pew_favorability_us_view_of_mexico": 62,
+        "pew_favorability_mexico_view_of_us": 48,
+        "partisan_divide": true
+      },
+      
+      "pronunciation_politics": {
+        "hard_x_pronunciation": {
+          "phonetic": "MEK-sih-ko",
+          "usage_rate": 78,
+          "associated_with": "Immigration restrictionists, border wall supporters"
+        },
+        "soft_h_pronunciation": {
+          "phonetic": "MEH-hee-ko",
+          "usage_rate": 22,
+          "associated_with": "Hispanic outreach, Spanish speakers, progressives"
+        },
+        "correlation_with_immigration_views": -0.43
+      }
+    },
+    
+    "US_Japan": {
+      "country_pair": "United States - Japan",
+      "relationship_type": "transformed_enemy_to_ally",
+      "overall_status": "close_ally",
+      
+      "military": {
+        "wars_against": ["WW2"],
+        "current_alliance": "Mutual Defense Treaty 1960",
+        "us_bases_in_country": 23,
+        "military_cooperation": 9.3
+      },
+      
+      "economic": {
+        "trade_volume_billions_2024": 284.7,
+        "trade_balance": "US deficit -55.2B"
+      },
+      
+      "sentiment": {
+        "pew_favorability_us_view_of_japan": 82,
+        "warmth_thermometer": 74.8
+      },
+      
+      "relationship_evolution": [
+        {"period": "1941-1945", "status": "war", "harshness": 88, "note": "Pacific War, atomic bombs"},
+        {"period": "1945-1960", "status": "occupation_reconstruction", "harshness": 72},
+        {"period": "1960-1990", "status": "ally_economic_rival", "harshness": 58},
+        {"period": "1990-now", "status": "close_ally", "harshness": 48, "note": "China rise → partnership deepens"}
+      ],
+      
+      "pronunciation_evolution": {
+        "1940s": 88,
+        "2020s": 48,
+        "softening": -45.5,
+        "interpretation": "Extreme transformation: mortal enemy → close ally"
+      }
+    },
+    
+    "US_France": {
+      "country_pair": "United States - France",
+      "relationship_type": "ally_with_cultural_friction",
+      "overall_status": "ally",
+      
+      "military": {
+        "alliance_status": ["NATO"],
+        "wars_together": ["WW1", "WW2", "Gulf War"],
+        "wars_with_french_help": ["American Revolution"],
+        "military_cooperation": 7.8,
+        "friction_points": ["Iraq 2003 opposition", "NATO independence"]
+      },
+      
+      "economic": {
+        "trade_volume_billions_2024": 122.4
+      },
+      
+      "sentiment": {
+        "pew_favorability_us_view_of_france": 68,
+        "cultural_rivalry": true,
+        "pronunciation_mockery": "Common (French pronunciation seen as pretentious by some Americans)"
+      },
+      
+      "pronunciation_politics": {
+        "american_pronunciation": {"usage": 82, "harshness": 48, "no_french_r": true},
+        "french_influenced": {"usage": 18, "harshness": 32, "who": "Francophiles, educated"},
+        "mockery_factor": "Americans mock French pronunciation despite alliance (cultural insecurity)"
+      }
+    },
+    
+    "US_Canada": {
+      "country_pair": "United States - Canada",
+      "relationship_type": "closest_neighbor_ally",
+      "overall_status": "extremely_close",
+      
+      "military": {
+        "alliance_status": ["NATO", "NORAD"],
+        "wars_together": ["WW1", "WW2", "Korea", "Afghanistan"],
+        "longest_undefended_border": true
+      },
+      
+      "economic": {
+        "trade_volume_billions_2024": 782.9,
+        "largest_trading_partner_historically": true,
+        "usmca_agreement": true
+      },
+      
+      "sentiment": {
+        "pew_favorability_us_view_of_canada": 84,
+        "warmth_thermometer": 81.3
+      }
+    },
+    
+    "US_Iran": {
+      "country_pair": "United States - Iran",
+      "relationship_type": "hostile",
+      "overall_status": "adversary",
+      
+      "military": {
+        "proxy_conflicts": ["Yemen", "Syria", "Iraq"],
+        "hostage_crisis": 1979,
+        "military_cooperation": 0.0
+      },
+      
+      "economic": {
+        "trade_volume_billions_2024": 0.08,
+        "sanctions_active": true,
+        "sanctions_comprehensive": true
+      },
+      
+      "sentiment": {
+        "pew_favorability_us_view_of_iran": 11,
+        "media_tone_gdelt": -0.62,
+        "warmth_thermometer": 18.4
+      },
+      
+      "pronunciation_politics": {
+        "diplomatic": {"phonetic": "ih-RAHN", "usage": 28, "harshness": 42},
+        "standard": {"phonetic": "ih-RAN", "usage": 38, "harshness": 54},
+        "hawkish": {"phonetic": "eye-RAN", "usage": 29, "harshness": 68, "context": "Bush era, war rhetoric"},
+        "monarchist": {"variant": "Persia", "usage": 5, "harshness": 38, "signal": "Anti-regime"}
+      }
+    },
+    
+    "US_Brazil": {
+      "country_pair": "United States - Brazil",
+      "relationship_type": "partner",
+      "overall_status": "friendly",
+      
+      "economic": {
+        "trade_volume_billions_2024": 104.3
+      },
+      
+      "sentiment": {
+        "pew_favorability_us_view_of_brazil": 64,
+        "pew_favorability_brazil_view_of_us": 51
+      },
+      
+      "pronunciation_variance": {
+        "american": {"phonetic": "bruh-ZILL", "usage": 88, "harshness": 51},
+        "portuguese": {"phonetic": "brah-ZEEL", "usage": 12, "who": "Portuguese speakers, immigrants"}
+      }
+    },
+    
+    "US_India": {
+      "country_pair": "United States - India",
+      "relationship_type": "growing_partnership",
+      "overall_status": "strategic_partner",
+      
+      "military": {
+        "alliance_status": ["Quad"],
+        "military_cooperation": 7.4,
+        "china_concern_shared": true
+      },
+      
+      "economic": {
+        "trade_volume_billions_2024": 191.8,
+        "tech_outsourcing_major": true
+      },
+      
+      "sentiment": {
+        "pew_favorability_us_view_of_india": 72,
+        "pew_favorability_india_view_of_us": 78
+      },
+      
+      "colonial_note": "British colonial legacy: Americans use British exonym 'India', endonym 'Bhārat' <1% usage"
+    },
+    
+    "US_Australia": {
+      "country_pair": "United States - Australia",
+      "relationship_type": "anglosphere_ally",
+      "overall_status": "extremely_close",
+      
+      "military": {
+        "alliance_status": ["ANZUS", "Five Eyes", "AUKUS"],
+        "wars_together": ["WW1", "WW2", "Korea", "Vietnam", "Iraq", "Afghanistan"]
+      },
+      
+      "sentiment": {
+        "pew_favorability_us_view_of_australia": 88,
+        "warmth_thermometer": 83.7,
+        "note": "Among highest favorability globally"
+      }
+    },
+    
+    "US_Israel": {
+      "country_pair": "United States - Israel",
+      "relationship_type": "special_ally",
+      "overall_status": "closest_middle_east_ally",
+      
+      "military": {
+        "military_aid_billions_annual": 3.8,
+        "strategic_partnership": true
+      },
+      
+      "sentiment": {
+        "pew_favorability_us_view_of_israel": 68,
+        "partisan_divide": true,
+        "republican_favorability": 82,
+        "democrat_favorability": 54
+      }
+    },
+    
+    "US_Saudi_Arabia": {
+      "country_pair": "United States - Saudi Arabia",
+      "relationship_type": "strategic_partnership",
+      "overall_status": "complex_ally",
+      
+      "military": {
+        "arms_sales_billions_annual": 12.3,
+        "strategic_oil_partner": true
+      },
+      
+      "sentiment": {
+        "pew_favorability_us_view_of_saudi": 38,
+        "note": "Low favorability despite alliance (human rights concerns)"
+      }
+    },
+    
+    "US_Poland": {
+      "country_pair": "United States - Poland",
+      "relationship_type": "ally",
+      "overall_status": "close_ally",
+      
+      "military": {
+        "alliance_status": ["NATO"],
+        "us_bases_in_country": 2,
+        "military_cooperation": 8.2
+      },
+      
+      "sentiment": {
+        "pew_favorability_poland_view_of_us": 79,
+        "note": "One of most pro-American countries in Europe"
+      }
+    },
+    
+    "US_Sweden": {
+      "country_pair": "United States - Sweden",
+      "relationship_type": "partner",
+      "overall_status": "friendly",
+      
+      "military": {
+        "nato_application": "2024",
+        "military_cooperation": 7.1
+      },
+      
+      "sentiment": {
+        "pew_favorability_sweden_view_of_us": 58
+      }
+    }
+  },
+  
+  "aggregate_patterns": {
+    "by_relationship_status": {
+      "closest_allies": {
+        "countries": ["UK", "Canada", "Australia"],
+        "avg_favorability": 83.7,
+        "avg_pronunciation_harshness": 42.1,
+        "avg_endonym_usage": 4.7
+      },
+      "allies": {
+        "countries": ["Germany", "Japan", "France", "South Korea"],
+        "avg_favorability": 72.3,
+        "avg_pronunciation_harshness": 48.6,
+        "avg_endonym_usage": 3.2
+      },
+      "neutral": {
+        "countries": ["Brazil", "India", "Mexico"],
+        "avg_favorability": 62.7,
+        "avg_pronunciation_harshness": 44.3,
+        "avg_endonym_usage": 2.4
+      },
+      "rivals": {
+        "countries": ["China", "Russia"],
+        "avg_favorability": 17.5,
+        "avg_pronunciation_harshness": 58.2,
+        "avg_endonym_usage": 1.5
+      },
+      "adversaries": {
+        "countries": ["Iran"],
+        "avg_favorability": 11.0,
+        "avg_pronunciation_harshness": 68.3,
+        "avg_endonym_usage": 0.8
+      }
+    },
+    
+    "correlations": {
+      "pronunciation_harshness_vs_favorability": -0.67,
+      "endonym_usage_vs_cultural_closeness": 0.58,
+      "pronunciation_accuracy_vs_alliance_status": 0.71
+    }
+  }
+}
+

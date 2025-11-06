@@ -109,6 +109,73 @@ def analysis():
     return render_template('analysis.html')
 
 
+@app.route('/nominative-dashboard')
+def nominative_dashboard():
+    """Comprehensive nominative determinism and synchronicity dashboard"""
+    return render_template('nominative_dashboard.html')
+
+
+@app.route('/disorder-nomenclature')
+def disorder_nomenclature():
+    """Psychiatric nomenclature research - disorder names affect outcomes"""
+    return render_template('disorder_nomenclature.html')
+
+
+@app.route('/formula')
+def formula():
+    """The Formula - Cross-sphere mathematical framework"""
+    return render_template('formula.html')
+
+
+# =============================================================================
+# FINDINGS PAGES - Research Summaries
+# =============================================================================
+
+@app.route('/crypto/findings')
+def crypto_findings():
+    """Cryptocurrency research findings"""
+    return render_template('crypto_findings.html')
+
+
+@app.route('/bands')
+def bands_page():
+    """Band names research findings"""
+    return render_template('bands.html')
+
+
+@app.route('/america')
+def america_page():
+    """America nomenclature research findings with comprehensive 50-country phonetic analysis"""
+    import pandas as pd
+    from pathlib import Path
+    
+    # Try to load phonetic comparison data if it exists
+    phonetic_data = None
+    try:
+        phonetic_path = Path("data/processed/america_variants/country_phonetic_comparison.csv")
+        if phonetic_path.exists():
+            df = pd.read_csv(phonetic_path)
+            phonetic_data = {
+                'total_countries': len(df),
+                'america_rank': int(df[df['name'] == 'America']['beauty_rank'].values[0]) if len(df[df['name'] == 'America']) > 0 else None,
+                'america_score': float(df[df['name'] == 'America']['beauty_score'].values[0]) if len(df[df['name'] == 'America']) > 0 else None,
+                'top_10': df.head(10)[['name', 'beauty_score', 'melodiousness', 'harshness']].to_dict('records'),
+                'bottom_10': df.tail(10)[['name', 'beauty_score', 'melodiousness', 'harshness']].to_dict('records'),
+                'all_countries': df.to_dict('records')
+            }
+    except Exception as e:
+        print(f"Note: Could not load phonetic data: {e}")
+        pass
+    
+    return render_template('america.html', phonetic_data=phonetic_data)
+
+
+@app.route('/nba')
+def nba_findings():
+    """NBA player names research findings"""
+    return render_template('nba.html')
+
+
 # Disabled routes - streamlined to overview + analysis only
 # @app.route('/portfolio')
 # def portfolio():
@@ -2046,6 +2113,1645 @@ def export_json():
 
 
 # =============================================================================
+# HURRICANE ENDPOINTS
+# =============================================================================
+
+@app.route('/hurricanes')
+def hurricanes_page():
+    """Hurricane nominative determinism analysis page"""
+    return render_template('hurricanes.html')
+
+
+@app.route('/api/hurricanes/list')
+def get_hurricanes_list():
+    """Get paginated list of hurricanes with analysis"""
+    try:
+        from core.models import Hurricane, HurricaneAnalysis
+        
+        limit = request.args.get('limit', 50, type=int)
+        offset = request.args.get('offset', 0, type=int)
+        min_year = request.args.get('min_year', 1950, type=int)
+        min_category = request.args.get('min_category', type=int)
+        
+        query = db.session.query(Hurricane, HurricaneAnalysis).join(
+            HurricaneAnalysis, Hurricane.id == HurricaneAnalysis.hurricane_id
+        ).filter(Hurricane.year >= min_year)
+        
+        if min_category is not None:
+            query = query.filter(Hurricane.saffir_simpson_category >= min_category)
+        
+        total_count = query.count()
+        
+        hurricanes = query.order_by(Hurricane.year.desc()).offset(offset).limit(limit).all()
+        
+        results = []
+        for hurricane, analysis in hurricanes:
+            results.append({
+                **hurricane.to_dict(),
+                'analysis': analysis.to_dict()
+            })
+        
+        return jsonify({
+            'hurricanes': results,
+            'total': total_count,
+            'limit': limit,
+            'offset': offset
+        })
+    
+    except Exception as e:
+        logger.error(f"Hurricane list error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/hurricanes/<storm_id>')
+def get_hurricane_detail(storm_id):
+    """Get detailed hurricane data with full analysis"""
+    try:
+        from core.models import Hurricane
+        
+        hurricane = Hurricane.query.get(storm_id)
+        if not hurricane:
+            return jsonify({'error': 'Hurricane not found'}), 404
+        
+        return jsonify(hurricane.to_dict())
+    
+    except Exception as e:
+        logger.error(f"Hurricane detail error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/hurricanes/regressive-summary')
+def get_hurricane_regressive_summary():
+    """Get latest regressive proof results for hurricanes"""
+    try:
+        from pathlib import Path
+        import json
+        
+        base_dir = Path(__file__).resolve().parent / 'analysis_outputs' / 'regressive_proof'
+        if not base_dir.exists():
+            return jsonify({'error': 'No regressive proof runs found'}), 404
+        
+        # Get most recent run
+        run_dirs = sorted([d for d in base_dir.iterdir() if d.is_dir()], reverse=True)
+        if not run_dirs:
+            return jsonify({'error': 'No regressive proof runs found'}), 404
+        
+        latest_run = run_dirs[0]
+        
+        # Load hurricane claims
+        hurricane_claims = {}
+        for claim_id in ['H1', 'H2', 'H3', 'H4']:
+            claim_file = latest_run / f'claim_{claim_id}.json'
+            if claim_file.exists():
+                with claim_file.open('r') as f:
+                    hurricane_claims[claim_id] = json.load(f)
+        
+        # Load summary
+        summary_file = latest_run / 'summary.json'
+        full_summary = None
+        if summary_file.exists():
+            with summary_file.open('r') as f:
+                full_summary = json.load(f)
+        
+        return jsonify({
+            'run_directory': latest_run.name,
+            'hurricane_claims': hurricane_claims,
+            'full_summary': full_summary
+        })
+    
+    except Exception as e:
+        logger.error(f"Hurricane regressive summary error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/hurricanes/collect', methods=['POST'])
+def collect_hurricanes():
+    """Trigger hurricane data collection"""
+    try:
+        from collectors.hurricane_collector import HurricaneCollector
+        
+        data = request.json or {}
+        min_year = data.get('min_year', 1950)
+        require_landfall = data.get('require_landfall', True)
+        min_category = data.get('min_category')
+        
+        collector = HurricaneCollector()
+        stats = collector.collect_all_hurricanes(
+            min_year=min_year,
+            require_landfall=require_landfall,
+            min_category=min_category
+        )
+        
+        return jsonify({'success': True, 'stats': stats})
+    
+    except Exception as e:
+        logger.error(f"Hurricane collection error: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
+@app.route('/api/hurricanes/bootstrap-major', methods=['POST'])
+def bootstrap_major_hurricanes():
+    """Bootstrap major hurricanes with known outcome data"""
+    try:
+        from collectors.hurricane_collector import HurricaneCollector
+        
+        collector = HurricaneCollector()
+        stats = collector.bootstrap_major_hurricanes()
+        
+        return jsonify({'success': True, 'stats': stats})
+    
+    except Exception as e:
+        logger.error(f"Hurricane bootstrap error: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
+@app.route('/api/hurricanes/stats')
+def get_hurricane_stats():
+    """Get overall hurricane dataset statistics"""
+    try:
+        from core.models import Hurricane, HurricaneAnalysis
+        
+        total_storms = Hurricane.query.count()
+        with_analysis = HurricaneAnalysis.query.count()
+        with_deaths = Hurricane.query.filter(Hurricane.deaths > 0).count()
+        with_damage = Hurricane.query.filter(Hurricane.damage_usd > 0).count()
+        
+        major_hurricanes = Hurricane.query.filter(Hurricane.saffir_simpson_category >= 3).count()
+        
+        # Gender distribution
+        gender_counts = db.session.query(
+            HurricaneAnalysis.gender_coded,
+            db.func.count(HurricaneAnalysis.id)
+        ).group_by(HurricaneAnalysis.gender_coded).all()
+        
+        # Year range
+        year_range = db.session.query(
+            db.func.min(Hurricane.year),
+            db.func.max(Hurricane.year)
+        ).first()
+        
+        return jsonify({
+            'total_storms': total_storms,
+            'analyzed': with_analysis,
+            'with_casualty_data': with_deaths,
+            'with_damage_data': with_damage,
+            'major_hurricanes': major_hurricanes,
+            'gender_distribution': {g: c for g, c in gender_counts},
+            'year_range': {'min': year_range[0], 'max': year_range[1]} if year_range else None
+        })
+    
+    except Exception as e:
+        logger.error(f"Hurricane stats error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/hurricanes/demographics')
+def hurricane_demographics_page():
+    """Hurricane demographic impact analysis dashboard"""
+    try:
+        from core.models import Hurricane, HurricaneDemographicImpact
+        from analyzers.phonetic_demographic_correlator import PhoneticDemographicCorrelator
+        
+        # Get summary statistics
+        hurricanes_with_data = db.session.query(Hurricane).join(
+            HurricaneDemographicImpact,
+            Hurricane.id == HurricaneDemographicImpact.hurricane_id
+        ).distinct().all()
+        
+        counties_count = db.session.query(
+            HurricaneDemographicImpact.geographic_code
+        ).distinct().count()
+        
+        demographic_groups = db.session.query(
+            HurricaneDemographicImpact.demographic_category,
+            HurricaneDemographicImpact.demographic_value
+        ).distinct().count()
+        
+        summary = {
+            'hurricanes_count': len(hurricanes_with_data),
+            'counties_count': counties_count,
+            'demographic_groups': demographic_groups
+        }
+        
+        # Get claims results if available
+        correlator = PhoneticDemographicCorrelator()
+        analysis_results = correlator.test_all_claims()
+        claims = analysis_results.get('claims', {}) if analysis_results.get('success') else {}
+        
+        # Prepare disparity data for charts (placeholder - would compute from data)
+        disparities = {
+            'race': None,  # Would populate with actual data
+            'income': None  # Would populate with actual data
+        }
+        
+        return render_template(
+            'hurricane_demographics.html',
+            summary=summary,
+            claims=claims,
+            disparities=disparities,
+            hurricanes=hurricanes_with_data
+        )
+        
+    except Exception as e:
+        logger.error(f"Error loading demographics dashboard: {e}")
+        return render_template('hurricane_demographics.html', summary={}, claims={}, disparities={}, hurricanes=[])
+
+
+@app.route('/api/hurricanes/<storm_id>/demographics')
+def get_hurricane_demographics(storm_id):
+    """Get demographic analysis for a specific hurricane"""
+    try:
+        from core.models import Hurricane, HurricaneAnalysis, HurricaneDemographicImpact
+        from analyzers.demographic_impact_analyzer import DemographicImpactAnalyzer
+        
+        hurricane = Hurricane.query.get(storm_id)
+        if not hurricane:
+            return jsonify({'error': 'Hurricane not found'}), 404
+        
+        analysis = HurricaneAnalysis.query.filter_by(hurricane_id=storm_id).first()
+        
+        # Get phonetic features
+        phonetic_features = {}
+        if analysis:
+            phonetic_features = {
+                'phonetic_harshness_score': analysis.phonetic_harshness_score,
+                'memorability_score': analysis.memorability_score,
+                'syllable_count': analysis.syllable_count,
+                'character_length': analysis.character_length,
+                'phonetic_score': analysis.phonetic_score,
+                'gender_coded': analysis.gender_coded,
+                'sentiment_polarity': analysis.sentiment_polarity
+            }
+        
+        # Get demographic impacts
+        impacts = HurricaneDemographicImpact.query.filter_by(
+            hurricane_id=storm_id
+        ).all()
+        
+        # Calculate totals
+        total_population = sum(i.population_at_risk or 0 for i in impacts if i.demographic_category == 'total')
+        total_deaths = sum(i.deaths or 0 for i in impacts if i.demographic_category == 'total')
+        total_fema = sum(i.fema_applications or 0 for i in impacts if i.demographic_category == 'total')
+        
+        # Analyze demographics
+        analyzer = DemographicImpactAnalyzer()
+        demographic_analysis = analyzer.analyze_hurricane(storm_id)
+        
+        return jsonify({
+            'hurricane_id': storm_id,
+            'hurricane_name': hurricane.name,
+            'year': hurricane.year,
+            'phonetic_features': phonetic_features,
+            'total_population_at_risk': total_population,
+            'total_deaths': total_deaths,
+            'total_fema_applications': total_fema,
+            'demographic_analysis': demographic_analysis.get('demographic_analysis', {}),
+            'disparity_metrics': demographic_analysis.get('disparity_metrics', {})
+        })
+        
+    except Exception as e:
+        logger.error(f"Error getting hurricane demographics: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/demographics/analyze-claims', methods=['POST'])
+def analyze_demographic_claims():
+    """Run demographic-phonetic correlation analysis (D1-D4 claims)"""
+    try:
+        from analyzers.phonetic_demographic_correlator import PhoneticDemographicCorrelator
+        
+        correlator = PhoneticDemographicCorrelator()
+        results = correlator.test_all_claims()
+        
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error analyzing claims: {e}")
+        return jsonify({'error': str(e), 'success': False}), 500
+
+
+# =============================================================================
+# MTG CARD ENDPOINTS
+# =============================================================================
+
+@app.route('/mtg')
+def mtg_page():
+    """Magic: The Gathering card analysis page"""
+    return render_template('mtg.html')
+
+
+@app.route('/api/mtg/collect', methods=['POST'])
+def collect_mtg_cards():
+    """Trigger MTG card collection from Scryfall"""
+    try:
+        from collectors.mtg_collector import MTGCollector
+        
+        data = request.json or {}
+        target_total = data.get('target_total', 3500)
+        
+        collector = MTGCollector()
+        stats = collector.collect_stratified_sample(target_total=target_total)
+        
+        return jsonify({'success': True, 'stats': stats})
+    
+    except Exception as e:
+        logger.error(f"MTG collection error: {e}")
+        return jsonify({'success': False, 'error': str(e)}), 500
+
+
+@app.route('/api/mtg/list')
+def get_mtg_cards_list():
+    """Get paginated list of MTG cards with analysis"""
+    try:
+        from core.models import MTGCard, MTGCardAnalysis
+        
+        limit = request.args.get('limit', 50, type=int)
+        offset = request.args.get('offset', 0, type=int)
+        rarity = request.args.get('rarity')
+        min_price = request.args.get('min_price', type=float)
+        card_type = request.args.get('card_type')
+        
+        query = db.session.query(MTGCard, MTGCardAnalysis).join(
+            MTGCardAnalysis, MTGCard.id == MTGCardAnalysis.card_id
+        )
+        
+        if rarity:
+            query = query.filter(MTGCard.rarity == rarity)
+        if min_price is not None:
+            query = query.filter(MTGCard.price_usd >= min_price)
+        if card_type:
+            query = query.filter(MTGCard.card_type.contains(card_type))
+        
+        total_count = query.count()
+        
+        cards = query.order_by(MTGCard.price_usd.desc().nullslast()).offset(offset).limit(limit).all()
+        
+        results = []
+        for card, analysis in cards:
+            results.append({
+                **card.to_dict(),
+                'analysis': analysis.to_dict()
+            })
+        
+        return jsonify({
+            'cards': results,
+            'total': total_count,
+            'limit': limit,
+            'offset': offset
+        })
+    
+    except Exception as e:
+        logger.error(f"MTG list error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mtg/stats')
+def get_mtg_stats():
+    """Get MTG dataset statistics"""
+    try:
+        from core.models import MTGCard, MTGCardAnalysis
+        
+        total_cards = MTGCard.query.count()
+        analyzed = MTGCardAnalysis.query.count()
+        
+        # Rarity distribution
+        rarity_counts = db.session.query(
+            MTGCard.rarity,
+            db.func.count(MTGCard.id)
+        ).group_by(MTGCard.rarity).all()
+        
+        # Card type distribution
+        legendaries = MTGCard.query.filter_by(is_legendary=True).count()
+        creatures = MTGCard.query.filter_by(is_creature=True).count()
+        
+        # Price statistics
+        with_price = MTGCard.query.filter(MTGCard.price_usd > 0).count()
+        avg_price = db.session.query(db.func.avg(MTGCard.price_usd)).filter(MTGCard.price_usd > 0).scalar()
+        premium_cards = MTGCard.query.filter(MTGCard.price_usd > 20.0).count()
+        
+        return jsonify({
+            'total_cards': total_cards,
+            'analyzed': analyzed,
+            'rarity_distribution': {r: c for r, c in rarity_counts},
+            'legendaries': legendaries,
+            'creatures': creatures,
+            'with_price_data': with_price,
+            'average_price': round(avg_price, 2) if avg_price else 0,
+            'premium_cards': premium_cards
+        })
+    
+    except Exception as e:
+        logger.error(f"MTG stats error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mtg/regressive-summary')
+def get_mtg_regressive_summary():
+    """Get latest regressive proof results for MTG cards"""
+    try:
+        from pathlib import Path
+        import json
+        
+        base_dir = Path(__file__).resolve().parent / 'analysis_outputs' / 'regressive_proof'
+        if not base_dir.exists():
+            return jsonify({'error': 'No regressive proof runs found'}), 404
+        
+        # Get most recent run
+        run_dirs = sorted([d for d in base_dir.iterdir() if d.is_dir()], reverse=True)
+        if not run_dirs:
+            return jsonify({'error': 'No regressive proof runs found'}), 404
+        
+        latest_run = run_dirs[0]
+        
+        # Load MTG claims
+        mtg_claims = {}
+        for claim_id in ['M1', 'M2', 'M3']:
+            claim_file = latest_run / f'claim_{claim_id}.json'
+            if claim_file.exists():
+                with claim_file.open('r') as f:
+                    mtg_claims[claim_id] = json.load(f)
+        
+        return jsonify({
+            'run_directory': latest_run.name,
+            'mtg_claims': mtg_claims
+        })
+    
+    except Exception as e:
+        logger.error(f"MTG regressive summary error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mtg/mission-insights')
+def get_mtg_mission_insights():
+    """Get comprehensive MTG mission analysis results"""
+    try:
+        from pathlib import Path
+        import json
+        
+        # Load latest comprehensive analysis
+        output_dir = Path(__file__).resolve().parent / 'analysis_outputs' / 'mtg_mission'
+        if not output_dir.exists():
+            return jsonify({'error': 'No mission analysis found. Run scripts/run_mtg_mission_analysis.py first'}), 404
+        
+        # Get most recent file
+        json_files = sorted(output_dir.glob('mtg_comprehensive_*.json'), reverse=True)
+        if not json_files:
+            return jsonify({'error': 'No mission analysis results found'}), 404
+        
+        with json_files[0].open('r') as f:
+            results = json.load(f)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"MTG mission insights error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mtg/color-analysis')
+def get_mtg_color_analysis():
+    """Get color identity linguistic analysis"""
+    try:
+        from analyzers.mtg_advanced_analyzer import MTGAdvancedAnalyzer
+        
+        analyzer = MTGAdvancedAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        results = analyzer.analyze_color_determinism(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"MTG color analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mtg/format-analysis')
+def get_mtg_format_analysis():
+    """Get format segmentation analysis"""
+    try:
+        from analyzers.mtg_advanced_analyzer import MTGAdvancedAnalyzer
+        
+        analyzer = MTGAdvancedAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        results = analyzer.analyze_format_segmentation(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"MTG format analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mtg/era-evolution')
+def get_mtg_era_evolution():
+    """Get set era evolution analysis"""
+    try:
+        from analyzers.mtg_advanced_analyzer import MTGAdvancedAnalyzer
+        
+        analyzer = MTGAdvancedAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        results = analyzer.analyze_set_era_evolution(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"MTG era evolution error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mtg/clusters')
+def get_mtg_clusters():
+    """Get cluster analysis results"""
+    try:
+        from analyzers.mtg_advanced_analyzer import MTGAdvancedAnalyzer
+        
+        n_clusters = request.args.get('n_clusters', 3, type=int)
+        
+        analyzer = MTGAdvancedAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        results = analyzer.cluster_analysis(df, n_clusters=n_clusters)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"MTG cluster analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mtg/advanced-stats')
+def get_mtg_advanced_stats():
+    """Get comprehensive statistical summary"""
+    try:
+        from analyzers.mtg_advanced_analyzer import MTGAdvancedAnalyzer
+        import numpy as np
+        
+        analyzer = MTGAdvancedAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        # Calculate comprehensive stats
+        stats = {
+            'dataset_summary': {
+                'total_cards': len(df),
+                'avg_price': round(df['price_usd'].mean(), 2),
+                'median_price': round(df['price_usd'].median(), 2),
+                'std_price': round(df['price_usd'].std(), 2),
+            },
+            'rarity_distribution': df['rarity'].value_counts().to_dict(),
+            'color_distribution': df['color_identity'].value_counts().head(10).to_dict(),
+            'linguistic_metrics': {
+                'avg_syllables': round(df['syllable_count'].mean(), 2),
+                'avg_length': round(df['character_length'].mean(), 2),
+                'avg_memorability': round(df['memorability_score'].mean(), 2),
+                'avg_fantasy_score': round(df['fantasy_score'].mean(), 2),
+            },
+            'price_by_rarity': df.groupby('rarity')['price_usd'].agg(['mean', 'median', 'count']).to_dict(),
+        }
+        
+        return jsonify(stats)
+    
+    except Exception as e:
+        logger.error(f"MTG advanced stats error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mtg/comprehensive-report')
+def get_mtg_comprehensive_report():
+    """Get all-in-one comprehensive analysis export"""
+    try:
+        from analyzers.mtg_advanced_analyzer import MTGAdvancedAnalyzer
+        
+        analyzer = MTGAdvancedAnalyzer()
+        results = analyzer.run_comprehensive_analysis()
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"MTG comprehensive report error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
+# BAND ANALYSIS ROUTES
+# =============================================================================
+
+@app.route('/bands')
+def bands():
+    """Band name analysis - Interactive dashboard"""
+    return render_template('bands.html')
+
+
+@app.route('/bands/findings')
+def band_findings():
+    """Band name research findings - Narrative page"""
+    return render_template('band_findings.html')
+
+
+@app.route('/bands/analytics')
+def bands_analytics():
+    """Band name advanced statistical analytics"""
+    return render_template('bands_analytics.html')
+
+
+@app.route('/bands/lineage')
+def bands_lineage():
+    """Band name phonetic lineage and influence networks"""
+    return render_template('bands_lineage.html')
+
+
+@app.route('/bands/docs')
+def bands_documentation_hub():
+    """Band analysis documentation hub - All research documents"""
+    return render_template('bands_docs_hub.html')
+
+
+@app.route('/bands/docs/statistics-guide')
+def bands_stats_guide():
+    """Statistics for Everyone - Accessible guide"""
+    return render_template('bands_stats_guide.html')
+
+
+@app.route('/bands/docs/phonetic-lineage')
+def bands_lineage_theory():
+    """Phonetic Lineage Theory - Genealogical analysis"""
+    return render_template('bands_lineage_theory.html')
+
+
+@app.route('/bands/docs/phonetic-diplomacy')
+def bands_phonetic_diplomacy():
+    """Phonetic Diplomacy - Geopolitical linguistics"""
+    return render_template('bands_phonetic_diplomacy.html')
+
+
+@app.route('/bands/docs/diagnostic-framework')
+def bands_diagnostic_framework():
+    """Diagnostic Nomenclature - Clinical framework"""
+    return render_template('bands_diagnostic.html')
+
+
+@app.route('/bands/docs/master-synthesis')
+def bands_master_synthesis():
+    """Ultimate Master Synthesis - Complete integration"""
+    return render_template('bands_master_synthesis.html')
+
+
+@app.route('/api/bands/overview')
+def get_bands_overview():
+    """Get band dataset overview"""
+    try:
+        from core.models import Band, BandAnalysis
+        
+        total_bands = Band.query.count()
+        total_analyzed = BandAnalysis.query.count()
+        
+        # Decade distribution
+        decade_counts = db.session.query(
+            Band.formation_decade,
+            db.func.count(Band.id)
+        ).filter(
+            Band.formation_decade.isnot(None)
+        ).group_by(Band.formation_decade).all()
+        
+        decade_distribution = {f"{d}s": count for d, count in decade_counts}
+        
+        # Country distribution
+        country_counts = db.session.query(
+            Band.origin_country,
+            db.func.count(Band.id)
+        ).filter(
+            Band.origin_country.isnot(None)
+        ).group_by(Band.origin_country).all()
+        
+        country_distribution = dict(country_counts[:10])  # Top 10 countries
+        
+        # Genre distribution
+        genre_counts = db.session.query(
+            Band.genre_cluster,
+            db.func.count(Band.id)
+        ).filter(
+            Band.genre_cluster.isnot(None)
+        ).group_by(Band.genre_cluster).all()
+        
+        genre_distribution = dict(genre_counts)
+        
+        return jsonify({
+            'total_bands': total_bands,
+            'total_analyzed': total_analyzed,
+            'decade_distribution': decade_distribution,
+            'country_distribution': country_distribution,
+            'genre_distribution': genre_distribution
+        })
+    
+    except Exception as e:
+        logger.error(f"Bands overview error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/temporal-analysis')
+def get_bands_temporal_analysis():
+    """Get temporal evolution analysis"""
+    try:
+        from analyzers.band_temporal_analyzer import BandTemporalAnalyzer
+        
+        analyzer = BandTemporalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) == 0:
+            return jsonify({'error': 'No bands found. Run data collection first.'}), 404
+        
+        results = analyzer.analyze_temporal_evolution(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Temporal analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/geographic-analysis')
+def get_bands_geographic_analysis():
+    """Get geographic pattern analysis"""
+    try:
+        from analyzers.band_geographic_analyzer import BandGeographicAnalyzer
+        
+        analyzer = BandGeographicAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) == 0:
+            return jsonify({'error': 'No bands found. Run data collection first.'}), 404
+        
+        results = analyzer.analyze_geographic_patterns(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Geographic analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/success-predictors')
+def get_bands_success_predictors():
+    """Get success prediction analysis"""
+    try:
+        from analyzers.band_statistical_analyzer import BandStatisticalAnalyzer
+        
+        analyzer = BandStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 50:
+            return jsonify({'error': 'Insufficient data for prediction model (minimum 50 bands).'}), 404
+        
+        results = analyzer.analyze_success_predictors(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Success prediction error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/clusters')
+def get_bands_clusters():
+    """Get band clustering analysis"""
+    try:
+        from analyzers.band_statistical_analyzer import BandStatisticalAnalyzer
+        
+        analyzer = BandStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 50:
+            return jsonify({'error': 'Insufficient data for clustering (minimum 50 bands).'}), 404
+        
+        # Get n_clusters from query params (default 5)
+        n_clusters = int(request.args.get('n_clusters', 5))
+        n_clusters = max(2, min(10, n_clusters))  # Clamp between 2 and 10
+        
+        results = analyzer.cluster_bands(df, n_clusters=n_clusters)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Clustering error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/decade-comparison')
+def get_bands_decade_comparison():
+    """Compare two decades"""
+    try:
+        from analyzers.band_temporal_analyzer import BandTemporalAnalyzer
+        
+        decade1 = int(request.args.get('decade1', 1970))
+        decade2 = int(request.args.get('decade2', 2010))
+        
+        analyzer = BandTemporalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) == 0:
+            return jsonify({'error': 'No bands found.'}), 404
+        
+        results = analyzer.compare_decades(df, decade1, decade2)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Decade comparison error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/country-comparison')
+def get_bands_country_comparison():
+    """Compare two countries"""
+    try:
+        from analyzers.band_geographic_analyzer import BandGeographicAnalyzer
+        
+        country1 = request.args.get('country1', 'US')
+        country2 = request.args.get('country2', 'GB')
+        
+        analyzer = BandGeographicAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) == 0:
+            return jsonify({'error': 'No bands found.'}), 404
+        
+        results = analyzer._compare_countries(df, country1, country2)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Country comparison error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/heatmap-data')
+def get_bands_heatmap_data():
+    """Get data for geographic heatmap visualization"""
+    try:
+        from analyzers.band_geographic_analyzer import BandGeographicAnalyzer
+        
+        analyzer = BandGeographicAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) == 0:
+            return jsonify({'error': 'No bands found.'}), 404
+        
+        heatmap_data = analyzer.create_geographic_heatmap_data(df)
+        
+        return jsonify(heatmap_data)
+    
+    except Exception as e:
+        logger.error(f"Heatmap data error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/search')
+def search_bands():
+    """Search for bands by name"""
+    try:
+        from core.models import Band
+        
+        query = request.args.get('q', '').strip()
+        limit = int(request.args.get('limit', 20))
+        
+        if not query or len(query) < 2:
+            return jsonify([])
+        
+        # Search by name (case-insensitive)
+        bands = Band.query.filter(
+            Band.name.ilike(f'%{query}%')
+        ).limit(limit).all()
+        
+        results = [band.to_dict() for band in bands]
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Band search error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/<band_id>')
+def get_band_detail(band_id):
+    """Get detailed information for a specific band"""
+    try:
+        from core.models import Band, BandAnalysis
+        
+        band = Band.query.get(band_id)
+        
+        if not band:
+            return jsonify({'error': 'Band not found'}), 404
+        
+        # Get analysis if available
+        analysis = BandAnalysis.query.filter_by(band_id=band_id).first()
+        
+        result = band.to_dict()
+        
+        return jsonify(result)
+    
+    except Exception as e:
+        logger.error(f"Band detail error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/timeline-data')
+def get_bands_timeline_data():
+    """Get data for temporal evolution timeline chart"""
+    try:
+        from analyzers.band_temporal_analyzer import BandTemporalAnalyzer
+        
+        analyzer = BandTemporalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) == 0:
+            return jsonify({'error': 'No bands found.'}), 404
+        
+        # Get metric to visualize (default: memorability_score)
+        metric = request.args.get('metric', 'memorability_score')
+        
+        # Calculate decade averages
+        decade_data = []
+        for decade in [1950, 1960, 1970, 1980, 1990, 2000, 2010, 2020]:
+            decade_df = df[df['formation_decade'] == decade]
+            
+            if len(decade_df) > 0 and metric in decade_df.columns:
+                decade_data.append({
+                    'decade': f"{decade}s",
+                    'value': float(decade_df[metric].mean()),
+                    'count': len(decade_df)
+                })
+        
+        return jsonify({
+            'metric': metric,
+            'data': decade_data
+        })
+    
+    except Exception as e:
+        logger.error(f"Timeline data error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/advanced/interaction-effects')
+def get_bands_interaction_effects():
+    """Get interaction effects analysis"""
+    try:
+        from analyzers.band_advanced_statistical_analyzer import BandAdvancedStatisticalAnalyzer
+        
+        analyzer = BandAdvancedStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 50:
+            return jsonify({'error': 'Insufficient data for interaction analysis.'}), 404
+        
+        results = analyzer.analyze_interaction_effects(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Interaction effects error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/advanced/mediation-analysis')
+def get_bands_mediation_analysis():
+    """Get mediation analysis results"""
+    try:
+        from analyzers.band_advanced_statistical_analyzer import BandAdvancedStatisticalAnalyzer
+        
+        analyzer = BandAdvancedStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 50:
+            return jsonify({'error': 'Insufficient data for mediation analysis.'}), 404
+        
+        results = analyzer.analyze_mediation_effects(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Mediation analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/advanced/polynomial-analysis')
+def get_bands_polynomial_analysis():
+    """Get polynomial regression analysis (non-linear relationships)"""
+    try:
+        from analyzers.band_advanced_statistical_analyzer import BandAdvancedStatisticalAnalyzer
+        
+        analyzer = BandAdvancedStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 50:
+            return jsonify({'error': 'Insufficient data for polynomial analysis.'}), 404
+        
+        results = analyzer.analyze_polynomial_relationships(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Polynomial analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/advanced/regression-diagnostics')
+def get_bands_regression_diagnostics():
+    """Get regression diagnostic tests"""
+    try:
+        from analyzers.band_advanced_statistical_analyzer import BandAdvancedStatisticalAnalyzer
+        
+        analyzer = BandAdvancedStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 50:
+            return jsonify({'error': 'Insufficient data for diagnostics.'}), 404
+        
+        results = analyzer.perform_regression_diagnostics(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Regression diagnostics error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/advanced/moderator-analysis')
+def get_bands_moderator_analysis():
+    """Get moderator effects analysis"""
+    try:
+        from analyzers.band_advanced_statistical_analyzer import BandAdvancedStatisticalAnalyzer
+        
+        analyzer = BandAdvancedStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 50:
+            return jsonify({'error': 'Insufficient data for moderator analysis.'}), 404
+        
+        results = analyzer.analyze_moderator_effects(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Moderator analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/advanced/subgroup-analysis')
+def get_bands_subgroup_analysis():
+    """Get subgroup analysis results"""
+    try:
+        from analyzers.band_advanced_statistical_analyzer import BandAdvancedStatisticalAnalyzer
+        
+        analyzer = BandAdvancedStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 50:
+            return jsonify({'error': 'Insufficient data for subgroup analysis.'}), 404
+        
+        results = analyzer.analyze_subgroup_effects(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Subgroup analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/advanced/causal-inference')
+def get_bands_causal_inference():
+    """Get causal inference analysis"""
+    try:
+        from analyzers.band_advanced_statistical_analyzer import BandAdvancedStatisticalAnalyzer
+        
+        analyzer = BandAdvancedStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 50:
+            return jsonify({'error': 'Insufficient data for causal inference.'}), 404
+        
+        results = analyzer.perform_causal_inference_analysis(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Causal inference error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/lineage/influence-networks')
+def get_bands_influence_networks():
+    """Get phonetic influence network analysis"""
+    try:
+        from analyzers.band_phonetic_lineage_analyzer import BandPhoneticLineageAnalyzer
+        
+        analyzer = BandPhoneticLineageAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 50:
+            return jsonify({'error': 'Insufficient data for influence analysis.'}), 404
+        
+        results = analyzer.analyze_phonetic_influence_networks(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Influence network error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/lineage/cross-generational-rhyming')
+def get_bands_cross_generational_rhyming():
+    """Get cross-generational rhyming analysis"""
+    try:
+        from analyzers.band_phonetic_lineage_analyzer import BandPhoneticLineageAnalyzer
+        
+        analyzer = BandPhoneticLineageAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 50:
+            return jsonify({'error': 'Insufficient data for rhyming analysis.'}), 404
+        
+        results = analyzer.analyze_cross_generational_rhyming(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Cross-generational rhyming error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/bands/lineage/phonetic-neighborhood/<band_name>')
+def get_band_phonetic_neighborhood(band_name):
+    """Get phonetic neighborhood for a specific band"""
+    try:
+        from analyzers.band_phonetic_lineage_analyzer import BandPhoneticLineageAnalyzer
+        
+        analyzer = BandPhoneticLineageAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 10:
+            return jsonify({'error': 'Insufficient data.'}), 404
+        
+        results = analyzer.identify_phonetic_neighborhoods(df, band_name)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Phonetic neighborhood error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
+# NBA PLAYER ANALYSIS ROUTES
+# =============================================================================
+
+@app.route('/nba')
+def nba_page():
+    """NBA player name analysis - Interactive dashboard"""
+    return render_template('nba.html')
+
+
+@app.route('/api/nba/overview')
+def get_nba_overview():
+    """Get NBA dataset overview"""
+    try:
+        from core.models import NBAPlayer, NBAPlayerAnalysis
+        
+        total_players = NBAPlayer.query.count()
+        total_analyzed = NBAPlayerAnalysis.query.count()
+        
+        # Era distribution
+        era_counts = db.session.query(
+            NBAPlayer.era,
+            db.func.count(NBAPlayer.id)
+        ).filter(
+            NBAPlayer.era.isnot(None)
+        ).group_by(NBAPlayer.era).all()
+        
+        era_distribution = {f"{e}s": count for e, count in era_counts}
+        
+        # Position distribution
+        position_counts = db.session.query(
+            NBAPlayer.position_group,
+            db.func.count(NBAPlayer.id)
+        ).filter(
+            NBAPlayer.position_group.isnot(None)
+        ).group_by(NBAPlayer.position_group).all()
+        
+        position_distribution = dict(position_counts)
+        
+        # Era group distribution
+        era_group_counts = db.session.query(
+            NBAPlayer.era_group,
+            db.func.count(NBAPlayer.id)
+        ).filter(
+            NBAPlayer.era_group.isnot(None)
+        ).group_by(NBAPlayer.era_group).all()
+        
+        era_group_distribution = dict(era_group_counts)
+        
+        # Average stats
+        avg_stats = db.session.query(
+            db.func.avg(NBAPlayer.ppg),
+            db.func.avg(NBAPlayer.performance_score),
+            db.func.avg(NBAPlayer.overall_success_score)
+        ).filter(
+            NBAPlayer.ppg.isnot(None)
+        ).first()
+        
+        return jsonify({
+            'total_players': total_players,
+            'total_analyzed': total_analyzed,
+            'era_distribution': era_distribution,
+            'position_distribution': position_distribution,
+            'era_group_distribution': era_group_distribution,
+            'avg_ppg': float(avg_stats[0]) if avg_stats[0] else 0,
+            'avg_performance_score': float(avg_stats[1]) if avg_stats[1] else 0,
+            'avg_success_score': float(avg_stats[2]) if avg_stats[2] else 0
+        })
+    
+    except Exception as e:
+        logger.error(f"NBA overview error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nba/position-analysis')
+def get_nba_position_analysis():
+    """Get position-specific linguistic pattern analysis"""
+    try:
+        from analyzers.nba_position_analyzer import NBAPositionAnalyzer
+        
+        analyzer = NBAPositionAnalyzer()
+        df = analyzer.get_position_dataset()
+        
+        if len(df) == 0:
+            return jsonify({'error': 'No players found. Run data collection first.'}), 404
+        
+        results = analyzer.analyze_position_patterns(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Position analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nba/position-correlations')
+def get_nba_position_correlations():
+    """Get correlations between linguistic features and positions"""
+    try:
+        from analyzers.nba_position_analyzer import NBAPositionAnalyzer
+        
+        analyzer = NBAPositionAnalyzer()
+        df = analyzer.get_position_dataset()
+        
+        if len(df) == 0:
+            return jsonify({'error': 'No players found.'}), 404
+        
+        results = analyzer.analyze_position_correlations(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Position correlations error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nba/performance-predictors')
+def get_nba_performance_predictors():
+    """Get performance prediction models"""
+    try:
+        from analyzers.nba_statistical_analyzer import NBAStatisticalAnalyzer
+        
+        analyzer = NBAStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) == 0:
+            return jsonify({'error': 'No players found.'}), 404
+        
+        results = analyzer.analyze_performance_predictors(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Performance predictors error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nba/career-predictors')
+def get_nba_career_predictors():
+    """Get career success prediction models"""
+    try:
+        from analyzers.nba_statistical_analyzer import NBAStatisticalAnalyzer
+        
+        analyzer = NBAStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) == 0:
+            return jsonify({'error': 'No players found.'}), 404
+        
+        results = analyzer.analyze_career_success_predictors(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Career predictors error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nba/temporal-analysis')
+def get_nba_temporal_analysis():
+    """Get temporal evolution analysis"""
+    try:
+        from analyzers.nba_temporal_analyzer import NBATemporalAnalyzer
+        
+        analyzer = NBATemporalAnalyzer()
+        df = analyzer.get_era_dataset()
+        
+        if len(df) == 0:
+            return jsonify({'error': 'No players found.'}), 404
+        
+        results = analyzer.analyze_temporal_evolution(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Temporal analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nba/era-transitions')
+def get_nba_era_transitions():
+    """Get era transition analysis"""
+    try:
+        from analyzers.nba_temporal_analyzer import NBATemporalAnalyzer
+        
+        analyzer = NBATemporalAnalyzer()
+        df = analyzer.get_era_dataset()
+        
+        if len(df) == 0:
+            return jsonify({'error': 'No players found.'}), 404
+        
+        results = analyzer.analyze_era_transitions(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Era transitions error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nba/era-formulas')
+def get_nba_era_formulas():
+    """Get era-specific success formulas"""
+    try:
+        from analyzers.nba_statistical_analyzer import NBAStatisticalAnalyzer
+        
+        analyzer = NBAStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) == 0:
+            return jsonify({'error': 'No players found.'}), 404
+        
+        results = analyzer.analyze_era_formulas(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Era formulas error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nba/position-comparison')
+def get_nba_position_comparison():
+    """Compare two positions"""
+    try:
+        from core.models import NBAPlayer, NBAPlayerAnalysis
+        
+        position1 = request.args.get('position1', 'Guard')
+        position2 = request.args.get('position2', 'Center')
+        
+        # Get players for each position
+        query = db.session.query(NBAPlayer, NBAPlayerAnalysis).join(
+            NBAPlayerAnalysis,
+            NBAPlayer.id == NBAPlayerAnalysis.player_id
+        )
+        
+        pos1_players = query.filter(NBAPlayer.position_group == position1).all()
+        pos2_players = query.filter(NBAPlayer.position_group == position2).all()
+        
+        if not pos1_players or not pos2_players:
+            return jsonify({'error': 'Insufficient data for comparison'}), 404
+        
+        # Calculate averages for each position
+        def calc_averages(players_list):
+            players, analyses = zip(*players_list)
+            return {
+                'count': len(players),
+                'avg_syllables': sum(a.syllable_count or 0 for a in analyses) / len(analyses),
+                'avg_memorability': sum(a.memorability_score or 0 for a in analyses) / len(analyses),
+                'avg_harshness': sum(a.harshness_score or 0 for a in analyses) / len(analyses),
+                'avg_speed': sum(a.speed_association_score or 50 for a in analyses) / len(analyses),
+                'avg_strength': sum(a.strength_association_score or 50 for a in analyses) / len(analyses),
+                'avg_performance': sum(p.performance_score or 0 for p in players) / len(players),
+            }
+        
+        pos1_stats = calc_averages(pos1_players)
+        pos2_stats = calc_averages(pos2_players)
+        
+        return jsonify({
+            'position1': position1,
+            'position2': position2,
+            'position1_stats': pos1_stats,
+            'position2_stats': pos2_stats,
+            'differences': {
+                'syllables': pos1_stats['avg_syllables'] - pos2_stats['avg_syllables'],
+                'memorability': pos1_stats['avg_memorability'] - pos2_stats['avg_memorability'],
+                'harshness': pos1_stats['avg_harshness'] - pos2_stats['avg_harshness'],
+                'speed': pos1_stats['avg_speed'] - pos2_stats['avg_speed'],
+                'strength': pos1_stats['avg_strength'] - pos2_stats['avg_strength'],
+            }
+        })
+    
+    except Exception as e:
+        logger.error(f"Position comparison error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nba/era-comparison')
+def get_nba_era_comparison():
+    """Compare two eras"""
+    try:
+        from core.models import NBAPlayer, NBAPlayerAnalysis
+        
+        era1 = int(request.args.get('era1', '1980'))
+        era2 = int(request.args.get('era2', '2010'))
+        
+        # Get players for each era
+        query = db.session.query(NBAPlayer, NBAPlayerAnalysis).join(
+            NBAPlayerAnalysis,
+            NBAPlayer.id == NBAPlayerAnalysis.player_id
+        )
+        
+        era1_players = query.filter(NBAPlayer.era == era1).all()
+        era2_players = query.filter(NBAPlayer.era == era2).all()
+        
+        if not era1_players or not era2_players:
+            return jsonify({'error': 'Insufficient data for comparison'}), 404
+        
+        # Calculate averages
+        def calc_averages(players_list):
+            players, analyses = zip(*players_list)
+            return {
+                'count': len(players),
+                'avg_syllables': sum(a.syllable_count or 0 for a in analyses) / len(analyses),
+                'avg_memorability': sum(a.memorability_score or 0 for a in analyses) / len(analyses),
+                'avg_uniqueness': sum(a.uniqueness_score or 0 for a in analyses) / len(analyses),
+                'avg_harshness': sum(a.harshness_score or 0 for a in analyses) / len(analyses),
+                'avg_success': sum(p.overall_success_score or 0 for p in players) / len(players),
+                'international_pct': sum(1 for p in players if p.country != 'USA') / len(players) * 100,
+            }
+        
+        era1_stats = calc_averages(era1_players)
+        era2_stats = calc_averages(era2_players)
+        
+        return jsonify({
+            'era1': f"{era1}s",
+            'era2': f"{era2}s",
+            'era1_stats': era1_stats,
+            'era2_stats': era2_stats,
+            'changes': {
+                'syllables': era2_stats['avg_syllables'] - era1_stats['avg_syllables'],
+                'memorability': era2_stats['avg_memorability'] - era1_stats['avg_memorability'],
+                'uniqueness': era2_stats['avg_uniqueness'] - era1_stats['avg_uniqueness'],
+                'harshness': era2_stats['avg_harshness'] - era1_stats['avg_harshness'],
+                'international_pct': era2_stats['international_pct'] - era1_stats['international_pct'],
+            }
+        })
+    
+    except Exception as e:
+        logger.error(f"Era comparison error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nba/search')
+def search_nba_players():
+    """Search for players by name"""
+    try:
+        from core.models import NBAPlayer
+        
+        query_str = request.args.get('q', '').strip()
+        
+        if not query_str or len(query_str) < 2:
+            return jsonify({'error': 'Query too short'}), 400
+        
+        # Search players
+        players = NBAPlayer.query.filter(
+            NBAPlayer.name.ilike(f'%{query_str}%')
+        ).limit(20).all()
+        
+        results = [{
+            'id': p.id,
+            'name': p.name,
+            'position': p.position,
+            'era': f"{p.era}s" if p.era else None,
+            'ppg': p.ppg,
+            'overall_success_score': p.overall_success_score
+        } for p in players]
+        
+        return jsonify({
+            'query': query_str,
+            'count': len(results),
+            'players': results
+        })
+    
+    except Exception as e:
+        logger.error(f"NBA search error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nba/<player_id>')
+def get_nba_player_detail(player_id):
+    """Get detailed information for a specific player"""
+    try:
+        from core.models import NBAPlayer, NBAPlayerAnalysis
+        
+        player = NBAPlayer.query.get(player_id)
+        
+        if not player:
+            return jsonify({'error': 'Player not found'}), 404
+        
+        analysis = NBAPlayerAnalysis.query.filter_by(player_id=player_id).first()
+        
+        result = player.to_dict()
+        if analysis:
+            result['analysis'] = analysis.to_dict()
+        
+        return jsonify(result)
+    
+    except Exception as e:
+        logger.error(f"NBA player detail error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nba/timeline-data')
+def get_nba_timeline_data():
+    """Get data for temporal evolution timeline chart"""
+    try:
+        from core.models import NBAPlayer, NBAPlayerAnalysis
+        
+        # Get average linguistic features by era
+        query = db.session.query(
+            NBAPlayer.era,
+            db.func.avg(NBAPlayerAnalysis.syllable_count).label('avg_syllables'),
+            db.func.avg(NBAPlayerAnalysis.memorability_score).label('avg_memorability'),
+            db.func.avg(NBAPlayerAnalysis.uniqueness_score).label('avg_uniqueness'),
+            db.func.avg(NBAPlayerAnalysis.harshness_score).label('avg_harshness'),
+            db.func.count(NBAPlayer.id).label('count')
+        ).join(
+            NBAPlayerAnalysis,
+            NBAPlayer.id == NBAPlayerAnalysis.player_id
+        ).filter(
+            NBAPlayer.era.isnot(None)
+        ).group_by(NBAPlayer.era).order_by(NBAPlayer.era).all()
+        
+        timeline = [{
+            'era': f"{row.era}s",
+            'year': row.era,
+            'avg_syllables': float(row.avg_syllables) if row.avg_syllables else 0,
+            'avg_memorability': float(row.avg_memorability) if row.avg_memorability else 0,
+            'avg_uniqueness': float(row.avg_uniqueness) if row.avg_uniqueness else 0,
+            'avg_harshness': float(row.avg_harshness) if row.avg_harshness else 0,
+            'player_count': row.count
+        } for row in query]
+        
+        return jsonify({'timeline': timeline})
+    
+    except Exception as e:
+        logger.error(f"NBA timeline data error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nba/role-patterns')
+def get_nba_role_patterns():
+    """Get role-specific naming patterns (scorers, playmakers, etc.)"""
+    try:
+        from analyzers.nba_position_analyzer import NBAPositionAnalyzer
+        
+        analyzer = NBAPositionAnalyzer()
+        df = analyzer.get_position_dataset()
+        
+        if len(df) == 0:
+            return jsonify({'error': 'No players found.'}), 404
+        
+        results = analyzer.analyze_role_specific_patterns(df)
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"Role patterns error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
 # ERROR HANDLERS
 # =============================================================================
 
@@ -2060,7 +3766,491 @@ def server_error(e):
 
 
 # =============================================================================
-# RUN APPLICATION
+# MENTAL HEALTH ENDPOINTS
+# =============================================================================
+
+@app.route('/mental-health')
+def mental_health_page():
+    """Mental health nominative determinism analysis page"""
+    return render_template('mental_health.html')
+
+
+@app.route('/api/mental-health/overview')
+def get_mental_health_overview():
+    """Get mental health analysis overview statistics"""
+    try:
+        from core.models import MentalHealthTerm, MentalHealthAnalysis
+        
+        # Get counts by type
+        total_terms = MentalHealthTerm.query.count()
+        total_diagnoses = MentalHealthTerm.query.filter_by(term_type='diagnosis').count()
+        total_medications = MentalHealthTerm.query.filter_by(term_type='medication').count()
+        
+        # Get category breakdowns
+        diagnosis_categories = db.session.query(
+            MentalHealthTerm.category,
+            db.func.count(MentalHealthTerm.id).label('count')
+        ).filter_by(term_type='diagnosis').group_by(MentalHealthTerm.category).all()
+        
+        medication_categories = db.session.query(
+            MentalHealthTerm.category,
+            db.func.count(MentalHealthTerm.id).label('count')
+        ).filter_by(term_type='medication').group_by(MentalHealthTerm.category).all()
+        
+        # Get average metrics
+        avg_stats = db.session.query(
+            db.func.avg(MentalHealthAnalysis.memorability_score).label('avg_memorability'),
+            db.func.avg(MentalHealthAnalysis.patient_friendliness).label('avg_patient_friendly'),
+            db.func.avg(MentalHealthAnalysis.latin_roots_score).label('avg_latin'),
+            db.func.avg(MentalHealthAnalysis.stigma_linguistic_markers).label('avg_stigma')
+        ).first()
+        
+        return jsonify({
+            'totals': {
+                'all_terms': total_terms,
+                'diagnoses': total_diagnoses,
+                'medications': total_medications
+            },
+            'diagnosis_categories': {cat: count for cat, count in diagnosis_categories},
+            'medication_categories': {cat: count for cat, count in medication_categories},
+            'average_metrics': {
+                'memorability': float(avg_stats.avg_memorability or 0),
+                'patient_friendliness': float(avg_stats.avg_patient_friendly or 0),
+                'latin_roots_score': float(avg_stats.avg_latin or 0),
+                'stigma_markers': float(avg_stats.avg_stigma or 0)
+            }
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in mental health overview: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mental-health/diagnoses')
+def get_mental_health_diagnoses():
+    """Get list of diagnoses with analysis"""
+    try:
+        from core.models import MentalHealthTerm, MentalHealthAnalysis
+        
+        category = request.args.get('category')
+        limit = int(request.args.get('limit', 50))
+        offset = int(request.args.get('offset', 0))
+        
+        query = MentalHealthTerm.query.filter_by(term_type='diagnosis')
+        
+        if category:
+            query = query.filter_by(category=category)
+        
+        total = query.count()
+        diagnoses = query.order_by(MentalHealthTerm.prevalence_rate.desc().nullslast()).offset(offset).limit(limit).all()
+        
+        return jsonify({
+            'total': total,
+            'diagnoses': [d.to_dict() for d in diagnoses]
+        })
+        
+    except Exception as e:
+        logger.error(f"Error getting diagnoses: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mental-health/medications')
+def get_mental_health_medications():
+    """Get list of medications with analysis"""
+    try:
+        from core.models import MentalHealthTerm, MentalHealthAnalysis
+        
+        category = request.args.get('category')
+        limit = int(request.args.get('limit', 50))
+        offset = int(request.args.get('offset', 0))
+        
+        query = MentalHealthTerm.query.filter_by(term_type='medication')
+        
+        if category:
+            query = query.filter_by(category=category)
+        
+        total = query.count()
+        medications = query.order_by(MentalHealthTerm.usage_rank.asc().nullslast()).offset(offset).limit(limit).all()
+        
+        return jsonify({
+            'total': total,
+            'medications': [m.to_dict() for m in medications]
+        })
+        
+    except Exception as e:
+        logger.error(f"Error getting medications: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mental-health/category-analysis')
+def get_category_analysis():
+    """Compare different categories (diagnoses vs medications, or subcategories)"""
+    try:
+        from core.models import MentalHealthTerm, MentalHealthAnalysis
+        
+        # Compare diagnoses vs medications
+        diagnosis_terms = db.session.query(MentalHealthTerm, MentalHealthAnalysis).join(
+            MentalHealthAnalysis
+        ).filter(MentalHealthTerm.term_type == 'diagnosis').all()
+        
+        medication_terms = db.session.query(MentalHealthTerm, MentalHealthAnalysis).join(
+            MentalHealthAnalysis
+        ).filter(MentalHealthTerm.term_type == 'medication').all()
+        
+        # Calculate averages
+        def calc_averages(terms):
+            if not terms:
+                return {}
+            
+            analyses = [a for t, a in terms]
+            return {
+                'memorability': sum(a.memorability_score or 0 for a in analyses) / len(analyses),
+                'patient_friendliness': sum(a.patient_friendliness or 0 for a in analyses) / len(analyses),
+                'clinical_pronounceability': sum(a.pronounceability_clinical or 0 for a in analyses) / len(analyses),
+                'latin_roots': sum(a.latin_roots_score or 0 for a in analyses) / len(analyses),
+                'stigma_markers': sum(a.stigma_linguistic_markers or 0 for a in analyses) / len(analyses),
+                'syllables': sum(a.syllable_count or 0 for a in analyses) / len(analyses),
+                'length': sum(a.character_length or 0 for a in analyses) / len(analyses)
+            }
+        
+        diagnosis_avg = calc_averages(diagnosis_terms)
+        medication_avg = calc_averages(medication_terms)
+        
+        return jsonify({
+            'diagnosis_averages': diagnosis_avg,
+            'medication_averages': medication_avg,
+            'diagnosis_count': len(diagnosis_terms),
+            'medication_count': len(medication_terms)
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in category analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mental-health/brand-vs-generic')
+def get_brand_vs_generic():
+    """Analyze brand name advantage over generic names"""
+    try:
+        from core.models import MentalHealthTerm, MentalHealthAnalysis
+        
+        # Get medications that have both brand and generic
+        generics = MentalHealthTerm.query.filter(
+            MentalHealthTerm.term_type == 'medication',
+            MentalHealthTerm.generic_name == None,
+            MentalHealthTerm.brand_names != None
+        ).all()
+        
+        comparisons = []
+        
+        for generic_term in generics[:20]:  # Limit to top 20 for performance
+            # Find corresponding brand name
+            if not generic_term.brand_names:
+                continue
+            
+            primary_brand_name = generic_term.brand_names.split(',')[0].strip()
+            brand_term = MentalHealthTerm.query.filter_by(name=primary_brand_name).first()
+            
+            if brand_term and generic_term.analysis and brand_term.analysis:
+                comparisons.append({
+                    'generic_name': generic_term.name,
+                    'brand_name': brand_term.name,
+                    'generic_memorability': generic_term.analysis.memorability_score,
+                    'brand_memorability': brand_term.analysis.memorability_score,
+                    'memorability_advantage': brand_term.analysis.memorability_score - generic_term.analysis.memorability_score,
+                    'generic_patient_friendly': generic_term.analysis.patient_friendliness,
+                    'brand_patient_friendly': brand_term.analysis.patient_friendliness,
+                    'patient_friendly_advantage': brand_term.analysis.patient_friendliness - generic_term.analysis.patient_friendliness,
+                    'generic_syllables': generic_term.analysis.syllable_count,
+                    'brand_syllables': brand_term.analysis.syllable_count,
+                    'generic_length': generic_term.analysis.character_length,
+                    'brand_length': brand_term.analysis.character_length
+                })
+        
+        # Calculate aggregate statistics
+        if comparisons:
+            avg_memorability_advantage = sum(c['memorability_advantage'] for c in comparisons) / len(comparisons)
+            avg_patient_advantage = sum(c['patient_friendly_advantage'] for c in comparisons) / len(comparisons)
+        else:
+            avg_memorability_advantage = 0
+            avg_patient_advantage = 0
+        
+        return jsonify({
+            'comparisons': comparisons,
+            'summary': {
+                'avg_memorability_advantage': avg_memorability_advantage,
+                'avg_patient_friendly_advantage': avg_patient_advantage,
+                'count': len(comparisons)
+            }
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in brand vs generic analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mental-health/stigma-analysis')
+def get_stigma_analysis():
+    """Analyze phonetic stigma markers across diagnoses"""
+    try:
+        from core.models import MentalHealthTerm, MentalHealthAnalysis
+        
+        # Get diagnoses with stigma scores
+        diagnoses = db.session.query(MentalHealthTerm, MentalHealthAnalysis).join(
+            MentalHealthAnalysis
+        ).filter(MentalHealthTerm.term_type == 'diagnosis').all()
+        
+        # Group by category
+        category_stigma = {}
+        for term, analysis in diagnoses:
+            if term.category not in category_stigma:
+                category_stigma[term.category] = {
+                    'stigma_scores': [],
+                    'linguistic_markers': [],
+                    'examples': []
+                }
+            
+            category_stigma[term.category]['stigma_scores'].append(term.stigma_score or 0)
+            category_stigma[term.category]['linguistic_markers'].append(analysis.stigma_linguistic_markers or 0)
+            
+            if len(category_stigma[term.category]['examples']) < 3:
+                category_stigma[term.category]['examples'].append({
+                    'name': term.name,
+                    'stigma_score': term.stigma_score,
+                    'linguistic_markers': analysis.stigma_linguistic_markers
+                })
+        
+        # Calculate averages
+        results = {}
+        for category, data in category_stigma.items():
+            results[category] = {
+                'avg_stigma_score': sum(data['stigma_scores']) / len(data['stigma_scores']),
+                'avg_linguistic_markers': sum(data['linguistic_markers']) / len(data['linguistic_markers']),
+                'count': len(data['stigma_scores']),
+                'examples': data['examples']
+            }
+        
+        return jsonify({
+            'category_stigma': results
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in stigma analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mental-health/prevalence-predictors')
+def get_prevalence_predictors():
+    """Analyze which name features predict high prevalence/usage"""
+    try:
+        from core.models import MentalHealthTerm, MentalHealthAnalysis
+        import numpy as np
+        
+        # Get diagnoses with prevalence data
+        diagnoses = db.session.query(MentalHealthTerm, MentalHealthAnalysis).join(
+            MentalHealthAnalysis
+        ).filter(
+            MentalHealthTerm.term_type == 'diagnosis',
+            MentalHealthTerm.prevalence_rate != None
+        ).all()
+        
+        if not diagnoses:
+            return jsonify({'error': 'No prevalence data available'}), 404
+        
+        # Prepare data for correlation
+        data = []
+        for term, analysis in diagnoses:
+            data.append({
+                'name': term.name,
+                'prevalence': term.prevalence_rate,
+                'memorability': analysis.memorability_score or 0,
+                'patient_friendliness': analysis.patient_friendliness or 0,
+                'syllables': analysis.syllable_count or 0,
+                'length': analysis.character_length or 0,
+                'latin_roots': analysis.latin_roots_score or 0,
+                'stigma_markers': analysis.stigma_linguistic_markers or 0
+            })
+        
+        # Calculate correlations
+        prevalences = [d['prevalence'] for d in data]
+        
+        def pearson_correlation(x, y):
+            if len(x) != len(y) or len(x) < 2:
+                return 0.0
+            mean_x = sum(x) / len(x)
+            mean_y = sum(y) / len(y)
+            
+            numerator = sum((x[i] - mean_x) * (y[i] - mean_y) for i in range(len(x)))
+            denominator_x = sum((x[i] - mean_x) ** 2 for i in range(len(x))) ** 0.5
+            denominator_y = sum((y[i] - mean_y) ** 2 for i in range(len(y))) ** 0.5
+            
+            if denominator_x == 0 or denominator_y == 0:
+                return 0.0
+            
+            return numerator / (denominator_x * denominator_y)
+        
+        correlations = {
+            'memorability': pearson_correlation([d['memorability'] for d in data], prevalences),
+            'patient_friendliness': pearson_correlation([d['patient_friendliness'] for d in data], prevalences),
+            'syllables': pearson_correlation([d['syllables'] for d in data], prevalences),
+            'length': pearson_correlation([d['length'] for d in data], prevalences),
+            'latin_roots': pearson_correlation([d['latin_roots'] for d in data], prevalences),
+            'stigma_markers': pearson_correlation([d['stigma_markers'] for d in data], prevalences)
+        }
+        
+        return jsonify({
+            'correlations': correlations,
+            'sample_size': len(data),
+            'highest_prevalence': sorted(data, key=lambda x: x['prevalence'], reverse=True)[:10],
+            'lowest_prevalence': sorted(data, key=lambda x: x['prevalence'])[:10]
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in prevalence predictors: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mental-health/temporal-evolution')
+def get_temporal_evolution():
+    """Analyze how diagnostic naming has evolved over time"""
+    try:
+        from core.models import MentalHealthTerm, MentalHealthAnalysis
+        
+        # Get all terms with year data
+        terms = db.session.query(MentalHealthTerm, MentalHealthAnalysis).join(
+            MentalHealthAnalysis
+        ).filter(MentalHealthTerm.year_introduced != None).all()
+        
+        # Group by decade
+        decades = {}
+        for term, analysis in terms:
+            decade = (term.year_introduced // 10) * 10
+            
+            if decade not in decades:
+                decades[decade] = {
+                    'terms': [],
+                    'stigma_scores': [],
+                    'patient_friendliness': [],
+                    'latin_roots': []
+                }
+            
+            decades[decade]['terms'].append(term.name)
+            if term.stigma_score:
+                decades[decade]['stigma_scores'].append(term.stigma_score)
+            if analysis.patient_friendliness:
+                decades[decade]['patient_friendliness'].append(analysis.patient_friendliness)
+            if analysis.latin_roots_score:
+                decades[decade]['latin_roots'].append(analysis.latin_roots_score)
+        
+        # Calculate averages
+        results = {}
+        for decade, data in decades.items():
+            results[str(decade)] = {
+                'count': len(data['terms']),
+                'avg_stigma': sum(data['stigma_scores']) / len(data['stigma_scores']) if data['stigma_scores'] else 0,
+                'avg_patient_friendly': sum(data['patient_friendliness']) / len(data['patient_friendliness']) if data['patient_friendliness'] else 0,
+                'avg_latin_roots': sum(data['latin_roots']) / len(data['latin_roots']) if data['latin_roots'] else 0,
+                'example_terms': data['terms'][:5]
+            }
+        
+        return jsonify({
+            'decades': results
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in temporal evolution: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mental-health/pronounceability')
+def get_pronounceability_analysis():
+    """Analyze clinical vs patient pronounceability gap"""
+    try:
+        from core.models import MentalHealthTerm, MentalHealthAnalysis
+        
+        # Get all terms with analysis
+        terms = db.session.query(MentalHealthTerm, MentalHealthAnalysis).join(
+            MentalHealthAnalysis
+        ).all()
+        
+        # Calculate gaps
+        gaps = []
+        for term, analysis in terms:
+            if analysis.pronounceability_clinical and analysis.patient_friendliness:
+                gap = analysis.pronounceability_clinical - analysis.patient_friendliness
+                gaps.append({
+                    'name': term.name,
+                    'term_type': term.term_type,
+                    'category': term.category,
+                    'clinical_pronounceability': analysis.pronounceability_clinical,
+                    'patient_friendliness': analysis.patient_friendliness,
+                    'gap': gap
+                })
+        
+        # Sort by gap
+        largest_gaps = sorted(gaps, key=lambda x: x['gap'], reverse=True)[:20]
+        smallest_gaps = sorted(gaps, key=lambda x: x['gap'])[:20]
+        
+        # Average gap by category
+        category_gaps = {}
+        for item in gaps:
+            if item['category'] not in category_gaps:
+                category_gaps[item['category']] = []
+            category_gaps[item['category']].append(item['gap'])
+        
+        avg_gaps = {cat: sum(vals) / len(vals) for cat, vals in category_gaps.items()}
+        
+        return jsonify({
+            'largest_gaps': largest_gaps,
+            'smallest_gaps': smallest_gaps,
+            'category_average_gaps': avg_gaps,
+            'overall_average_gap': sum(g['gap'] for g in gaps) / len(gaps) if gaps else 0
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in pronounceability analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mental-health/search')
+def search_mental_health_terms():
+    """Search mental health terms"""
+    try:
+        from core.models import MentalHealthTerm
+        
+        query = request.args.get('q', '').strip()
+        if not query:
+            return jsonify({'results': []})
+        
+        # Search by name
+        results = MentalHealthTerm.query.filter(
+            MentalHealthTerm.name.ilike(f'%{query}%')
+        ).limit(20).all()
+        
+        return jsonify({
+            'results': [r.to_dict() for r in results]
+        })
+        
+    except Exception as e:
+        logger.error(f"Error searching mental health terms: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mental-health/<int:term_id>')
+def get_mental_health_term(term_id):
+    """Get individual term details"""
+    try:
+        from core.models import MentalHealthTerm
+        
+        term = MentalHealthTerm.query.get_or_404(term_id)
+        
+        return jsonify(term.to_dict())
+        
+    except Exception as e:
+        logger.error(f"Error getting mental health term: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
 # =============================================================================
 
 if __name__ == '__main__':

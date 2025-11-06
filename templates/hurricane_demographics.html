@@ -1,0 +1,314 @@
+{% extends "base.html" %}
+
+{% block title %}Hurricane Demographic Impact Analysis{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">
+                <i class="fas fa-hurricane"></i>
+                Hurricane Demographic Impact Analysis
+            </h1>
+            <p class="lead text-muted">
+                Analyzing how hurricane name phonetic features correlate with demographic-specific outcomes
+            </p>
+        </div>
+    </div>
+
+    <!-- Summary Statistics -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card bg-primary text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Hurricanes Analyzed</h5>
+                    <h2>{{ summary.hurricanes_count|default(0) }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-info text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Counties Affected</h5>
+                    <h2>{{ summary.counties_count|default(0) }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-success text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Demographic Groups</h5>
+                    <h2>{{ summary.demographic_groups|default(0) }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card bg-warning text-white">
+                <div class="card-body">
+                    <h5 class="card-title">Claims Tested</h5>
+                    <h2>4</h2>
+                    <small>D1-D4 Correlations</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Claims Results -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Regressive Proof Claims (D1-D4)</h4>
+                </div>
+                <div class="card-body">
+                    {% if claims %}
+                        {% for claim_id, claim_data in claims.items() %}
+                        <div class="claim-result mb-4 pb-4 {% if not loop.last %}border-bottom{% endif %}">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <h5>
+                                        <span class="badge badge-{{ 'success' if claim_data.significant else 'secondary' }}">
+                                            {{ claim_id }}
+                                        </span>
+                                        {{ claim_data.hypothesis }}
+                                    </h5>
+                                    <p class="text-muted">{{ claim_data.interpretation }}</p>
+                                </div>
+                                <div class="col-md-4 text-right">
+                                    {% if claim_data.tested %}
+                                        <div class="metric">
+                                            <small class="text-muted">Sample Size</small>
+                                            <div class="h5">{{ claim_data.sample_size }}</div>
+                                        </div>
+                                        {% if claim_data.cv_r2_mean is defined %}
+                                        <div class="metric mt-2">
+                                            <small class="text-muted">Cross-Validated R²</small>
+                                            <div class="h5">{{ "%.4f"|format(claim_data.cv_r2_mean) }}</div>
+                                        </div>
+                                        {% endif %}
+                                    {% else %}
+                                        <span class="badge badge-warning">Not Tested</span>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        <p class="text-muted">No claims analysis results available. Run analysis to generate results.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Demographic Disparities -->
+    <div class="row mb-4">
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0">Impact Rate Disparities by Race</h5>
+                </div>
+                <div class="card-body">
+                    {% if disparities and disparities.race %}
+                        <canvas id="raceDisparityChart" height="300"></canvas>
+                    {% else %}
+                        <p class="text-muted">No race disparity data available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0">Impact Rate Disparities by Income</h5>
+                </div>
+                <div class="card-body">
+                    {% if disparities and disparities.income %}
+                        <canvas id="incomeDisparityChart" height="300"></canvas>
+                    {% else %}
+                        <p class="text-muted">No income disparity data available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hurricane-Specific Analysis -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-dark text-white">
+                    <h4 class="mb-0">Hurricane-Specific Demographic Analysis</h4>
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="hurricaneSelect">Select Hurricane:</label>
+                        <select class="form-control" id="hurricaneSelect" onchange="loadHurricaneDetails(this.value)">
+                            <option value="">-- Select a hurricane --</option>
+                            {% if hurricanes %}
+                                {% for hurricane in hurricanes %}
+                                <option value="{{ hurricane.id }}">
+                                    {{ hurricane.name }} ({{ hurricane.year }})
+                                </option>
+                                {% endfor %}
+                            {% endif %}
+                        </select>
+                    </div>
+                    
+                    <div id="hurricaneDetails" class="mt-4" style="display: none;">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h5>Phonetic Features</h5>
+                                <table class="table table-sm">
+                                    <tbody id="phoneticFeatures"></tbody>
+                                </table>
+                            </div>
+                            <div class="col-md-6">
+                                <h5>Demographic Impact Summary</h5>
+                                <div id="demographicImpact"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Methodology -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">Methodology & Data Sources</h5>
+                </div>
+                <div class="card-body">
+                    <h6>Data Collection Pipeline:</h6>
+                    <ol>
+                        <li><strong>Hurricane Track Geocoding:</strong> HURDAT2 tracks mapped to affected counties using Haversine distance calculations</li>
+                        <li><strong>Census Demographics:</strong> ACS 5-year estimates for race, income, and age distributions by county</li>
+                        <li><strong>Outcome Data:</strong> FEMA Individual Assistance applications, NOAA Storm Events casualties</li>
+                        <li><strong>Disaggregation:</strong> County-level outcomes allocated to demographic groups using vulnerability-weighted proportions</li>
+                    </ol>
+                    
+                    <h6 class="mt-4">Statistical Models:</h6>
+                    <p>
+                        Each claim tests interaction effects between phonetic features and demographic categories using
+                        cross-validated linear regression. Significance threshold: CV R² > 0.05 and interaction coefficient > 0.001.
+                    </p>
+                    
+                    <h6 class="mt-4">Data Sources:</h6>
+                    <ul>
+                        <li>Hurricane Tracks: NOAA HURDAT2 Database</li>
+                        <li>Demographics: U.S. Census Bureau American Community Survey (ACS)</li>
+                        <li>Displacement Proxy: FEMA Individual Assistance Applications</li>
+                        <li>Casualties: NOAA Storm Events Database</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.9.1/dist/chart.min.js"></script>
+<script>
+// Hurricane details loading
+function loadHurricaneDetails(hurricaneId) {
+    if (!hurricaneId) {
+        document.getElementById('hurricaneDetails').style.display = 'none';
+        return;
+    }
+    
+    fetch(`/api/hurricanes/${hurricaneId}/demographics`)
+        .then(response => response.json())
+        .then(data => {
+            // Display phonetic features
+            const phoneticHTML = Object.entries(data.phonetic_features || {})
+                .map(([key, value]) => `
+                    <tr>
+                        <td><strong>${key.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())}</strong></td>
+                        <td>${typeof value === 'number' ? value.toFixed(2) : value}</td>
+                    </tr>
+                `).join('');
+            document.getElementById('phoneticFeatures').innerHTML = phoneticHTML;
+            
+            // Display demographic impact summary
+            const impactHTML = `
+                <div class="alert alert-info">
+                    <strong>Total Population at Risk:</strong> ${(data.total_population_at_risk || 0).toLocaleString()}<br>
+                    <strong>Total Deaths:</strong> ${(data.total_deaths || 0).toLocaleString()}<br>
+                    <strong>Total FEMA Applications:</strong> ${(data.total_fema_applications || 0).toLocaleString()}
+                </div>
+            `;
+            document.getElementById('demographicImpact').innerHTML = impactHTML;
+            
+            document.getElementById('hurricaneDetails').style.display = 'block';
+        })
+        .catch(error => {
+            console.error('Error loading hurricane details:', error);
+            alert('Error loading hurricane details');
+        });
+}
+
+// Initialize charts if data available
+{% if disparities and disparities.race %}
+const raceCtx = document.getElementById('raceDisparityChart').getContext('2d');
+new Chart(raceCtx, {
+    type: 'bar',
+    data: {
+        labels: {{ disparities.race.labels|tojson }},
+        datasets: [{
+            label: 'Death Rate per 1000',
+            data: {{ disparities.race.death_rates|tojson }},
+            backgroundColor: 'rgba(220, 53, 69, 0.7)',
+            borderColor: 'rgb(220, 53, 69)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Deaths per 1000'
+                }
+            }
+        }
+    }
+});
+{% endif %}
+
+{% if disparities and disparities.income %}
+const incomeCtx = document.getElementById('incomeDisparityChart').getContext('2d');
+new Chart(incomeCtx, {
+    type: 'bar',
+    data: {
+        labels: {{ disparities.income.labels|tojson }},
+        datasets: [{
+            label: 'FEMA Application Rate',
+            data: {{ disparities.income.fema_rates|tojson }},
+            backgroundColor: 'rgba(0, 123, 255, 0.7)',
+            borderColor: 'rgb(0, 123, 255)',
+            borderWidth: 1
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            y: {
+                beginAtZero: true,
+                title: {
+                    display: true,
+                    text: 'Application Rate'
+                }
+            }
+        }
+    }
+});
+{% endif %}
+</script>
+{% endblock %}
+

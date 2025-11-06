@@ -1,0 +1,89 @@
+[
+  {
+    "claim_id": "C1",
+    "status": "ok",
+    "sample_size": 2863,
+    "primary_metric": "pseudo_r_squared",
+    "model_metrics": {
+      "r_squared": null,
+      "pseudo_r_squared": 0.04301459839981581,
+      "accuracy": 0.9500523925951799,
+      "cross_validation": {
+        "metric": "roc_auc",
+        "folds": 5,
+        "scores": [
+          0.6578483245149912,
+          0.6035137701804368,
+          0.5464658797992131,
+          0.6549727328948108,
+          0.6265715256540944
+        ],
+        "mean_score": 0.6178744466087093,
+        "std_score": 0.04087846715672538,
+        "auxiliary": {
+          "accuracy_mean": 0.6154340423973932,
+          "accuracy_std": 0.026170477375693755
+        }
+      }
+    },
+    "warnings": []
+  },
+  {
+    "claim_id": "C2",
+    "status": "ok",
+    "sample_size": 1640,
+    "primary_metric": "r_squared",
+    "model_metrics": {
+      "r_squared": 0.005095902718316725,
+      "pseudo_r_squared": null,
+      "accuracy": null,
+      "cross_validation": {
+        "metric": "r2",
+        "folds": 5,
+        "scores": [
+          0.0012359016929974764,
+          0.005500095967993723,
+          0.0015071697571199527,
+          -0.00898290269996127,
+          -0.3513767347189125
+        ],
+        "mean_score": -0.07042329400015253,
+        "std_score": 0.14055828017076125,
+        "auxiliary": {
+          "rmse_mean": 0.9259401434820234,
+          "rmse_std": 0.37832430205363615
+        }
+      }
+    },
+    "warnings": []
+  },
+  {
+    "claim_id": "D1",
+    "status": "ok",
+    "sample_size": 300,
+    "primary_metric": "r_squared",
+    "model_metrics": {
+      "r_squared": 0.3979067353153074,
+      "pseudo_r_squared": null,
+      "accuracy": null,
+      "cross_validation": {
+        "metric": "r2",
+        "folds": 5,
+        "scores": [
+          0.47586221246965654,
+          0.46587129579487263,
+          0.20409040927009758,
+          0.19843696542194167,
+          0.2972755257687675
+        ],
+        "mean_score": 0.32830728174506724,
+        "std_score": 0.12161859717242061,
+        "auxiliary": {
+          "rmse_mean": 1.3864650893284138,
+          "rmse_std": 0.26500765305792745
+        }
+      }
+    },
+    "warnings": []
+  }
+]

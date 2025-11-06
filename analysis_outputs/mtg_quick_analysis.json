@@ -1,0 +1,72 @@
+{
+  "color_phonology": {
+    "White": {
+      "sample_size": 100,
+      "avg_harshness": 20.73,
+      "avg_softness": 23.4,
+      "harsh_soft_ratio": 0.89
+    },
+    "Blue": {
+      "sample_size": 100,
+      "avg_harshness": 23.58,
+      "avg_softness": 21.33,
+      "harsh_soft_ratio": 1.11
+    },
+    "Black": {
+      "sample_size": 100,
+      "avg_harshness": 22.29,
+      "avg_softness": 20.79,
+      "harsh_soft_ratio": 1.07
+    },
+    "Red": {
+      "sample_size": 100,
+      "avg_harshness": 23.15,
+      "avg_softness": 21.62,
+      "harsh_soft_ratio": 1.07
+    },
+    "Green": {
+      "sample_size": 100,
+      "avg_harshness": 20.74,
+      "avg_softness": 22.54,
+      "harsh_soft_ratio": 0.92
+    }
+  },
+  "legendary_archetypes": {
+    "epic_titles": 67.0,
+    "transformation_names": 0.5,
+    "simple_names": 20.5,
+    "ancient_markers": 1.5
+  },
+  "price_correlations": {
+    "syllables": {
+      "r": -0.047,
+      "p": 0.2969
+    },
+    "length": {
+      "r": -0.031,
+      "p": 0.4884
+    },
+    "memorability": {
+      "r": 0.043,
+      "p": 0.3334
+    },
+    "fantasy": {
+      "r": 0.107,
+      "p": 0.0167
+    },
+    "mythic_resonance": {
+      "r": 0.009,
+      "p": 0.8436
+    }
+  },
+  "language_patterns": {
+    "elvish": 15.7,
+    "phyrexian": 4.0,
+    "draconic": 29.3,
+    "ancient": 0.0,
+    "japanese": 0.0,
+    "common_english": 23.0,
+    "ancient_thran": 24.7,
+    "japanese_kamigawa": 3.3
+  }
+}

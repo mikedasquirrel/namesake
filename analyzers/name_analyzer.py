@@ -395,4 +395,251 @@ class NameAnalyzer:
             'name_type_count': type_count,
             'name_type_percentile': round(percentile, 2)
         }
+    
+    def calculate_phonetic_harshness(self, name: str) -> float:
+        """Calculate phonetic harshness for storm/aggressive context analysis.
+        
+        Plosives (hard stops): p, b, t, d, k, g = HIGH harshness
+        Fricatives (friction): f, v, s, z, sh, th, ch = MEDIUM harshness
+        Nasals/liquids: m, n, l, r = LOW harshness (soothing)
+        Vowels: a, e, i, o, u = SOFT (negative harshness)
+        
+        Returns:
+            Score 0-100 (higher = harsher/more aggressive sounding)
+        """
+        name_lower = name.lower()
+        
+        # Count phoneme types
+        plosives = sum(name_lower.count(c) for c in 'pbtdkg')
+        fricatives = sum(name_lower.count(c) for c in 'fvszx')
+        # Add common digraphs
+        fricatives += name_lower.count('sh') + name_lower.count('ch') + name_lower.count('th')
+        
+        nasals_liquids = sum(name_lower.count(c) for c in 'mnlr')
+        vowels = sum(name_lower.count(c) for c in 'aeiou')
+        
+        total_chars = len(re.sub(r'[^a-zA-Z]', '', name))
+        if total_chars == 0:
+            return 50.0
+        
+        # Weighted harshness calculation
+        harshness_raw = (
+            (plosives / total_chars * 100 * 3.0) +  # Plosives = very harsh
+            (fricatives / total_chars * 100 * 2.0) +  # Fricatives = medium harsh
+            (nasals_liquids / total_chars * 100 * 0.5) -  # Nasals/liquids soften
+            (vowels / total_chars * 100 * 1.5)  # Vowels significantly soften
+        )
+        
+        # Normalize to 0-100 (centered at 50)
+        normalized = max(0, min(100, harshness_raw + 50))
+        return round(normalized, 2)
+    
+    def infer_gender_coding(self, name: str, context_year: int = None) -> str:
+        """Infer gender coding of a name (for hurricane or general use).
+        
+        Args:
+            name: The name to analyze
+            context_year: Year context (for hurricane naming policy awareness)
+        
+        Returns:
+            'male', 'female', 'neutral', or 'ambiguous'
+        """
+        name_lower = name.lower().strip()
+        
+        # Common male names
+        male_indicators = {
+            'andrew', 'bob', 'dennis', 'floyd', 'georges', 'hugo', 'ivan', 'michael',
+            'dean', 'felix', 'gustav', 'ike', 'karl', 'otto', 'philippe', 'richard',
+            'alex', 'bill', 'colin', 'don', 'earl', 'gaston', 'joaquin', 'larry',
+            'marco', 'nate', 'omar', 'peter', 'rafael', 'sam', 'tony', 'victor',
+            'barry', 'danny', 'fred', 'gordon', 'harvey', 'jose', 'lee', 'matthew',
+            'ian', 'stan', 'vince', 'waldo'
+        }
+        
+        # Common female names
+        female_indicators = {
+            'katrina', 'rita', 'emily', 'isabel', 'frances', 'jeanne', 'ophelia',
+            'maria', 'irma', 'nora', 'grace', 'ida', 'fiona', 'nicole', 'lisa',
+            'julia', 'bonnie', 'danielle', 'karen', 'sandy', 'erin', 'gabrielle',
+            'hanna', 'josephine', 'laura', 'sally', 'bertha', 'dolly', 'alma',
+            'andrea', 'cindy', 'edith', 'camille', 'betsy', 'agnes', 'belle'
+        }
+        
+        # Direct match
+        if name_lower in male_indicators:
+            return 'male'
+        if name_lower in female_indicators:
+            return 'female'
+        
+        # Morphological heuristics
+        if name_lower.endswith(('a', 'ia', 'ina', 'elle', 'ette', 'een', 'ine')):
+            return 'female'
+        elif name_lower.endswith(('o', 'us', 'er', 'on', 'en')):
+            return 'male'
+        
+        # Length heuristic (very rough)
+        if len(name_lower) <= 3:
+            return 'neutral'
+        
+        return 'ambiguous'
+    
+    def calculate_sentiment_polarity(self, name: str) -> float:
+        """Calculate sentiment polarity of a name.
+        
+        Returns:
+            Float from -1.0 (very negative) to +1.0 (very positive)
+        """
+        name_lower = name.lower()
+        
+        # Positive semantic markers
+        positive_words = {
+            'belle', 'grace', 'hope', 'joy', 'star', 'sunny', 'happy', 'victor',
+            'win', 'love', 'peace', 'bright', 'dawn', 'light', 'clear', 'calm'
+        }
+        
+        # Negative semantic markers
+        negative_words = {
+            'bad', 'evil', 'doom', 'grim', 'dark', 'death', 'destroy', 'wreck',
+            'hell', 'devil', 'chaos', 'rage', 'fury', 'disaster', 'doom'
+        }
+        
+        # Count matches
+        positive_hits = sum(1 for word in positive_words if word in name_lower)
+        negative_hits = sum(1 for word in negative_words if word in name_lower)
+        
+        if positive_hits == 0 and negative_hits == 0:
+            return 0.0  # Neutral
+        
+        # Calculate polarity
+        total_hits = positive_hits + negative_hits
+        polarity = (positive_hits - negative_hits) / total_hits
+        
+        return round(polarity, 2)
+    
+    def calculate_fantasy_score(self, name: str) -> float:
+        """Calculate fantasy/medieval resonance (0-100).
+        
+        Used for MTG cards, fantasy novels, RPG characters.
+        Detects constructed language patterns, archaic structures, epic naming conventions.
+        """
+        score = 50.0
+        name_lower = name.lower()
+        
+        # Apostrophes/hyphens (constructed names: Llanowar, Ko'rish)
+        if "'" in name or '-' in name:
+            score += 15
+        
+        # Fantasy suffixes
+        fantasy_suffixes = ['ax', 'or', 'ath', 'on', 'el', 'ar', 'us', 'os', 'ix', 'ur', 'og', 'an', 'il']
+        if any(name_lower.endswith(suffix) for suffix in fantasy_suffixes):
+            score += 20
+        
+        # Multiple capitals (camel-case legendary names)
+        capitals = sum(1 for c in name if c.isupper())
+        if capitals > 1 and len(name) > 1:
+            score += 10
+        
+        # Archaic articles and titles
+        archaic_patterns = ['the ', 'of the', 'lord of', 'master of', 'keeper of', 'bringer of']
+        if any(name_lower.startswith(pattern) for pattern in archaic_patterns):
+            score += 15
+        
+        # Long multi-word names (epic feel)
+        word_count = len(name.split())
+        if word_count >= 3:
+            score += 10
+        elif word_count == 4:
+            score += 15
+        
+        # Rare letter combinations
+        rare_combos = ['zz', 'kh', 'zh', 'xh', 'qx', "'s", "k'", 'thr', 'dhr']
+        if any(combo in name_lower for combo in rare_combos):
+            score += 10
+        
+        return round(min(100, max(0, score)), 2)
+    
+    def calculate_power_connotation(self, name: str) -> float:
+        """Calculate aggressive vs. gentle semantic connotation (-100 to +100).
+        
+        Positive values = aggressive/destructive
+        Negative values = gentle/nurturing
+        Zero = neutral
+        """
+        name_lower = name.lower()
+        
+        aggressive_words = {
+            'death', 'destroy', 'kill', 'dragon', 'wrath', 'annihilate', 'obliterate',
+            'doom', 'rage', 'fury', 'slaughter', 'massacre', 'terminate', 'murder',
+            'chaos', 'havoc', 'devastation', 'catastrophe', 'apocalypse', 'carnage',
+            'butcher', 'slay', 'vanquish', 'crush', 'smash', 'demolish', 'strike',
+            'blast', 'bolt', 'fire', 'burn', 'lightning', 'thunder', 'storm'
+        }
+        
+        gentle_words = {
+            'heal', 'peace', 'mend', 'serene', 'gentle', 'tranquil', 'calm', 'soothe',
+            'nurture', 'harmony', 'blessing', 'grace', 'mercy', 'kindness', 'compassion',
+            'life', 'growth', 'flourish', 'bloom', 'restore', 'renew', 'spring'
+        }
+        
+        aggressive_hits = sum(1 for word in aggressive_words if word in name_lower)
+        gentle_hits = sum(1 for word in gentle_words if word in name_lower)
+        
+        if aggressive_hits == 0 and gentle_hits == 0:
+            return 0.0
+        
+        # Calculate polarity
+        total = aggressive_hits + gentle_hits
+        polarity = (aggressive_hits - gentle_hits) / total
+        
+        return round(polarity * 100, 2)
+    
+    def calculate_mythic_resonance(self, name: str, is_legendary: bool = False) -> float:
+        """Calculate epic/legendary linguistic quality (0-100).
+        
+        Detects title words, epic scale, mythological references.
+        Boosted for mechanically legendary items.
+        """
+        score = 40.0
+        name_lower = name.lower()
+        
+        # Title words
+        titles = {
+            'lord', 'master', 'king', 'queen', 'emperor', 'empress', 'god', 'goddess',
+            'champion', 'elder', 'ancient', 'primordial', 'eternal', 'prince', 'princess',
+            'duke', 'baron', 'count', 'knight', 'sage', 'archon', 'avatar'
+        }
+        if any(title in name_lower for title in titles):
+            score += 25
+        
+        # Epic scale words
+        epic_scale = {
+            'infinite', 'eternal', 'supreme', 'ultimate', 'primal', 'cosmic',
+            'void', 'abyss', 'immortal', 'omnipotent', 'divine', 'celestial',
+            'grand', 'great', 'mighty', 'legendary'
+        }
+        epic_hits = sum(1 for word in epic_scale if word in name_lower)
+        score += min(epic_hits * 15, 30)
+        
+        # Mechanical legendary status (game designers thought it was epic)
+        if is_legendary:
+            score += 15
+        
+        # Syllable count (longer = more epic)
+        syllables = self._count_syllables(name)
+        if syllables >= 5:
+            score += 15
+        elif syllables >= 4:
+            score += 10
+        elif syllables >= 3:
+            score += 5
+        
+        # Comma structure (legendary title format: "Name, the Title")
+        if ',' in name:
+            score += 10
+        
+        # Article "the" (The Scarab God, The Gitrog Monster)
+        if name_lower.startswith('the '):
+            score += 10
+        
+        return round(min(100, max(0, score)), 2)
 

@@ -1,0 +1,5 @@
+aspect,description
+given_names,"Compound given names common (e.g., María José, Juan Carlos)"
+surnames,Double surnames: paternal + maternal
+source,INEGI (Instituto Nacional de Estadística y Geografía)
+note,Naming structure differs significantly from Anglo naming

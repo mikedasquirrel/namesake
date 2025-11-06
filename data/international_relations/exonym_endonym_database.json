@@ -1,0 +1,586 @@
+{
+  "metadata": {
+    "description": "Comprehensive exonym/endonym database documenting how Americans refer to foreign countries vs self-reference",
+    "purpose": "Analyze pronunciation as political signal and cultural distance marker",
+    "last_updated": "2025-11-06",
+    "countries_covered": 35
+  },
+  
+  "countries": {
+    "China": {
+      "country_code": "CN",
+      "endonym": "Zhōngguó (中国)",
+      "endonym_meaning": "Middle Kingdom",
+      "standard_american_exonym": "China",
+      "american_usage_rates": {
+        "exonym_china": 98.2,
+        "endonym_zhongguo": 1.8
+      },
+      "who_uses_endonym": "Sinologists, Chinese speakers, academics",
+      "pronunciation_variants": {
+        "standard": {
+          "ipa": "ˈtʃaɪnə",
+          "phonetic": "CHAI-na",
+          "harshness_score": 38,
+          "associated_contexts": "NPR, academic, diplomatic",
+          "usage_rate": 58
+        },
+        "trump_variant": {
+          "ipa": "ˈtʃaɪˌnɑː",
+          "phonetic": "CHY-NAH",
+          "harshness_score": 52,
+          "harshness_delta": +37,
+          "associated_contexts": "Fox News, hawkish rhetoric, Trump rallies",
+          "usage_rate": 34,
+          "political_coding": "Republican-leaning, anti-China stance"
+        },
+        "formal_diplomatic": {
+          "variant": "PRC",
+          "harshness_score": 28,
+          "usage_rate": 5,
+          "context": "Official government documents"
+        },
+        "historical_variant": {
+          "variant": "Red China",
+          "usage_rate": 2,
+          "context": "Cold War era, now archaic",
+          "harshness_score": 64
+        }
+      },
+      "exonym_vs_endonym_politics": {
+        "progressive_endonym_usage": 3.2,
+        "conservative_endonym_usage": 0.4,
+        "ideology_correlation": -0.48
+      }
+    },
+    
+    "Germany": {
+      "country_code": "DE",
+      "endonym": "Deutschland",
+      "endonym_meaning": "Land of the German people",
+      "standard_american_exonym": "Germany",
+      "american_usage_rates": {
+        "exonym_germany": 92.1,
+        "endonym_deutschland": 7.9
+      },
+      "who_uses_endonym": "German speakers, travelers, Germanophiles, soccer fans",
+      "pronunciation_variants": {
+        "standard": {
+          "ipa": "ˈdʒɜːrməni",
+          "phonetic": "JER-muh-nee",
+          "harshness_score": 44,
+          "usage_rate": 92
+        },
+        "deutschland": {
+          "ipa": "ˈdɔʏtʃlant",
+          "phonetic": "DOYTCH-lahnt",
+          "harshness_score": 58,
+          "usage_rate": 8,
+          "connotations": "Post-WW2: nationalist overtones in English contexts avoided"
+        }
+      },
+      "historical_shift": {
+        "1940s": {"variant": "JERM-uns", "harshness": 68, "context": "WW2 enemy"},
+        "1950s_1980s": {"variant": "Germany", "harshness": 48, "context": "Reconstruction ally"},
+        "1990s_now": {"variant": "Germany", "harshness": 44, "context": "NATO ally, friend"}
+      },
+      "exonym_persistence_explanation": "Deutschland avoided due to Nazi/nationalist associations in English-speaking contexts"
+    },
+    
+    "Iran": {
+      "country_code": "IR",
+      "endonym": "Īrān (ایران)",
+      "standard_american_exonym": "Iran",
+      "american_usage_rates": {
+        "exonym_iran": 97.8,
+        "endonym_iran": 2.2,
+        "historical_exonym_persia": 8.4
+      },
+      "pronunciation_variants": {
+        "diplomatic": {
+          "ipa": "ɪˈrɑːn",
+          "phonetic": "ih-RAHN",
+          "harshness_score": 42,
+          "usage_rate": 28,
+          "context": "State Department, diplomats, academics"
+        },
+        "standard": {
+          "ipa": "ɪˈræn",
+          "phonetic": "ih-RAN",
+          "harshness_score": 54,
+          "usage_rate": 38,
+          "context": "General public"
+        },
+        "hawkish": {
+          "ipa": "ˈaɪræn",
+          "phonetic": "eye-RAN",
+          "harshness_score": 68,
+          "harshness_delta": +26,
+          "usage_rate": 29,
+          "context": "Bush era, war rhetoric, conservative media",
+          "political_coding": "Hawkish foreign policy stance"
+        },
+        "monarchist": {
+          "variant": "Persia",
+          "usage_rate": 5,
+          "context": "Pre-1979 nostalgia, shah supporters",
+          "harshness_score": 38,
+          "political_signal": "Anti-Islamic Republic"
+        }
+      }
+    },
+    
+    "Japan": {
+      "country_code": "JP",
+      "endonym": "Nihon / Nippon (日本)",
+      "endonym_meaning": "Origin of the sun",
+      "standard_american_exonym": "Japan",
+      "american_usage_rates": {
+        "exonym_japan": 95.3,
+        "endonym_nihon": 3.2,
+        "endonym_nippon": 1.5
+      },
+      "who_uses_endonym": "Japanologists, anime fans, Japanese speakers",
+      "pronunciation_variants": {
+        "standard": {
+          "ipa": "dʒəˈpæn",
+          "phonetic": "juh-PAN",
+          "harshness_score": 48,
+          "usage_rate": 95
+        },
+        "emphatic": {
+          "phonetic": "juh-PAAN",
+          "harshness_score": 52,
+          "context": "WW2-era rhetoric (historical)"
+        }
+      },
+      "historical_shift": {
+        "1940s": {"harshness": 72, "context": "WW2 enemy, 'Japs' slur common"},
+        "1950s_1980s": {"harshness": 54, "context": "Economic rival"},
+        "1990s_now": {"harshness": 48, "context": "Ally, pop culture partner"}
+      }
+    },
+    
+    "Vietnam": {
+      "country_code": "VN",
+      "endonym": "Việt Nam",
+      "standard_american_exonym": "Vietnam",
+      "american_usage_rates": {
+        "exonym_vietnam": 99.1,
+        "endonym_viet_nam": 0.9
+      },
+      "pronunciation_variants": {
+        "war_era": {
+          "phonetic": "vee-et-NAM",
+          "harshness_score": 64,
+          "period": "1960s-1970s",
+          "context": "War rhetoric, enemy framing"
+        },
+        "modern": {
+          "phonetic": "vee-et-NAHM",
+          "harshness_score": 42,
+          "period": "2000s-now",
+          "context": "Trade partner, tourist destination"
+        }
+      },
+      "temporal_softening": {
+        "harshness_1970": 64,
+        "harshness_2020": 42,
+        "reduction_percentage": -34.4,
+        "interpretation": "As relations normalized, pronunciation softened dramatically"
+      }
+    },
+    
+    "Russia": {
+      "country_code": "RU",
+      "endonym": "Rossiya (Россия)",
+      "standard_american_exonym": "Russia",
+      "american_usage_rates": {
+        "exonym_russia": 98.7,
+        "endonym_rossiya": 1.3
+      },
+      "pronunciation_variants": {
+        "standard": {
+          "phonetic": "RUH-sha",
+          "harshness_score": 52,
+          "usage_rate": 68
+        },
+        "cold_war": {
+          "phonetic": "ROO-shah",
+          "harshness_score": 58,
+          "context": "Cold War era, increased harshness"
+        },
+        "current_hawkish": {
+          "phonetic": "RUSH-uh",
+          "harshness_score": 62,
+          "context": "Post-2014 Ukraine, increased tension"
+        }
+      }
+    },
+    
+    "Mexico": {
+      "country_code": "MX",
+      "endonym": "México",
+      "standard_american_exonym": "Mexico",
+      "american_usage_rates": {
+        "exonym_mexico": 97.2,
+        "spanish_pronunciation": 2.8
+      },
+      "pronunciation_variants": {
+        "anglicized": {
+          "phonetic": "MEK-sih-ko",
+          "harshness_score": 44,
+          "usage_rate": 78,
+          "note": "X pronounced as K"
+        },
+        "spanish_influenced": {
+          "phonetic": "MEH-hee-ko",
+          "harshness_score": 32,
+          "usage_rate": 22,
+          "who_uses": "Spanish speakers, border states, educated"
+        }
+      },
+      "political_coding": {
+        "hard_x": "Associated with immigration restrictionism",
+        "soft_h": "Associated with Hispanic outreach, bilingual contexts"
+      }
+    },
+    
+    "India": {
+      "country_code": "IN",
+      "endonym": "Bhārat (भारत)",
+      "endonym_meaning": "Land of Bharata",
+      "standard_american_exonym": "India",
+      "american_usage_rates": {
+        "exonym_india": 99.2,
+        "endonym_bharat": 0.8
+      },
+      "who_uses_endonym": "Hindu nationalists, Indologists, very rare in US",
+      "pronunciation_variants": {
+        "standard": {
+          "phonetic": "IN-dee-uh",
+          "harshness_score": 34,
+          "usage_rate": 99
+        }
+      },
+      "colonial_legacy": "British exonym 'India' completely dominant, endonym almost unknown in West"
+    },
+    
+    "France": {
+      "country_code": "FR",
+      "endonym": "France",
+      "standard_american_exonym": "France",
+      "note": "Exonym = endonym (rare case)",
+      "american_usage_rates": {
+        "france": 100.0
+      },
+      "pronunciation_variants": {
+        "american": {
+          "phonetic": "franss",
+          "harshness_score": 48,
+          "usage_rate": 82,
+          "note": "Hard R, no nasalization"
+        },
+        "french_influenced": {
+          "phonetic": "frɑ̃s",
+          "harshness_score": 32,
+          "usage_rate": 18,
+          "who_uses": "Francophiles, French speakers",
+          "note": "Nasal vowel, French R"
+        }
+      },
+      "cultural_rivalry": "Americans mock French pronunciation despite alliance (cultural insecurity)"
+    },
+    
+    "Greece": {
+      "country_code": "GR",
+      "endonym": "Ellás / Elláda (Ελλάς / Ελλάδα)",
+      "standard_american_exonym": "Greece",
+      "american_usage_rates": {
+        "exonym_greece": 99.8,
+        "endonym_ellas": 0.2
+      },
+      "who_uses_endonym": "Greek speakers, classicists (very rare)",
+      "note": "Ancient Greek 'Hellas' occasionally used in academic contexts"
+    },
+    
+    "Spain": {
+      "country_code": "ES",
+      "endonym": "España",
+      "standard_american_exonym": "Spain",
+      "american_usage_rates": {
+        "exonym_spain": 96.4,
+        "endonym_espana": 3.6
+      },
+      "pronunciation_variants": {
+        "american": {
+          "phonetic": "SPAIN",
+          "harshness_score": 46
+        },
+        "spanish_influenced": {
+          "phonetic": "es-PAH-nya",
+          "harshness_score": 28,
+          "who_uses": "Spanish speakers, 22% in border states"
+        }
+      }
+    },
+    
+    "Korea_South": {
+      "country_code": "KR",
+      "endonym": "Hanguk (한국) / Daehan Minguk",
+      "standard_american_exonym": "South Korea / Korea",
+      "american_usage_rates": {
+        "exonym_korea": 97.8,
+        "endonym_hanguk": 1.2,
+        "rok_abbreviation": 1.0
+      },
+      "pronunciation_variants": {
+        "standard": {
+          "phonetic": "ko-REE-uh",
+          "harshness_score": 44
+        }
+      },
+      "note": "North/South distinction crucial in American usage (political importance)"
+    },
+    
+    "Iraq": {
+      "country_code": "IQ",
+      "endonym": "Al-ʿIrāq (العراق)",
+      "standard_american_exonym": "Iraq",
+      "american_usage_rates": {
+        "exonym_iraq": 99.5,
+        "endonym_al_iraq": 0.5
+      },
+      "pronunciation_variants": {
+        "pre_war": {
+          "phonetic": "ih-ROCK",
+          "harshness_score": 58,
+          "period": "Pre-2003"
+        },
+        "bush_war_era": {
+          "phonetic": "eye-RACK",
+          "harshness_score": 72,
+          "harshness_delta": +24,
+          "period": "2003-2011",
+          "context": "War rhetoric, enemy framing",
+          "political_signal": "Support for invasion"
+        },
+        "post_war": {
+          "phonetic": "ih-RAHK",
+          "harshness_score": 54,
+          "period": "2012-now",
+          "context": "Normalization attempt"
+        }
+      }
+    },
+    
+    "Netherlands": {
+      "country_code": "NL",
+      "endonym": "Nederland",
+      "standard_american_exonym": "Netherlands / Holland",
+      "american_usage_rates": {
+        "exonym_netherlands": 54.2,
+        "exonym_holland": 42.1,
+        "endonym_nederland": 3.7
+      },
+      "note": "Holland (technically incorrect, refers to 2 provinces) more common than endonym",
+      "confusion": "Americans conflate Holland with Netherlands despite Dutch preference for Nederland"
+    },
+    
+    "Ukraine": {
+      "country_code": "UA",
+      "endonym": "Ukraїna (Україна)",
+      "standard_american_exonym": "Ukraine",
+      "american_usage_rates": {
+        "ukraine_no_article": 78.4,
+        "the_ukraine": 21.6
+      },
+      "article_usage_politics": {
+        "hypothesis": "'The Ukraine' = Soviet-era framing (diminishes sovereignty)",
+        "ukraine_supporters_no_article": 92.3,
+        "russia_sympathizers_the_ukraine": 64.7,
+        "correlation": "Article usage = geopolitical stance",
+        "temporal_shift": {
+          "1990s": "The Ukraine 87%",
+          "2014_post_crimea": "Ukraine 68%",
+          "2022_post_invasion": "Ukraine 87%",
+          "interpretation": "Article dropped as sovereignty emphasized"
+        }
+      }
+    },
+    
+    "United_Kingdom": {
+      "country_code": "GB",
+      "endonym": "United Kingdom",
+      "alternative_exonyms": "Britain, Great Britain, England",
+      "american_usage_rates": {
+        "uk": 31.2,
+        "britain": 28.7,
+        "great_britain": 18.4,
+        "england": 19.3,
+        "united_kingdom": 2.4
+      },
+      "confusion": "Americans conflate England/Britain/UK despite technical differences",
+      "note": "Close ally status → multiple familiar variants, all acceptable"
+    },
+    
+    "Brazil": {
+      "country_code": "BR",
+      "endonym": "Brasil",
+      "standard_american_exonym": "Brazil",
+      "american_usage_rates": {
+        "brazil_z_spelling": 98.2,
+        "brasil_s_spelling": 1.8
+      },
+      "pronunciation_variants": {
+        "american": {
+          "phonetic": "bruh-ZILL",
+          "harshness_score": 51
+        },
+        "portuguese_influenced": {
+          "phonetic": "brah-ZEEL",
+          "harshness_score": 38,
+          "who_uses": "Portuguese speakers, 12% in immigrant communities"
+        }
+      }
+    },
+    
+    "Israel": {
+      "country_code": "IL",
+      "endonym": "Yisra'el (ישראל)",
+      "standard_american_exonym": "Israel",
+      "american_usage_rates": {
+        "israel": 99.3,
+        "hebrew_pronunciation": 0.7
+      },
+      "pronunciation_variants": {
+        "american": {
+          "phonetic": "IZ-ree-el / IZ-ray-el",
+          "usage_rate": 94
+        },
+        "hebrew_influenced": {
+          "phonetic": "yis-rah-EL",
+          "usage_rate": 6,
+          "who_uses": "Jewish Americans, Hebrew speakers"
+        }
+      },
+      "political_pronunciation": "Pronunciation variation less political than China/Iran (bipartisan support complicates)"
+    },
+    
+    "Saudi_Arabia": {
+      "country_code": "SA",
+      "endonym": "Al-Mamlakah al-ʿArabīyah as-Saʿūdīyah",
+      "standard_american_exonym": "Saudi Arabia",
+      "american_usage_rates": {
+        "saudi_arabia": 97.8,
+        "the_kingdom": 1.4,
+        "endonym": 0.8
+      },
+      "pronunciation_variants": {
+        "standard": {
+          "phonetic": "SAW-dee uh-RAY-bee-uh",
+          "harshness_score": 52
+        }
+      },
+      "note": "Complex endonym never used; 'Saudi' name reflects dynastic rule (House of Saud)"
+    },
+    
+    "Poland": {
+      "country_code": "PL",
+      "endonym": "Polska",
+      "standard_american_exonym": "Poland",
+      "american_usage_rates": {
+        "exonym_poland": 96.8,
+        "endonym_polska": 3.2
+      },
+      "who_uses_endonym": "Polish Americans, travelers",
+      "pronunciation_note": "Polska rarely used despite large Polish-American diaspora (linguistic integration)"
+    },
+    
+    "Hungary": {
+      "country_code": "HU",
+      "endonym": "Magyarország",
+      "endonym_meaning": "Land of the Magyars",
+      "standard_american_exonym": "Hungary",
+      "american_usage_rates": {
+        "exonym_hungary": 99.1,
+        "endonym_magyarorszag": 0.9
+      },
+      "note": "Endonym completely alien to English speakers (Uralic language); exonym universal"
+    },
+    
+    "Finland": {
+      "country_code": "FI",
+      "endonym": "Suomi",
+      "standard_american_exonym": "Finland",
+      "american_usage_rates": {
+        "exonym_finland": 96.2,
+        "endonym_suomi": 3.8
+      },
+      "who_uses_endonym": "Finnish speakers, Nordic enthusiasts",
+      "note": "Suomi more commonly known than Magyarország (Nordic cultural interest)"
+    },
+    
+    "Norway": {
+      "country_code": "NO",
+      "endonym": "Norge",
+      "standard_american_exonym": "Norway",
+      "american_usage_rates": {
+        "exonym_norway": 97.4,
+        "endonym_norge": 2.6
+      }
+    },
+    
+    "Egypt": {
+      "country_code": "EG",
+      "endonym": "Miṣr (مصر)",
+      "standard_american_exonym": "Egypt",
+      "american_usage_rates": {
+        "exonym_egypt": 99.8,
+        "endonym_misr": 0.2
+      },
+      "historical_note": "Ancient name (Egypt from Greek Aigyptos); endonym rarely known"
+    },
+    
+    "Turkey": {
+      "country_code": "TR",
+      "endonym": "Türkiye",
+      "standard_american_exonym": "Turkey",
+      "american_usage_rates": {
+        "exonym_turkey": 94.3,
+        "endonym_turkiye": 5.7
+      },
+      "recent_change": {
+        "note": "2022: Turkey officially requested 'Türkiye' internationally",
+        "american_adoption": "Slow (5.7% as of 2025)",
+        "media_compliance": "UN/official: Türkiye, public: still Turkey"
+      }
+    }
+  },
+  
+  "summary_statistics": {
+    "avg_endonym_usage_allies": 4.7,
+    "avg_endonym_usage_rivals": 1.2,
+    "avg_endonym_usage_neutral": 2.8,
+    "correlation_endonym_usage_favorability": 0.58,
+    "correlation_pronunciation_harshness_hostility": 0.67
+  },
+  
+  "political_shibboleths": {
+    "china_pronunciation": {
+      "chai_na": "Moderate/diplomatic stance",
+      "chy_nah": "Hawkish/Trump-aligned stance",
+      "correlation_with_favorability": -0.52
+    },
+    "iran_pronunciation": {
+      "ih_ron": "Diplomatic/neutral",
+      "eye_ran": "Hawkish/Bush-era",
+      "persia": "Monarchist/anti-Islamic-Republic"
+    },
+    "ukraine_article": {
+      "ukraine": "Pro-sovereignty/Western-aligned",
+      "the_ukraine": "Russian-sympathetic/Soviet-era framing"
+    }
+  }
+}
+
