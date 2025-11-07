@@ -1,0 +1,22 @@
+rank,name,casualty_probability,binary_prediction,confidence,phonetic_features,predicted_casualty_rank
+18,Savannah,0.6511002956282391,HIGH,moderate,"{'harshness': 75.0, 'memorability': 82.5, 'syllables': 3, 'length': 8}",1
+20,Valeria,0.605065136603981,HIGH,moderate,"{'harshness': 95.71, 'memorability': 88.71, 'syllables': 3, 'length': 7}",2
+10,Jacinta,0.5712643433359489,HIGH,moderate,"{'harshness': 100.0, 'memorability': 90.0, 'syllables': 3, 'length': 7}",3
+5,Emilia,0.5641643228176555,HIGH,moderate,"{'harshness': 76.67, 'memorability': 93.0, 'syllables': 2, 'length': 6}",4
+4,Deshawn,0.5531818303449196,HIGH,moderate,"{'harshness': 67.14, 'memorability': 90.14, 'syllables': 2, 'length': 7}",5
+2,Braylen,0.5059661780963047,HIGH,moderate,"{'harshness': 67.14, 'memorability': 90.14, 'syllables': 1, 'length': 7}",6
+6,Foster,0.48314452272427805,LOW,moderate,"{'harshness': 86.67, 'memorability': 96.0, 'syllables': 2, 'length': 6}",7
+11,Kenyon,0.48314452272427805,LOW,moderate,"{'harshness': 86.67, 'memorability': 96.0, 'syllables': 2, 'length': 6}",8
+13,Marcus,0.48314452272427805,LOW,moderate,"{'harshness': 86.67, 'memorability': 96.0, 'syllables': 2, 'length': 6}",9
+1,Adria,0.4725950325543475,LOW,moderate,"{'harshness': 80.0, 'memorability': 94.0, 'syllables': 1, 'length': 5}",10
+16,Paige,0.44547163548150226,LOW,moderate,"{'harshness': 90.0, 'memorability': 97.0, 'syllables': 1, 'length': 5}",11
+21,William,0.4396737805672243,LOW,moderate,"{'harshness': 100.0, 'memorability': 100.0, 'syllables': 1, 'length': 7}",12
+3,Carla,0.4333162224139444,LOW,moderate,"{'harshness': 100.0, 'memorability': 100.0, 'syllables': 2, 'length': 5}",13
+7,Gemma,0.4333162224139444,LOW,moderate,"{'harshness': 100.0, 'memorability': 100.0, 'syllables': 2, 'length': 5}",14
+14,Nayeli,0.4268704116626301,LOW,moderate,"{'harshness': 100.0, 'memorability': 100.0, 'syllables': 1, 'length': 6}",15
+17,Rafael,0.4268704116626301,LOW,moderate,"{'harshness': 100.0, 'memorability': 100.0, 'syllables': 1, 'length': 6}",16
+9,Isla,0.42508300230743407,LOW,moderate,"{'harshness': 100.0, 'memorability': 100.0, 'syllables': 2, 'length': 4}",17
+19,Tony,0.4192016208838593,LOW,moderate,"{'harshness': 70.0, 'memorability': 91.0, 'syllables': 1, 'length': 4}",18
+8,Heath,0.3874597110248841,LOW,moderate,"{'harshness': 100.0, 'memorability': 100.0, 'syllables': 1, 'length': 5}",19
+12,Leah,0.3795142705853598,LOW,moderate,"{'harshness': 100.0, 'memorability': 100.0, 'syllables': 1, 'length': 4}",20
+15,Owen,0.3795142705853598,LOW,moderate,"{'harshness': 100.0, 'memorability': 100.0, 'syllables': 1, 'length': 4}",21

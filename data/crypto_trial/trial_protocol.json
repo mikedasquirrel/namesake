@@ -1,0 +1,134 @@
+{
+  "title": "AI vs Human Cryptocurrency Name Optimization: Randomized Controlled Trial",
+  "investigators": [
+    "Michael Smerconish"
+  ],
+  "institution": "Independent Research",
+  "trial_registration": "To be submitted to ClinicalTrials.gov equivalent",
+  "date_created": "2025-11-07T04:37:01.061441",
+  "objective": {
+    "primary": "Test whether AI-optimized names outperform human-selected names in cryptocurrency market performance",
+    "secondary": [
+      "Determine if phonetic optimization predicts outcomes",
+      "Identify whether semantic meaning or phonetics matter more",
+      "Validate nominative determinism formula prospectively"
+    ]
+  },
+  "design": {
+    "type": "Randomized Controlled Trial",
+    "assignment": "Parallel (AI vs Human)",
+    "blinding": "Single-blind (analysts blinded to assignment)",
+    "randomization": "Stratified by technology type and team size",
+    "sample_size": 20,
+    "duration": "12 months"
+  },
+  "eligibility": {
+    "inclusion": [
+      "New cryptocurrency project launching in 2025-2026",
+      "Willing to accept random name assignment",
+      "Commit to providing outcome data",
+      "Allow publication of results"
+    ],
+    "exclusion": [
+      "Already launched projects",
+      "Projects with established branding",
+      "Scam/rug-pull projects (screened)"
+    ]
+  },
+  "intervention": {
+    "ai_arm": {
+      "description": "Project receives AI-optimized name based on phonetic formula",
+      "method": "NominativeAI generates 3 candidates, project chooses best fit",
+      "constraints": "Must use assigned name for full 12 months"
+    },
+    "human_arm": {
+      "description": "Project team selects own name following standard process",
+      "method": "Team brainstorms and chooses preferred name",
+      "constraints": "Must complete naming before seeing AI alternatives"
+    }
+  },
+  "outcomes": {
+    "primary": "Market capitalization at 12 months",
+    "secondary": [
+      "Trading volume (average daily)",
+      "Holder count",
+      "Social media mentions",
+      "Survival (project still active)",
+      "Price volatility"
+    ]
+  },
+  "analysis_plan": {
+    "primary_test": "t-test comparing mean market cap (log-transformed)",
+    "secondary_tests": [
+      "Mann-Whitney U for non-normal outcomes",
+      "Survival analysis (Kaplan-Meier)",
+      "Regression controlling for fundamentals"
+    ],
+    "significance": "\u03b1 = 0.05 (two-tailed)",
+    "missing_data": "Intention-to-treat analysis"
+  },
+  "sample_size_justification": {
+    "expected_effect": "15-25% performance difference (based on observational data)",
+    "power": "80% to detect 20% difference",
+    "n_per_arm": 10,
+    "total_n": 20
+  },
+  "recruitment": {
+    "targets": [
+      "Cryptocurrency incubators",
+      "Launch platforms (e.g., CoinList)",
+      "Crypto founder communities",
+      "Venture capital firms"
+    ],
+    "incentive": "Free professional name optimization + publication exposure",
+    "timeline": "Q1-Q2 2025"
+  },
+  "ethical_considerations": {
+    "informed_consent": "All projects sign consent form",
+    "data_privacy": "Project fundamentals kept confidential",
+    "no_harm": "Both arms receive professional naming support",
+    "transparency": "Full publication regardless of outcome"
+  },
+  "example_ai_names": [
+    {
+      "name": "Tyzawyg",
+      "score": 97.428
+    },
+    {
+      "name": "aol",
+      "score": 91.082
+    },
+    {
+      "name": "enk",
+      "score": 87.082
+    },
+    {
+      "name": "Top",
+      "score": 83.082
+    },
+    {
+      "name": "Big",
+      "score": 83.082
+    },
+    {
+      "name": "liom",
+      "score": 75.0
+    },
+    {
+      "name": "Fizo",
+      "score": 75.0
+    },
+    {
+      "name": "Wemifi",
+      "score": 75.0
+    },
+    {
+      "name": "Tosa",
+      "score": 75.0
+    },
+    {
+      "name": "Rovifa",
+      "score": 73.5
+    }
+  ]
+}

@@ -5,7 +5,7 @@ Discovers universal naming patterns across cryptocurrencies and domains
 
 import numpy as np
 import pandas as pd
-from core.models import db, Cryptocurrency, NameAnalysis, PriceHistory, Domain, DomainAnalysis, CrossSpherePattern
+from core.models import db, Cryptocurrency, NameAnalysis, PriceHistory, Domain, DomainAnalysis, CrossSpherePattern, Ship, ShipAnalysis
 from scipy import stats
 import logging
 
@@ -16,35 +16,50 @@ class CrossSphereAnalyzer:
     """Analyze patterns across different asset spheres"""
     
     def find_universal_patterns(self):
-        """Discover patterns that work in both crypto and domains"""
+        """Discover patterns that work across crypto, domains, and ships"""
         try:
             crypto_df = self._get_crypto_dataset()
             domain_df = self._get_domain_dataset()
+            ships_df = self._get_ships_dataset()
+            
+            logger.info(f"Cross-sphere datasets: Crypto={len(crypto_df)}, Domains={len(domain_df)}, Ships={len(ships_df)}")
             
             if len(crypto_df) < 20 or len(domain_df) < 10:
                 return {'universal_patterns': [], 'message': 'Insufficient data'}
             
             universal_patterns = []
             
-            # Test syllable pattern transfer
-            syllable_pattern = self._test_syllable_universality(crypto_df, domain_df)
+            # Test syllable pattern transfer (all domains)
+            syllable_pattern = self._test_syllable_universality_all(crypto_df, domain_df, ships_df)
             if syllable_pattern:
                 universal_patterns.append(syllable_pattern)
             
-            # Test memorability transfer
-            memorability_pattern = self._test_memorability_universality(crypto_df, domain_df)
+            # Test memorability transfer (all domains)
+            memorability_pattern = self._test_memorability_universality_all(crypto_df, domain_df, ships_df)
             if memorability_pattern:
                 universal_patterns.append(memorability_pattern)
             
-            # Test length pattern transfer
-            length_pattern = self._test_length_universality(crypto_df, domain_df)
-            if length_pattern:
-                universal_patterns.append(length_pattern)
+            # Test geographic names pattern (ships, hurricanes)
+            if len(ships_df) >= 5:
+                geographic_pattern = self._test_geographic_names_pattern(ships_df)
+                if geographic_pattern:
+                    universal_patterns.append(geographic_pattern)
             
-            # Test name type transfer
+            # Test authority/power phonetics (ships, academics, bands)
+            if len(ships_df) >= 5:
+                authority_pattern = self._test_authority_phonetics_pattern(ships_df)
+                if authority_pattern:
+                    universal_patterns.append(authority_pattern)
+            
+            # Legacy two-domain tests
+            syllable_pattern_2d = self._test_syllable_universality(crypto_df, domain_df)
+            memorability_pattern_2d = self._test_memorability_universality(crypto_df, domain_df)
+            length_pattern = self._test_length_universality(crypto_df, domain_df)
             type_pattern = self._test_type_universality(crypto_df, domain_df)
-            if type_pattern:
-                universal_patterns.append(type_pattern)
+            
+            for p in [syllable_pattern_2d, memorability_pattern_2d, length_pattern, type_pattern]:
+                if p and p not in universal_patterns:
+                    universal_patterns.append(p)
             
             # Save to database
             for pattern in universal_patterns:
@@ -53,7 +68,8 @@ class CrossSphereAnalyzer:
             return {
                 'universal_patterns': universal_patterns,
                 'crypto_sample_size': len(crypto_df),
-                'domain_sample_size': len(domain_df)
+                'domain_sample_size': len(domain_df),
+                'ships_sample_size': len(ships_df)
             }
         
         except Exception as e:
@@ -112,6 +128,175 @@ class CrossSphereAnalyzer:
                 })
         
         return pd.DataFrame(data)
+    
+    def _get_ships_dataset(self):
+        """Get ships dataset for cross-domain comparison"""
+        try:
+            query = db.session.query(Ship, ShipAnalysis)\
+                .join(ShipAnalysis, Ship.id == ShipAnalysis.ship_id)
+            
+            data = []
+            for ship, analysis in query.all():
+                if ship.historical_significance_score:
+                    data.append({
+                        'name': ship.name,
+                        'syllables': analysis.syllable_count or 0,
+                        'length': analysis.character_length or 0,
+                        'memorability': analysis.memorability_score or 0,
+                        'uniqueness': analysis.uniqueness_score or 0,
+                        'name_type': analysis.name_category or 'other',
+                        'performance': ship.historical_significance_score,
+                        'name_category': ship.name_category,
+                        'is_geographic': analysis.is_geographic_name,
+                        'is_saint': analysis.is_saint_name,
+                        'authority_score': analysis.authority_score or 0,
+                        'harshness_score': analysis.harshness_score or 0,
+                        'power_connotation': analysis.power_connotation_score or 0
+                    })
+            
+            return pd.DataFrame(data)
+        except Exception as e:
+            logger.warning(f"Could not load ships dataset: {e}")
+            return pd.DataFrame()
+    
+    def _test_syllable_universality_all(self, crypto_df, domain_df, ships_df):
+        """Test syllable patterns across all three domains"""
+        if len(ships_df) < 5:
+            return None
+        
+        # Test 2-3 syllable pattern in each domain
+        results = {}
+        
+        for name, df in [('crypto', crypto_df), ('domains', domain_df), ('ships', ships_df)]:
+            if len(df) < 5:
+                continue
+            
+            optimal = df[df['syllables'].isin([2, 3])]['performance']
+            other = df[~df['syllables'].isin([2, 3])]['performance']
+            
+            if len(optimal) >= 3 and len(other) >= 3:
+                t_stat, p_val = stats.ttest_ind(optimal, other)
+                effect = (optimal.mean() - other.mean()) / optimal.std() if optimal.std() > 0 else 0
+                
+                results[name] = {
+                    'mean_optimal': float(optimal.mean()),
+                    'mean_other': float(other.mean()),
+                    'p_value': float(p_val),
+                    'effect_size': float(effect),
+                    'significant': p_val < 0.1
+                }
+        
+        # Check if pattern holds across domains
+        significant_count = sum(1 for r in results.values() if r['significant'])
+        
+        if significant_count >= 2:
+            return {
+                'pattern_name': '2-3 Syllables Optimal (Multi-Domain)',
+                'description': f'2-3 syllable names optimal across {significant_count} domains',
+                'domains': results,
+                'universal_strength': (significant_count / 3) * 100,
+                'is_universal': True
+            }
+        
+        return None
+    
+    def _test_memorability_universality_all(self, crypto_df, domain_df, ships_df):
+        """Test memorability correlation across all domains"""
+        if len(ships_df) < 5:
+            return None
+        
+        results = {}
+        
+        for name, df in [('crypto', crypto_df), ('domains', domain_df), ('ships', ships_df)]:
+            if len(df) < 10:
+                continue
+            
+            clean_df = df[(df['memorability'] > 0) & (df['performance'].notna())]
+            
+            if len(clean_df) >= 5:
+                corr, p_val = stats.pearsonr(clean_df['memorability'], clean_df['performance'])
+                
+                results[name] = {
+                    'correlation': float(corr),
+                    'p_value': float(p_val),
+                    'sample_size': len(clean_df),
+                    'significant': p_val < 0.1
+                }
+        
+        significant_count = sum(1 for r in results.values() if r['significant'] and r['correlation'] > 0)
+        
+        if significant_count >= 2:
+            return {
+                'pattern_name': 'Memorability → Performance (Multi-Domain)',
+                'description': f'Memorable names correlate with success across {significant_count} domains',
+                'domains': results,
+                'universal_strength': (significant_count / 3) * 100,
+                'is_universal': True
+            }
+        
+        return None
+    
+    def _test_geographic_names_pattern(self, ships_df):
+        """Test if geographic names show advantage (ships-specific but cross-domain comparable)"""
+        if 'is_geographic' not in ships_df.columns or 'is_saint' not in ships_df.columns:
+            return None
+        
+        geographic = ships_df[ships_df['is_geographic'] == True]['performance']
+        saint = ships_df[ships_df['is_saint'] == True]['performance']
+        
+        if len(geographic) < 3 or len(saint) < 3:
+            return None
+        
+        t_stat, p_val = stats.ttest_ind(geographic, saint, equal_var=False)
+        effect = (geographic.mean() - saint.mean()) / geographic.std() if geographic.std() > 0 else 0
+        
+        return {
+            'pattern_name': 'Geographic Names Advantage (Ships)',
+            'description': 'Geographic place names correlate with greater historical achievement than saint names',
+            'domains': {
+                'ships': {
+                    'geographic_mean': float(geographic.mean()),
+                    'saint_mean': float(saint.mean()),
+                    'p_value': float(p_val),
+                    'effect_size': float(effect),
+                    'significant': p_val < 0.05
+                }
+            },
+            'universal_strength': 100 if p_val < 0.05 else 50,
+            'is_universal': p_val < 0.05,
+            'cross_domain_note': 'Can be compared to hurricane geographic names, band place names, etc.'
+        }
+    
+    def _test_authority_phonetics_pattern(self, ships_df):
+        """Test if authority/harshness phonetics correlate with outcomes"""
+        if 'authority_score' not in ships_df.columns:
+            return None
+        
+        clean_df = ships_df[(ships_df['authority_score'] > 0) & (ships_df['performance'].notna())]
+        
+        if len(clean_df) < 10:
+            return None
+        
+        corr, p_val = stats.pearsonr(clean_df['authority_score'], clean_df['performance'])
+        
+        if p_val < 0.1:
+            return {
+                'pattern_name': 'Authority/Power Phonetics (Ships)',
+                'description': 'Authoritative-sounding names correlate with achievement',
+                'domains': {
+                    'ships': {
+                        'correlation': float(corr),
+                        'p_value': float(p_val),
+                        'sample_size': len(clean_df),
+                        'significant': p_val < 0.05
+                    }
+                },
+                'universal_strength': abs(corr) * 100,
+                'is_universal': p_val < 0.05,
+                'cross_domain_note': 'Compare to: hurricane harshness → casualties, academic authority → h-index, band power → genre success'
+            }
+        
+        return None
     
     def _test_syllable_universality(self, crypto_df, domain_df):
         """Test if syllable patterns transfer"""

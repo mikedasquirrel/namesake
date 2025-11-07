@@ -1,0 +1,38 @@
+{
+  "test_name": "Silence/Absence Variance Test",
+  "hypothesis": "Naming reduces outcome variance across domains",
+  "date_executed": "2025-11-07T04:36:20.492102",
+  "results": {
+    "hurricanes": {
+      "status": "insufficient_historical_data",
+      "unnamed_n": 0,
+      "named_n": 20,
+      "note": "Hurricane naming began 1953; reliable records also begin ~1950. Cannot test unnamed era.",
+      "alternative": "Could compare early naming era (1953-1970) vs modern era (1990+) for effect evolution"
+    },
+    "cryptocurrency": {
+      "status": "awaiting_data",
+      "data_requirements": [
+        "price_change_24h field in Cryptocurrency model",
+        "Historical volatility metrics",
+        "At least 30 ticker-only and 30 full-name coins with data"
+      ],
+      "predicted_result": "Ticker-only coins show 20-40% higher price variance",
+      "note": "Variance test framework is complete and ready to run when data available"
+    },
+    "mental_health": {
+      "status": "framework_only",
+      "data_requirements": [
+        "Historical psychiatric literature (pre-DSM)",
+        "Treatment outcome databases",
+        "Research funding records by disorder",
+        "Stigma survey variance over time"
+      ],
+      "predicted_result": "Unnamed syndromes show 30-50% higher outcome variance",
+      "note": "Requires dedicated data collection effort"
+    },
+    "meta_analysis": {
+      "status": "insufficient_domains"
+    }
+  }
+}

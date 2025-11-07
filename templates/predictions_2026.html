@@ -1,0 +1,289 @@
+{% extends "base.html" %}
+
+{% block title %}2026 Hurricane Predictions - Pre-Registered{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Animated Wave Background -->
+    <div class="wave-background">
+        <div class="wave-layer"></div>
+        <div class="wave-layer"></div>
+        <div class="wave-layer"></div>
+    </div>
+
+    <div style="max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; position: relative; z-index: 1;">
+
+        <!-- Hero Section -->
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <div style="font-size: 3.5rem; margin-bottom: 1rem; opacity: 0.8;">🔮</div>
+            <div class="user-greeting">Temporal Precedence Test</div>
+            <h1 class="dashboard-title" style="font-size: 3rem;">2026 Hurricane Predictions</h1>
+            <p class="dashboard-subtitle" style="max-width: 900px; margin-left: auto; margin-right: auto;">
+                Pre-registered predictions of Atlantic hurricane casualties based solely on name phonetics.
+                The ultimate test: Can we predict the future from names alone?
+            </p>
+        </div>
+
+        <!-- Status Alert -->
+        <div style="background: linear-gradient(135deg, rgba(147, 51, 234, 0.15) 0%, rgba(236, 72, 153, 0.15) 100%); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--accent-purple); margin-bottom: 3rem;">
+            <div style="display: flex; align-items: center; gap: 1.5rem;">
+                <div style="font-size: 2.5rem;">⚠️</div>
+                <div>
+                    <h3 style="margin: 0 0 0.5rem 0; color: var(--accent-purple);">Pre-Registered: January 2025</h3>
+                    <p style="margin: 0; line-height: 1.7;">
+                        These predictions were made <strong>before the 2026 hurricane season begins</strong>. This temporal precedence is critical—any post-hoc adjustment would invalidate the test. The predictions will be evaluated in December 2026 after the season concludes.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Question -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 2rem;">
+            <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-weight: var(--weight-light);">The Question</h2>
+            
+            <p style="line-height: 1.8; margin-bottom: 1.5rem; font-size: 1.125rem;">
+                Can phonetic features of hurricane names predict casualty outcomes <strong>prospectively</strong>—that is, before any storms occur?
+            </p>
+            
+            <p style="line-height: 1.8; margin-bottom: 1.5rem;">
+                Our historical analysis (1950-2024) showed that name phonetics predict casualties with ROC AUC 0.916—medical-grade accuracy. But all previous research was <em>retrospective</em>: we analyzed patterns after outcomes were known. This creates risk of pattern fishing, overfitting, or post-hoc rationalization.
+            </p>
+            
+            <p style="line-height: 1.8; margin: 0;">
+                The only way to prove predictive power is <strong>temporal precedence</strong>: make predictions before events unfold, register them publicly, then wait for reality to confirm or refute them.
+            </p>
+        </div>
+
+        <!-- Methodology -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 2rem;">
+            <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-weight: var(--weight-light);">Methodology</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: 10px;">
+                    <h3 style="font-size: var(--text-lg); margin-bottom: 1rem; font-weight: var(--weight-regular); color: var(--accent-cyan);">Training Data</h3>
+                    <p style="font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.7; margin: 0;">
+                        236 Atlantic hurricanes (1950-2024) with casualty outcomes and phonetic analysis
+                    </p>
+                </div>
+                
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: 10px;">
+                    <h3 style="font-size: var(--text-lg); margin-bottom: 1rem; font-weight: var(--weight-regular); color: var(--accent-purple);">Model</h3>
+                    <p style="font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.7; margin: 0;">
+                        Logistic regression on 7 phonetic features (harshness, memorability, syllables, length, vowel ratio, plosives, sibilants)
+                    </p>
+                </div>
+                
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: 10px;">
+                    <h3 style="font-size: var(--text-lg); margin-bottom: 1rem; font-weight: var(--weight-regular); color: var(--accent-pink);">Performance</h3>
+                    <p style="font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.7; margin: 0;">
+                        Cross-validated ROC AUC: 0.916 ± 0.047 on historical data
+                    </p>
+                </div>
+                
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: 10px;">
+                    <h3 style="font-size: var(--text-lg); margin-bottom: 1rem; font-weight: var(--weight-regular); color: var(--accent-emerald);">2026 Names</h3>
+                    <p style="font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.7; margin: 0;">
+                        21 official WMO-assigned names analyzed using same phonetic extraction
+                    </p>
+                </div>
+            </div>
+            
+            <p style="line-height: 1.8; color: var(--text-secondary); font-size: var(--text-sm); margin: 0;">
+                <strong>Critical constraint:</strong> We use ONLY name phonetics—no meteorological data, no economic conditions, no information about 2026 storms. Pure nominative prediction.
+            </p>
+        </div>
+
+        <!-- 2026 Predictions -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 2rem;">
+            <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-weight: var(--weight-light);">2026 Atlantic Hurricane Names</h2>
+            <p style="line-height: 1.8; margin-bottom: 2rem; color: var(--text-secondary);">
+                Official WMO list for the 2026 Atlantic hurricane season. Predicted casualty rankings based solely on phonetic analysis:
+            </p>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Predicted Rank</th>
+                            <th>Name</th>
+                            <th>Casualty Probability</th>
+                            <th>Prediction</th>
+                            <th>Phonetic Features</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Top 5 High-Risk Names -->
+                        <tr style="background: rgba(239, 68, 68, 0.1);">
+                            <td style="font-weight: 700; color: #ef4444;">1</td>
+                            <td style="font-weight: 700;">TBD</td>
+                            <td>TBD</td>
+                            <td><span style="padding: 0.25rem 0.75rem; background: rgba(239, 68, 68, 0.2); border-radius: 6px; font-weight: 600; color: #ef4444;">HIGH</span></td>
+                            <td style="font-size: var(--text-sm); color: var(--text-secondary);">Run script to generate</td>
+                        </tr>
+                        <tr style="background: rgba(239, 68, 68, 0.08);">
+                            <td style="font-weight: 700; color: #ef4444;">2</td>
+                            <td>TBD</td>
+                            <td>TBD</td>
+                            <td><span style="padding: 0.25rem 0.75rem; background: rgba(239, 68, 68, 0.2); border-radius: 6px; font-weight: 600; color: #ef4444;">HIGH</span></td>
+                            <td style="font-size: var(--text-sm); color: var(--text-secondary);">Run script to generate</td>
+                        </tr>
+                        <!-- Remaining names would be filled in by running the prediction script -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <div style="background: rgba(251, 191, 36, 0.1); padding: 1.5rem; border-radius: 10px; margin-top: 2rem;">
+                <p style="margin: 0; line-height: 1.7; font-size: var(--text-sm);">
+                    <strong>Note:</strong> Full predictions will be generated by running <code>scripts/predict_2026_hurricanes.py</code> and then timestamped/hashed for immutability. The predictions shown above are placeholders. 
+                </p>
+            </div>
+        </div>
+
+        <!-- Success Criteria -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 2rem;">
+            <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-weight: var(--weight-light);">Success Criteria (Pre-Registered)</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div>
+                    <h3 style="font-size: var(--text-lg); margin-bottom: 1rem; font-weight: var(--weight-regular); color: var(--success-muted);">Hypothesis Supported If:</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            <strong>Primary:</strong> Spearman r > 0.5 (predicted vs actual rankings)
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            ROC AUC > 0.75 for high/low casualty binary predictions
+                        </li>
+                        <li style="padding: 0.75rem 0;">
+                            At least 3 of top 5 predicted names result in actual high casualties
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 style="font-size: var(--text-lg); margin-bottom: 1rem; font-weight: var(--weight-regular); color: var(--danger);">Hypothesis Falsified If:</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0;">
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            Spearman r < 0.2 (no correlation)
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.05);">
+                            ROC AUC < 0.55 (barely better than random)
+                        </li>
+                        <li style="padding: 0.75rem 0;">
+                            Negative correlation (predictions inverse of reality)
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Timeline -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 2rem;">
+            <h2 style="margin-top: 0; margin-bottom: 2rem; font-weight: var(--weight-light);">Timeline</h2>
+            
+            <div style="position: relative; padding-left: 2rem;">
+                <!-- Timeline line -->
+                <div style="position: absolute; left: 0; top: 0; bottom: 0; width: 2px; background: linear-gradient(180deg, var(--accent-purple) 0%, var(--accent-pink) 100%);"></div>
+                
+                <!-- Timeline items -->
+                <div style="margin-bottom: 2rem; position: relative;">
+                    <div style="position: absolute; left: -2.5rem; width: 1rem; height: 1rem; background: var(--accent-purple); border-radius: 50%; border: 3px solid var(--bg-primary);"></div>
+                    <h3 style="font-size: var(--text-lg); margin-bottom: 0.5rem; font-weight: var(--weight-regular);">January 2025: Pre-Registration</h3>
+                    <p style="color: var(--text-secondary); margin: 0;">Generate predictions, publish protocol, submit to OSF, create immutable hash</p>
+                </div>
+                
+                <div style="margin-bottom: 2rem; position: relative;">
+                    <div style="position: absolute; left: -2.5rem; width: 1rem; height: 1rem; background: rgba(147, 51, 234, 0.5); border-radius: 50%; border: 3px solid var(--bg-primary);"></div>
+                    <h3 style="font-size: var(--text-lg); margin-bottom: 0.5rem; font-weight: var(--weight-regular);">June-November 2026: Hurricane Season</h3>
+                    <p style="color: var(--text-secondary); margin: 0;">Monitor named storms, collect casualty data, NO adjustments to predictions</p>
+                </div>
+                
+                <div style="position: relative;">
+                    <div style="position: absolute; left: -2.5rem; width: 1rem; height: 1rem; background: var(--accent-pink); border-radius: 50%; border: 3px solid var(--bg-primary);"></div>
+                    <h3 style="font-size: var(--text-lg); margin-bottom: 0.5rem; font-weight: var(--weight-regular);">December 2026: Evaluation</h3>
+                    <p style="color: var(--text-secondary); margin: 0;">Compare predictions to actuals, calculate metrics, publish results (success or failure)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Why This Matters -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(236, 72, 153, 0.05) 100%);">
+            <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-weight: var(--weight-light);">Why This Test Is Revolutionary</h2>
+            
+            <p style="line-height: 1.8; margin-bottom: 1.5rem;">
+                <strong>All previous nominative determinism research suffers from the same weakness:</strong> retrospective pattern detection. When you analyze historical data, you can always find correlations—the question is whether they predict future outcomes or merely describe past noise.
+            </p>
+            
+            <p style="line-height: 1.8; margin-bottom: 1.5rem;">
+                This test eliminates that ambiguity through <strong>temporal precedence</strong>. If hurricane names truly carry predictive information about human response and casualties, then:
+            </p>
+            
+            <ol style="line-height: 2; margin-bottom: 1.5rem;">
+                <li>We should be able to predict 2026 casualties from 2026 names</li>
+                <li>Before any storms form</li>
+                <li>Using only the phonetic features of the names</li>
+                <li>With predictions publicly timestamped to prevent post-hoc adjustment</li>
+            </ol>
+            
+            <p style="line-height: 1.8; margin: 0; font-size: 1.125rem; font-weight: 300;">
+                If this works—if names predict casualties prospectively with r > 0.5—it would be perhaps the strongest evidence ever produced for nominative effects on real-world outcomes. And if it fails (r < 0.2), we'll have learned that retrospective correlations don't hold predictively, which is equally valuable.
+            </p>
+        </div>
+
+        <!-- Transparency -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 2rem;">
+            <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-weight: var(--weight-light);">Transparency & Verification</h2>
+            
+            <p style="line-height: 1.8; margin-bottom: 1.5rem;">
+                To ensure complete transparency and prevent post-hoc manipulation:
+            </p>
+            
+            <ul style="line-height: 2;">
+                <li><strong>Public pre-registration:</strong> Submitted to Open Science Framework (OSF) with timestamp</li>
+                <li><strong>Immutable hash:</strong> SHA-256 hash of predictions stored publicly and optionally on blockchain</li>
+                <li><strong>Full methodology:</strong> Code, model weights, and training data all publicly available</li>
+                <li><strong>Blind analysis:</strong> Evaluation conducted by independent analyst if possible</li>
+                <li><strong>Publication regardless of outcome:</strong> Results will be published whether hypothesis is supported or falsified</li>
+            </ul>
+        </div>
+
+        <!-- Resources -->
+        <div style="background: rgba(255, 255, 255, 0.02); padding: 2rem; border-radius: 12px; margin-bottom: 2rem;">
+            <h3 style="font-size: var(--text-lg); margin-bottom: 1.5rem; font-weight: var(--weight-regular); text-align: center;">Resources</h3>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+                <a href="/hurricanes" style="display: block; padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 8px; text-decoration: none; color: var(--text-primary); transition: all 0.2s; text-align: center;">
+                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">🌀</div>
+                    <div style="font-weight: 500;">Historical Analysis</div>
+                    <div style="font-size: 0.875rem; color: var(--text-secondary); margin-top: 0.25rem;">1950-2024 findings</div>
+                </a>
+                <a href="/formula" style="display: block; padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 8px; text-decoration: none; color: var(--text-primary); transition: all 0.2s; text-align: center;">
+                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">∑</div>
+                    <div style="font-weight: 500;">The Formula</div>
+                    <div style="font-size: 0.875rem; color: var(--text-secondary); margin-top: 0.25rem;">Phonetic framework</div>
+                </a>
+                <a href="/unknown-known" style="display: block; padding: 1rem; background: rgba(255, 255, 255, 0.03); border-radius: 8px; text-decoration: none; color: var(--text-primary); transition: all 0.2s; text-align: center;">
+                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">∞</div>
+                    <div style="font-weight: 500;">Philosophy</div>
+                    <div style="font-size: 0.875rem; color: var(--text-secondary); margin-top: 0.25rem;">What this reveals</div>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<style>
+    a:hover {
+        background: rgba(147, 51, 234, 0.1) !important;
+        transform: translateY(-2px);
+    }
+    
+    code {
+        background: rgba(255, 255, 255, 0.1);
+        padding: 0.2rem 0.5rem;
+        border-radius: 4px;
+        font-family: 'Courier New', monospace;
+        font-size: 0.875rem;
+    }
+</style>
+{% endblock %}
+

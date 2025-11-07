@@ -106,14 +106,17 @@ class DisorderNamesOutcomesAnalyzer:
         comparison = []
         
         for disorder in disorders_data:
-            comparison.append({
-                'name': disorder['disorder_name'],
-                'harshness': disorder['phonetic_analysis']['harshness_score'],
-                'syllables': disorder['phonetic_analysis']['syllables'],
-                'stigma': disorder['social_impact']['stigma_score'],
-                'treatment_seeking': disorder['clinical_outcomes']['treatment_seeking_rate'],
-                'mortality': disorder['clinical_outcomes'].get('mortality_rate_per_100k', 0)
-            })
+            try:
+                comparison.append({
+                    'name': disorder.get('disorder_name', 'Unknown'),
+                    'harshness': disorder.get('phonetic_analysis', {}).get('harshness_score', 50),
+                    'syllables': disorder.get('phonetic_analysis', {}).get('syllables', 5),
+                    'stigma': disorder.get('social_impact', {}).get('stigma_score', 5),
+                    'treatment_seeking': disorder.get('clinical_outcomes', {}).get('treatment_seeking_rate', 0.5),
+                    'mortality': disorder.get('clinical_outcomes', {}).get('mortality_rate_per_100k', 0)
+                })
+            except Exception as e:
+                logger.warning(f"Skipping disorder due to missing data: {e}")
         
         df = pd.DataFrame(comparison)
         

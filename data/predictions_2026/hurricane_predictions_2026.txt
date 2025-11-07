@@ -1,0 +1,34 @@
+2026 ATLANTIC HURRICANE CASUALTY PREDICTIONS
+================================================================================
+
+Pre-Registered: 2025-11-07T04:34:59.554285
+Season: June-November 2026
+Evaluation: December 2026
+
+PREDICTED CASUALTY RANKINGS (Highest to Lowest Risk):
+--------------------------------------------------------------------------------
+ 1. Savannah   (p=0.651, HIGH)
+ 2. Valeria    (p=0.605, HIGH)
+ 3. Jacinta    (p=0.571, HIGH)
+ 4. Emilia     (p=0.564, HIGH)
+ 5. Deshawn    (p=0.553, HIGH)
+ 6. Braylen    (p=0.506, HIGH)
+ 7. Foster     (p=0.483, LOW)
+ 8. Kenyon     (p=0.483, LOW)
+ 9. Marcus     (p=0.483, LOW)
+10. Adria      (p=0.473, LOW)
+11. Paige      (p=0.445, LOW)
+12. William    (p=0.440, LOW)
+13. Carla      (p=0.433, LOW)
+14. Gemma      (p=0.433, LOW)
+15. Nayeli     (p=0.427, LOW)
+16. Rafael     (p=0.427, LOW)
+17. Isla       (p=0.425, LOW)
+18. Tony       (p=0.419, LOW)
+19. Heath      (p=0.387, LOW)
+20. Leah       (p=0.380, LOW)
+21. Owen       (p=0.380, LOW)
+
+================================================================================
+VERIFICATION HASH (SHA-256):
+60068ac73dbc6557e1fa670a3358af751abe8682ae5fa26eb0853f9630bab32b

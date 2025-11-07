@@ -1,0 +1,423 @@
+{
+  "analysis": "Rebrand Natural Experiments",
+  "date": "2025-11-07T05:17:55.553741",
+  "hypothesis": "Phonetic improvement predicts trajectory improvement",
+  "results": {
+    "n_rebrands": 10,
+    "rebrands": [
+      {
+        "domain": "cryptocurrency",
+        "entity": "Dash",
+        "old_name": "DarkCoin",
+        "new_name": "Dash",
+        "rebrand_year": 2015,
+        "reason": "Dark \u2192 negative associations, Dash \u2192 speed/positive",
+        "outcome_before": "Low adoption, stigma concerns",
+        "outcome_after": "Major growth, top-20 coin",
+        "success": true
+      },
+      {
+        "domain": "cryptocurrency",
+        "entity": "NEO",
+        "old_name": "Antshares",
+        "new_name": "NEO",
+        "rebrand_year": 2017,
+        "reason": "Antshares \u2192 complex/unclear, NEO \u2192 simple/futuristic",
+        "outcome_before": "Limited international adoption",
+        "outcome_after": "China Ethereum, massive growth",
+        "success": true
+      },
+      {
+        "domain": "cryptocurrency",
+        "entity": "Nano",
+        "old_name": "RaiBlocks",
+        "new_name": "Nano",
+        "rebrand_year": 2018,
+        "reason": "RaiBlocks \u2192 complex, Nano \u2192 simple/modern",
+        "outcome_before": "Growing but niche",
+        "outcome_after": "Mainstream recognition",
+        "success": true
+      },
+      {
+        "domain": "cryptocurrency",
+        "entity": "Horizen",
+        "old_name": "ZenCash",
+        "new_name": "Horizen",
+        "rebrand_year": 2018,
+        "reason": "ZenCash \u2192 commodity, Horizen \u2192 visionary",
+        "outcome_before": "Moderate adoption",
+        "outcome_after": "Enterprise focus, partnerships",
+        "success": true
+      },
+      {
+        "domain": "music_bands",
+        "entity": "The Beatles",
+        "old_name": "The Quarrymen",
+        "new_name": "The Beatles",
+        "rebrand_year": 1960,
+        "reason": "Quarrymen \u2192 local/amateur, Beatles \u2192 beat music/beetles pun",
+        "outcome_before": "Liverpool pub band",
+        "outcome_after": "Most successful band ever",
+        "success": true
+      },
+      {
+        "domain": "music_bands",
+        "entity": "Queen",
+        "old_name": "Smile",
+        "new_name": "Queen",
+        "rebrand_year": 1970,
+        "reason": "Smile \u2192 generic/soft, Queen \u2192 regal/powerful",
+        "outcome_before": "Unknown",
+        "outcome_after": "Rock legends",
+        "success": true
+      },
+      {
+        "domain": "music_bands",
+        "entity": "Blue \u00d6yster Cult",
+        "old_name": "Soft White Underbelly",
+        "new_name": "Blue \u00d6yster Cult",
+        "rebrand_year": 1971,
+        "reason": "Soft White Underbelly \u2192 unmarketable, Blue \u00d6yster Cult \u2192 mysterious",
+        "outcome_before": "No commercial success",
+        "outcome_after": "Cult classics, sustained career",
+        "success": true
+      },
+      {
+        "domain": "music_bands",
+        "entity": "The Black Keys",
+        "old_name": "The Black Keys",
+        "new_name": "The Black Keys",
+        "rebrand_year": null,
+        "reason": "Control case - no rebrand",
+        "outcome_before": "N/A",
+        "outcome_after": "N/A",
+        "success": null
+      },
+      {
+        "domain": "technology",
+        "entity": "Google",
+        "old_name": "BackRub",
+        "new_name": "Google",
+        "rebrand_year": 1997,
+        "reason": "BackRub \u2192 awkward, Google \u2192 googol/large number",
+        "outcome_before": "Stanford research project",
+        "outcome_after": "Most valuable tech company",
+        "success": true
+      },
+      {
+        "domain": "technology",
+        "entity": "PayPal",
+        "old_name": "Confinity",
+        "new_name": "PayPal",
+        "rebrand_year": 2001,
+        "reason": "Confinity \u2192 abstract, PayPal \u2192 clear function",
+        "outcome_before": "Niche payment tool",
+        "outcome_after": "Global payment standard",
+        "success": true
+      }
+    ],
+    "analysis": {
+      "rebrands": [
+        {
+          "domain": "cryptocurrency",
+          "entity": "Dash",
+          "old_name": "DarkCoin",
+          "new_name": "Dash",
+          "rebrand_year": 2015,
+          "reason": "Dark \u2192 negative associations, Dash \u2192 speed/positive",
+          "outcome_before": "Low adoption, stigma concerns",
+          "outcome_after": "Major growth, top-20 coin",
+          "success": true,
+          "old_features": {
+            "syllables": 2,
+            "length": 8,
+            "memorability": 92.5,
+            "harshness": 75.0
+          },
+          "new_features": {
+            "syllables": 1,
+            "length": 4,
+            "memorability": 91.0,
+            "harshness": 70.0
+          },
+          "phonetic_changes": {
+            "syllable_change": -1,
+            "length_change": -4,
+            "memorability_change": -1.5,
+            "harshness_change": -5.0,
+            "complexity_change": -5
+          },
+          "simplified": true,
+          "memorability_improved": false
+        },
+        {
+          "domain": "cryptocurrency",
+          "entity": "NEO",
+          "old_name": "Antshares",
+          "new_name": "NEO",
+          "rebrand_year": 2017,
+          "reason": "Antshares \u2192 complex/unclear, NEO \u2192 simple/futuristic",
+          "outcome_before": "Limited international adoption",
+          "outcome_after": "China Ethereum, massive growth",
+          "success": true,
+          "old_features": {
+            "syllables": 1,
+            "length": 9,
+            "memorability": 75.0,
+            "harshness": 66.67
+          },
+          "new_features": {
+            "syllables": 1,
+            "length": 3,
+            "memorability": 78.0,
+            "harshness": 76.67
+          },
+          "phonetic_changes": {
+            "syllable_change": 0,
+            "length_change": -6,
+            "memorability_change": 3.0,
+            "harshness_change": 10.0,
+            "complexity_change": -6
+          },
+          "simplified": false,
+          "memorability_improved": true
+        },
+        {
+          "domain": "cryptocurrency",
+          "entity": "Nano",
+          "old_name": "RaiBlocks",
+          "new_name": "Nano",
+          "rebrand_year": 2018,
+          "reason": "RaiBlocks \u2192 complex, Nano \u2192 simple/modern",
+          "outcome_before": "Growing but niche",
+          "outcome_after": "Mainstream recognition",
+          "success": true,
+          "old_features": {
+            "syllables": 1,
+            "length": 9,
+            "memorability": 72.0,
+            "harshness": 56.67
+          },
+          "new_features": {
+            "syllables": 1,
+            "length": 4,
+            "memorability": 100,
+            "harshness": 100
+          },
+          "phonetic_changes": {
+            "syllable_change": 0,
+            "length_change": -5,
+            "memorability_change": 28.0,
+            "harshness_change": 43.33,
+            "complexity_change": -5
+          },
+          "simplified": false,
+          "memorability_improved": true
+        },
+        {
+          "domain": "cryptocurrency",
+          "entity": "Horizen",
+          "old_name": "ZenCash",
+          "new_name": "Horizen",
+          "rebrand_year": 2018,
+          "reason": "ZenCash \u2192 commodity, Horizen \u2192 visionary",
+          "outcome_before": "Moderate adoption",
+          "outcome_after": "Enterprise focus, partnerships",
+          "success": true,
+          "old_features": {
+            "syllables": 2,
+            "length": 7,
+            "memorability": 90.14,
+            "harshness": 67.14
+          },
+          "new_features": {
+            "syllables": 1,
+            "length": 7,
+            "memorability": 100,
+            "harshness": 100
+          },
+          "phonetic_changes": {
+            "syllable_change": -1,
+            "length_change": 0,
+            "memorability_change": 9.86,
+            "harshness_change": 32.86,
+            "complexity_change": -1
+          },
+          "simplified": true,
+          "memorability_improved": true
+        },
+        {
+          "domain": "music_bands",
+          "entity": "The Beatles",
+          "old_name": "The Quarrymen",
+          "new_name": "The Beatles",
+          "rebrand_year": 1960,
+          "reason": "Quarrymen \u2192 local/amateur, Beatles \u2192 beat music/beetles pun",
+          "outcome_before": "Liverpool pub band",
+          "outcome_after": "Most successful band ever",
+          "success": true,
+          "old_features": {
+            "syllables": 4,
+            "length": 13,
+            "memorability": 32.0,
+            "harshness": 56.67
+          },
+          "new_features": {
+            "syllables": 4,
+            "length": 11,
+            "memorability": 36.0,
+            "harshness": 70.0
+          },
+          "phonetic_changes": {
+            "syllable_change": 0,
+            "length_change": -2,
+            "memorability_change": 4.0,
+            "harshness_change": 13.329999999999998,
+            "complexity_change": -2
+          },
+          "simplified": false,
+          "memorability_improved": true
+        },
+        {
+          "domain": "music_bands",
+          "entity": "Queen",
+          "old_name": "Smile",
+          "new_name": "Queen",
+          "rebrand_year": 1970,
+          "reason": "Smile \u2192 generic/soft, Queen \u2192 regal/powerful",
+          "outcome_before": "Unknown",
+          "outcome_after": "Rock legends",
+          "success": true,
+          "old_features": {
+            "syllables": 1,
+            "length": 5,
+            "memorability": 100,
+            "harshness": 100
+          },
+          "new_features": {
+            "syllables": 1,
+            "length": 5,
+            "memorability": 97.0,
+            "harshness": 90.0
+          },
+          "phonetic_changes": {
+            "syllable_change": 0,
+            "length_change": 0,
+            "memorability_change": -3.0,
+            "harshness_change": -10.0,
+            "complexity_change": 0
+          },
+          "simplified": false,
+          "memorability_improved": false
+        },
+        {
+          "domain": "music_bands",
+          "entity": "Blue \u00d6yster Cult",
+          "old_name": "Soft White Underbelly",
+          "new_name": "Blue \u00d6yster Cult",
+          "rebrand_year": 1971,
+          "reason": "Soft White Underbelly \u2192 unmarketable, Blue \u00d6yster Cult \u2192 mysterious",
+          "outcome_before": "No commercial success",
+          "outcome_after": "Cult classics, sustained career",
+          "success": true,
+          "old_features": {
+            "syllables": 6,
+            "length": 21,
+            "memorability": 24.95,
+            "harshness": 33.16
+          },
+          "new_features": {
+            "syllables": 2,
+            "length": 16,
+            "memorability": 49.46,
+            "harshness": 31.54
+          },
+          "phonetic_changes": {
+            "syllable_change": -4,
+            "length_change": -5,
+            "memorability_change": 24.51,
+            "harshness_change": -1.6199999999999974,
+            "complexity_change": -9
+          },
+          "simplified": true,
+          "memorability_improved": true
+        },
+        {
+          "domain": "technology",
+          "entity": "Google",
+          "old_name": "BackRub",
+          "new_name": "Google",
+          "rebrand_year": 1997,
+          "reason": "BackRub \u2192 awkward, Google \u2192 googol/large number",
+          "outcome_before": "Stanford research project",
+          "outcome_after": "Most valuable tech company",
+          "success": true,
+          "old_features": {
+            "syllables": 2,
+            "length": 7,
+            "memorability": 93.14,
+            "harshness": 77.14
+          },
+          "new_features": {
+            "syllables": 1,
+            "length": 6,
+            "memorability": 100,
+            "harshness": 100
+          },
+          "phonetic_changes": {
+            "syllable_change": -1,
+            "length_change": -1,
+            "memorability_change": 6.859999999999999,
+            "harshness_change": 22.86,
+            "complexity_change": -2
+          },
+          "simplified": true,
+          "memorability_improved": true
+        },
+        {
+          "domain": "technology",
+          "entity": "PayPal",
+          "old_name": "Confinity",
+          "new_name": "PayPal",
+          "rebrand_year": 2001,
+          "reason": "Confinity \u2192 abstract, PayPal \u2192 clear function",
+          "outcome_before": "Niche payment tool",
+          "outcome_after": "Global payment standard",
+          "success": true,
+          "old_features": {
+            "syllables": 4,
+            "length": 9,
+            "memorability": 47.0,
+            "harshness": 56.67
+          },
+          "new_features": {
+            "syllables": 2,
+            "length": 6,
+            "memorability": 96.0,
+            "harshness": 86.67
+          },
+          "phonetic_changes": {
+            "syllable_change": -2,
+            "length_change": -3,
+            "memorability_change": 49.0,
+            "harshness_change": 30.0,
+            "complexity_change": -5
+          },
+          "simplified": true,
+          "memorability_improved": true
+        }
+      ],
+      "n": 9
+    },
+    "hypothesis_test": {
+      "n_rebrands": 9,
+      "success_rate_simplified": 1.0,
+      "success_rate_complex": 1.0,
+      "success_rate_mem_improved": 1.0,
+      "simplification_odds_ratio": NaN,
+      "simplification_pvalue": 1.0,
+      "hypothesis_supported": false,
+      "interpretation": "\u2717 INCONCLUSIVE: No clear phonetic change effect (p=1.000)"
+    }
+  }
+}

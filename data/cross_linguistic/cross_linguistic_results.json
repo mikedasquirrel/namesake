@@ -1,0 +1,108 @@
+{
+  "analysis": "Cross-Linguistic Phonetic Effects",
+  "date": "2025-11-07T05:17:23.996546",
+  "languages": [
+    "English",
+    "Spanish",
+    "Tagalog",
+    "Japanese"
+  ],
+  "results": {
+    "by_language": {
+      "english": {
+        "language": "english",
+        "n": 20,
+        "correlation": -0.006417320722466563,
+        "pvalue": 0.9785783168980885,
+        "mean_harshness_high_casualty": 39.095238095238095,
+        "mean_harshness_low_casualty": 42.82063492063492,
+        "difference": -3.725396825396828,
+        "t_statistic": -0.889275863312801,
+        "t_pvalue": 0.38558557420169814,
+        "significant": false,
+        "effect_direction": "negative"
+      },
+      "spanish": {
+        "language": "spanish",
+        "n": 20,
+        "correlation": 0.03425846486430071,
+        "pvalue": 0.8859861943615428,
+        "mean_harshness_high_casualty": 32.64809523809524,
+        "mean_harshness_low_casualty": 32.69059523809524,
+        "difference": -0.04250000000000398,
+        "t_statistic": -0.02079738405670801,
+        "t_pvalue": 0.9836360949374149,
+        "significant": false,
+        "effect_direction": "positive"
+      },
+      "tagalog": {
+        "language": "tagalog",
+        "n": 20,
+        "correlation": -0.27928834330958907,
+        "pvalue": 0.23306350305020773,
+        "mean_harshness_high_casualty": 29.321428571428573,
+        "mean_harshness_low_casualty": 33.990476190476194,
+        "difference": -4.669047619047621,
+        "t_statistic": -1.660361264218006,
+        "t_pvalue": 0.11416141188592153,
+        "significant": false,
+        "effect_direction": "negative"
+      },
+      "japanese": {
+        "language": "japanese",
+        "n": 20,
+        "correlation": 0.05274496019704411,
+        "pvalue": 0.8252112556146086,
+        "mean_harshness_high_casualty": 22.756190476190476,
+        "mean_harshness_low_casualty": 22.98936507936508,
+        "difference": -0.2331746031746036,
+        "t_statistic": -0.2122805134860036,
+        "t_pvalue": 0.834273523776495,
+        "significant": false,
+        "effect_direction": "positive"
+      }
+    },
+    "comparison": {
+      "correlations_by_language": {
+        "english": -0.006417320722466563,
+        "spanish": 0.03425846486430071,
+        "tagalog": -0.27928834330958907,
+        "japanese": 0.05274496019704411
+      },
+      "mean_correlation": -0.049675559742677705,
+      "std_correlation": 0.1342834585977763,
+      "cross_language_comparisons": {
+        "english_vs_spanish": {
+          "z_difference": 0.04068928552315801,
+          "pvalue": 0.9675436034368163,
+          "significantly_different": false
+        },
+        "english_vs_tagalog": {
+          "z_difference": 0.2804926334759177,
+          "pvalue": 0.7790995763673505,
+          "significantly_different": false
+        },
+        "english_vs_japanese": {
+          "z_difference": 0.059211363524713054,
+          "pvalue": 0.9527837587403203,
+          "significantly_different": false
+        }
+      },
+      "correlation_range": [
+        -0.27928834330958907,
+        0.05274496019704411
+      ]
+    },
+    "hypothesis_test": {
+      "significant_languages": 0,
+      "total_languages": 4,
+      "proportion_significant": 0.0,
+      "binomial_pvalue": 1.0,
+      "consistent_direction": false,
+      "conclusion": "LANGUAGE-SPECIFIC: Effects don't replicate cross-linguistically",
+      "interpretation": "English-specific effects: weakens universal substrate claim",
+      "hypothesis_supported": false
+    },
+    "conclusion": "\u2717 ENGLISH-SPECIFIC EFFECTS: Patterns don't replicate cross-linguistically, suggesting cultural construction rather than universal substrate."
+  }
+}

@@ -1,0 +1,132 @@
+{
+  "correlations": {
+    "phonetic_harshness_vs_deaths": {
+      "r": -0.06914214195901869,
+      "p": 0.7720843514164906
+    },
+    "phonetic_harshness_vs_log_deaths": {
+      "r": -0.3408383846067546,
+      "p": 0.1414038581674263
+    },
+    "phonetic_harshness_vs_damage_millions": {
+      "r": -0.08518484691285622,
+      "p": 0.7210329578288884
+    },
+    "phonetic_smoothness_vs_deaths": {
+      "r": 0.010662642425192482,
+      "p": 0.9644138728929172
+    },
+    "phonetic_smoothness_vs_log_deaths": {
+      "r": -0.053752208155785575,
+      "p": 0.8219241138914005
+    },
+    "phonetic_smoothness_vs_damage_millions": {
+      "r": -0.28879017089572206,
+      "p": 0.21687892891821167
+    },
+    "memorability_score_vs_deaths": {
+      "r": 0.24795227138428264,
+      "p": 0.29186022730297967
+    },
+    "memorability_score_vs_log_deaths": {
+      "r": 0.12599443317685427,
+      "p": 0.5965971278001392
+    },
+    "memorability_score_vs_damage_millions": {
+      "r": 0.18298593060948445,
+      "p": 0.43999579410925405
+    },
+    "pronounceability_score_vs_deaths": {
+      "r": 0.18880183421155175,
+      "p": 0.42534117779721037
+    },
+    "pronounceability_score_vs_log_deaths": {
+      "r": 0.43429628565606393,
+      "p": 0.05570055181214812
+    },
+    "pronounceability_score_vs_damage_millions": {
+      "r": 0.29842169286824194,
+      "p": 0.2012458608633721
+    },
+    "syllable_count_vs_deaths": {
+      "r": -0.29482844482630816,
+      "p": 0.20698764114381052
+    },
+    "syllable_count_vs_log_deaths": {
+      "r": -0.49722353742638514,
+      "p": 0.025711353733270974
+    },
+    "syllable_count_vs_damage_millions": {
+      "r": -0.09028805047343341,
+      "p": 0.7050176350935682
+    },
+    "character_length_vs_deaths": {
+      "r": -0.23754040113523342,
+      "p": 0.31324295801521324
+    },
+    "character_length_vs_log_deaths": {
+      "r": -0.47299949711679995,
+      "p": 0.03518040219315195
+    },
+    "character_length_vs_damage_millions": {
+      "r": -0.2836734454512613,
+      "p": 0.2254998405922332
+    }
+  },
+  "h1_harshness_casualties": {
+    "n": 20,
+    "r_squared": 0.13053416734503853,
+    "adj_r_squared": -0.032490676277766806,
+    "cv_r2_mean": -2.354429314064474,
+    "cv_r2_std": 3.5231040699196567,
+    "harshness_coef": -0.07548251140843404,
+    "harshness_pvalue": 0.24551676117735866
+  },
+  "h3_casualty_presence": {
+    "n": 20,
+    "train_auc": 0.9444444444444444,
+    "cv_auc_mean": NaN,
+    "cv_auc_std": NaN,
+    "feature_coefficients": {
+      "phonetic_harshness": -0.042688999953355,
+      "memorability_score": -0.46718486634803486,
+      "syllable_count": -1.0449119133651352,
+      "magnitude": 0.5364261602169458
+    }
+  },
+  "clustering": {
+    "optimal_k": 2,
+    "silhouette": 0.5872783215599664,
+    "cluster_profiles": [
+      {
+        "cluster_id": 0,
+        "n": 16,
+        "mean_harshness": 22.8125,
+        "mean_memorability": 98.4375,
+        "mean_deaths": 53105.0625,
+        "median_deaths": 9482.0,
+        "casualty_rate": 0.9375
+      },
+      {
+        "cluster_id": 1,
+        "n": 4,
+        "mean_harshness": 53.75,
+        "mean_memorability": 97.5,
+        "mean_deaths": 60752.75,
+        "median_deaths": 121.0,
+        "casualty_rate": 0.75
+      }
+    ]
+  },
+  "feature_importance": {
+    "in_sample_r2": 0.8728493308921321,
+    "feature_importances": {
+      "pronounceability_score": 0.33649395001064447,
+      "magnitude": 0.24423679351368627,
+      "cultural_familiarity": 0.21177661946979515,
+      "phonetic_harshness": 0.0996081722477837,
+      "syllable_count": 0.06742875822339048,
+      "memorability_score": 0.04045570653470005
+    }
+  }
+}

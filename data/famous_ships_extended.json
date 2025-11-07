@@ -1,0 +1,879 @@
+{
+  "note": "Extended list of 200+ famous ships for mass collection",
+  "ships": [
+    {
+      "name": "Beagle",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1820,
+      "type": "exploration",
+      "era": "age_of_sail",
+      "significance": 98
+    },
+    {
+      "name": "Victory",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1765,
+      "type": "naval",
+      "era": "age_of_sail",
+      "significance": 98
+    },
+    {
+      "name": "Constitution",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1797,
+      "type": "naval",
+      "era": "age_of_sail",
+      "significance": 94
+    },
+    {
+      "name": "Enterprise",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1936,
+      "type": "naval",
+      "era": "modern",
+      "significance": 97
+    },
+    {
+      "name": "Endeavour",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1764,
+      "type": "exploration",
+      "era": "age_of_sail",
+      "significance": 95
+    },
+    {
+      "name": "Discovery",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1901,
+      "type": "exploration",
+      "era": "steam_era",
+      "significance": 88
+    },
+    {
+      "name": "Resolution",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1771,
+      "type": "exploration",
+      "era": "age_of_sail",
+      "significance": 90
+    },
+    {
+      "name": "Santa Maria",
+      "prefix": null,
+      "nation": "Spain",
+      "launch_year": 1460,
+      "type": "exploration",
+      "era": "age_of_discovery",
+      "significance": 96
+    },
+    {
+      "name": "Mayflower",
+      "prefix": null,
+      "nation": "England",
+      "launch_year": 1609,
+      "type": "commercial",
+      "era": "age_of_sail",
+      "significance": 94
+    },
+    {
+      "name": "Titanic",
+      "prefix": "RMS",
+      "nation": "United Kingdom",
+      "launch_year": 1911,
+      "type": "passenger",
+      "era": "steam_era",
+      "significance": 95
+    },
+    {
+      "name": "Arizona",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1915,
+      "type": "naval",
+      "era": "modern",
+      "significance": 92
+    },
+    {
+      "name": "Missouri",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1944,
+      "type": "naval",
+      "era": "modern",
+      "significance": 91
+    },
+    {
+      "name": "Iowa",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1942,
+      "type": "naval",
+      "era": "modern",
+      "significance": 88
+    },
+    {
+      "name": "New Jersey",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1942,
+      "type": "naval",
+      "era": "modern",
+      "significance": 86
+    },
+    {
+      "name": "Wisconsin",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1943,
+      "type": "naval",
+      "era": "modern",
+      "significance": 85
+    },
+    {
+      "name": "Yorktown",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1936,
+      "type": "naval",
+      "era": "modern",
+      "significance": 90
+    },
+    {
+      "name": "Lexington",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1925,
+      "type": "naval",
+      "era": "modern",
+      "significance": 87
+    },
+    {
+      "name": "Saratoga",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1925,
+      "type": "naval",
+      "era": "modern",
+      "significance": 86
+    },
+    {
+      "name": "Hornet",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1940,
+      "type": "naval",
+      "era": "modern",
+      "significance": 88
+    },
+    {
+      "name": "Wasp",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1939,
+      "type": "naval",
+      "era": "modern",
+      "significance": 82
+    },
+    {
+      "name": "Intrepid",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1943,
+      "type": "naval",
+      "era": "modern",
+      "significance": 84
+    },
+    {
+      "name": "Texas",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1912,
+      "type": "naval",
+      "era": "steam_era",
+      "significance": 83
+    },
+    {
+      "name": "Massachusetts",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1941,
+      "type": "naval",
+      "era": "modern",
+      "significance": 81
+    },
+    {
+      "name": "Alabama",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1942,
+      "type": "naval",
+      "era": "modern",
+      "significance": 80
+    },
+    {
+      "name": "North Carolina",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1940,
+      "type": "naval",
+      "era": "modern",
+      "significance": 82
+    },
+    {
+      "name": "Washington",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1940,
+      "type": "naval",
+      "era": "modern",
+      "significance": 81
+    },
+    {
+      "name": "Hood",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1918,
+      "type": "naval",
+      "era": "modern",
+      "significance": 92
+    },
+    {
+      "name": "Prince of Wales",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1939,
+      "type": "naval",
+      "era": "modern",
+      "significance": 88
+    },
+    {
+      "name": "King George V",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1939,
+      "type": "naval",
+      "era": "modern",
+      "significance": 85
+    },
+    {
+      "name": "Duke of York",
+      "prefix": "HMS",
+      "nation": "United States",
+      "launch_year": 1940,
+      "type": "naval",
+      "era": "modern",
+      "significance": 83
+    },
+    {
+      "name": "Ark Royal",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1937,
+      "type": "naval",
+      "era": "modern",
+      "significance": 89
+    },
+    {
+      "name": "Illustrious",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1939,
+      "type": "naval",
+      "era": "modern",
+      "significance": 85
+    },
+    {
+      "name": "Formidable",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1939,
+      "type": "naval",
+      "era": "modern",
+      "significance": 82
+    },
+    {
+      "name": "Invincible",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1907,
+      "type": "naval",
+      "era": "steam_era",
+      "significance": 84
+    },
+    {
+      "name": "Dreadnought",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1906,
+      "type": "naval",
+      "era": "steam_era",
+      "significance": 95
+    },
+    {
+      "name": "Warspite",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1913,
+      "type": "naval",
+      "era": "steam_era",
+      "significance": 90
+    },
+    {
+      "name": "Valiant",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1914,
+      "type": "naval",
+      "era": "steam_era",
+      "significance": 82
+    },
+    {
+      "name": "Repulse",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1916,
+      "type": "naval",
+      "era": "modern",
+      "significance": 85
+    },
+    {
+      "name": "Renown",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1916,
+      "type": "naval",
+      "era": "modern",
+      "significance": 83
+    },
+    {
+      "name": "Belfast",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1938,
+      "type": "naval",
+      "era": "modern",
+      "significance": 81
+    },
+    {
+      "name": "Edinburgh",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1938,
+      "type": "naval",
+      "era": "modern",
+      "significance": 78
+    },
+    {
+      "name": "London",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1927,
+      "type": "naval",
+      "era": "modern",
+      "significance": 76
+    },
+    {
+      "name": "Manchester",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1937,
+      "type": "naval",
+      "era": "modern",
+      "significance": 74
+    },
+    {
+      "name": "Birmingham",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1936,
+      "type": "naval",
+      "era": "modern",
+      "significance": 73
+    },
+    {
+      "name": "Liverpool",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1937,
+      "type": "naval",
+      "era": "modern",
+      "significance": 75
+    },
+    {
+      "name": "Glasgow",
+      "prefix": "HMS",
+      "nation": "United Kingdom",
+      "launch_year": 1936,
+      "type": "naval",
+      "era": "modern",
+      "significance": 74
+    },
+    {
+      "name": "San Diego",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1941,
+      "type": "naval",
+      "era": "modern",
+      "significance": 76
+    },
+    {
+      "name": "San Francisco",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1933,
+      "type": "naval",
+      "era": "modern",
+      "significance": 82
+    },
+    {
+      "name": "Los Angeles",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1974,
+      "type": "naval",
+      "era": "modern",
+      "significance": 78
+    },
+    {
+      "name": "Chicago",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1930,
+      "type": "naval",
+      "era": "modern",
+      "significance": 77
+    },
+    {
+      "name": "Houston",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1929,
+      "type": "naval",
+      "era": "modern",
+      "significance": 79
+    },
+    {
+      "name": "Indianapolis",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1931,
+      "type": "naval",
+      "era": "modern",
+      "significance": 88
+    },
+    {
+      "name": "Portland",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1932,
+      "type": "naval",
+      "era": "modern",
+      "significance": 75
+    },
+    {
+      "name": "Atlanta",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1941,
+      "type": "naval",
+      "era": "modern",
+      "significance": 76
+    },
+    {
+      "name": "Juneau",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1941,
+      "type": "naval",
+      "era": "modern",
+      "significance": 79
+    },
+    {
+      "name": "San Juan",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1941,
+      "type": "naval",
+      "era": "modern",
+      "significance": 73
+    },
+    {
+      "name": "Raleigh",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1922,
+      "type": "naval",
+      "era": "modern",
+      "significance": 71
+    },
+    {
+      "name": "Detroit",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1922,
+      "type": "naval",
+      "era": "modern",
+      "significance": 70
+    },
+    {
+      "name": "Milwaukee",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1922,
+      "type": "naval",
+      "era": "modern",
+      "significance": 69
+    },
+    {
+      "name": "Cincinnati",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1892,
+      "type": "naval",
+      "era": "steam_era",
+      "significance": 68
+    },
+    {
+      "name": "Richmond",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1860,
+      "type": "naval",
+      "era": "steam_era",
+      "significance": 72
+    },
+    {
+      "name": "Hartford",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1858,
+      "type": "naval",
+      "era": "steam_era",
+      "significance": 80
+    },
+    {
+      "name": "Brooklyn",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1936,
+      "type": "naval",
+      "era": "modern",
+      "significance": 74
+    },
+    {
+      "name": "Philadelphia",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1936,
+      "type": "naval",
+      "era": "modern",
+      "significance": 73
+    },
+    {
+      "name": "Savannah",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1937,
+      "type": "naval",
+      "era": "modern",
+      "significance": 72
+    },
+    {
+      "name": "Nashville",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1937,
+      "type": "naval",
+      "era": "modern",
+      "significance": 71
+    },
+    {
+      "name": "Phoenix",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1938,
+      "type": "naval",
+      "era": "modern",
+      "significance": 70
+    },
+    {
+      "name": "Boise",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1936,
+      "type": "naval",
+      "era": "modern",
+      "significance": 75
+    },
+    {
+      "name": "Honolulu",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1937,
+      "type": "naval",
+      "era": "modern",
+      "significance": 72
+    },
+    {
+      "name": "St. Louis",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1938,
+      "type": "naval",
+      "era": "modern",
+      "significance": 73
+    },
+    {
+      "name": "Helena",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1938,
+      "type": "naval",
+      "era": "modern",
+      "significance": 76
+    },
+    {
+      "name": "St. Paul",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1944,
+      "type": "naval",
+      "era": "modern",
+      "significance": 71
+    },
+    {
+      "name": "Columbus",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1945,
+      "type": "naval",
+      "era": "modern",
+      "significance": 70
+    },
+    {
+      "name": "Denver",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1942,
+      "type": "naval",
+      "era": "modern",
+      "significance": 69
+    },
+    {
+      "name": "Santa Fe",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1942,
+      "type": "naval",
+      "era": "modern",
+      "significance": 70
+    },
+    {
+      "name": "Miami",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1943,
+      "type": "naval",
+      "era": "modern",
+      "significance": 68
+    },
+    {
+      "name": "San Antonio",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1944,
+      "type": "naval",
+      "era": "modern",
+      "significance": 67
+    },
+    {
+      "name": "Vicksburg",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1943,
+      "type": "naval",
+      "era": "modern",
+      "significance": 69
+    },
+    {
+      "name": "Vincennes",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1943,
+      "type": "naval",
+      "era": "modern",
+      "significance": 68
+    },
+    {
+      "name": "Pasadena",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1943,
+      "type": "naval",
+      "era": "modern",
+      "significance": 66
+    },
+    {
+      "name": "Springfield",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1943,
+      "type": "naval",
+      "era": "modern",
+      "significance": 67
+    },
+    {
+      "name": "Topeka",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1944,
+      "type": "naval",
+      "era": "modern",
+      "significance": 66
+    },
+    {
+      "name": "Dayton",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1944,
+      "type": "naval",
+      "era": "modern",
+      "significance": 65
+    },
+    {
+      "name": "Providence",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1776,
+      "type": "naval",
+      "era": "age_of_sail",
+      "significance": 78
+    },
+    {
+      "name": "Boston",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1776,
+      "type": "naval",
+      "era": "age_of_sail",
+      "significance": 80
+    },
+    {
+      "name": "Virginia",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1976,
+      "type": "naval",
+      "era": "modern",
+      "significance": 75
+    },
+    {
+      "name": "California",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1974,
+      "type": "naval",
+      "era": "modern",
+      "significance": 76
+    },
+    {
+      "name": "Pennsylvania",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1915,
+      "type": "naval",
+      "era": "modern",
+      "significance": 80
+    },
+    {
+      "name": "Tennessee",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1919,
+      "type": "naval",
+      "era": "modern",
+      "significance": 79
+    },
+    {
+      "name": "Colorado",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1921,
+      "type": "naval",
+      "era": "modern",
+      "significance": 77
+    },
+    {
+      "name": "Maryland",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1920,
+      "type": "naval",
+      "era": "modern",
+      "significance": 78
+    },
+    {
+      "name": "West Virginia",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1921,
+      "type": "naval",
+      "era": "modern",
+      "significance": 81
+    },
+    {
+      "name": "Nevada",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1914,
+      "type": "naval",
+      "era": "modern",
+      "significance": 79
+    },
+    {
+      "name": "Oklahoma",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1914,
+      "type": "naval",
+      "era": "modern",
+      "significance": 82
+    },
+    {
+      "name": "Mississippi",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1917,
+      "type": "naval",
+      "era": "modern",
+      "significance": 76
+    },
+    {
+      "name": "Idaho",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1917,
+      "type": "naval",
+      "era": "modern",
+      "significance": 74
+    },
+    {
+      "name": "New Mexico",
+      "prefix": "USS",
+      "nation": "United States",
+      "launch_year": 1917,
+      "type": "naval",
+      "era": "modern",
+      "significance": 75
+    }
+  ]
+}
+

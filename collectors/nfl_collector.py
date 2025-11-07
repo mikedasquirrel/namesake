@@ -951,21 +951,21 @@ class NFLCollector:
             phonemic_metrics = self.phonemic_analyzer.analyze(name)
             analysis.harshness_score = phonemic_metrics.get('harshness_score', 50)
             analysis.softness_score = phonemic_metrics.get('softness_score', 50)
-            analysis.consonant_cluster_complexity = phonemic_metrics.get('consonant_cluster_score', 50)
             
             # Semantic analysis
-            semantic_metrics = self.semantic_analyzer.analyze_semantics(name)
+            semantic_metrics = self.semantic_analyzer.analyze(name)
             analysis.power_connotation_score = semantic_metrics.get('power_score', 50)
             
             # Sound symbolism analysis
-            sound_metrics = self.sound_symbolism_analyzer.analyze_sound_symbolism(name)
+            sound_metrics = self.sound_symbolism_analyzer.analyze(name)
             analysis.speed_association_score = sound_metrics.get('speed_score', 50)
             analysis.strength_association_score = sound_metrics.get('strength_score', 50)
             analysis.toughness_score = sound_metrics.get('toughness_score', 50)
             
             # Prosodic analysis
-            prosodic_metrics = self.prosodic_analyzer.analyze_prosody(name)
+            prosodic_metrics = self.prosodic_analyzer.analyze(name)
             analysis.rhythm_score = prosodic_metrics.get('rhythm_score', 50)
+            analysis.consonant_cluster_complexity = prosodic_metrics.get('complexity_score', 50)
             
             # Alliteration
             analysis.alliteration_score = self._check_alliteration(first_name, last_name)

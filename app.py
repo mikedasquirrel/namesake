@@ -1,4 +1,5 @@
 from flask import Flask, render_template, request, jsonify, send_file
+from pathlib import Path
 from core.config import Config
 from core.models import db, Cryptocurrency, NameAnalysis, PriceHistory
 from collectors.data_collector import DataCollector
@@ -182,6 +183,18 @@ def disorder_nomenclature():
 def formula():
     """The Formula - Cross-sphere mathematical framework"""
     return render_template('formula.html')
+
+
+@app.route('/unknown-known')
+def unknown_known():
+    """The Unknown Known - Philosophical synthesis of nominative findings"""
+    return render_template('unknown_known.html')
+
+
+@app.route('/2026-predictions')
+def predictions_2026():
+    """2026 Hurricane Predictions - Pre-registered temporal precedence test"""
+    return render_template('predictions_2026.html')
 
 
 # =============================================================================
@@ -5438,6 +5451,234 @@ def immigration_search():
     except Exception as e:
         logger.error(f"Error searching surnames: {e}")
         return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
+# AFRICAN COUNTRY NAME LINGUISTICS × FUNDING ROUTES
+# =============================================================================
+
+@app.route('/africa-funding-linguistics')
+def africa_funding_linguistics():
+    """Main dashboard for African country name linguistics and funding analysis"""
+    try:
+        # Load countries data
+        countries_path = Path('data/demographic_data/african_countries_comprehensive.json')
+        with open(countries_path, 'r', encoding='utf-8') as f:
+            countries_data = json.load(f)
+        
+        # Load funding data
+        funding_path = Path('data/international_relations/african_funding_comprehensive.json')
+        with open(funding_path, 'r', encoding='utf-8') as f:
+            funding_data = json.load(f)
+        
+        # Load analysis results if available
+        results_path = Path('analysis_outputs/africa_funding/complete_analysis_results.json')
+        analysis_results = {}
+        if results_path.exists():
+            with open(results_path, 'r', encoding='utf-8') as f:
+                analysis_results = json.load(f)
+        
+        return render_template('africa_funding_linguistics.html',
+                             countries=countries_data,
+                             funding=funding_data,
+                             analysis=analysis_results,
+                             n_countries=len(countries_data.get('countries', {})))
+    except Exception as e:
+        logger.error(f"Error loading Africa funding linguistics page: {e}")
+        return render_template('error.html', error=str(e)), 500
+
+
+@app.route('/api/africa/countries')
+def api_africa_countries():
+    """API endpoint: Get all African countries with linguistic data"""
+    try:
+        countries_path = Path('data/demographic_data/african_countries_comprehensive.json')
+        with open(countries_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        return jsonify(convert_numpy_types(data))
+    except Exception as e:
+        logger.error(f"Error fetching African countries: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/africa/country/<code>')
+def api_africa_country_detail(code):
+    """API endpoint: Get detailed data for specific African country"""
+    try:
+        countries_path = Path('data/demographic_data/african_countries_comprehensive.json')
+        with open(countries_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        if code not in data['countries']:
+            return jsonify({'error': 'Country not found'}), 404
+        
+        # Get country data
+        country = data['countries'][code]
+        
+        # Add funding data if available
+        funding_path = Path('data/international_relations/african_funding_comprehensive.json')
+        if funding_path.exists():
+            with open(funding_path, 'r', encoding='utf-8') as f:
+                funding_data = json.load(f)
+                if code in funding_data.get('funding_by_country', {}):
+                    country['funding'] = funding_data['funding_by_country'][code]
+        
+        return jsonify(convert_numpy_types(country))
+    except Exception as e:
+        logger.error(f"Error fetching country {code}: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/africa/phonetic-rankings')
+def api_africa_phonetic_rankings():
+    """API endpoint: Get countries ranked by phonetic properties"""
+    try:
+        countries_path = Path('data/demographic_data/african_countries_comprehensive.json')
+        with open(countries_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        # Create rankings list
+        rankings = []
+        for code, country in data['countries'].items():
+            rankings.append({
+                'code': code,
+                'name': country['country_name'],
+                'harshness': country['phonetic_properties']['phonetic_harshness_estimate'],
+                'melodiousness': country['phonetic_properties']['melodiousness_estimate'],
+                'pronounceability': country['phonetic_properties']['pronounceability_score'],
+                'memorability': country['phonetic_properties']['memorability_score']
+            })
+        
+        # Sort by requested metric
+        sort_by = request.args.get('sort_by', 'melodiousness')
+        reverse = request.args.get('order', 'desc') == 'desc'
+        
+        if sort_by in ['harshness', 'melodiousness', 'pronounceability', 'memorability']:
+            rankings.sort(key=lambda x: x[sort_by], reverse=reverse)
+        
+        return jsonify(convert_numpy_types({
+            'rankings': rankings,
+            'sorted_by': sort_by,
+            'order': 'desc' if reverse else 'asc'
+        }))
+    except Exception as e:
+        logger.error(f"Error creating phonetic rankings: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/africa/funding-correlations')
+def api_africa_funding_correlations():
+    """API endpoint: Get phonetics × funding correlation analysis"""
+    try:
+        results_path = Path('analysis_outputs/africa_funding/complete_analysis_results.json')
+        if not results_path.exists():
+            return jsonify({'error': 'Analysis not yet run', 'message': 'Run analyzer to generate results'}), 404
+        
+        with open(results_path, 'r', encoding='utf-8') as f:
+            results = json.load(f)
+        
+        # Extract correlation data
+        correlations = {}
+        if 'h1_phonetic_ease' in results:
+            correlations['h1'] = results['h1_phonetic_ease']
+        if 'h2_colonial_bias' in results:
+            correlations['h2'] = results['h2_colonial_bias']
+        if 'h3_name_changes' in results:
+            correlations['h3'] = results['h3_name_changes']
+        
+        return jsonify(convert_numpy_types(correlations))
+    except Exception as e:
+        logger.error(f"Error fetching correlations: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/africa/historical-names')
+def api_africa_historical_names():
+    """API endpoint: Get timeline of historical name changes"""
+    try:
+        countries_path = Path('data/demographic_data/african_countries_comprehensive.json')
+        with open(countries_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        # Extract name changes
+        name_changes = []
+        for code, country in data['countries'].items():
+            for hist_name in country.get('historical_names', []):
+                if 'name_change_significance' in hist_name and 'MAJOR' in hist_name['name_change_significance']:
+                    name_changes.append({
+                        'country_code': code,
+                        'country_name': country['country_name'],
+                        'old_name': hist_name.get('name', ''),
+                        'new_name': country['country_name'],
+                        'year': hist_name.get('years', '').split('-')[0] if '-' in hist_name.get('years', '') else None,
+                        'significance': hist_name.get('name_change_significance', ''),
+                        'context': hist_name.get('context', '')
+                    })
+        
+        # Sort by year
+        name_changes.sort(key=lambda x: int(x['year']) if x['year'] and x['year'].isdigit() else 9999)
+        
+        return jsonify(convert_numpy_types({'name_changes': name_changes, 'count': len(name_changes)}))
+    except Exception as e:
+        logger.error(f"Error fetching historical names: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/africa/colonial-patterns')
+def api_africa_colonial_patterns():
+    """API endpoint: Get colonial power funding bias analysis"""
+    try:
+        countries_path = Path('data/demographic_data/african_countries_comprehensive.json')
+        with open(countries_path, 'r', encoding='utf-8') as f:
+            data = json.load(f)
+        
+        # Group by colonial power
+        colonial_groups = {}
+        for code, country in data['countries'].items():
+            power = country['colonial_history'].get('colonial_power', 'None')
+            if power not in colonial_groups:
+                colonial_groups[power] = []
+            colonial_groups[power].append({
+                'code': code,
+                'name': country['country_name'],
+                'independence_year': country['colonial_history'].get('independence_year')
+            })
+        
+        # Add bias coefficients from funding database
+        funding_path = Path('data/international_relations/african_funding_comprehensive.json')
+        bias_coefficients = {}
+        if funding_path.exists():
+            with open(funding_path, 'r', encoding='utf-8') as f:
+                funding_data = json.load(f)
+                bias_coefficients = funding_data.get('aggregate_statistics', {}).get('colonial_bias_coefficients', {})
+        
+        return jsonify(convert_numpy_types({
+            'colonial_groups': colonial_groups,
+            'bias_coefficients': bias_coefficients
+        }))
+    except Exception as e:
+        logger.error(f"Error fetching colonial patterns: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/africa/run-analysis', methods=['POST'])
+def api_africa_run_analysis():
+    """API endpoint: Run complete linguistic-funding analysis"""
+    try:
+        from analyzers.african_country_linguistics_analyzer import AfricanCountryLinguisticsAnalyzer
+        
+        analyzer = AfricanCountryLinguisticsAnalyzer()
+        results = analyzer.run_complete_analysis()
+        
+        return jsonify(convert_numpy_types({
+            'status': 'success',
+            'message': 'Analysis complete',
+            'results': results
+        }))
+    except Exception as e:
+        logger.error(f"Error running analysis: {e}")
+        return jsonify({'error': str(e), 'status': 'error'}), 500
 
 
 # =============================================================================

@@ -1,0 +1,2773 @@
+{
+  "metadata": {
+    "description": "Comprehensive linguistic, demographic, and historical database for all 54 African countries",
+    "purpose": "Analyze correlation between country name phonetics and international funding patterns",
+    "sources": [
+      "World Bank World Development Indicators",
+      "UN Statistics Division",
+      "CIA World Factbook",
+      "Ethnologue Language Database",
+      "Historical atlases and colonial records",
+      "OECD DAC (Development Assistance Committee)",
+      "African Development Bank"
+    ],
+    "last_updated": "2025-11-07",
+    "countries_count": 54,
+    "variables_per_country": 60
+  },
+  "countries": {
+    "DZ": {
+      "country_name": "Algeria",
+      "country_code": "DZ",
+      "iso_alpha3": "DZA",
+      "capital": "Algiers",
+      
+      "linguistic": {
+        "official_endonym": "الجزائر (Al-Jazā'ir)",
+        "endonym_meaning": "The Islands",
+        "common_english_exonym": "Algeria",
+        "exonym_etymology": "From French Algérie, from Arabic",
+        "language_family": "Afroasiatic",
+        "primary_languages": ["Arabic", "Berber"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.33,
+        "linguistic_diversity_index": 0.31,
+        "number_of_languages": 18
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 7,
+        "plosives_count": 1,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 2,
+        "vowels_count": 4,
+        "phonetic_harshness_estimate": 35.2,
+        "melodiousness_estimate": 68.4,
+        "pronounceability_score": 7.8,
+        "memorability_score": 8.1
+      },
+      
+      "historical_names": [
+        {
+          "name": "Numidia",
+          "period": "ancient",
+          "years": "202 BCE - 46 BCE",
+          "context": "Ancient Berber kingdom"
+        },
+        {
+          "name": "French Algeria",
+          "period": "colonial",
+          "years": "1830-1962",
+          "context": "French colonial rule"
+        },
+        {
+          "name": "Algeria",
+          "period": "independent",
+          "years": "1962-present",
+          "context": "Independent nation"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1830,
+        "independence_year": 1962,
+        "years_independent": 63,
+        "independence_type": "violent_revolution",
+        "post_colonial_assertion": "strong",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 4107,
+        "population_millions_2023": 45.6,
+        "hdi_score_2023": 0.745,
+        "gini_coefficient": 27.6,
+        "urbanization_rate": 75.0,
+        "literacy_rate": 81.4,
+        "internet_penetration": 63.0,
+        "poverty_rate_below_190": 0.5
+      },
+      
+      "governance": {
+        "democracy_index_2023": 3.66,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 34,
+        "fragile_states_index": 70.2,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "AO": {
+      "country_name": "Angola",
+      "country_code": "AO",
+      "iso_alpha3": "AGO",
+      "capital": "Luanda",
+      
+      "linguistic": {
+        "official_endonym": "Angola",
+        "endonym_meaning": "From Ngola (title of local rulers)",
+        "common_english_exonym": "Angola",
+        "exonym_etymology": "Portuguese from Kimbundu",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["Portuguese", "Umbundu", "Kimbundu"],
+        "colonial_language": "Portuguese",
+        "portuguese_retention_rate": 0.71,
+        "linguistic_diversity_index": 0.78,
+        "number_of_languages": 42
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 6,
+        "plosives_count": 1,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 2,
+        "vowels_count": 3,
+        "phonetic_harshness_estimate": 32.1,
+        "melodiousness_estimate": 71.2,
+        "pronounceability_score": 8.5,
+        "memorability_score": 8.7
+      },
+      
+      "historical_names": [
+        {
+          "name": "Kingdom of Ndongo",
+          "period": "precolonial",
+          "years": "1515-1671",
+          "context": "Indigenous kingdom"
+        },
+        {
+          "name": "Portuguese West Africa",
+          "period": "colonial",
+          "years": "1575-1975",
+          "context": "Portuguese colony"
+        },
+        {
+          "name": "Angola",
+          "period": "independent",
+          "years": "1975-present",
+          "context": "Independent nation"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Portugal",
+        "colonization_start": 1575,
+        "independence_year": 1975,
+        "years_independent": 50,
+        "independence_type": "armed_struggle",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 2110,
+        "population_millions_2023": 35.6,
+        "hdi_score_2023": 0.586,
+        "gini_coefficient": 51.3,
+        "urbanization_rate": 67.0,
+        "literacy_rate": 71.1,
+        "internet_penetration": 33.0,
+        "poverty_rate_below_190": 32.3
+      },
+      
+      "governance": {
+        "democracy_index_2023": 3.40,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 33,
+        "fragile_states_index": 78.1,
+        "conflict_status": "post_conflict_stable"
+      }
+    },
+    
+    "BJ": {
+      "country_name": "Benin",
+      "country_code": "BJ",
+      "iso_alpha3": "BEN",
+      "capital": "Porto-Novo",
+      
+      "linguistic": {
+        "official_endonym": "Bénin",
+        "endonym_meaning": "Named after Benin Empire (now in Nigeria)",
+        "common_english_exonym": "Benin",
+        "exonym_etymology": "From Benin Empire",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["French", "Fon", "Yoruba"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.35,
+        "linguistic_diversity_index": 0.83,
+        "number_of_languages": 55
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 2,
+        "character_length": 5,
+        "plosives_count": 2,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 2,
+        "vowels_count": 2,
+        "phonetic_harshness_estimate": 42.3,
+        "melodiousness_estimate": 64.1,
+        "pronounceability_score": 8.9,
+        "memorability_score": 8.3
+      },
+      
+      "historical_names": [
+        {
+          "name": "Dahomey",
+          "period": "precolonial",
+          "years": "1600-1904",
+          "context": "Kingdom of Dahomey"
+        },
+        {
+          "name": "French Dahomey",
+          "period": "colonial",
+          "years": "1904-1960",
+          "context": "French colony"
+        },
+        {
+          "name": "Dahomey",
+          "period": "early_independence",
+          "years": "1960-1975",
+          "context": "Independent as Dahomey"
+        },
+        {
+          "name": "Benin",
+          "period": "modern",
+          "years": "1975-present",
+          "context": "Renamed to Benin under Marxist government",
+          "name_change_significance": "MAJOR - Rejected colonial name for indigenous reference"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1904,
+        "independence_year": 1960,
+        "years_independent": 65,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "strong",
+        "name_change_at_independence": false,
+        "name_change_year": 1975,
+        "name_change_reason": "Political revolution, indigenous assertion",
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 1359,
+        "population_millions_2023": 13.4,
+        "hdi_score_2023": 0.525,
+        "gini_coefficient": 47.8,
+        "urbanization_rate": 49.0,
+        "literacy_rate": 42.4,
+        "internet_penetration": 27.0,
+        "poverty_rate_below_190": 38.5
+      },
+      
+      "governance": {
+        "democracy_index_2023": 5.09,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 43,
+        "fragile_states_index": 71.3,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "BW": {
+      "country_name": "Botswana",
+      "country_code": "BW",
+      "iso_alpha3": "BWA",
+      "capital": "Gaborone",
+      
+      "linguistic": {
+        "official_endonym": "Botswana",
+        "endonym_meaning": "Land of the Tswana people",
+        "common_english_exonym": "Botswana",
+        "exonym_etymology": "From Setswana",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["English", "Setswana"],
+        "colonial_language": "English",
+        "english_retention_rate": 0.40,
+        "linguistic_diversity_index": 0.52,
+        "number_of_languages": 28
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 8,
+        "plosives_count": 2,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 1,
+        "vowels_count": 3,
+        "phonetic_harshness_estimate": 45.7,
+        "melodiousness_estimate": 61.3,
+        "pronounceability_score": 7.6,
+        "memorability_score": 8.0
+      },
+      
+      "historical_names": [
+        {
+          "name": "Bechuanaland",
+          "period": "colonial",
+          "years": "1885-1966",
+          "context": "British protectorate"
+        },
+        {
+          "name": "Botswana",
+          "period": "independent",
+          "years": "1966-present",
+          "context": "Independent nation with indigenous name",
+          "name_change_significance": "MAJOR - Colonial to indigenous name at independence"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "colonization_start": 1885,
+        "independence_year": 1966,
+        "years_independent": 59,
+        "independence_type": "peaceful_negotiated",
+        "post_colonial_assertion": "strong",
+        "name_change_at_independence": true,
+        "name_change_reason": "Indigenous assertion, rejection of colonial name",
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 7348,
+        "population_millions_2023": 2.6,
+        "hdi_score_2023": 0.693,
+        "gini_coefficient": 53.3,
+        "urbanization_rate": 71.0,
+        "literacy_rate": 88.5,
+        "internet_penetration": 47.0,
+        "poverty_rate_below_190": 15.8
+      },
+      
+      "governance": {
+        "democracy_index_2023": 7.23,
+        "governance_category": "flawed_democracy",
+        "corruption_perception_index": 60,
+        "fragile_states_index": 54.2,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "BF": {
+      "country_name": "Burkina Faso",
+      "country_code": "BF",
+      "iso_alpha3": "BFA",
+      "capital": "Ouagadougou",
+      
+      "linguistic": {
+        "official_endonym": "Burkina Faso",
+        "endonym_meaning": "Land of Upright/Honest People (Mossi + Dyula)",
+        "common_english_exonym": "Burkina Faso",
+        "exonym_etymology": "Created name from indigenous languages",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["French", "Mossi", "Dyula"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.24,
+        "linguistic_diversity_index": 0.86,
+        "number_of_languages": 70
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 5,
+        "character_length": 12,
+        "plosives_count": 3,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 2,
+        "vowels_count": 5,
+        "phonetic_harshness_estimate": 48.6,
+        "melodiousness_estimate": 58.9,
+        "pronounceability_score": 6.2,
+        "memorability_score": 9.3
+      },
+      
+      "historical_names": [
+        {
+          "name": "Mossi Kingdoms",
+          "period": "precolonial",
+          "years": "1100s-1896",
+          "context": "Indigenous kingdoms"
+        },
+        {
+          "name": "Upper Volta",
+          "period": "colonial_and_early_independence",
+          "years": "1919-1984",
+          "context": "French colony, then independent as Upper Volta"
+        },
+        {
+          "name": "Burkina Faso",
+          "period": "modern",
+          "years": "1984-present",
+          "context": "Revolutionary government renamed with indigenous meaning",
+          "name_change_significance": "MAJOR - Rejected colonial geographic name for indigenous dignity"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1896,
+        "independence_year": 1960,
+        "years_independent": 65,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "very_strong",
+        "name_change_at_independence": false,
+        "name_change_year": 1984,
+        "name_change_reason": "Revolutionary anti-colonial assertion by Thomas Sankara",
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 893,
+        "population_millions_2023": 22.7,
+        "hdi_score_2023": 0.449,
+        "gini_coefficient": 35.3,
+        "urbanization_rate": 32.0,
+        "literacy_rate": 41.2,
+        "internet_penetration": 21.0,
+        "poverty_rate_below_190": 43.7
+      },
+      
+      "governance": {
+        "democracy_index_2023": 4.19,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 42,
+        "fragile_states_index": 85.6,
+        "conflict_status": "active_conflict"
+      }
+    },
+    
+    "BI": {
+      "country_name": "Burundi",
+      "country_code": "BI",
+      "iso_alpha3": "BDI",
+      "capital": "Gitega",
+      
+      "linguistic": {
+        "official_endonym": "Burundi",
+        "endonym_meaning": "Land of the Rundi people",
+        "common_english_exonym": "Burundi",
+        "exonym_etymology": "From Kirundi",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["Kirundi", "French", "English"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.13,
+        "linguistic_diversity_index": 0.28,
+        "number_of_languages": 5
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 7,
+        "plosives_count": 2,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 2,
+        "vowels_count": 3,
+        "phonetic_harshness_estimate": 43.2,
+        "melodiousness_estimate": 66.1,
+        "pronounceability_score": 7.9,
+        "memorability_score": 7.8
+      },
+      
+      "historical_names": [
+        {
+          "name": "Kingdom of Burundi",
+          "period": "precolonial",
+          "years": "1680s-1966",
+          "context": "Indigenous kingdom"
+        },
+        {
+          "name": "Ruanda-Urundi",
+          "period": "colonial",
+          "years": "1916-1962",
+          "context": "Belgian mandate (combined with Rwanda)"
+        },
+        {
+          "name": "Burundi",
+          "period": "independent",
+          "years": "1962-present",
+          "context": "Independent nation"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Belgium",
+        "colonization_start": 1916,
+        "independence_year": 1962,
+        "years_independent": 63,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 237,
+        "population_millions_2023": 12.9,
+        "hdi_score_2023": 0.426,
+        "gini_coefficient": 38.6,
+        "urbanization_rate": 14.0,
+        "literacy_rate": 68.4,
+        "internet_penetration": 6.0,
+        "poverty_rate_below_190": 72.9
+      },
+      
+      "governance": {
+        "democracy_index_2023": 2.62,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 17,
+        "fragile_states_index": 94.0,
+        "conflict_status": "post_conflict_fragile"
+      }
+    },
+    
+    "CM": {
+      "country_name": "Cameroon",
+      "country_code": "CM",
+      "iso_alpha3": "CMR",
+      "capital": "Yaoundé",
+      
+      "linguistic": {
+        "official_endonym": "Cameroun / Cameroon",
+        "endonym_meaning": "From Portuguese 'Rio dos Camarões' (River of Prawns)",
+        "common_english_exonym": "Cameroon",
+        "exonym_etymology": "Anglicized from Portuguese",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["French", "English"],
+        "colonial_language": "French/English",
+        "french_retention_rate": 0.46,
+        "linguistic_diversity_index": 0.94,
+        "number_of_languages": 286
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 8,
+        "plosives_count": 2,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 3,
+        "vowels_count": 4,
+        "phonetic_harshness_estimate": 38.4,
+        "melodiousness_estimate": 69.7,
+        "pronounceability_score": 8.2,
+        "memorability_score": 8.0
+      },
+      
+      "historical_names": [
+        {
+          "name": "German Kamerun",
+          "period": "colonial",
+          "years": "1884-1916",
+          "context": "German protectorate"
+        },
+        {
+          "name": "French/British Cameroons",
+          "period": "colonial",
+          "years": "1916-1960/1961",
+          "context": "French and British mandates"
+        },
+        {
+          "name": "Cameroon",
+          "period": "independent",
+          "years": "1960-present",
+          "context": "Independent republic"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France/Britain",
+        "colonization_start": 1884,
+        "independence_year": 1960,
+        "years_independent": 65,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 1662,
+        "population_millions_2023": 28.6,
+        "hdi_score_2023": 0.576,
+        "gini_coefficient": 46.6,
+        "urbanization_rate": 58.0,
+        "literacy_rate": 77.1,
+        "internet_penetration": 38.0,
+        "poverty_rate_below_190": 23.8
+      },
+      
+      "governance": {
+        "democracy_index_2023": 3.27,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 26,
+        "fragile_states_index": 84.2,
+        "conflict_status": "active_conflict"
+      }
+    },
+    
+    "CV": {
+      "country_name": "Cape Verde",
+      "country_code": "CV",
+      "iso_alpha3": "CPV",
+      "capital": "Praia",
+      
+      "linguistic": {
+        "official_endonym": "Cabo Verde",
+        "endonym_meaning": "Green Cape (Portuguese)",
+        "common_english_exonym": "Cape Verde",
+        "exonym_etymology": "English translation of Portuguese",
+        "language_family": "Creole",
+        "primary_languages": ["Portuguese", "Kabuverdianu Creole"],
+        "colonial_language": "Portuguese",
+        "portuguese_retention_rate": 0.85,
+        "linguistic_diversity_index": 0.23,
+        "number_of_languages": 2
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 9,
+        "plosives_count": 3,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 1,
+        "vowels_count": 4,
+        "phonetic_harshness_estimate": 44.1,
+        "melodiousness_estimate": 63.8,
+        "pronounceability_score": 8.3,
+        "memorability_score": 8.5
+      },
+      
+      "historical_names": [
+        {
+          "name": "Portuguese Cape Verde",
+          "period": "colonial",
+          "years": "1462-1975",
+          "context": "Portuguese colony"
+        },
+        {
+          "name": "Cape Verde",
+          "period": "independent",
+          "years": "1975-present",
+          "context": "Independent republic"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Portugal",
+        "colonization_start": 1462,
+        "independence_year": 1975,
+        "years_independent": 50,
+        "independence_type": "armed_struggle",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 3652,
+        "population_millions_2023": 0.6,
+        "hdi_score_2023": 0.662,
+        "gini_coefficient": 42.4,
+        "urbanization_rate": 66.0,
+        "literacy_rate": 90.8,
+        "internet_penetration": 64.0,
+        "poverty_rate_below_190": 9.8
+      },
+      
+      "governance": {
+        "democracy_index_2023": 7.88,
+        "governance_category": "flawed_democracy",
+        "corruption_perception_index": 58,
+        "fragile_states_index": 55.1,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "CF": {
+      "country_name": "Central African Republic",
+      "country_code": "CF",
+      "iso_alpha3": "CAF",
+      "capital": "Bangui",
+      
+      "linguistic": {
+        "official_endonym": "République Centrafricaine",
+        "endonym_meaning": "Central African Republic",
+        "common_english_exonym": "Central African Republic",
+        "exonym_etymology": "Geographic descriptor",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["French", "Sango"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.29,
+        "linguistic_diversity_index": 0.87,
+        "number_of_languages": 72
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 9,
+        "character_length": 24,
+        "plosives_count": 6,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 5,
+        "vowels_count": 10,
+        "phonetic_harshness_estimate": 51.3,
+        "melodiousness_estimate": 54.2,
+        "pronounceability_score": 5.1,
+        "memorability_score": 6.8
+      },
+      
+      "historical_names": [
+        {
+          "name": "Ubangi-Shari",
+          "period": "colonial",
+          "years": "1903-1960",
+          "context": "French colony"
+        },
+        {
+          "name": "Central African Republic",
+          "period": "independent",
+          "years": "1960-present",
+          "context": "Independent nation"
+        },
+        {
+          "name": "Central African Empire",
+          "period": "brief",
+          "years": "1976-1979",
+          "context": "Under Bokassa's dictatorship"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1903,
+        "independence_year": 1960,
+        "years_independent": 65,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "weak",
+        "name_change_at_independence": true,
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 511,
+        "population_millions_2023": 5.6,
+        "hdi_score_2023": 0.387,
+        "gini_coefficient": 56.2,
+        "urbanization_rate": 42.0,
+        "literacy_rate": 37.4,
+        "internet_penetration": 11.0,
+        "poverty_rate_below_190": 71.4
+      },
+      
+      "governance": {
+        "democracy_index_2023": 1.61,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 24,
+        "fragile_states_index": 108.9,
+        "conflict_status": "active_conflict"
+      }
+    },
+    
+    "TD": {
+      "country_name": "Chad",
+      "country_code": "TD",
+      "iso_alpha3": "TCD",
+      "capital": "N'Djamena",
+      
+      "linguistic": {
+        "official_endonym": "Tchad",
+        "endonym_meaning": "From Lake Chad",
+        "common_english_exonym": "Chad",
+        "exonym_etymology": "From local word for lake",
+        "language_family": "Afroasiatic/Nilo-Saharan",
+        "primary_languages": ["French", "Arabic"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.13,
+        "linguistic_diversity_index": 0.90,
+        "number_of_languages": 131
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 1,
+        "character_length": 4,
+        "plosives_count": 2,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 0,
+        "vowels_count": 1,
+        "phonetic_harshness_estimate": 68.9,
+        "melodiousness_estimate": 42.3,
+        "pronounceability_score": 9.2,
+        "memorability_score": 9.5
+      },
+      
+      "historical_names": [
+        {
+          "name": "Kanem-Bornu Empire",
+          "period": "precolonial",
+          "years": "700s-1893",
+          "context": "Indigenous empire"
+        },
+        {
+          "name": "French Chad",
+          "period": "colonial",
+          "years": "1900-1960",
+          "context": "French colony"
+        },
+        {
+          "name": "Chad",
+          "period": "independent",
+          "years": "1960-present",
+          "context": "Independent nation"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1900,
+        "independence_year": 1960,
+        "years_independent": 65,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 689,
+        "population_millions_2023": 18.3,
+        "hdi_score_2023": 0.394,
+        "gini_coefficient": 43.3,
+        "urbanization_rate": 24.0,
+        "literacy_rate": 26.8,
+        "internet_penetration": 8.0,
+        "poverty_rate_below_190": 38.4
+      },
+      
+      "governance": {
+        "democracy_index_2023": 1.55,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 20,
+        "fragile_states_index": 97.2,
+        "conflict_status": "active_conflict"
+      }
+    },
+    
+    "KM": {
+      "country_name": "Comoros",
+      "country_code": "KM",
+      "iso_alpha3": "COM",
+      "capital": "Moroni",
+      
+      "linguistic": {
+        "official_endonym": "Komori",
+        "endonym_meaning": "Islands",
+        "common_english_exonym": "Comoros",
+        "exonym_etymology": "From Arabic Juzur al-Qamar (Moon Islands)",
+        "language_family": "Austronesian",
+        "primary_languages": ["Comorian", "French", "Arabic"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.57,
+        "linguistic_diversity_index": 0.34,
+        "number_of_languages": 4
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 7,
+        "plosives_count": 1,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 2,
+        "vowels_count": 3,
+        "phonetic_harshness_estimate": 36.7,
+        "melodiousness_estimate": 70.1,
+        "pronounceability_score": 8.1,
+        "memorability_score": 7.9
+      },
+      
+      "historical_names": [
+        {
+          "name": "French Comoros",
+          "period": "colonial",
+          "years": "1912-1975",
+          "context": "French colony"
+        },
+        {
+          "name": "Comoros",
+          "period": "independent",
+          "years": "1975-present",
+          "context": "Independent nation"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1912,
+        "independence_year": 1975,
+        "years_independent": 50,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 1413,
+        "population_millions_2023": 0.9,
+        "hdi_score_2023": 0.558,
+        "gini_coefficient": 45.3,
+        "urbanization_rate": 29.0,
+        "literacy_rate": 58.8,
+        "internet_penetration": 21.0,
+        "poverty_rate_below_190": 19.1
+      },
+      
+      "governance": {
+        "democracy_index_2023": 3.71,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 20,
+        "fragile_states_index": 79.4,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "CG": {
+      "country_name": "Republic of the Congo",
+      "country_code": "CG",
+      "iso_alpha3": "COG",
+      "capital": "Brazzaville",
+      
+      "linguistic": {
+        "official_endonym": "Congo-Brazzaville",
+        "endonym_meaning": "From Congo River",
+        "common_english_exonym": "Republic of the Congo / Congo-Brazzaville",
+        "exonym_etymology": "From Kongo kingdom",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["French", "Lingala", "Kituba"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.52,
+        "linguistic_diversity_index": 0.81,
+        "number_of_languages": 62
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 2,
+        "character_length": 5,
+        "plosives_count": 2,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 2,
+        "vowels_count": 2,
+        "phonetic_harshness_estimate": 46.8,
+        "melodiousness_estimate": 62.4,
+        "pronounceability_score": 8.7,
+        "memorability_score": 8.2
+      },
+      
+      "historical_names": [
+        {
+          "name": "Kingdom of Kongo",
+          "period": "precolonial",
+          "years": "1400s-1914",
+          "context": "Indigenous kingdom"
+        },
+        {
+          "name": "French Congo",
+          "period": "colonial",
+          "years": "1880-1960",
+          "context": "French colony"
+        },
+        {
+          "name": "Congo-Brazzaville",
+          "period": "independent",
+          "years": "1960-present",
+          "context": "Differentiated from Congo-Kinshasa"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1880,
+        "independence_year": 1960,
+        "years_independent": 65,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 2289,
+        "population_millions_2023": 6.0,
+        "hdi_score_2023": 0.574,
+        "gini_coefficient": 48.9,
+        "urbanization_rate": 68.0,
+        "literacy_rate": 80.3,
+        "internet_penetration": 23.0,
+        "poverty_rate_below_190": 37.0
+      },
+      
+      "governance": {
+        "democracy_index_2023": 2.91,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 19,
+        "fragile_states_index": 83.7,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "CD": {
+      "country_name": "Democratic Republic of the Congo",
+      "country_code": "CD",
+      "iso_alpha3": "COD",
+      "capital": "Kinshasa",
+      
+      "linguistic": {
+        "official_endonym": "République Démocratique du Congo",
+        "endonym_meaning": "From Congo River",
+        "common_english_exonym": "DR Congo / Congo-Kinshasa",
+        "exonym_etymology": "From Kongo kingdom",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["French", "Lingala", "Swahili", "Kikongo", "Tshiluba"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.51,
+        "linguistic_diversity_index": 0.90,
+        "number_of_languages": 215
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 2,
+        "character_length": 5,
+        "plosives_count": 2,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 2,
+        "vowels_count": 2,
+        "phonetic_harshness_estimate": 46.8,
+        "melodiousness_estimate": 62.4,
+        "pronounceability_score": 8.7,
+        "memorability_score": 8.2
+      },
+      
+      "historical_names": [
+        {
+          "name": "Congo Free State",
+          "period": "colonial",
+          "years": "1885-1908",
+          "context": "Personal property of King Leopold II"
+        },
+        {
+          "name": "Belgian Congo",
+          "period": "colonial",
+          "years": "1908-1960",
+          "context": "Belgian colony"
+        },
+        {
+          "name": "Republic of the Congo",
+          "period": "early_independence",
+          "years": "1960-1971",
+          "context": "Independent as Congo-Léopoldville"
+        },
+        {
+          "name": "Zaire",
+          "period": "mobutu_era",
+          "years": "1971-1997",
+          "context": "Renamed by Mobutu for authenticité policy",
+          "name_change_significance": "MAJOR - Indigenous name during authoritarian rule"
+        },
+        {
+          "name": "Democratic Republic of the Congo",
+          "period": "modern",
+          "years": "1997-present",
+          "context": "Reverted after Mobutu's fall",
+          "name_change_significance": "MAJOR - Return to colonial-era name"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Belgium",
+        "colonization_start": 1885,
+        "independence_year": 1960,
+        "years_independent": 65,
+        "independence_type": "hasty_negotiated",
+        "post_colonial_assertion": "very_strong_then_reverted",
+        "name_change_at_independence": false,
+        "name_change_year": 1971,
+        "name_change_reason": "Mobutu's Africanization policy",
+        "name_reverted_year": 1997,
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 586,
+        "population_millions_2023": 99.0,
+        "hdi_score_2023": 0.479,
+        "gini_coefficient": 42.1,
+        "urbanization_rate": 46.0,
+        "literacy_rate": 77.0,
+        "internet_penetration": 23.0,
+        "poverty_rate_below_190": 61.9
+      },
+      
+      "governance": {
+        "democracy_index_2023": 2.15,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 20,
+        "fragile_states_index": 103.8,
+        "conflict_status": "active_conflict"
+      }
+    },
+    
+    "DJ": {
+      "country_name": "Djibouti",
+      "country_code": "DJ",
+      "iso_alpha3": "DJI",
+      "capital": "Djibouti",
+      
+      "linguistic": {
+        "official_endonym": "Djibouti / Jabuuti",
+        "endonym_meaning": "Uncertain, possibly from Somali or Afar",
+        "common_english_exonym": "Djibouti",
+        "exonym_etymology": "From French spelling",
+        "language_family": "Afroasiatic",
+        "primary_languages": ["French", "Arabic", "Somali", "Afar"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.64,
+        "linguistic_diversity_index": 0.64,
+        "number_of_languages": 5
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 8,
+        "plosives_count": 3,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 0,
+        "vowels_count": 4,
+        "phonetic_harshness_estimate": 52.7,
+        "melodiousness_estimate": 58.3,
+        "pronounceability_score": 6.8,
+        "memorability_score": 7.5
+      },
+      
+      "historical_names": [
+        {
+          "name": "French Somaliland",
+          "period": "colonial",
+          "years": "1896-1967",
+          "context": "French colony"
+        },
+        {
+          "name": "French Territory of the Afars and the Issas",
+          "period": "late_colonial",
+          "years": "1967-1977",
+          "context": "French territory"
+        },
+        {
+          "name": "Djibouti",
+          "period": "independent",
+          "years": "1977-present",
+          "context": "Independent nation"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1896,
+        "independence_year": 1977,
+        "years_independent": 48,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": true,
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 3574,
+        "population_millions_2023": 1.1,
+        "hdi_score_2023": 0.509,
+        "gini_coefficient": 41.6,
+        "urbanization_rate": 78.0,
+        "literacy_rate": 68.9,
+        "internet_penetration": 59.0,
+        "poverty_rate_below_190": 17.1
+      },
+      
+      "governance": {
+        "democracy_index_2023": 2.79,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 28,
+        "fragile_states_index": 80.1,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "EG": {
+      "country_name": "Egypt",
+      "country_code": "EG",
+      "iso_alpha3": "EGY",
+      "capital": "Cairo",
+      
+      "linguistic": {
+        "official_endonym": "مصر (Miṣr)",
+        "endonym_meaning": "Ancient endonym",
+        "common_english_exonym": "Egypt",
+        "exonym_etymology": "From Greek Aigyptos",
+        "language_family": "Afroasiatic",
+        "primary_languages": ["Arabic"],
+        "colonial_language": "English/French",
+        "english_retention_rate": 0.18,
+        "linguistic_diversity_index": 0.10,
+        "number_of_languages": 12
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 2,
+        "character_length": 5,
+        "plosives_count": 2,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 0,
+        "vowels_count": 2,
+        "phonetic_harshness_estimate": 52.3,
+        "melodiousness_estimate": 56.7,
+        "pronounceability_score": 8.9,
+        "memorability_score": 9.6
+      },
+      
+      "historical_names": [
+        {
+          "name": "Ancient Egypt",
+          "period": "ancient",
+          "years": "3100 BCE - 30 BCE",
+          "context": "Ancient civilization"
+        },
+        {
+          "name": "United Arab Republic",
+          "period": "union",
+          "years": "1958-1961",
+          "context": "Union with Syria"
+        },
+        {
+          "name": "Egypt",
+          "period": "modern",
+          "years": "1922-present",
+          "context": "Modern independent state"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "colonization_start": 1882,
+        "independence_year": 1922,
+        "years_independent": 103,
+        "independence_type": "negotiated_gradual",
+        "post_colonial_assertion": "very_strong",
+        "name_change_at_independence": false,
+        "colonial_language_official": false
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 3876,
+        "population_millions_2023": 110.1,
+        "hdi_score_2023": 0.731,
+        "gini_coefficient": 31.5,
+        "urbanization_rate": 43.0,
+        "literacy_rate": 71.2,
+        "internet_penetration": 72.0,
+        "poverty_rate_below_190": 3.0
+      },
+      
+      "governance": {
+        "democracy_index_2023": 2.93,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 31,
+        "fragile_states_index": 81.8,
+        "conflict_status": "stable_repressive"
+      }
+    },
+    
+    "GQ": {
+      "country_name": "Equatorial Guinea",
+      "country_code": "GQ",
+      "iso_alpha3": "GNQ",
+      "capital": "Malabo",
+      
+      "linguistic": {
+        "official_endonym": "Guinea Ecuatorial",
+        "endonym_meaning": "Equatorial Guinea",
+        "common_english_exonym": "Equatorial Guinea",
+        "exonym_etymology": "Geographic descriptor",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["Spanish", "French", "Portuguese", "Fang"],
+        "colonial_language": "Spanish",
+        "spanish_retention_rate": 0.87,
+        "linguistic_diversity_index": 0.60,
+        "number_of_languages": 16
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 7,
+        "character_length": 17,
+        "plosives_count": 4,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 4,
+        "vowels_count": 8,
+        "phonetic_harshness_estimate": 42.1,
+        "melodiousness_estimate": 67.8,
+        "pronounceability_score": 6.3,
+        "memorability_score": 7.1
+      },
+      
+      "historical_names": [
+        {
+          "name": "Spanish Guinea",
+          "period": "colonial",
+          "years": "1778-1968",
+          "context": "Spanish colony"
+        },
+        {
+          "name": "Equatorial Guinea",
+          "period": "independent",
+          "years": "1968-present",
+          "context": "Independent nation"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Spain",
+        "colonization_start": 1778,
+        "independence_year": 1968,
+        "years_independent": 57,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "weak",
+        "name_change_at_independence": true,
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 7052,
+        "population_millions_2023": 1.7,
+        "hdi_score_2023": 0.596,
+        "gini_coefficient": 50.4,
+        "urbanization_rate": 74.0,
+        "literacy_rate": 95.3,
+        "internet_penetration": 54.0,
+        "poverty_rate_below_190": 76.8
+      },
+      
+      "governance": {
+        "democracy_index_2023": 1.43,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 17,
+        "fragile_states_index": 84.5,
+        "conflict_status": "stable_repressive"
+      }
+    },
+    
+    "ER": {
+      "country_name": "Eritrea",
+      "country_code": "ER",
+      "iso_alpha3": "ERI",
+      "capital": "Asmara",
+      
+      "linguistic": {
+        "official_endonym": "ኤርትራ (Ertra)",
+        "endonym_meaning": "From Italian 'Eritrea' (Red Sea)",
+        "common_english_exonym": "Eritrea",
+        "exonym_etymology": "From Latin 'Mare Erythraeum' (Red Sea)",
+        "language_family": "Afroasiatic",
+        "primary_languages": ["Tigrinya", "Arabic", "English"],
+        "colonial_language": "Italian/English",
+        "english_retention_rate": 0.21,
+        "linguistic_diversity_index": 0.74,
+        "number_of_languages": 13
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 4,
+        "character_length": 7,
+        "plosives_count": 1,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 2,
+        "vowels_count": 4,
+        "phonetic_harshness_estimate": 34.8,
+        "melodiousness_estimate": 72.1,
+        "pronounceability_score": 7.6,
+        "memorability_score": 7.8
+      },
+      
+      "historical_names": [
+        {
+          "name": "Italian Eritrea",
+          "period": "colonial",
+          "years": "1890-1941",
+          "context": "Italian colony"
+        },
+        {
+          "name": "British Eritrea",
+          "period": "colonial",
+          "years": "1941-1952",
+          "context": "British administration"
+        },
+        {
+          "name": "Eritrea (part of Ethiopia)",
+          "period": "federation",
+          "years": "1952-1991",
+          "context": "Federated then annexed by Ethiopia"
+        },
+        {
+          "name": "Eritrea",
+          "period": "independent",
+          "years": "1991-present",
+          "context": "Independent nation after liberation war"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Italy/Britain",
+        "colonization_start": 1890,
+        "independence_year": 1991,
+        "years_independent": 34,
+        "independence_type": "armed_liberation",
+        "post_colonial_assertion": "very_strong",
+        "name_change_at_independence": false,
+        "colonial_language_official": false
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 643,
+        "population_millions_2023": 3.7,
+        "hdi_score_2023": 0.492,
+        "gini_coefficient": 37.8,
+        "urbanization_rate": 42.0,
+        "literacy_rate": 76.6,
+        "internet_penetration": 8.0,
+        "poverty_rate_below_190": 39.7
+      },
+      
+      "governance": {
+        "democracy_index_2023": 1.70,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 22,
+        "fragile_states_index": 91.7,
+        "conflict_status": "stable_repressive"
+      }
+    },
+    
+    "SZ": {
+      "country_name": "Eswatini",
+      "country_code": "SZ",
+      "iso_alpha3": "SWZ",
+      "capital": "Mbabane",
+      
+      "linguistic": {
+        "official_endonym": "eSwatini",
+        "endonym_meaning": "Land of the Swazi",
+        "common_english_exonym": "Eswatini (formerly Swaziland)",
+        "exonym_etymology": "From Swazi people",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["Swati", "English"],
+        "colonial_language": "English",
+        "english_retention_rate": 0.42,
+        "linguistic_diversity_index": 0.23,
+        "number_of_languages": 4
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 4,
+        "character_length": 8,
+        "plosives_count": 1,
+        "sibilants_count": 2,
+        "liquids_nasals_count": 2,
+        "vowels_count": 4,
+        "phonetic_harshness_estimate": 41.6,
+        "melodiousness_estimate": 65.8,
+        "pronounceability_score": 7.2,
+        "memorability_score": 7.9
+      },
+      
+      "historical_names": [
+        {
+          "name": "Swaziland",
+          "period": "colonial_and_early_independence",
+          "years": "1906-2018",
+          "context": "British protectorate, then independent"
+        },
+        {
+          "name": "Eswatini",
+          "period": "modern",
+          "years": "2018-present",
+          "context": "Renamed to indigenous name",
+          "name_change_significance": "MAJOR - Recent decolonization of name (2018)"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "colonization_start": 1906,
+        "independence_year": 1968,
+        "years_independent": 57,
+        "independence_type": "peaceful_negotiated",
+        "post_colonial_assertion": "recent_strong",
+        "name_change_at_independence": false,
+        "name_change_year": 2018,
+        "name_change_reason": "King's decree for indigenous naming",
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 3791,
+        "population_millions_2023": 1.2,
+        "hdi_score_2023": 0.611,
+        "gini_coefficient": 54.6,
+        "urbanization_rate": 24.0,
+        "literacy_rate": 88.4,
+        "internet_penetration": 59.0,
+        "poverty_rate_below_190": 25.1
+      },
+      
+      "governance": {
+        "democracy_index_2023": 3.20,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 36,
+        "fragile_states_index": 74.2,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "ET": {
+      "country_name": "Ethiopia",
+      "country_code": "ET",
+      "iso_alpha3": "ETH",
+      "capital": "Addis Ababa",
+      
+      "linguistic": {
+        "official_endonym": "ኢትዮጵያ (Ītyōṗṗyā)",
+        "endonym_meaning": "Land of burnt faces (Greek origin)",
+        "common_english_exonym": "Ethiopia",
+        "exonym_etymology": "From Greek Aithiopia",
+        "language_family": "Afroasiatic",
+        "primary_languages": ["Amharic", "Oromo", "Tigrinya"],
+        "colonial_language": "None",
+        "english_retention_rate": 0.11,
+        "linguistic_diversity_index": 0.87,
+        "number_of_languages": 90
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 5,
+        "character_length": 8,
+        "plosives_count": 2,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 0,
+        "vowels_count": 4,
+        "phonetic_harshness_estimate": 46.3,
+        "melodiousness_estimate": 61.9,
+        "pronounceability_score": 7.4,
+        "memorability_score": 8.8
+      },
+      
+      "historical_names": [
+        {
+          "name": "Abyssinia",
+          "period": "historical_western_name",
+          "years": "ancient-1941",
+          "context": "Western exonym for Ethiopian empire"
+        },
+        {
+          "name": "Ethiopia",
+          "period": "modern",
+          "years": "1941-present",
+          "context": "Official name, never formally colonized",
+          "name_change_significance": "MODERATE - Shift from western exonym to endonym"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": false,
+        "colonial_power": "None (Italian occupation 1936-1941)",
+        "colonization_start": null,
+        "independence_year": null,
+        "years_independent": null,
+        "independence_type": "never_colonized",
+        "post_colonial_assertion": "n/a",
+        "name_change_at_independence": false,
+        "colonial_language_official": false
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 1028,
+        "population_millions_2023": 123.4,
+        "hdi_score_2023": 0.498,
+        "gini_coefficient": 35.0,
+        "urbanization_rate": 22.0,
+        "literacy_rate": 51.8,
+        "internet_penetration": 25.0,
+        "poverty_rate_below_190": 26.7
+      },
+      
+      "governance": {
+        "democracy_index_2023": 3.80,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 36,
+        "fragile_states_index": 93.3,
+        "conflict_status": "active_conflict"
+      }
+    },
+    
+    "GA": {
+      "country_name": "Gabon",
+      "country_code": "GA",
+      "iso_alpha3": "GAB",
+      "capital": "Libreville",
+      
+      "linguistic": {
+        "official_endonym": "Gabon",
+        "endonym_meaning": "From Portuguese 'gabão' (cloak)",
+        "common_english_exonym": "Gabon",
+        "exonym_etymology": "From Portuguese",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["French", "Fang"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.63,
+        "linguistic_diversity_index": 0.79,
+        "number_of_languages": 43
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 2,
+        "character_length": 5,
+        "plosives_count": 2,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 1,
+        "vowels_count": 2,
+        "phonetic_harshness_estimate": 48.2,
+        "melodiousness_estimate": 60.4,
+        "pronounceability_score": 8.6,
+        "memorability_score": 8.4
+      },
+      
+      "historical_names": [
+        {
+          "name": "French Gabon",
+          "period": "colonial",
+          "years": "1839-1960",
+          "context": "French colony"
+        },
+        {
+          "name": "Gabon",
+          "period": "independent",
+          "years": "1960-present",
+          "context": "Independent nation"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1839,
+        "independence_year": 1960,
+        "years_independent": 65,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "weak",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 7972,
+        "population_millions_2023": 2.4,
+        "hdi_score_2023": 0.706,
+        "gini_coefficient": 38.0,
+        "urbanization_rate": 90.0,
+        "literacy_rate": 85.5,
+        "internet_penetration": 62.0,
+        "poverty_rate_below_190": 3.4
+      },
+      
+      "governance": {
+        "democracy_index_2023": 3.58,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 29,
+        "fragile_states_index": 72.9,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "GM": {
+      "country_name": "The Gambia",
+      "country_code": "GM",
+      "iso_alpha3": "GMB",
+      "capital": "Banjul",
+      
+      "linguistic": {
+        "official_endonym": "Gambia",
+        "endonym_meaning": "From Gambia River",
+        "common_english_exonym": "The Gambia",
+        "exonym_etymology": "From Gambia River, Portuguese 'Gambra'",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["English", "Mandinka", "Wolof", "Fula"],
+        "colonial_language": "English",
+        "english_retention_rate": 0.40,
+        "linguistic_diversity_index": 0.78,
+        "number_of_languages": 21
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 6,
+        "plosives_count": 2,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 2,
+        "vowels_count": 2,
+        "phonetic_harshness_estimate": 47.5,
+        "melodiousness_estimate": 61.2,
+        "pronounceability_score": 8.4,
+        "memorability_score": 8.1
+      },
+      
+      "historical_names": [
+        {
+          "name": "British Gambia",
+          "period": "colonial",
+          "years": "1821-1965",
+          "context": "British colony"
+        },
+        {
+          "name": "The Gambia",
+          "period": "independent",
+          "years": "1965-present",
+          "context": "Independent nation"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "colonization_start": 1821,
+        "independence_year": 1965,
+        "years_independent": 60,
+        "independence_type": "peaceful_negotiated",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 772,
+        "population_millions_2023": 2.7,
+        "hdi_score_2023": 0.500,
+        "gini_coefficient": 35.9,
+        "urbanization_rate": 63.0,
+        "literacy_rate": 58.1,
+        "internet_penetration": 33.0,
+        "poverty_rate_below_190": 10.1
+      },
+      
+      "governance": {
+        "democracy_index_2023": 5.42,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 34,
+        "fragile_states_index": 75.8,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "GH": {
+      "country_name": "Ghana",
+      "country_code": "GH",
+      "iso_alpha3": "GHA",
+      "capital": "Accra",
+      
+      "linguistic": {
+        "official_endonym": "Ghana",
+        "endonym_meaning": "Warrior King (from ancient Ghana Empire)",
+        "common_english_exonym": "Ghana",
+        "exonym_etymology": "From medieval Ghana Empire",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["English", "Akan", "Ewe", "Ga"],
+        "colonial_language": "English",
+        "english_retention_rate": 0.46,
+        "linguistic_diversity_index": 0.81,
+        "number_of_languages": 81
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 2,
+        "character_length": 5,
+        "plosives_count": 2,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 1,
+        "vowels_count": 2,
+        "phonetic_harshness_estimate": 50.7,
+        "melodiousness_estimate": 58.3,
+        "pronounceability_score": 8.8,
+        "memorability_score": 9.0
+      },
+      
+      "historical_names": [
+        {
+          "name": "Gold Coast",
+          "period": "colonial",
+          "years": "1867-1957",
+          "context": "British colony named for gold trade"
+        },
+        {
+          "name": "Ghana",
+          "period": "independent",
+          "years": "1957-present",
+          "context": "First sub-Saharan African colony to gain independence",
+          "name_change_significance": "MAJOR - Colonial commodity name to historical African empire name"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "colonization_start": 1867,
+        "independence_year": 1957,
+        "years_independent": 68,
+        "independence_type": "peaceful_negotiated",
+        "post_colonial_assertion": "very_strong",
+        "name_change_at_independence": true,
+        "name_change_reason": "Pan-African assertion, reference to ancient Ghana Empire",
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 2441,
+        "population_millions_2023": 33.5,
+        "hdi_score_2023": 0.602,
+        "gini_coefficient": 43.5,
+        "urbanization_rate": 58.0,
+        "literacy_rate": 79.0,
+        "internet_penetration": 68.0,
+        "poverty_rate_below_190": 23.4
+      },
+      
+      "governance": {
+        "democracy_index_2023": 6.50,
+        "governance_category": "flawed_democracy",
+        "corruption_perception_index": 43,
+        "fragile_states_index": 64.3,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "GN": {
+      "country_name": "Guinea",
+      "country_code": "GN",
+      "iso_alpha3": "GIN",
+      "capital": "Conakry",
+      
+      "linguistic": {
+        "official_endonym": "Guinée",
+        "endonym_meaning": "Land of black people (various etymologies)",
+        "common_english_exonym": "Guinea",
+        "exonym_etymology": "From Berber or Portuguese",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["French", "Fula", "Malinké", "Susu"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.27,
+        "linguistic_diversity_index": 0.85,
+        "number_of_languages": 38
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 2,
+        "character_length": 6,
+        "plosives_count": 2,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 2,
+        "vowels_count": 3,
+        "phonetic_harshness_estimate": 44.9,
+        "melodiousness_estimate": 64.7,
+        "pronounceability_score": 8.3,
+        "memorability_score": 7.6
+      },
+      
+      "historical_names": [
+        {
+          "name": "French Guinea",
+          "period": "colonial",
+          "years": "1891-1958",
+          "context": "French colony"
+        },
+        {
+          "name": "Guinea",
+          "period": "independent",
+          "years": "1958-present",
+          "context": "First French colony to gain independence"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1891,
+        "independence_year": 1958,
+        "years_independent": 67,
+        "independence_type": "negotiated_assertive",
+        "post_colonial_assertion": "very_strong",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 1265,
+        "population_millions_2023": 13.9,
+        "hdi_score_2023": 0.465,
+        "gini_coefficient": 33.7,
+        "urbanization_rate": 37.0,
+        "literacy_rate": 45.3,
+        "internet_penetration": 30.0,
+        "poverty_rate_below_190": 43.7
+      },
+      
+      "governance": {
+        "democracy_index_2023": 3.11,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 25,
+        "fragile_states_index": 89.4,
+        "conflict_status": "post_coup_unstable"
+      }
+    },
+    
+    "GW": {
+      "country_name": "Guinea-Bissau",
+      "country_code": "GW",
+      "iso_alpha3": "GNB",
+      "capital": "Bissau",
+      
+      "linguistic": {
+        "official_endonym": "Guiné-Bissau",
+        "endonym_meaning": "Guinea of Bissau (city)",
+        "common_english_exonym": "Guinea-Bissau",
+        "exonym_etymology": "Distinguished from other Guineas",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["Portuguese", "Crioulo", "Fula", "Mandinka"],
+        "colonial_language": "Portuguese",
+        "portuguese_retention_rate": 0.44,
+        "linguistic_diversity_index": 0.82,
+        "number_of_languages": 29
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 4,
+        "character_length": 12,
+        "plosives_count": 3,
+        "sibilants_count": 2,
+        "liquids_nasals_count": 2,
+        "vowels_count": 5,
+        "phonetic_harshness_estimate": 48.3,
+        "melodiousness_estimate": 59.8,
+        "pronounceability_score": 6.9,
+        "memorability_score": 7.3
+      },
+      
+      "historical_names": [
+        {
+          "name": "Portuguese Guinea",
+          "period": "colonial",
+          "years": "1588-1974",
+          "context": "Portuguese colony"
+        },
+        {
+          "name": "Guinea-Bissau",
+          "period": "independent",
+          "years": "1974-present",
+          "context": "Independent after armed struggle"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Portugal",
+        "colonization_start": 1588,
+        "independence_year": 1974,
+        "years_independent": 51,
+        "independence_type": "armed_liberation",
+        "post_colonial_assertion": "strong",
+        "name_change_at_independence": true,
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 875,
+        "population_millions_2023": 2.1,
+        "hdi_score_2023": 0.483,
+        "gini_coefficient": 50.7,
+        "urbanization_rate": 45.0,
+        "literacy_rate": 52.4,
+        "internet_penetration": 23.0,
+        "poverty_rate_below_190": 53.2
+      },
+      
+      "governance": {
+        "democracy_index_2023": 4.23,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 21,
+        "fragile_states_index": 88.3,
+        "conflict_status": "unstable"
+      }
+    },
+    
+    "ZW": {
+      "country_name": "Zimbabwe",
+      "country_code": "ZW",
+      "iso_alpha3": "ZWE",
+      "capital": "Harare",
+      
+      "linguistic": {
+        "official_endonym": "Zimbabwe",
+        "endonym_meaning": "Great House of Stone (from Great Zimbabwe ruins)",
+        "common_english_exonym": "Zimbabwe",
+        "exonym_etymology": "From Shona 'Zimba remabwe'",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["English", "Shona", "Ndebele"],
+        "colonial_language": "English",
+        "english_retention_rate": 0.14,
+        "linguistic_diversity_index": 0.51,
+        "number_of_languages": 21
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 8,
+        "plosives_count": 2,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 2,
+        "vowels_count": 3,
+        "phonetic_harshness_estimate": 45.8,
+        "melodiousness_estimate": 63.2,
+        "pronounceability_score": 7.8,
+        "memorability_score": 8.6
+      },
+      
+      "historical_names": [
+        {
+          "name": "Southern Rhodesia",
+          "period": "colonial",
+          "years": "1898-1965",
+          "context": "British colony named after Cecil Rhodes"
+        },
+        {
+          "name": "Rhodesia",
+          "period": "udi",
+          "years": "1965-1979",
+          "context": "White minority unilateral independence"
+        },
+        {
+          "name": "Zimbabwe Rhodesia",
+          "period": "transition",
+          "years": "1979",
+          "context": "Brief transitional name"
+        },
+        {
+          "name": "Zimbabwe",
+          "period": "independent",
+          "years": "1980-present",
+          "context": "Majority rule independence with indigenous name",
+          "name_change_significance": "MAJOR - Colonial colonizer's name to ancient indigenous civilization name"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "colonization_start": 1890,
+        "independence_year": 1980,
+        "years_independent": 45,
+        "independence_type": "armed_liberation",
+        "post_colonial_assertion": "very_strong",
+        "name_change_at_independence": true,
+        "name_change_reason": "Rejection of colonial naming, reference to Great Zimbabwe",
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 1463,
+        "population_millions_2023": 16.2,
+        "hdi_score_2023": 0.550,
+        "gini_coefficient": 50.3,
+        "urbanization_rate": 32.0,
+        "literacy_rate": 89.7,
+        "internet_penetration": 35.0,
+        "poverty_rate_below_190": 38.3
+      },
+      
+      "governance": {
+        "democracy_index_2023": 3.05,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 23,
+        "fragile_states_index": 93.9,
+        "conflict_status": "stable_repressive"
+      }
+    },
+    
+    "ZM": {
+      "country_name": "Zambia",
+      "country_code": "ZM",
+      "iso_alpha3": "ZMB",
+      "capital": "Lusaka",
+      
+      "linguistic": {
+        "official_endonym": "Zambia",
+        "endonym_meaning": "From Zambezi River",
+        "common_english_exonym": "Zambia",
+        "exonym_etymology": "From Zambezi River",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["English", "Bemba", "Nyanja", "Tonga"],
+        "colonial_language": "English",
+        "english_retention_rate": 0.18,
+        "linguistic_diversity_index": 0.88,
+        "number_of_languages": 46
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 6,
+        "plosives_count": 1,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 2,
+        "vowels_count": 2,
+        "phonetic_harshness_estimate": 43.7,
+        "melodiousness_estimate": 65.4,
+        "pronounceability_score": 8.4,
+        "memorability_score": 8.3
+      },
+      
+      "historical_names": [
+        {
+          "name": "Northern Rhodesia",
+          "period": "colonial",
+          "years": "1911-1964",
+          "context": "British protectorate named after Cecil Rhodes"
+        },
+        {
+          "name": "Zambia",
+          "period": "independent",
+          "years": "1964-present",
+          "context": "Independence with geographic indigenous name",
+          "name_change_significance": "MAJOR - Colonial colonizer's name to indigenous river name"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "colonization_start": 1911,
+        "independence_year": 1964,
+        "years_independent": 61,
+        "independence_type": "peaceful_negotiated",
+        "post_colonial_assertion": "strong",
+        "name_change_at_independence": true,
+        "name_change_reason": "Rejection of colonial naming",
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 1212,
+        "population_millions_2023": 20.0,
+        "hdi_score_2023": 0.565,
+        "gini_coefficient": 57.1,
+        "urbanization_rate": 45.0,
+        "literacy_rate": 86.7,
+        "internet_penetration": 21.0,
+        "poverty_rate_below_190": 60.5
+      },
+      
+      "governance": {
+        "democracy_index_2023": 5.95,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 35,
+        "fragile_states_index": 76.8,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "MW": {
+      "country_name": "Malawi",
+      "country_code": "MW",
+      "iso_alpha3": "MWI",
+      "capital": "Lilongwe",
+      
+      "linguistic": {
+        "official_endonym": "Malawi",
+        "endonym_meaning": "Flames (from Lake Malawi reflections)",
+        "common_english_exonym": "Malawi",
+        "exonym_etymology": "From Maravi people",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["English", "Chichewa"],
+        "colonial_language": "English",
+        "english_retention_rate": 0.26,
+        "linguistic_diversity_index": 0.65,
+        "number_of_languages": 17
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 6,
+        "plosives_count": 0,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 3,
+        "vowels_count": 3,
+        "phonetic_harshness_estimate": 28.4,
+        "melodiousness_estimate": 78.6,
+        "pronounceability_score": 8.7,
+        "memorability_score": 8.2
+      },
+      
+      "historical_names": [
+        {
+          "name": "Nyasaland",
+          "period": "colonial",
+          "years": "1907-1964",
+          "context": "British protectorate named after Lake Nyasa"
+        },
+        {
+          "name": "Malawi",
+          "period": "independent",
+          "years": "1964-present",
+          "context": "Independence with indigenous name",
+          "name_change_significance": "MAJOR - Colonial geographic name to indigenous people's name"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "colonization_start": 1891,
+        "independence_year": 1964,
+        "years_independent": 61,
+        "independence_type": "peaceful_negotiated",
+        "post_colonial_assertion": "strong",
+        "name_change_at_independence": true,
+        "name_change_reason": "Indigenous assertion",
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 645,
+        "population_millions_2023": 20.4,
+        "hdi_score_2023": 0.512,
+        "gini_coefficient": 44.7,
+        "urbanization_rate": 18.0,
+        "literacy_rate": 67.3,
+        "internet_penetration": 19.0,
+        "poverty_rate_below_190": 70.3
+      },
+      
+      "governance": {
+        "democracy_index_2023": 5.74,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 34,
+        "fragile_states_index": 82.4,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "TZ": {
+      "country_name": "Tanzania",
+      "country_code": "TZ",
+      "iso_alpha3": "TZA",
+      "capital": "Dodoma",
+      
+      "linguistic": {
+        "official_endonym": "Tanzania",
+        "endonym_meaning": "From Tanganyika + Zanzibar merger",
+        "common_english_exonym": "Tanzania",
+        "exonym_etymology": "Portmanteau of Tanganyika and Zanzibar",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["Swahili", "English"],
+        "colonial_language": "English",
+        "english_retention_rate": 0.15,
+        "linguistic_diversity_index": 0.95,
+        "number_of_languages": 126
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 4,
+        "character_length": 8,
+        "plosives_count": 2,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 3,
+        "vowels_count": 3,
+        "phonetic_harshness_estimate": 42.9,
+        "melodiousness_estimate": 66.8,
+        "pronounceability_score": 7.9,
+        "memorability_score": 8.1
+      },
+      
+      "historical_names": [
+        {
+          "name": "Tanganyika",
+          "period": "colonial_and_early_independence",
+          "years": "1919-1964",
+          "context": "British mandate, then independent"
+        },
+        {
+          "name": "Zanzibar",
+          "period": "separate_entity",
+          "years": "ancient-1964",
+          "context": "Separate sultanate, then British protectorate"
+        },
+        {
+          "name": "Tanzania",
+          "period": "unified",
+          "years": "1964-present",
+          "context": "Union of Tanganyika and Zanzibar",
+          "name_change_significance": "MAJOR - Creation of new name from merger"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Germany/Britain",
+        "colonization_start": 1885,
+        "independence_year": 1961,
+        "years_independent": 64,
+        "independence_type": "peaceful_negotiated",
+        "post_colonial_assertion": "strong",
+        "name_change_at_independence": false,
+        "name_change_year": 1964,
+        "name_change_reason": "Political union of two territories",
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 1192,
+        "population_millions_2023": 65.5,
+        "hdi_score_2023": 0.529,
+        "gini_coefficient": 40.5,
+        "urbanization_rate": 36.0,
+        "literacy_rate": 81.8,
+        "internet_penetration": 32.0,
+        "poverty_rate_below_190": 49.4
+      },
+      
+      "governance": {
+        "democracy_index_2023": 5.32,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 38,
+        "fragile_states_index": 71.6,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "ML": {
+      "country_name": "Mali",
+      "country_code": "ML",
+      "iso_alpha3": "MLI",
+      "capital": "Bamako",
+      
+      "linguistic": {
+        "official_endonym": "Mali",
+        "endonym_meaning": "From ancient Mali Empire",
+        "common_english_exonym": "Mali",
+        "exonym_etymology": "From Bambara, ancient empire name",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["French", "Bambara", "Fula"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.17,
+        "linguistic_diversity_index": 0.88,
+        "number_of_languages": 64
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 2,
+        "character_length": 4,
+        "plosives_count": 0,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 2,
+        "vowels_count": 2,
+        "phonetic_harshness_estimate": 26.3,
+        "melodiousness_estimate": 80.7,
+        "pronounceability_score": 9.3,
+        "memorability_score": 9.1
+      },
+      
+      "historical_names": [
+        {
+          "name": "French Sudan",
+          "period": "colonial",
+          "years": "1890-1960",
+          "context": "French colony"
+        },
+        {
+          "name": "Mali",
+          "period": "independent",
+          "years": "1960-present",
+          "context": "Independence with reference to ancient Mali Empire",
+          "name_change_significance": "MAJOR - Colonial geographic name to glorious pre-colonial empire"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1892,
+        "independence_year": 1960,
+        "years_independent": 65,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "very_strong",
+        "name_change_at_independence": true,
+        "name_change_reason": "Pan-African pride, ancient empire reference",
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 875,
+        "population_millions_2023": 22.6,
+        "hdi_score_2023": 0.428,
+        "gini_coefficient": 33.0,
+        "urbanization_rate": 45.0,
+        "literacy_rate": 35.5,
+        "internet_penetration": 13.0,
+        "poverty_rate_below_190": 47.4
+      },
+      
+      "governance": {
+        "democracy_index_2023": 3.26,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 26,
+        "fragile_states_index": 98.1,
+        "conflict_status": "active_conflict"
+      }
+    },
+    
+    "NA": {
+      "country_name": "Namibia",
+      "country_code": "NA",
+      "iso_alpha3": "NAM",
+      "capital": "Windhoek",
+      
+      "linguistic": {
+        "official_endonym": "Namibia",
+        "endonym_meaning": "From Namib Desert",
+        "common_english_exonym": "Namibia",
+        "exonym_etymology": "From Nama word 'Namib' (vast place)",
+        "language_family": "Niger-Congo/Khoisan",
+        "primary_languages": ["English", "Afrikaans", "Oshiwambo", "German"],
+        "colonial_language": "English/Afrikaans/German",
+        "english_retention_rate": 0.13,
+        "linguistic_diversity_index": 0.79,
+        "number_of_languages": 28
+      },
+      
+      "phonetic_properties": {
+        "syllable_count": 4,
+        "character_length": 7,
+        "plosives_count": 1,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 3,
+        "vowels_count": 3,
+        "phonetic_harshness_estimate": 35.8,
+        "melodiousness_estimate": 72.4,
+        "pronounceability_score": 8.2,
+        "memorability_score": 8.3
+      },
+      
+      "historical_names": [
+        {
+          "name": "German South West Africa",
+          "period": "colonial",
+          "years": "1884-1915",
+          "context": "German colony"
+        },
+        {
+          "name": "South West Africa",
+          "period": "south_african_rule",
+          "years": "1915-1990",
+          "context": "South African administration"
+        },
+        {
+          "name": "Namibia",
+          "period": "independent",
+          "years": "1990-present",
+          "context": "Independence with indigenous geographic name",
+          "name_change_significance": "MAJOR - Colonial descriptor to indigenous desert name"
+        }
+      ],
+      
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Germany/South Africa",
+        "colonization_start": 1884,
+        "independence_year": 1990,
+        "years_independent": 35,
+        "independence_type": "armed_liberation_then_negotiated",
+        "post_colonial_assertion": "strong",
+        "name_change_at_independence": true,
+        "name_change_reason": "Indigenous geographic reference",
+        "colonial_language_official": true
+      },
+      
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 4729,
+        "population_millions_2023": 2.6,
+        "hdi_score_2023": 0.615,
+        "gini_coefficient": 59.1,
+        "urbanization_rate": 54.0,
+        "literacy_rate": 92.3,
+        "internet_penetration": 51.0,
+        "poverty_rate_below_190": 13.4
+      },
+      
+      "governance": {
+        "democracy_index_2023": 6.06,
+        "governance_category": "flawed_democracy",
+        "corruption_perception_index": 49,
+        "fragile_states_index": 63.7,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "NG": {
+      "country_name": "Nigeria",
+      "country_code": "NG",
+      "iso_alpha3": "NGA",
+      "capital": "Abuja",
+      "linguistic": {
+        "official_endonym": "Nigeria",
+        "endonym_meaning": "From Niger River",
+        "common_english_exonym": "Nigeria",
+        "exonym_etymology": "From Niger River (Latin 'niger' = black)",
+        "language_family": "Niger-Congo/Afroasiatic",
+        "primary_languages": ["English", "Hausa", "Yoruba", "Igbo"],
+        "colonial_language": "English",
+        "english_retention_rate": 0.53,
+        "linguistic_diversity_index": 0.95,
+        "number_of_languages": 525
+      },
+      "phonetic_properties": {
+        "syllable_count": 4,
+        "character_length": 7,
+        "plosives_count": 2,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 2,
+        "vowels_count": 3,
+        "phonetic_harshness_estimate": 42.1,
+        "melodiousness_estimate": 66.8,
+        "pronounceability_score": 8.2,
+        "memorability_score": 8.7
+      },
+      "historical_names": [
+        {
+          "name": "British Nigeria",
+          "period": "colonial",
+          "years": "1914-1960",
+          "context": "British colony"
+        },
+        {
+          "name": "Nigeria",
+          "period": "independent",
+          "years": "1960-present",
+          "context": "Independent federation"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "colonization_start": 1861,
+        "independence_year": 1960,
+        "years_independent": 65,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 2184,
+        "population_millions_2023": 223.8,
+        "hdi_score_2023": 0.535,
+        "gini_coefficient": 35.1,
+        "urbanization_rate": 53.0,
+        "literacy_rate": 62.0,
+        "internet_penetration": 55.0,
+        "poverty_rate_below_190": 39.1
+      },
+      "governance": {
+        "democracy_index_2023": 4.23,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 25,
+        "fragile_states_index": 92.1,
+        "conflict_status": "active_conflict"
+      }
+    },
+    
+    "ZA": {
+      "country_name": "South Africa",
+      "country_code": "ZA",
+      "iso_alpha3": "ZAF",
+      "capital": "Pretoria/Cape Town/Bloemfontein",
+      "linguistic": {
+        "official_endonym": "South Africa",
+        "endonym_meaning": "Geographic descriptor",
+        "common_english_exonym": "South Africa",
+        "exonym_etymology": "Geographic location",
+        "language_family": "Niger-Congo/Indo-European/Khoisan",
+        "primary_languages": ["Zulu", "Xhosa", "Afrikaans", "English"],
+        "colonial_language": "English/Afrikaans",
+        "english_retention_rate": 0.10,
+        "linguistic_diversity_index": 0.91,
+        "number_of_languages": 35
+      },
+      "phonetic_properties": {
+        "syllable_count": 4,
+        "character_length": 11,
+        "plosives_count": 1,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 1,
+        "vowels_count": 4,
+        "phonetic_harshness_estimate": 41.8,
+        "melodiousness_estimate": 64.2,
+        "pronounceability_score": 8.8,
+        "memorability_score": 9.2
+      },
+      "historical_names": [
+        {
+          "name": "Union of South Africa",
+          "period": "union",
+          "years": "1910-1961",
+          "context": "British dominion"
+        },
+        {
+          "name": "Republic of South Africa",
+          "period": "apartheid",
+          "years": "1961-1994",
+          "context": "Apartheid era republic"
+        },
+        {
+          "name": "South Africa",
+          "period": "democratic",
+          "years": "1994-present",
+          "context": "Post-apartheid democracy"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Netherlands/Britain",
+        "colonization_start": 1652,
+        "independence_year": 1910,
+        "years_independent": 115,
+        "independence_type": "dominion_then_republic",
+        "post_colonial_assertion": "complex",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 6485,
+        "population_millions_2023": 60.0,
+        "hdi_score_2023": 0.713,
+        "gini_coefficient": 63.0,
+        "urbanization_rate": 68.0,
+        "literacy_rate": 95.0,
+        "internet_penetration": 72.0,
+        "poverty_rate_below_190": 18.9
+      },
+      "governance": {
+        "democracy_index_2023": 7.05,
+        "governance_category": "flawed_democracy",
+        "corruption_perception_index": 41,
+        "fragile_states_index": 67.8,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "KE": {
+      "country_name": "Kenya",
+      "country_code": "KE",
+      "iso_alpha3": "KEN",
+      "capital": "Nairobi",
+      "linguistic": {
+        "official_endonym": "Kenya",
+        "endonym_meaning": "From Mount Kenya",
+        "common_english_exonym": "Kenya",
+        "exonym_etymology": "From Kikuyu 'Kirinyaga'",
+        "language_family": "Niger-Congo/Nilo-Saharan",
+        "primary_languages": ["Swahili", "English", "Kikuyu"],
+        "colonial_language": "English",
+        "english_retention_rate": 0.52,
+        "linguistic_diversity_index": 0.88,
+        "number_of_languages": 68
+      },
+      "phonetic_properties": {
+        "syllable_count": 2,
+        "character_length": 5,
+        "plosives_count": 2,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 1,
+        "vowels_count": 2,
+        "phonetic_harshness_estimate": 49.3,
+        "melodiousness_estimate": 60.1,
+        "pronounceability_score": 9.1,
+        "memorability_score": 9.4
+      },
+      "historical_names": [
+        {
+          "name": "British East Africa",
+          "period": "colonial",
+          "years": "1895-1963",
+          "context": "British protectorate and colony"
+        },
+        {
+          "name": "Kenya",
+          "period": "independent",
+          "years": "1963-present",
+          "context": "Independent nation"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "colonization_start": 1895,
+        "independence_year": 1963,
+        "years_independent": 62,
+        "independence_type": "armed_struggle_then_negotiated",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 2099,
+        "population_millions_2023": 54.0,
+        "hdi_score_2023": 0.601,
+        "gini_coefficient": 38.7,
+        "urbanization_rate": 29.0,
+        "literacy_rate": 82.6,
+        "internet_penetration": 89.0,
+        "poverty_rate_below_190": 36.1
+      },
+      "governance": {
+        "democracy_index_2023": 5.05,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 32,
+        "fragile_states_index": 77.0,
+        "conflict_status": "stable"
+      }
+    }
+  }
+}
+

@@ -1,0 +1,128 @@
+/Users/michaelsmerconish/Desktop/RandomCode/FlaskProject/.venv/lib/python3.9/site-packages/urllib3/__init__.py:35: NotOpenSSLWarning: urllib3 v2 only supports OpenSSL 1.1.1+, currently the 'ssl' module is compiled with 'LibreSSL 2.8.3'. See: https://github.com/urllib3/urllib3/issues/3020
+  warnings.warn(
+2025-11-07 04:38:50,627 - app - INFO - Database initialized
+2025-11-07 04:38:50,731 - app - INFO - Database ready: 3500 cryptocurrencies
+2025-11-07 04:38:50,844 - __main__ - INFO - Starting NBA player collection...
+2025-11-07 04:38:50,844 - collectors.nba_collector - INFO - Starting stratified NBA player collection...
+2025-11-07 04:38:50,844 - collectors.nba_collector - INFO - Target: 125 players per era
+2025-11-07 04:38:50,844 - collectors.nba_collector - INFO - Total target: 1000 players
+2025-11-07 04:38:50,844 - collectors.nba_collector - INFO - 
+============================================================
+2025-11-07 04:38:50,844 - collectors.nba_collector - INFO - Collecting 1950s players...
+2025-11-07 04:38:50,844 - collectors.nba_collector - INFO - ============================================================
+2025-11-07 04:38:54,864 - collectors.nba_collector - INFO - ✓ 1950s complete: 0 added, 0 updated
+2025-11-07 04:38:54,864 - collectors.nba_collector - INFO - 
+============================================================
+2025-11-07 04:38:54,865 - collectors.nba_collector - INFO - Collecting 1960s players...
+2025-11-07 04:38:54,865 - collectors.nba_collector - INFO - ============================================================
+2025-11-07 04:39:00,827 - collectors.nba_collector - INFO - ✓ 1960s complete: 0 added, 0 updated
+2025-11-07 04:39:00,828 - collectors.nba_collector - INFO - 
+============================================================
+2025-11-07 04:39:00,828 - collectors.nba_collector - INFO - Collecting 1970s players...
+2025-11-07 04:39:00,828 - collectors.nba_collector - INFO - ============================================================
+2025-11-07 04:39:08,048 - collectors.nba_collector - INFO - ✓ 1970s complete: 0 added, 0 updated
+2025-11-07 04:39:08,049 - collectors.nba_collector - INFO - 
+============================================================
+2025-11-07 04:39:08,049 - collectors.nba_collector - INFO - Collecting 1980s players...
+2025-11-07 04:39:08,049 - collectors.nba_collector - INFO - ============================================================
+2025-11-07 04:39:12,127 - collectors.nba_collector - WARNING - Failed to fetch 1984 season data: 429
+2025-11-07 04:39:12,229 - collectors.nba_collector - WARNING - Failed to fetch 1985 season data: 429
+2025-11-07 04:39:12,329 - collectors.nba_collector - WARNING - Failed to fetch 1986 season data: 429
+2025-11-07 04:39:12,422 - collectors.nba_collector - WARNING - Failed to fetch 1987 season data: 429
+2025-11-07 04:39:12,535 - collectors.nba_collector - WARNING - Failed to fetch 1988 season data: 429
+2025-11-07 04:39:12,629 - collectors.nba_collector - WARNING - Failed to fetch 1989 season data: 429
+2025-11-07 04:39:12,630 - collectors.nba_collector - INFO - ✓ 1980s complete: 0 added, 0 updated
+2025-11-07 04:39:12,630 - collectors.nba_collector - INFO - 
+============================================================
+2025-11-07 04:39:12,630 - collectors.nba_collector - INFO - Collecting 1990s players...
+2025-11-07 04:39:12,630 - collectors.nba_collector - INFO - ============================================================
+2025-11-07 04:39:12,720 - collectors.nba_collector - WARNING - Failed to fetch 1990 season data: 429
+2025-11-07 04:39:12,811 - collectors.nba_collector - WARNING - Failed to fetch 1991 season data: 429
+2025-11-07 04:39:12,920 - collectors.nba_collector - WARNING - Failed to fetch 1992 season data: 429
+2025-11-07 04:39:13,017 - collectors.nba_collector - WARNING - Failed to fetch 1993 season data: 429
+2025-11-07 04:39:13,120 - collectors.nba_collector - WARNING - Failed to fetch 1994 season data: 429
+2025-11-07 04:39:13,217 - collectors.nba_collector - WARNING - Failed to fetch 1995 season data: 429
+2025-11-07 04:39:13,297 - collectors.nba_collector - WARNING - Failed to fetch 1996 season data: 429
+2025-11-07 04:39:13,395 - collectors.nba_collector - WARNING - Failed to fetch 1997 season data: 429
+2025-11-07 04:39:13,493 - collectors.nba_collector - WARNING - Failed to fetch 1998 season data: 429
+2025-11-07 04:39:13,586 - collectors.nba_collector - WARNING - Failed to fetch 1999 season data: 429
+2025-11-07 04:39:13,587 - collectors.nba_collector - INFO - ✓ 1990s complete: 0 added, 0 updated
+2025-11-07 04:39:13,587 - collectors.nba_collector - INFO - 
+============================================================
+2025-11-07 04:39:13,587 - collectors.nba_collector - INFO - Collecting 2000s players...
+2025-11-07 04:39:13,587 - collectors.nba_collector - INFO - ============================================================
+2025-11-07 04:39:13,678 - collectors.nba_collector - WARNING - Failed to fetch 2000 season data: 429
+2025-11-07 04:39:13,786 - collectors.nba_collector - WARNING - Failed to fetch 2001 season data: 429
+2025-11-07 04:39:13,894 - collectors.nba_collector - WARNING - Failed to fetch 2002 season data: 429
+2025-11-07 04:39:13,991 - collectors.nba_collector - WARNING - Failed to fetch 2003 season data: 429
+2025-11-07 04:39:14,087 - collectors.nba_collector - WARNING - Failed to fetch 2004 season data: 429
+2025-11-07 04:39:14,182 - collectors.nba_collector - WARNING - Failed to fetch 2005 season data: 429
+2025-11-07 04:39:14,286 - collectors.nba_collector - WARNING - Failed to fetch 2006 season data: 429
+2025-11-07 04:39:14,385 - collectors.nba_collector - WARNING - Failed to fetch 2007 season data: 429
+2025-11-07 04:39:14,483 - collectors.nba_collector - WARNING - Failed to fetch 2008 season data: 429
+2025-11-07 04:39:14,583 - collectors.nba_collector - WARNING - Failed to fetch 2009 season data: 429
+2025-11-07 04:39:14,584 - collectors.nba_collector - INFO - ✓ 2000s complete: 0 added, 0 updated
+2025-11-07 04:39:14,585 - collectors.nba_collector - INFO - 
+============================================================
+2025-11-07 04:39:14,585 - collectors.nba_collector - INFO - Collecting 2010s players...
+2025-11-07 04:39:14,585 - collectors.nba_collector - INFO - ============================================================
+2025-11-07 04:39:14,681 - collectors.nba_collector - WARNING - Failed to fetch 2010 season data: 429
+2025-11-07 04:39:14,785 - collectors.nba_collector - WARNING - Failed to fetch 2011 season data: 429
+2025-11-07 04:39:14,891 - collectors.nba_collector - WARNING - Failed to fetch 2012 season data: 429
+2025-11-07 04:39:14,986 - collectors.nba_collector - WARNING - Failed to fetch 2013 season data: 429
+2025-11-07 04:39:15,088 - collectors.nba_collector - WARNING - Failed to fetch 2014 season data: 429
+2025-11-07 04:39:15,190 - collectors.nba_collector - WARNING - Failed to fetch 2015 season data: 429
+2025-11-07 04:39:15,289 - collectors.nba_collector - WARNING - Failed to fetch 2016 season data: 429
+2025-11-07 04:39:15,394 - collectors.nba_collector - WARNING - Failed to fetch 2017 season data: 429
+2025-11-07 04:39:15,490 - collectors.nba_collector - WARNING - Failed to fetch 2018 season data: 429
+2025-11-07 04:39:15,576 - collectors.nba_collector - WARNING - Failed to fetch 2019 season data: 429
+2025-11-07 04:39:15,577 - collectors.nba_collector - INFO - ✓ 2010s complete: 0 added, 0 updated
+2025-11-07 04:39:15,577 - collectors.nba_collector - INFO - 
+============================================================
+2025-11-07 04:39:15,577 - collectors.nba_collector - INFO - Collecting 2020s players...
+2025-11-07 04:39:15,577 - collectors.nba_collector - INFO - ============================================================
+2025-11-07 04:39:15,680 - collectors.nba_collector - WARNING - Failed to fetch 2024 season data: 429
+2025-11-07 04:39:15,783 - collectors.nba_collector - WARNING - Failed to fetch 2024 season data: 429
+2025-11-07 04:39:15,881 - collectors.nba_collector - WARNING - Failed to fetch 2024 season data: 429
+2025-11-07 04:39:15,978 - collectors.nba_collector - WARNING - Failed to fetch 2024 season data: 429
+2025-11-07 04:39:16,094 - collectors.nba_collector - WARNING - Failed to fetch 2024 season data: 429
+2025-11-07 04:39:16,194 - collectors.nba_collector - WARNING - Failed to fetch 2024 season data: 429
+2025-11-07 04:39:16,195 - collectors.nba_collector - INFO - ✓ 2020s complete: 0 added, 0 updated
+2025-11-07 04:39:16,195 - collectors.nba_collector - INFO - 
+============================================================
+2025-11-07 04:39:16,195 - collectors.nba_collector - INFO - COLLECTION COMPLETE
+2025-11-07 04:39:16,195 - collectors.nba_collector - INFO - ============================================================
+2025-11-07 04:39:16,195 - collectors.nba_collector - INFO - Total added: 0
+2025-11-07 04:39:16,195 - collectors.nba_collector - INFO - Total updated: 0
+2025-11-07 04:39:16,195 - collectors.nba_collector - INFO - Total analyzed: 0
+2025-11-07 04:39:16,195 - collectors.nba_collector - INFO - Errors: 0
+2025-11-07 04:39:16,195 - __main__ - INFO - NBA collection complete: 0 players in 0:00:25.351266
+
+======================================================================
+                     NBA COMPREHENSIVE COLLECTION                     
+======================================================================
+
+Target: 1,000+ players (125+ per era)
+Estimated Time: 2-4 hours (with rate limiting)
+
+
+======================================================================
+                         Collection Complete                          
+======================================================================
+
+Total Added: 0
+Total Updated: 0
+Total Analyzed: 0
+Errors: 0
+
+Eras Collected:
+  1950s: 0 players
+  1960s: 0 players
+  1970s: 0 players
+  1980s: 0 players
+  1990s: 0 players
+  2000s: 0 players
+  2010s: 0 players
+  2020s: 0 players
+
+Total Time: 0:00:25.351266

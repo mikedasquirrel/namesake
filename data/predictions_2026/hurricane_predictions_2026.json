@@ -1,0 +1,388 @@
+{
+  "metadata": {
+    "title": "2026 Atlantic Hurricane Casualty Predictions from Name Phonetics",
+    "authors": [
+      "Michael Smerconish"
+    ],
+    "institution": "Independent Research",
+    "date_preregistered": "2025-11-07T04:34:59.554285",
+    "season_start": "2026-06-01",
+    "season_end": "2026-11-30",
+    "evaluation_date": "2026-12-31",
+    "version": "1.0",
+    "status": "PRE-REGISTERED"
+  },
+  "hypothesis": {
+    "research_question": "Can phonetic features of hurricane names predict casualty outcomes prospectively?",
+    "prediction": "Names with higher phonetic harshness, memorability, and other linguistic features will correlate with casualty presence in 2026 season",
+    "temporal_precedence": "All predictions made BEFORE 2026 hurricane season begins",
+    "falsifiability": "Spearman correlation < 0.2 or ROC AUC < 0.55 would falsify hypothesis"
+  },
+  "methodology": {
+    "training_data": {
+      "years": "1950-2024",
+      "sample_size": 236,
+      "outcome_variable": "Binary casualty presence (any deaths >0)",
+      "feature_set": [
+        "phonetic_harshness",
+        "memorability",
+        "syllable_count",
+        "length",
+        "vowel_ratio"
+      ]
+    },
+    "model_specification": {
+      "type": "Logistic Regression",
+      "regularization": "L2 (C=1.0)",
+      "class_weight": "balanced",
+      "cross_validation": "5-fold stratified",
+      "feature_scaling": "StandardScaler (z-score normalization)"
+    },
+    "model_performance": {
+      "train_auc": 0.592824074074074,
+      "cv_auc_mean": 0.28097251585623684,
+      "cv_auc_std": 0.13585837363568629
+    },
+    "feature_coefficients": {
+      "phonetic_harshness": -0.18973198493352014,
+      "memorability": -0.11469859669353862,
+      "syllable_count": 0.11107119393829826,
+      "length": 0.15284651733098986,
+      "vowel_ratio": 0.08450580788955234
+    }
+  },
+  "predictions": [
+    {
+      "rank": 18,
+      "name": "Savannah",
+      "casualty_probability": 0.6511002956282391,
+      "binary_prediction": "HIGH",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 75.0,
+        "memorability": 82.5,
+        "syllables": 3,
+        "length": 8
+      },
+      "predicted_casualty_rank": 1
+    },
+    {
+      "rank": 20,
+      "name": "Valeria",
+      "casualty_probability": 0.605065136603981,
+      "binary_prediction": "HIGH",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 95.71,
+        "memorability": 88.71,
+        "syllables": 3,
+        "length": 7
+      },
+      "predicted_casualty_rank": 2
+    },
+    {
+      "rank": 10,
+      "name": "Jacinta",
+      "casualty_probability": 0.5712643433359489,
+      "binary_prediction": "HIGH",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 100.0,
+        "memorability": 90.0,
+        "syllables": 3,
+        "length": 7
+      },
+      "predicted_casualty_rank": 3
+    },
+    {
+      "rank": 5,
+      "name": "Emilia",
+      "casualty_probability": 0.5641643228176555,
+      "binary_prediction": "HIGH",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 76.67,
+        "memorability": 93.0,
+        "syllables": 2,
+        "length": 6
+      },
+      "predicted_casualty_rank": 4
+    },
+    {
+      "rank": 4,
+      "name": "Deshawn",
+      "casualty_probability": 0.5531818303449196,
+      "binary_prediction": "HIGH",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 67.14,
+        "memorability": 90.14,
+        "syllables": 2,
+        "length": 7
+      },
+      "predicted_casualty_rank": 5
+    },
+    {
+      "rank": 2,
+      "name": "Braylen",
+      "casualty_probability": 0.5059661780963047,
+      "binary_prediction": "HIGH",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 67.14,
+        "memorability": 90.14,
+        "syllables": 1,
+        "length": 7
+      },
+      "predicted_casualty_rank": 6
+    },
+    {
+      "rank": 6,
+      "name": "Foster",
+      "casualty_probability": 0.48314452272427805,
+      "binary_prediction": "LOW",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 86.67,
+        "memorability": 96.0,
+        "syllables": 2,
+        "length": 6
+      },
+      "predicted_casualty_rank": 7
+    },
+    {
+      "rank": 11,
+      "name": "Kenyon",
+      "casualty_probability": 0.48314452272427805,
+      "binary_prediction": "LOW",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 86.67,
+        "memorability": 96.0,
+        "syllables": 2,
+        "length": 6
+      },
+      "predicted_casualty_rank": 8
+    },
+    {
+      "rank": 13,
+      "name": "Marcus",
+      "casualty_probability": 0.48314452272427805,
+      "binary_prediction": "LOW",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 86.67,
+        "memorability": 96.0,
+        "syllables": 2,
+        "length": 6
+      },
+      "predicted_casualty_rank": 9
+    },
+    {
+      "rank": 1,
+      "name": "Adria",
+      "casualty_probability": 0.4725950325543475,
+      "binary_prediction": "LOW",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 80.0,
+        "memorability": 94.0,
+        "syllables": 1,
+        "length": 5
+      },
+      "predicted_casualty_rank": 10
+    },
+    {
+      "rank": 16,
+      "name": "Paige",
+      "casualty_probability": 0.44547163548150226,
+      "binary_prediction": "LOW",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 90.0,
+        "memorability": 97.0,
+        "syllables": 1,
+        "length": 5
+      },
+      "predicted_casualty_rank": 11
+    },
+    {
+      "rank": 21,
+      "name": "William",
+      "casualty_probability": 0.4396737805672243,
+      "binary_prediction": "LOW",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 100.0,
+        "memorability": 100.0,
+        "syllables": 1,
+        "length": 7
+      },
+      "predicted_casualty_rank": 12
+    },
+    {
+      "rank": 3,
+      "name": "Carla",
+      "casualty_probability": 0.4333162224139444,
+      "binary_prediction": "LOW",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 100.0,
+        "memorability": 100.0,
+        "syllables": 2,
+        "length": 5
+      },
+      "predicted_casualty_rank": 13
+    },
+    {
+      "rank": 7,
+      "name": "Gemma",
+      "casualty_probability": 0.4333162224139444,
+      "binary_prediction": "LOW",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 100.0,
+        "memorability": 100.0,
+        "syllables": 2,
+        "length": 5
+      },
+      "predicted_casualty_rank": 14
+    },
+    {
+      "rank": 14,
+      "name": "Nayeli",
+      "casualty_probability": 0.4268704116626301,
+      "binary_prediction": "LOW",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 100.0,
+        "memorability": 100.0,
+        "syllables": 1,
+        "length": 6
+      },
+      "predicted_casualty_rank": 15
+    },
+    {
+      "rank": 17,
+      "name": "Rafael",
+      "casualty_probability": 0.4268704116626301,
+      "binary_prediction": "LOW",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 100.0,
+        "memorability": 100.0,
+        "syllables": 1,
+        "length": 6
+      },
+      "predicted_casualty_rank": 16
+    },
+    {
+      "rank": 9,
+      "name": "Isla",
+      "casualty_probability": 0.42508300230743407,
+      "binary_prediction": "LOW",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 100.0,
+        "memorability": 100.0,
+        "syllables": 2,
+        "length": 4
+      },
+      "predicted_casualty_rank": 17
+    },
+    {
+      "rank": 19,
+      "name": "Tony",
+      "casualty_probability": 0.4192016208838593,
+      "binary_prediction": "LOW",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 70.0,
+        "memorability": 91.0,
+        "syllables": 1,
+        "length": 4
+      },
+      "predicted_casualty_rank": 18
+    },
+    {
+      "rank": 8,
+      "name": "Heath",
+      "casualty_probability": 0.3874597110248841,
+      "binary_prediction": "LOW",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 100.0,
+        "memorability": 100.0,
+        "syllables": 1,
+        "length": 5
+      },
+      "predicted_casualty_rank": 19
+    },
+    {
+      "rank": 12,
+      "name": "Leah",
+      "casualty_probability": 0.3795142705853598,
+      "binary_prediction": "LOW",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 100.0,
+        "memorability": 100.0,
+        "syllables": 1,
+        "length": 4
+      },
+      "predicted_casualty_rank": 20
+    },
+    {
+      "rank": 15,
+      "name": "Owen",
+      "casualty_probability": 0.3795142705853598,
+      "binary_prediction": "LOW",
+      "confidence": "moderate",
+      "phonetic_features": {
+        "harshness": 100.0,
+        "memorability": 100.0,
+        "syllables": 1,
+        "length": 4
+      },
+      "predicted_casualty_rank": 21
+    }
+  ],
+  "success_criteria": {
+    "primary": "Spearman rank correlation > 0.5 between predicted and actual casualty rankings",
+    "secondary": [
+      "ROC AUC > 0.75 for binary high/low casualty prediction",
+      "At least 3 of top 5 predicted names result in actual high casualties",
+      "Performance significantly better than chance (p < 0.05)"
+    ]
+  },
+  "falsification_criteria": {
+    "null_result": "Spearman r < 0.2 (no correlation)",
+    "weak_result": "ROC AUC < 0.55 (barely better than random)",
+    "reversed": "Negative correlation (predictions inverse of reality)"
+  },
+  "analysis_plan": {
+    "data_collection": "NOAA HURDAT2 database for actual 2026 storm casualties",
+    "evaluation_metrics": [
+      "Spearman rank correlation (primary)",
+      "ROC AUC for binary predictions",
+      "RMSE for probability calibration",
+      "Top-K accuracy (K=5, 10)"
+    ],
+    "statistical_tests": [
+      "Permutation test against random baseline",
+      "Bootstrap confidence intervals for correlation",
+      "Chi-square test for high/low classification"
+    ],
+    "reporting": "Full results regardless of outcome (success or failure)"
+  },
+  "ethical_considerations": {
+    "purpose": "Scientific test of nominative determinism theory",
+    "limitations": "Names do not cause hurricanes; predictions test perception/response effects",
+    "transparency": "Pre-registration prevents post-hoc rationalization",
+    "no_harm": "Predictions will not influence WMO naming decisions or public safety"
+  },
+  "verification": {
+    "sha256_hash": "60068ac73dbc6557e1fa670a3358af751abe8682ae5fa26eb0853f9630bab32b",
+    "note": "This hash can verify document was not modified after pre-registration"
+  }
+}

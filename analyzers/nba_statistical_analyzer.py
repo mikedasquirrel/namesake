@@ -78,6 +78,9 @@ class NBAStatisticalAnalyzer:
                     'overall_success_score': player.overall_success_score or 0,
                     'all_star_count': player.all_star_count or 0,
                     'hof_inducted': player.hof_inducted or False,
+                    'ft_percentage': player.ft_percentage,
+                    'three_point_percentage': player.three_point_percentage,
+                    'fg_percentage': player.fg_percentage,
                     
                     # Linguistic features (predictors)
                     'syllable_count': analysis.syllable_count or 0,
@@ -196,6 +199,8 @@ class NBAStatisticalAnalyzer:
             'rpg_model': {},
             'per_model': {},
             'performance_score_model': {},
+            'ft_percentage_model': {},
+            'three_point_percentage_model': {},
             'feature_importance': {},
         }
         
@@ -254,7 +259,27 @@ class NBAStatisticalAnalyzer:
                 X_perf, y_perf, 'Performance Score', feature_cols
             )
         
-        # 6. Combined feature importance
+        # 6. Free Throw % prediction
+        if 'ft_percentage' in df.columns:
+            df_ft = df[feature_cols + ['ft_percentage']].dropna()
+            if len(df_ft) >= 50:
+                X_ft = df_ft[feature_cols]
+                y_ft = df_ft['ft_percentage']
+                results['ft_percentage_model'] = self._train_regression_model(
+                    X_ft, y_ft, 'FT%', feature_cols
+                )
+        
+        # 7. Three-Point % prediction
+        if 'three_point_percentage' in df.columns:
+            df_3pt = df[feature_cols + ['three_point_percentage']].dropna()
+            if len(df_3pt) >= 50:
+                X_3pt = df_3pt[feature_cols]
+                y_3pt = df_3pt['three_point_percentage']
+                results['three_point_percentage_model'] = self._train_regression_model(
+                    X_3pt, y_3pt, '3PT%', feature_cols
+                )
+        
+        # 8. Combined feature importance
         results['feature_importance'] = self._analyze_performance_feature_importance(results, feature_cols)
         
         return results
@@ -595,7 +620,8 @@ class NBAStatisticalAnalyzer:
         """
         combined_importance = {}
         
-        models = ['ppg_model', 'apg_model', 'rpg_model', 'per_model', 'performance_score_model']
+        models = ['ppg_model', 'apg_model', 'rpg_model', 'per_model', 'performance_score_model', 
+                  'ft_percentage_model', 'three_point_percentage_model']
         
         for feature in feature_cols:
             importances = []
