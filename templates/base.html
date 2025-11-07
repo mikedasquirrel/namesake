@@ -3,35 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{% block title %}Nominative Determinism Investment Intelligence{% endblock %}</title>
+    <title>{% block title %}Nominative Determinism Research{% endblock %}</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@100;200;300;400;500&family=Playfair+Display:wght@200;300;400&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     {% block extra_css %}{% endblock %}
 </head>
 <body>
-    <nav>
-        <div class="logo">Nominative<span>Research</span></div>
-        <ul>
-            <li><a href="{{ url_for('overview') }}" {% if request.endpoint == 'overview' %}class="active"{% endif %}>Home</a></li>
-            <li><a href="{{ url_for('formula') }}" {% if request.endpoint == 'formula' %}class="active"{% endif %}>Formula</a></li>
-            <li><a href="{{ url_for('crypto_findings') }}" {% if request.endpoint == 'crypto_findings' or request.endpoint == 'analysis' %}class="active"{% endif %}>Crypto</a></li>
-            <li><a href="{{ url_for('hurricanes_page') }}" {% if request.endpoint == 'hurricanes_page' %}class="active"{% endif %}>Hurricanes</a></li>
-            <li><a href="{{ url_for('earthquakes_page') }}" {% if request.endpoint == 'earthquakes_page' %}class="active"{% endif %}>Earthquakes</a></li>
-            <li><a href="{{ url_for('academics_page') }}" {% if request.endpoint == 'academics_page' %}class="active"{% endif %}>Academics</a></li>
-            <li><a href="{{ url_for('mtg_page') }}" {% if request.endpoint == 'mtg_page' %}class="active"{% endif %}>MTG</a></li>
-            <li><a href="{{ url_for('bands_page') }}" {% if request.endpoint == 'bands_page' %}class="active"{% endif %}>Bands</a></li>
-            <li><a href="{{ url_for('nba_findings') }}" {% if request.endpoint == 'nba_findings' %}class="active"{% endif %}>NBA</a></li>
-            <li><a href="{{ url_for('nfl_page') }}" {% if request.endpoint == 'nfl_page' %}class="active"{% endif %}>NFL</a></li>
-            <li><a href="{{ url_for('ships_page') }}" {% if request.endpoint == 'ships_page' %}class="active"{% endif %}>Ships</a></li>
-            <li><a href="{{ url_for('immigration_findings') }}" {% if request.endpoint == 'immigration_findings' or request.endpoint == 'immigration_interactive' %}class="active"{% endif %}>Immigration</a></li>
-            <li><a href="{{ url_for('america_page') }}" {% if request.endpoint == 'america_page' %}class="active"{% endif %}>America</a></li>
-            <li><a href="{{ url_for('mental_health_page') }}" {% if request.endpoint == 'mental_health_page' %}class="active"{% endif %}>Mental Health</a></li>
-        </ul>
+    <!-- Unified Navigation Bar -->
+    <nav class="unified-nav">
+        <div class="nav-container">
+            <!-- Logo -->
+            <a href="{{ url_for('overview') }}" class="nav-logo">
+                <div class="nav-text">Nominative<span>Research</span></div>
+            </a>
+            
+            <!-- Mobile Toggle -->
+            <button class="nav-mobile-toggle" aria-label="Toggle navigation">
+                <span>☰</span>
+            </button>
+            
+            <!-- Navigation Links -->
+            <div class="nav-links">
+                <!-- Home -->
+                <a href="{{ url_for('overview') }}" class="nav-link {% if request.endpoint == 'overview' %}active{% endif %}">
+                    Home
+                </a>
+                
+                <!-- Markets Dropdown -->
+                <div class="nav-dropdown">
+                    <div class="nav-link nav-dropdown-toggle">
+                        Markets
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="nav-dropdown-menu">
+                        <a href="{{ url_for('crypto_findings') }}">Cryptocurrency</a>
+                        <a href="{{ url_for('mtg_page') }}">Magic: The Gathering</a>
+                    </div>
+                </div>
+                
+                <!-- Sports Dropdown -->
+                <div class="nav-dropdown">
+                    <div class="nav-link nav-dropdown-toggle">
+                        Sports
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="nav-dropdown-menu">
+                        <a href="{{ url_for('nba_findings') }}">NBA</a>
+                        <a href="{{ url_for('nfl_page') }}">NFL</a>
+                    </div>
+                </div>
+                
+                <!-- Natural Events Dropdown -->
+                <div class="nav-dropdown">
+                    <div class="nav-link nav-dropdown-toggle">
+                        Natural Events
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="nav-dropdown-menu">
+                        <a href="{{ url_for('hurricanes_page') }}">Hurricanes</a>
+                        <a href="{{ url_for('earthquakes_page') }}">Earthquakes</a>
+                    </div>
+                </div>
+                
+                <!-- Human Systems Dropdown -->
+                <div class="nav-dropdown">
+                    <div class="nav-link nav-dropdown-toggle">
+                        Human Systems
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="nav-dropdown-menu">
+                        <a href="{{ url_for('academics_page') }}">Academics</a>
+                        <a href="{{ url_for('bands_page') }}">Bands</a>
+                        <a href="{{ url_for('ships_page') }}">Ships</a>
+                        <a href="{{ url_for('immigration_findings') }}">Immigration</a>
+                        <a href="{{ url_for('america_page') }}">America</a>
+                        <a href="{{ url_for('mental_health_page') }}">Mental Health</a>
+                    </div>
+                </div>
+                
+                <!-- Formula -->
+                <a href="{{ url_for('formula') }}" class="nav-link {% if request.endpoint == 'formula' %}active{% endif %}">
+                    Formula
+                </a>
+            </div>
+        </div>
     </nav>
+    
+    <!-- Main Content -->
     <div class="container">
         {% block content %}{% endblock %}
     </div>
 
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+    
+    <!-- Navigation Script -->
+    <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
+    
     {% block extra_js %}{% endblock %}
 </body>
 </html>

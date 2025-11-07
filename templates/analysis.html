@@ -1,256 +1,256 @@
 {% extends "base.html" %}
 
-{% block title %}Statistical Analysis of Cryptocurrency Nominative Determinism{% endblock %}
+{% block title %}Statistical Analysis{% endblock %}
 
 {% block content %}
-<div style="max-width: 1000px; margin: 0 auto;">
+<div class="dashboard-container">
+    <!-- Subtle Background -->
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.3;">
+        <div style="position: absolute; width: 200%; height: 100%; opacity: 0.015; filter: blur(80px); background: radial-gradient(ellipse at 70% 40%, var(--accent-purple) 0%, transparent 60%);"></div>
+    </div>
 
-<div style="text-align: center; margin-bottom: 3rem;">
-    <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Statistical Analysis of Cryptocurrency Nominative Determinism</h1>
-    <p style="font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
-        A multi-method investigation into the relationship between linguistic characteristics and market performance
+    <div style="max-width: 1100px; margin: 0 auto; padding: 3rem 2rem; position: relative; z-index: 1;">
+
+        <!-- Hero Section -->
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <div style="font-size: var(--text-base); color: var(--accent-purple); margin-bottom: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.9;">
+                Statistical Methods
+            </div>
+            <h1 style="font-size: 2.75rem; font-weight: var(--weight-ultra); margin-bottom: 1rem; letter-spacing: -0.05em; font-family: 'Playfair Display', serif;">
+                Cryptocurrency Statistical Analysis
+            </h1>
+            <p style="font-size: 1.125rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 2rem; line-height: 1.6;">
+                Multi-method investigation into the relationship between linguistic characteristics and market performance
     </p>
     <a href="{{ url_for('crypto_findings') }}" class="btn-secondary">← Back to Crypto Findings</a>
 </div>
 
-<div class="glass card">
+        <!-- Executive Summary -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 2rem;">
+            <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-weight: var(--weight-light);">Executive Summary</h2>
+            
+            <p style="line-height: 1.8; margin-bottom: 1.5rem;">
+                This analysis examines whether cryptocurrency names influence market performance through nominative determinism. Using <strong>2,740 cryptocurrencies</strong> with complete one-year metrics, we applied correlation analysis, regression modeling, unsupervised clustering, ANOVA, and causal inference techniques.
+            </p>
 
-<h2 style="border-bottom: 2px solid var(--accent-primary); padding-bottom: 0.5rem; margin-top: 2rem; margin-bottom: 1.5rem;">Executive Summary</h2>
+            <p style="line-height: 1.8; margin-bottom: 1.5rem;">
+                The central finding: <strong>name characteristics alone show weak linear predictive power</strong> (Pearson r = 0.015, R² = 0.0059), yet clustering identifies two distinct linguistic archetypes with a <strong>+17.6 percentage point differential</strong>. High-memorability names (+37.6%) outperform low-memorability counterparts (+20.0%).
+            </p>
 
-<p>
-This analysis examines the hypothesis that cryptocurrency names influence market performance through nominative determinism—the theory that linguistic characteristics of a name affect its associated outcomes. Using a comprehensive dataset of <strong>2,740 cryptocurrencies</strong> with complete one-year performance metrics, we applied multiple statistical methods including correlation analysis, regression modeling, unsupervised clustering, ANOVA, and causal inference techniques.
-</p>
-
-<p>
-The central finding challenges naive interpretations while revealing nuanced patterns: <strong>name characteristics alone show weak linear predictive power</strong> (Pearson r = 0.015, linear R² = 0.0059), yet clustering analysis identifies two distinct linguistic archetypes with a measurable <strong>+17.6 percentage point performance differential</strong>. High-memorability, pronounceable names—characterized by brevity, phonetic richness, and cognitive accessibility—demonstrate superior average returns (+37.62%) compared to their low-memorability counterparts (+19.98%). This suggests that linguistic craft functions as a <em>performance amplifier</em> rather than an independent driver, enhancing upside potential when coupled with solid technological fundamentals.
-</p>
-
-<div style="margin: 1.5rem 0; padding: 1.25rem; background: rgba(224, 165, 90, 0.1); border-left: 4px solid #e0a55a; border-radius: 6px;">
-    <strong style="color: #e0a55a;">Key Insight:</strong> 
-    Nominative determinism in cryptocurrency markets operates through <em>cohort effects</em> rather than direct linear relationships. Names matter, but not in isolation.
+            <div style="background: rgba(251, 191, 36, 0.08); padding: 1.5rem; border-radius: 12px; border-left: 3px solid var(--accent-gold);">
+                <p style="margin: 0; line-height: 1.7;">
+                    <strong style="color: var(--accent-gold);">Key Insight:</strong> Nominative determinism operates through <em>cohort effects</em> rather than direct linear relationships. Names matter, but not in isolation.
+                </p>
+            </div>
     </div>
     
-<h2 style="border-bottom: 2px solid var(--accent-primary); padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem;">Dataset & Methodology</h2>
+        <!-- Dataset & Methodology -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 2rem;">
+            <h2 style="margin-bottom: 2rem; font-weight: var(--weight-light);">Dataset & Methodology</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-bottom: 2rem;">
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2rem; font-weight: var(--weight-thin); color: var(--accent-cyan); margin-bottom: 0.5rem;">2,740</div>
+                    <div style="font-size: var(--text-xs); color: var(--text-muted);">Assets Analyzed</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2rem; font-weight: var(--weight-thin); color: var(--accent-cyan); margin-bottom: 0.5rem;">78%</div>
+                    <div style="font-size: var(--text-xs); color: var(--text-muted);">Market Coverage</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2rem; font-weight: var(--weight-thin); color: var(--accent-cyan); margin-bottom: 0.5rem;">10</div>
+                    <div style="font-size: var(--text-xs); color: var(--text-muted);">Linguistic Features</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2rem; font-weight: var(--weight-thin); color: var(--accent-cyan); margin-bottom: 0.5rem;">18.7%</div>
+                    <div style="font-size: var(--text-xs); color: var(--text-muted);">Positive Returns</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2rem; font-weight: var(--weight-thin); color: var(--accent-cyan); margin-bottom: 0.5rem;">6</div>
+                    <div style="font-size: var(--text-xs); color: var(--text-muted);">Statistical Methods</div>
+                </div>
+            </div>
 
-<p>
-Our analysis draws from a complete cryptocurrency database comprising 3,500 assets, of which 2,740 possess verified one-year performance data suitable for statistical validation. This represents 78% coverage and provides robust statistical power for pattern detection. The sample spans the full market spectrum: <strong>52 vanguard assets</strong> (top 50 by market cap), <strong>152 established</strong> (ranks 51-200), <strong>298 mid-cap</strong> (201-500), <strong>499 emergent</strong> (501-1,000), and <strong>1,739 long-tail</strong> assets (rank >1,000). This stratification ensures findings generalize across market tiers rather than reflecting only elite or obscure segments.
-</p>
+            <p style="line-height: 1.8; margin-bottom: 1.5rem;">
+                Our analysis spans the full market spectrum: <strong>52 vanguard assets</strong> (top 50), <strong>152 established</strong> (ranks 51-200), <strong>298 mid-cap</strong> (201-500), <strong>499 emergent</strong> (501-1,000), and <strong>1,739 long-tail</strong> assets (>1,000 rank).
+            </p>
 
-<p>
-Each cryptocurrency underwent comprehensive linguistic analysis extracting ten core features: syllable count, character length, phonetic score, vowel ratio, memorability score, pronounceability score, uniqueness score, presence of numeric characters, presence of special characters, and name-type percentile. Performance was measured as one-year price change percentage, with positive returns indicating gains and negative values indicating losses. The dataset exhibits substantial variance—average return of +29.59% conceals a median near zero and heavy right-tail skew, with <strong>18.7% of assets posting positive returns</strong>, <strong>3.6% achieving high-performer status</strong> (≥150% return), and <strong>2.1% reaching breakout levels</strong> (≥300% return).
-</p>
+            <p style="line-height: 1.8;">
+                Each cryptocurrency underwent comprehensive linguistic analysis extracting ten features: syllable count, character length, phonetic score, vowel ratio, memorability, pronounceability, uniqueness, numeric characters, special characters, and name-type percentile.
+            </p>
+        </div>
 
-<p>
-We employed a multi-method analytical framework combining classical and advanced statistical techniques. Classical methods included Pearson correlation analysis, linear regression with ordinary least squares, ANOVA for categorical comparisons, and descriptive profiling by syllable and length cohorts. Advanced methods comprised K-means clustering with automatic cluster-count detection via silhouette optimization, Random Forest ensemble modeling for feature importance estimation, polynomial and threshold regression for non-linearity detection, and propensity score-weighted causal inference to control for confounding variables (market capitalization and rank). All analyses were conducted using Python's scientific stack (NumPy, pandas, scikit-learn, scipy, statsmodels) with appropriate corrections for multiple comparisons where applicable.
-</p>
+        <!-- Statistical Methods Grid -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 2rem;">
+            <h2 style="margin-bottom: 2rem; font-weight: var(--weight-light);">Statistical Methods Applied</h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: 12px;">
+                    <h3 style="font-size: var(--text-lg); margin-bottom: 1rem; font-weight: var(--weight-regular); color: var(--accent-cyan);">Classical Methods</h3>
+                    <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.8; font-size: var(--text-sm); color: var(--text-secondary);">
+                        <li>Pearson correlation analysis</li>
+                        <li>Multiple linear regression (OLS)</li>
+                        <li>ANOVA for categorical comparisons</li>
+                        <li>Descriptive profiling by cohorts</li>
+                    </ul>
+                </div>
 
-<h2 style="border-bottom: 2px solid var(--accent-primary); padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem;">Classical Statistical Findings</h2>
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: 12px;">
+                    <h3 style="font-size: var(--text-lg); margin-bottom: 1rem; font-weight: var(--weight-regular); color: var(--accent-purple);">Advanced Methods</h3>
+                    <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.8; font-size: var(--text-sm); color: var(--text-secondary);">
+                        <li>K-means clustering (unsupervised)</li>
+                        <li>Random Forest ensemble modeling</li>
+                        <li>Polynomial & threshold regression</li>
+                        <li>Propensity score-weighted causal inference</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
 
-<h3 style="margin-top: 1.75rem; margin-bottom: 1rem; color: var(--text-secondary);">Correlation Analysis</h3>
+        <!-- Correlation Analysis -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 2rem;">
+            <h2 style="margin-bottom: 2rem; font-weight: var(--weight-light);">Correlation Analysis</h2>
+            
+            <p style="line-height: 1.8; margin-bottom: 2rem;">
+                Pearson correlations between linguistic features and performance reveal uniformly weak linear relationships. <strong>No feature achieved statistical significance</strong> at α = 0.05.
+            </p>
 
-<p>
-Pearson correlation coefficients between linguistic features and one-year performance reveal uniformly weak linear relationships. The strongest correlation observed was <strong>has_numbers (+0.046, p = 0.071)</strong>, narrowly missing statistical significance, suggesting names incorporating numeric elements show marginal positive associations with performance. Syllable count exhibited a weak negative correlation (-0.042, p = 0.099), as did character length (-0.037, p = 0.144). Core quality metrics—memorability (+0.012, p = 0.625), pronounceability (+0.022, p = 0.397), phonetic score (+0.015, p = 0.566), and uniqueness (-0.016, p = 0.521)—all produced correlations indistinguishable from noise.
-</p>
-
-<p>
-Critically, <strong>no linguistic feature achieved statistical significance</strong> at the conventional α = 0.05 threshold when tested individually against performance. This null result indicates that simple linear relationships between isolated name characteristics and market outcomes do not exist at detectable magnitudes within our dataset. The implication is clear: nominative determinism, if operative, functions through more complex mechanisms than direct feature-to-performance mappings.
-</p>
-
-<h3 style="margin-top: 1.75rem; margin-bottom: 1rem; color: var(--text-secondary);">Regression Modeling</h3>
-
-<p>
-Multiple linear regression incorporating all ten linguistic features as predictors yielded an adjusted R² of <strong>0.0059</strong>, indicating that name characteristics collectively explain less than 1% of performance variance when modeled linearly. Individual coefficients largely mirrored correlation findings: syllable count (-29.96), character length (-5.95), and memorability (-2.77) showed negative weights, while vowel ratio (+106.12), phonetic score (+0.59), and pronounceability (+0.38) contributed modest positive coefficients. The predominance of small, inconsistent effects confirms that linear combinations of name metrics lack meaningful predictive utility.
-</p>
-
-<p>
-In contrast, a Random Forest ensemble model—capable of capturing non-linear interactions and threshold effects—achieved an in-sample R² of <strong>0.6519</strong>, a dramatic improvement suggesting that name characteristics do influence performance through complex, conditional relationships. Feature importance rankings from the ensemble identified <strong>uniqueness score (41.7%)</strong> as the dominant predictor, followed by <strong>character length (31.0%)</strong> and <strong>phonetic score (11.8%)</strong>. Memorability (7.2%) and pronounceability (4.6%) contributed secondary importance, while syllable count and special character flags registered negligible weights (<1%). This hierarchy implies that market differentiation (uniqueness) and cognitive efficiency (brevity) matter most, with phonetic quality providing tertiary support.
-</p>
-
-<div style="margin: 1.5rem 0; padding: 1.25rem; background: rgba(224, 165, 90, 0.1); border-left: 4px solid #e0a55a; border-radius: 6px;">
-    <strong style="color: #e0a55a;">Methodological Caution:</strong> 
-    The Random Forest R² reflects <em>in-sample</em> performance without cross-validation. Overfitting remains a material risk, and out-of-sample validation is required before treating these importances as operationally reliable.
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 2rem;">
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: var(--text-xs); color: var(--text-subtle); margin-bottom: 0.5rem; text-transform: uppercase;">Memorability</div>
+                    <div style="font-size: 1.75rem; font-weight: var(--weight-thin); color: var(--text-muted); margin-bottom: 0.25rem;">+0.012</div>
+                    <div style="font-size: var(--text-xs); color: var(--text-subtle);">p = 0.625 (n.s.)</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: var(--text-xs); color: var(--text-subtle); margin-bottom: 0.5rem; text-transform: uppercase;">Pronounceability</div>
+                    <div style="font-size: 1.75rem; font-weight: var(--weight-thin); color: var(--text-muted); margin-bottom: 0.25rem;">+0.022</div>
+                    <div style="font-size: var(--text-xs); color: var(--text-subtle);">p = 0.397 (n.s.)</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: var(--text-xs); color: var(--text-subtle); margin-bottom: 0.5rem; text-transform: uppercase;">Has Numbers</div>
+                    <div style="font-size: 1.75rem; font-weight: var(--weight-thin); color: var(--text-muted); margin-bottom: 0.25rem;">+0.046</div>
+                    <div style="font-size: var(--text-xs); color: var(--text-subtle);">p = 0.071 (n.s.)</div>
+                </div>
     </div>
     
-<h3 style="margin-top: 1.75rem; margin-bottom: 1rem; color: var(--text-secondary);">Name Category Comparison (ANOVA)</h3>
+            <div style="background: rgba(239, 68, 68, 0.08); padding: 1.5rem; border-radius: 12px; border-left: 3px solid #f87171;">
+                <p style="margin: 0; line-height: 1.7;">
+                    <strong>Interpretation:</strong> Simple linear relationships between isolated name characteristics and market outcomes do not exist at detectable magnitudes. Nominative determinism functions through more complex mechanisms.
+                </p>
+            </div>
+        </div>
 
-<p>
-Analysis of variance across nine name categories revealed statistically significant differences in mean performance (<strong>F = 2.33, p = 0.017</strong>), confirming that categorical name archetypes exhibit distinct return profiles. However, interpretation demands caution due to extreme outliers and heavy-tailed distributions within categories.
-</p>
+        <!-- Regression Results -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 2rem;">
+            <h2 style="margin-bottom: 2rem; font-weight: var(--weight-light);">Regression Modeling</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
+                <div style="background: rgba(239, 68, 68, 0.05); padding: 2rem; border-radius: 12px; border: 1px solid rgba(239, 68, 68, 0.2); text-align: center;">
+                    <div style="font-size: var(--text-sm); color: var(--text-muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em;">Linear Regression</div>
+                    <div style="font-size: 3rem; font-weight: var(--weight-thin); color: #f87171; margin-bottom: 0.5rem;">0.59%</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-secondary);">Adjusted R² (explained variance)</div>
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: var(--text-sm); color: var(--text-secondary);">
+                        Linear combinations lack predictive utility
+                    </div>
+                </div>
 
-<p>
-<strong>Numeric names</strong> (n = 20) produced the highest mean return (+524.7%), driven by a single outlier exceeding +10,000%. The median return of +10.7% provides a more grounded estimate, yet the small sample size (n = 20) undermines generalizability. <strong>Acronym-based names</strong> (n = 117) similarly showed inflated means (+302.0%) with negative medians (-35.9%), again reflecting extreme winners biasing the distribution. <strong>Tech-oriented names</strong> (n = 378), the largest substantive category, averaged +52.4% but exhibited a median of -36.8%, underscoring that while some tech-branded projects achieve breakout success, the majority underperform.
-</p>
+                <div style="background: rgba(16, 185, 129, 0.05); padding: 2rem; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.2); text-align: center;">
+                    <div style="font-size: var(--text-sm); color: var(--text-muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.05em;">Random Forest</div>
+                    <div style="font-size: 3rem; font-weight: var(--weight-thin); color: var(--accent-emerald); margin-bottom: 0.5rem;">65.2%</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-secondary);">In-sample R² (complex patterns)</div>
+                    <div style="margin-top: 1.5rem; padding-top: 1.5rem; border-top: 1px solid rgba(255, 255, 255, 0.08); font-size: var(--text-sm); color: var(--text-secondary);">
+                        Non-linear interactions captured
+                    </div>
+                </div>
+            </div>
 
-<p>
-<strong>Animal-themed names</strong> (n = 93) returned +43.2% on average with a deeply negative median (-49.0%), consistent with the well-documented "meme coin" phenomenon where a handful of viral successes (e.g., Dogecoin) create misleading aggregate statistics while most fail. <strong>Financial terminology</strong> (n = 134) showed more balanced distributions (+37.6% mean, +0.4% median), suggesting moderate but inconsistent advantages. <strong>Invented neologisms</strong> (n = 771), the modal category, produced near-zero means (+9.5%) and negative medians (-39.9%), indicating that fabricated names without semantic grounding struggle to gain traction.
-</p>
+            <h3 style="font-size: var(--text-lg); margin-bottom: 1.5rem; font-weight: var(--weight-regular);">Feature Importance (Random Forest)</h3>
+            
+            <div style="background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: 12px;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+                    <span style="font-size: var(--text-sm); color: var(--text-secondary);">Uniqueness Score</span>
+                    <div style="flex: 1; margin: 0 1rem; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
+                        <div style="width: 41.7%; height: 100%; background: linear-gradient(90deg, var(--accent-cyan), var(--accent-purple));"></div>
+                    </div>
+                    <span style="font-size: var(--text-sm); color: var(--accent-cyan); font-weight: 600; min-width: 50px; text-align: right;">41.7%</span>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+                    <span style="font-size: var(--text-sm); color: var(--text-secondary);">Character Length</span>
+                    <div style="flex: 1; margin: 0 1rem; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
+                        <div style="width: 31%; height: 100%; background: linear-gradient(90deg, var(--accent-purple), var(--accent-pink));"></div>
+                    </div>
+                    <span style="font-size: var(--text-sm); color: var(--accent-purple); font-weight: 600; min-width: 50px; text-align: right;">31.0%</span>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+                    <span style="font-size: var(--text-sm); color: var(--text-secondary);">Phonetic Score</span>
+                    <div style="flex: 1; margin: 0 1rem; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
+                        <div style="width: 11.8%; height: 100%; background: var(--accent-pink);"></div>
+                    </div>
+                    <span style="font-size: var(--text-sm); color: var(--accent-pink); font-weight: 600; min-width: 50px; text-align: right;">11.8%</span>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 0.75rem;">
+                    <span style="font-size: var(--text-sm); color: var(--text-secondary);">Memorability</span>
+                    <div style="flex: 1; margin: 0 1rem; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
+                        <div style="width: 7.2%; height: 100%; background: var(--accent-gold);"></div>
+                    </div>
+                    <span style="font-size: var(--text-sm); color: var(--text-muted); font-weight: 600; min-width: 50px; text-align: right;">7.2%</span>
+                </div>
+                <div style="display: flex; align-items: center; justify-content: space-between;">
+                    <span style="font-size: var(--text-sm); color: var(--text-secondary);">Pronounceability</span>
+                    <div style="flex: 1; margin: 0 1rem; height: 8px; background: rgba(255, 255, 255, 0.05); border-radius: 4px; overflow: hidden;">
+                        <div style="width: 4.6%; height: 100%; background: var(--accent-emerald);"></div>
+                    </div>
+                    <span style="font-size: var(--text-sm); color: var(--text-muted); font-weight: 600; min-width: 50px; text-align: right;">4.6%</span>
+                </div>
+            </div>
 
-<p>
-Categories with smaller samples—astronomical (-22.5%), elemental (-25.4%), and mythological (-31.3%)—uniformly underperformed, though limited observations (n = 6–17) preclude confident inference. The ANOVA result confirms genuine categorical heterogeneity, but <strong>heavy-tailed distributions necessitate median-focused interpretation</strong> to avoid overstating the influence of rare outliers.
-</p>
+            <div style="background: rgba(251, 191, 36, 0.08); padding: 1.5rem; border-radius: 12px; border-left: 3px solid var(--accent-gold); margin-top: 2rem;">
+                <p style="margin: 0; line-height: 1.7;">
+                    <strong style="color: var(--accent-gold);">Methodological Caution:</strong> The Random Forest R² reflects in-sample performance. Overfitting remains a risk—out-of-sample validation required before operational deployment.
+                </p>
+            </div>
+        </div>
 
-<h2 style="border-bottom: 2px solid var(--accent-primary); padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem;">Advanced Analytical Findings</h2>
+        <!-- Clustering Results -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 2rem;">
+            <h2 style="margin-bottom: 2rem; font-weight: var(--weight-light);">Clustering Analysis: The Key Finding</h2>
+            
+            <p style="line-height: 1.8; margin-bottom: 2rem;">
+                K-means clustering with silhouette optimization identified two distinct linguistic archetypes. This binary partition captures the strongest nominative signal in the dataset.
+            </p>
 
-<h3 style="margin-top: 1.75rem; margin-bottom: 1rem; color: var(--text-secondary);">Cluster Analysis: Linguistic Archetypes</h3>
-
-<p>
-Unsupervised K-means clustering with automatic cluster-count optimization (via silhouette scoring) identified <strong>two distinct linguistic archetypes</strong> within the cryptocurrency name landscape, achieving a silhouette coefficient of 0.401 (classified as "good" quality). This binary segmentation exposes a fundamental division between cognitively accessible, compact branding strategies and verbose, low-memorability constructions.
-</p>
-
-<p>
-<strong>Cluster 0</strong>, the winning archetype, comprises <strong>1,493 assets (54.5%)</strong> characterized by brevity (mean length 6.64 characters, ±2.33 SD), low syllable counts (1.75, ±0.77), and elevated quality metrics—memorability score of 88.8, pronounceability of 42.3, and phonetic score of 84.7. This cohort achieved an <strong>average one-year return of +37.62%</strong> with a 16.7% win rate. The defining differentiator relative to the overall population is memorability: at 88.8 versus a market average of 68.0, Cluster 0 names occupy the <em>high-recall</em> zone where brand retention and word-of-mouth propagation are maximized.
-</p>
-
-<p>
-<strong>Cluster 1</strong>, comprising <strong>1,247 assets (45.5%)</strong>, occupies the opposite pole: long names (mean 16.63 characters, ±8.50 SD), elevated syllable counts (3.76, ±1.97), and depressed quality scores—memorability of 43.2, pronounceability of 6.7, phonetic score of 51.1. Despite a higher win rate (21.1% versus 16.7%), this cluster achieved only a <strong>+19.98% average return</strong>. The apparent win-rate paradox resolves when we recognize that Cluster 1 contains more stable, lower-variance assets with modest gains, whereas Cluster 0 captures higher-risk, higher-reward profiles with outsized winners.
-</p>
-
-<p>
-The <strong>performance advantage of +17.64 percentage points</strong> for Cluster 0 constitutes the study's most robust finding. Unlike correlation coefficients testing isolated features, the cluster differential reflects <em>joint linguistic profiles</em>—combinations of brevity, memorability, and phonetic accessibility operating synergistically. This cohort effect cannot be reduced to any single name metric but emerges from the gestalt of cognitive-friendly linguistic design.
-</p>
-
-<div style="margin: 1.5rem 0; padding: 1.25rem; background: rgba(74, 196, 158, 0.05); border-left: 4px solid var(--success-muted); border-radius: 6px;">
-    <strong style="color: var(--success-muted);">Actionable Insight:</strong> 
-    Target the Cluster 0 profile—names under 7 characters with memorability scores exceeding 80 and pronounceability above 40—to access the high-performance archetype.
+            <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: center;">
+                <div style="padding: 2rem; background: rgba(16, 185, 129, 0.05); border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.2); text-align: center;">
+                    <div style="font-size: var(--text-xs); color: var(--text-subtle); margin-bottom: 0.5rem; letter-spacing: 0.05em;">CLUSTER 0</div>
+                    <div style="font-size: var(--text-xl); font-weight: var(--weight-medium); color: var(--accent-emerald); margin-bottom: 1.5rem;">High-Memorability</div>
+                    <div style="font-size: 2.5rem; font-weight: var(--weight-thin); color: var(--accent-emerald); margin-bottom: 0.5rem;">+37.6%</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted);">Average Return</div>
 </div>
 
-<h3 style="margin-top: 1.75rem; margin-bottom: 1rem; color: var(--text-secondary);">Sweet Spot Saturation</h3>
+                <div style="font-size: 1.5rem; font-weight: var(--weight-thin); color: var(--text-muted);">VS</div>
+                
+                <div style="padding: 2rem; background: rgba(255, 255, 255, 0.02); border-radius: 12px; border: 1px solid var(--glass-border); text-align: center;">
+                    <div style="font-size: var(--text-xs); color: var(--text-subtle); margin-bottom: 0.5rem; letter-spacing: 0.05em;">CLUSTER 1</div>
+                    <div style="font-size: var(--text-xl); font-weight: var(--weight-medium); color: var(--text-muted); margin-bottom: 1.5rem;">Low-Memorability</div>
+                    <div style="font-size: 2.5rem; font-weight: var(--weight-thin); color: var(--text-muted); margin-bottom: 0.5rem;">+20.0%</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted);">Average Return</div>
+                </div>
+            </div>
 
-<p>
-The conventional wisdom in branding prescribes 2-3 syllable names within 5-10 characters as optimal for memorability and market appeal. Our data challenges this orthodoxy: <strong>819 cryptocurrencies</strong> conforming to this "sweet spot" profile achieved an average return of <strong>-3.23%</strong>, underperforming both the market average (+29.59%) and the broader Cluster 0 archetype (+37.62%). This unexpected negative performance signals market saturation—the sweet spot has become crowded, diluting its differentiation value.
-</p>
-
-<p>
-The saturation effect likely stems from imitation dynamics: as successful early cryptocurrencies (Bitcoin, Ethereum, Cardano) established the 2-3 syllable paradigm, subsequent projects copied the formula without underlying innovation, resulting in a cohort of indistinguishable "me-too" brands competing for the same psychological real estate. In contrast, Cluster 0's success derives not from adhering to a fixed template but from achieving <em>relative</em> memorability and pronounceability within the evolving competitive landscape. The lesson is strategic: linguistic patterns that once conferred advantage become liabilities when universally adopted.
-</p>
-
-<h3 style="margin-top: 1.75rem; margin-bottom: 1rem; color: var(--text-secondary);">Feature Importance & Ensemble Insights</h3>
-
-<p>
-The Random Forest model's feature importance distribution reveals which linguistic characteristics the ensemble prioritizes when making predictions. <strong>Uniqueness score dominates at 41.7%</strong>, reflecting the model's emphasis on differentiation—in crowded markets, standing out cognitively matters more than conforming to conventional branding heuristics. <strong>Character length accounts for 31.0%</strong> of importance, with the model favoring brevity (names ≤6 characters show +77.5% average returns versus +8.9% for longer names). This aligns with information theory: shorter symbols transmit faster, require less cognitive load, and resist degradation in noisy communication channels.
-</p>
-
-<p>
-<strong>Phonetic score (11.8%)</strong> and <strong>memorability score (7.2%)</strong> contribute secondary importance, suggesting that euphony and recall facilitate word-of-mouth diffusion but do not substitute for raw distinctiveness. Pronounceability (4.6%) provides marginal benefit, likely because ease of vocalization enhances social transmission. Notably, <strong>syllable count registers minimal importance (0.7%)</strong>, contradicting conventional branding wisdom and reinforcing that absolute syllable counts matter less than the <em>joint configuration</em> of length, memorability, and phonetic quality.
-</p>
-
-<p>
-The ensemble's in-sample R² of 0.6519 indicates that non-linear feature interactions explain substantial variance, but this metric must be interpreted cautiously. Without k-fold cross-validation or temporal train-test splits, we cannot distinguish genuine predictive signal from overfitting artifacts. The stark gap between linear R² (0.0059) and ensemble R² (0.6519) suggests either that (a) complex interactions genuinely exist, or (b) the Random Forest is memorizing training set idiosyncrasies. Out-of-sample validation remains a priority for future work.
-</p>
-
-<h2 style="border-bottom: 2px solid var(--accent-primary); padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem;">Non-Linear Pattern Discovery</h2>
-
-<p>
-Threshold regression analysis sought to identify optimal ranges for continuous linguistic features, testing whether relationships exhibit discontinuities or inflection points rather than monotonic trends. For <strong>character length</strong>, piecewise regression detected a threshold at 6 characters: names ≤6 characters averaged +77.45% returns, while names >6 characters returned +8.94%. However, the R² improvement over linear modeling was negligible (0.0049), indicating the threshold provides descriptive insight but minimal predictive value.
-</p>
-
-<p>
-<strong>Phonetic score</strong> exhibited a threshold at 89.09: names above this cutoff averaged +80.61% versus +13.57% below. Again, the R² gain was trivial (0.0046). <strong>Vowel ratio</strong> showed a threshold at 0.44 (high-vowel names: +79.69%; low-vowel names: +13.76%), with similar R² gains. These thresholds converge on a consistent narrative—<em>higher linguistic quality associates with better performance</em>—but the weak R² improvements confirm that thresholds alone do not unlock strong predictive models.
-</p>
-
-<p>
-Polynomial regression (quadratic and cubic) applied to all features yielded no meaningful improvements over linear baselines, with R² gains rounding to zero across all tests. This negative result is itself informative: <strong>relationships are not smoothly non-linear</strong> in functional form. Instead, the data suggest regime-switching behavior where certain combinations of features trigger different performance distributions—a pattern better captured by clustering or tree-based methods than by polynomial curves.
-</p>
-
-<h2 style="border-bottom: 2px solid var(--accent-primary); padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem;">Causal Inference Attempts</h2>
-
-<p>
-We attempted to estimate causal effects using propensity score methods, comparing high-linguistic-quality cohorts (defined as above-median memorability, uniqueness, and phonetic scores) against controls while adjusting for confounders (market rank and capitalization). The goal was to isolate the <em>causal</em> contribution of name quality net of selection effects whereby better-funded projects hire branding consultants.
-</p>
-
-<p>
-All three causal analyses returned <strong>non-significant average treatment effects</strong> with wide confidence intervals straddling zero. High memorability (>72) yielded an ATE of -9.92% [95% CI: -69.21, +45.33], high uniqueness produced similar null results, and high phonetic score showed +26.79% [-17.08, +84.44]—again non-significant. The propensity score models encountered perfect separation warnings and singular matrix errors, indicating that the binary treatment groups separate too cleanly on confounders for stable estimation.
-</p>
-
-<p>
-These failures are methodologically revealing: <strong>causal identification requires richer confounder sets</strong>. Market rank and capitalization alone do not capture team quality, technological innovation, network effects, or macroeconomic conditions—all of which confound name-performance relationships. Without experimental or quasi-experimental variation (e.g., projects randomly assigned names), causal claims remain speculative. The clustering result, showing cohort differences, is <em>associational</em> rather than causal, though it remains actionable for branding strategy.
-</p>
-
-<h2 style="border-bottom: 2px solid var(--accent-primary); padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem;">Synthesis & Interpretation</h2>
-
-<p>
-The totality of evidence supports a <strong>modified nominative determinism hypothesis</strong>: linguistic characteristics do not <em>determine</em> cryptocurrency performance in a deterministic sense, but they <em>modulate</em> outcomes by influencing cognitive accessibility, social transmission, and brand recall. High-quality names—brief, memorable, pronounceable, and distinctive—create <strong>necessary but insufficient conditions</strong> for market success. They amplify upside when projects deliver technological value, but cannot compensate for fundamental weaknesses.
-</p>
-
-<p>
-The weak linear correlations (r ≈ 0.01–0.05) coupled with strong cluster differences (+17.6 percentage points) suggest a <strong>threshold or gating mechanism</strong>: names below a certain quality floor face friction in adoption and recall, while names above the threshold compete on fundamentals. Within the high-quality zone (Cluster 0), performance variance is driven by non-linguistic factors, but <em>entry</em> into that zone requires linguistic craft. This model reconciles the null correlations with the cluster effect—correlations measure gradations within the entire population, while clustering isolates qualitatively distinct regimes.
-</p>
-
-<p>
-The Random Forest's high in-sample R² hints at complex feature interactions (e.g., uniqueness matters more for long names, phonetic quality matters more for unfamiliar morphologies), but without cross-validation, we cannot differentiate signal from noise. The lack of significant interaction effects in our formal tests (36 two-way and 10 three-way comparisons yielded zero significant findings post-FDR correction) suggests either that (a) interaction effects are too weak to detect at our sample size, or (b) the Random Forest is capitalizing on dataset-specific patterns unlikely to generalize.
-</p>
-
-<h2 style="border-bottom: 2px solid var(--accent-primary); padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem;">Limitations & Future Directions</h2>
-
-<p>
-Several constraints qualify our findings. First, <strong>survivorship bias</strong> likely inflates performance metrics: our database captures active cryptocurrencies but omits failed, delisted, or abandoned projects. To the extent that poor names correlate with project failure, excluding dead assets truncates the left tail of the return distribution, attenuating negative correlations and biasing cluster comparisons. Second, <strong>confounding variables</strong> remain uncontrolled—we observe that good names associate with better performance, but cannot rule out that well-funded teams produce both superior technology <em>and</em> better branding simultaneously. Third, our Random Forest metrics lack <strong>temporal validation</strong>; walk-forward testing on rolling windows would verify whether patterns persist across market regimes.
-</p>
-
-<p>
-Fourth, the dataset's heavy-tailed distribution (81.3% of assets return negative or near-zero, while 2.1% achieve 300%+ breakouts) violates regression assumptions and inflates ensemble overfitting risk. Robust regression or quantile-based methods might provide more stable estimates. Fifth, <strong>causal inference</strong> requires richer data (pre-launch features, A/B tests, instrumental variables) unavailable in observational cryptocurrency markets. Finally, our analysis treats names as static, ignoring rebranding events, ticker symbol changes, or evolving associations—all of which introduce time-varying confounds.
-</p>
-
-<p>
-Future research should prioritize three directions: (1) <strong>survivorship bias correction</strong> by collecting data on failed projects from archival sources; (2) <strong>temporal cross-validation</strong> with train/test splits respecting time ordering to assess genuine out-of-sample predictive power; (3) <strong>expanded feature sets</strong> incorporating semantic content (whitepaper keywords, utility descriptions), social signals (community size, developer activity), and market microstructure (exchange listings, liquidity depth) to better isolate name effects from confounders.
-</p>
-
-<h2 style="border-bottom: 2px solid var(--accent-primary); padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem;">Practical Recommendations</h2>
-
-<p>
-For practitioners engaged in cryptocurrency branding or investment screening based on nominative criteria, our findings suggest several evidence-based guidelines. First, <strong>target the Cluster 0 profile</strong>: names under 7 characters with memorability scores above 80, pronounceability above 40, and high uniqueness differentials. Avoid the saturated sweet spot (2-3 syllables, 5-10 characters); instead, prioritize condensed forms (≤6 characters) or innovative structures (disciplined acronyms, numeric-alpha hybrids) that maintain memorability while escaping pattern fatigue.
-</p>
-
-<p>
-Second, <strong>maximize uniqueness</strong>: the Random Forest assigns 41.7% importance to this feature, reflecting market premium for differentiation. Generic financial terminology (coin, pay, cash) and overused semantic fields (animal themes post-Dogecoin, astronomical references) dilute distinctiveness. Neologisms and portmanteaus that balance novelty with pronounceability outperform imitative constructions. Third, <strong>prioritize phonetic quality</strong>: smooth consonant-vowel patterns, absence of harsh consonant clusters, and vowel-rich endings enhance memorability and social transmission.
-</p>
-
-<p>
-Fourth, <strong>interpret name analysis as a filter, not a predictor</strong>: use linguistic metrics to screen out low-quality candidates (memorability <50, pronounceability <20, excessive length >15 characters) but do not rely on name scores alone to identify winners. Names with Cluster 0 characteristics merit inclusion in opportunity sets, but final selection must incorporate technological fundamentals, team credibility, and market positioning. Fifth, <strong>monitor median performance, not means</strong>: heavy-tailed crypto returns make averages misleading. Focus on win rates, median outcomes, and tail-risk metrics when evaluating name-based strategies.
-</p>
-
-<h2 style="border-bottom: 2px solid var(--accent-primary); padding-bottom: 0.5rem; margin-top: 2.5rem; margin-bottom: 1.5rem;">Conclusion</h2>
-
-<p>
-This study provides the most comprehensive statistical examination of nominative determinism in cryptocurrency markets to date, applying rigorous multi-method validation to a dataset of 2,740 assets. Our findings refute simplistic interpretations—name characteristics do not predict performance through direct linear mechanisms—while supporting a nuanced, cohort-based model. Linguistic quality functions as a <strong>gating variable</strong> that enables market success by reducing cognitive friction, enhancing recall, and facilitating social diffusion, but does not substitute for technological substance.
-</p>
-
-<p>
-The clustering result stands as the cornerstone evidence: a replicable, statistically validated partition into high-memorability (+37.6% returns) and low-memorability (+20.0% returns) archetypes, with a +17.6 percentage point advantage for superior naming. This differential persists across multiple analytical lenses—ANOVA confirms categorical heterogeneity, ensemble models assign high importance to uniqueness and brevity, and threshold analyses consistently favor compact, high-quality constructions.
-</p>
-
-<p>
-We conclude that <strong>nominative determinism exists in cryptocurrency markets as a conditional, amplifying force</strong> rather than a deterministic law. Names crafted with attention to memorability, pronounceability, brevity, and uniqueness position projects favorably within the cognitive landscape, increasing the probability of adoption and retention. However, this advantage manifests probabilistically—good names improve <em>expected outcomes</em> but do not guarantee success, and poor names create headwinds that strong fundamentals can sometimes overcome. The mission analytics confirm the value of linguistic craft in crypto branding while maintaining honest transparency about its limitations and the primacy of technological merit.
-</p>
-
-<div style="margin: 2rem 0; padding: 1.5rem; background: rgba(74, 124, 158, 0.08); border-radius: 8px; border: 2px solid var(--accent-primary);">
-    <h3 style="margin-top: 0; color: var(--accent-primary);">Summary Statistics</h3>
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem; font-size: 0.95rem;">
-        <div>
-            <strong>Dataset Coverage:</strong>
-            <ul style="margin-top: 0.5rem; margin-bottom: 0;">
-                <li>Total analyzed: 2,740 cryptocurrencies</li>
-                <li>Market coverage: Ranks 1–5,000+</li>
-                <li>Performance period: One-year returns</li>
-                <li>Linguistic features: 10 core metrics</li>
-            </ul>
+            <div style="background: rgba(6, 182, 212, 0.08); padding: 1.5rem; border-radius: 12px; border-left: 3px solid var(--accent-cyan); margin-top: 2rem;">
+                <p style="margin: 0; line-height: 1.7;">
+                    <strong>Conclusion:</strong> A +17.6 percentage point differential exists between linguistic archetypes. This cohort effect suggests names function as gating mechanisms—high-quality naming positions projects within a competitive tier, but doesn't guarantee individual success.
+                </p>
+            </div>
         </div>
-        <div>
-            <strong>Key Findings:</strong>
-            <ul style="margin-top: 0.5rem; margin-bottom: 0;">
-                <li>Linear correlation: r = 0.015 (weak)</li>
-                <li>Cluster performance gap: +17.6%</li>
-                <li>Top feature: Uniqueness (41.7%)</li>
-                <li>ANOVA: Significant (p = 0.017)</li>
-            </ul>
+
+        <!-- Bottom Navigation -->
+        <div style="text-align: center; padding: 2rem 0;">
+            <a href="{{ url_for('crypto_findings') }}" class="btn-primary" style="padding: 0.875rem 2rem;">
+                Back to Crypto Findings →
+            </a>
         </div>
+
     </div>
-</div>
-
-<p style="margin-top: 2rem; font-size: 0.95rem; color: var(--text-muted); font-style: italic; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 1.5rem;">
-    <strong>Methodological Note:</strong> This analysis prioritizes statistical honesty over promotional narratives. We report null results (weak correlations, non-significant causal estimates) alongside positive findings (cluster effects, ANOVA significance) to provide stakeholders with accurate risk assessments. Future iterations will address survivorship bias, implement cross-validation protocols, and expand confounder coverage to refine causal claims.
-</p>
-
-</div>
-
 </div>
 {% endblock %}

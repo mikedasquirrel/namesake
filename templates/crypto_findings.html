@@ -1,879 +1,212 @@
 {% extends "base.html" %}
 
-{% block title %}Cryptocurrency Nominative Determinism - Research Findings{% endblock %}
+{% block title %}Cryptocurrency Nominative Determinism{% endblock %}
 
 {% block content %}
-<div style="max-width: 1200px; margin: 0 auto;">
-
-<!-- Hero Section -->
-<div style="text-align: center; margin-bottom: 3rem;">
-    <h1 style="font-size: 2.75rem; margin-bottom: 0.75rem;">Cryptocurrency Nominative Determinism</h1>
-    <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 1.5rem;">
-        A Statistical Investigation into Name-Performance Relationships
-    </p>
-    <div style="margin-top: 1.5rem;">
-        <a href="{{ url_for('analysis') }}" class="btn-secondary">View Statistical Analysis →</a>
-    </div>
-</div>
-
-<!-- Executive Overview -->
-<div class="glass card" style="padding: 2.5rem; line-height: 1.8; font-size: 1.05rem; margin-bottom: 2rem;">
-    <h2 style="margin-top: 0; margin-bottom: 1.5rem;">Research Overview</h2>
-    
-    <p style="font-size: 1.1rem; margin-bottom: 1.5rem;">
-        This research platform presents a comprehensive statistical analysis of nominative determinism in cryptocurrency markets, examining whether and how linguistic characteristics of cryptocurrency names influence market performance outcomes.
-    </p>
-
-    <p>
-        Drawing from a database of <strong>3,500 cryptocurrencies</strong>, we analyzed <strong>2,740 assets with complete one-year performance metrics</strong>, representing 78% coverage across the full market spectrum from top-50 vanguard projects to long-tail emergent tokens. Each asset underwent detailed linguistic profiling across ten dimensions—syllable count, character length, phonetic quality, memorability, pronounceability, uniqueness, and categorical classification—enabling systematic investigation of name-performance relationships through multiple statistical lenses.
-    </p>
-
-    <p>
-        Our findings challenge simplistic interpretations while revealing nuanced, statistically validated patterns. Linear correlations between individual name features and performance are uniformly weak (r ≈ 0.01–0.05, all p > 0.05), and multivariate linear regression explains less than 1% of performance variance (R² = 0.0059). However, <strong>unsupervised clustering analysis identifies two distinct linguistic archetypes</strong> with a robust +17.6 percentage point performance differential: high-memorability names (characterized by brevity, phonetic accessibility, and cognitive retention) average <strong>+37.6% returns</strong>, while low-memorability constructions average <strong>+20.0%</strong>.
-    </p>
-
-    <div style="margin: 2rem 0; padding: 1.5rem; background: rgba(74, 196, 158, 0.05); border-radius: 8px; border-left: 4px solid var(--success-muted);">
-        <h3 style="margin-top: 0; font-size: 1.15rem; color: var(--success-muted);">Central Finding</h3>
-        <p style="margin-bottom: 0; font-size: 1.05rem;">
-            Names do not <em>determine</em> cryptocurrency performance in a mechanistic sense, but high-quality naming—prioritizing memorability above 80, pronounceability above 40, lengths under 7 characters, and maximum uniqueness—positions projects within a <strong>high-performance cohort</strong> that outperforms by nearly 18 percentage points on average. This advantage operates through <em>cohort membership</em> rather than linear dose-response, suggesting a gating or threshold model where linguistic quality enables competitive positioning but technological fundamentals drive ultimate outcomes.
-        </p>
+<div class="dashboard-container">
+    <!-- Subtle Background (no full waves for inner pages) -->
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.3;">
+        <div style="position: absolute; width: 200%; height: 100%; opacity: 0.015; filter: blur(80px); background: radial-gradient(ellipse at 30% 40%, var(--accent-cyan) 0%, transparent 60%);"></div>
     </div>
 
-    <p style="font-size: 0.95rem; color: var(--text-secondary);">
-        <strong>Dataset:</strong> 2,740 cryptocurrencies with verified one-year performance data<br>
-        <strong>Methods:</strong> Correlation analysis, regression, ANOVA, clustering, ensemble modeling, causal inference<br>
-        <strong>Statistical Power:</strong> High (n > 2,500 enables detection of small-to-moderate effects)
-    </p>
-</div>
+    <div style="max-width: 1200px; margin: 0 auto; padding: 3rem 2rem; position: relative; z-index: 1;">
 
-<!-- Transparency Banner -->
-<div style="background: linear-gradient(135deg, rgba(224, 168, 90, 0.15), rgba(224, 168, 90, 0.05)); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #e0a85a; margin-bottom: 2rem;">
-    <div style="display: flex; align-items: center; gap: 1.5rem;">
-        <div style="font-size: 3rem;">⚖️</div>
-        <div style="flex: 1;">
-            <div style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: #e0a85a;">Scientific Honesty: No Overselling</div>
-            <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;">
-                Linear correlation between name features and performance is <strong>weak (r = 0.015)</strong>. However, clustering reveals 
-                two distinct archetypes with a <strong>+17.6% performance edge</strong> for high-memorability cohorts. This is a modest signal, not a silver bullet.
+        <!-- Hero Section -->
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <div style="font-size: var(--text-base); color: var(--accent-cyan); margin-bottom: 0.75rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; opacity: 0.9;">
+                Markets Research
             </div>
-        </div>
-    </div>
-</div>
-
-<!-- The Honest Assessment -->
-<div class="glass card mb-1">
-    <h2 style="margin-bottom: 1.5rem;">The Honest Assessment</h2>
-    
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 2rem;">
-        <!-- Linear Correlation: WEAK -->
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--danger-muted);">
-            <div style="text-align: center; margin-bottom: 1rem;">
-                <div style="font-size: 3rem; font-weight: 700; color: var(--danger-muted); margin-bottom: 0.5rem;">0.015</div>
-                <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.25rem;">Linear Correlation (Pearson r)</div>
-                <div style="font-size: 0.75rem; color: var(--text-secondary);">Name composite vs 1yr returns</div>
-            </div>
-            <div style="padding: 1rem; background: rgba(230, 96, 96, 0.1); border-radius: 6px;">
-                <div style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--danger-muted);">Interpretation</div>
-                <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
-                    Weak, non-significant. Names alone do NOT yield strong linear predictions of performance. 
-                    No single name metric cleared p < 0.05 significance threshold.
-                </div>
-            </div>
-        </div>
-        
-        <!-- Cluster Performance: REAL -->
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--success-muted);">
-            <div style="text-align: center; margin-bottom: 1rem;">
-                <div style="font-size: 3rem; font-weight: 700; color: var(--success-muted); margin-bottom: 0.5rem;">+17.6%</div>
-                <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.25rem;">Cluster Performance Edge</div>
-                <div style="font-size: 0.75rem; color: var(--text-secondary);">Cluster 0 vs Cluster 1 avg returns</div>
-            </div>
-            <div style="padding: 1rem; background: rgba(96, 230, 161, 0.1); border-radius: 6px;">
-                <div style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--success-muted);">Interpretation</div>
-                <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
-                    Meaningful difference between linguistic archetypes. High memorability/pronounceability cohort outperforms, 
-                    though medians remain near zero.
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px;">
-        <h4 style="font-size: 1.05rem; margin-bottom: 1rem;">The Bottom Line</h4>
-        <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
-            <p style="margin-bottom: 1rem;">
-                Name traits alone do <strong>not</strong> yield strong linear correlations with one-year performance. However, ensemble modeling 
-                and clustering surface <strong>uniqueness (41.7%) and brevity (31.0%)</strong> as dominant features among linguistic characteristics.
+            <h1 style="font-size: 2.75rem; font-weight: var(--weight-ultra); margin-bottom: 1rem; letter-spacing: -0.05em; font-family: 'Playfair Display', serif;">
+                Cryptocurrency Nominative Determinism
+            </h1>
+            <p style="font-size: 1.125rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 2rem; line-height: 1.6;">
+                A systematic statistical investigation into name-performance relationships across 2,740 cryptocurrencies
             </p>
-            <p style="margin: 0;">
-                The key finding: <strong>Linguistic craft is necessary but insufficient.</strong> High memorability/phonetic polish clusters 
-                outperform on average yet still deliver muted medians, implying nominative advantages <strong>amplify upside only when coupled 
-                with market traction</strong>.
-            </p>
+            <a href="{{ url_for('analysis') }}" class="btn-secondary">View Statistical Analysis →</a>
         </div>
-    </div>
-</div>
 
-<!-- What the Numbers Show -->
-<div class="glass card mb-1">
-    <h2 style="margin-bottom: 1.5rem;">What the Numbers Show: Cluster Comparison</h2>
-    
-    <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; margin-bottom: 1.5rem;">
-        <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: center;">
-            <!-- Cluster 0 -->
-            <div style="padding: 1.5rem; background: rgba(96, 230, 161, 0.08); border-radius: 8px; border: 2px solid var(--success-muted);">
-                <div style="text-align: center; margin-bottom: 1.25rem;">
-                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">CLUSTER 0</div>
-                    <div style="font-size: 1.15rem; font-weight: 700; color: var(--success-muted);">High-Memorability Archetype</div>
-                </div>
-                <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
-                    <div style="margin-bottom: 0.75rem;"><strong>Share:</strong> 54.5% (1,493 assets)</div>
-                    <div style="margin-bottom: 0.75rem;"><strong>Avg Return:</strong> <span style="color: var(--success-muted); font-weight: 600;">+37.6%</span></div>
-                    <div style="margin-bottom: 0.75rem;"><strong>Win Rate:</strong> 16.7%</div>
-                    <div style="border-top: 1px solid var(--border); padding-top: 0.75rem; margin-top: 0.75rem;">
-                        <div style="font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem;">Characteristics:</div>
-                        <ul style="margin: 0; padding-left: 1.25rem; font-size: 0.8rem;">
-                            <li>Short (6.6 chars avg)</li>
-                            <li>High memorability (88.8)</li>
-                            <li>High pronounceability (42.3)</li>
-                            <li>Strong phonetic quality (84.7)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
+        <!-- Executive Overview -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 2rem;">
+            <h2 style="margin-top: 0; margin-bottom: 1.5rem; font-weight: var(--weight-light);">Research Overview</h2>
             
-            <!-- VS -->
-            <div style="font-size: 2rem; font-weight: 700; color: var(--accent-primary);">VS</div>
-            
-            <!-- Cluster 1 -->
-            <div style="padding: 1.5rem; background: var(--background); border-radius: 8px; border: 2px solid var(--border);">
-                <div style="text-align: center; margin-bottom: 1.25rem;">
-                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.5rem;">CLUSTER 1</div>
-                    <div style="font-size: 1.15rem; font-weight: 700; color: var(--text-muted);">Low-Memorability Archetype</div>
-                </div>
-                <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
-                    <div style="margin-bottom: 0.75rem;"><strong>Share:</strong> 45.5% (1,247 assets)</div>
-                    <div style="margin-bottom: 0.75rem;"><strong>Avg Return:</strong> +20.0%</div>
-                    <div style="margin-bottom: 0.75rem;"><strong>Win Rate:</strong> 21.1%</div>
-                    <div style="border-top: 1px solid var(--border); padding-top: 0.75rem; margin-top: 0.75rem;">
-                        <div style="font-size: 0.8rem; font-weight: 600; margin-bottom: 0.5rem;">Characteristics:</div>
-                        <ul style="margin: 0; padding-left: 1.25rem; font-size: 0.8rem;">
-                            <li>Long (16.6 chars avg)</li>
-                            <li>Low memorability (43.1)</li>
-                            <li>Low pronounceability (6.7)</li>
-                            <li>Weak phonetic quality (51.1)</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div style="background: rgba(224, 168, 90, 0.1); padding: 1.25rem; border-radius: 6px; border-left: 4px solid #e0a85a;">
-        <div style="font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem; color: #e0a85a;">Critical Caveat: Medians Tell the Real Story</div>
-        <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
-            <p style="margin-bottom: 0.75rem;">
-                Both clusters show <strong>negative medians</strong> despite positive means. This indicates heavy-tailed distributions where 
-                a few big winners inflate averages.
+            <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                This analysis examines whether and how linguistic characteristics of cryptocurrency names influence market performance outcomes across <strong>2,740 assets with complete one-year metrics</strong>.
             </p>
-            <p style="margin: 0;">
-                <strong>Translation:</strong> Even in the "good name" cluster, most assets still underperform. High memorability 
-                <strong>increases probability of upside</strong> but doesn't guarantee it. Pair with fundamental analysis.
+
+            <p style="line-height: 1.8; margin-bottom: 1.5rem;">
+                Linear correlations between individual name features and performance are uniformly weak (r ≈ 0.01–0.05, all p > 0.05), and multivariate regression explains less than 1% of variance (R² = 0.0059). However, <strong>unsupervised clustering analysis identifies two distinct linguistic archetypes</strong> with a robust +17.6 percentage point performance differential.
             </p>
-        </div>
-    </div>
-</div>
 
-<!-- Dataset & Market Context -->
-<div class="glass card mb-1">
-    <h2 style="margin-bottom: 1.5rem;">Dataset & Market Context</h2>
-    
-    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
-        <div style="background: var(--background-secondary); padding: 1.25rem; border-radius: 6px; text-align: center;">
-            <div style="font-size: 1.8rem; font-weight: 700; color: var(--accent-primary); margin-bottom: 0.5rem;">2,740</div>
-            <div style="font-size: 0.8rem; color: var(--text-muted);">Analyzable Assets</div>
-            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">With complete 1yr data</div>
-        </div>
-        <div style="background: var(--background-secondary); padding: 1.25rem; border-radius: 6px; text-align: center;">
-            <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.5rem;">18.7%</div>
-            <div style="font-size: 0.8rem; color: var(--text-muted);">Positive Returns</div>
-            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">1-year period</div>
-        </div>
-        <div style="background: var(--background-secondary); padding: 1.25rem; border-radius: 6px; text-align: center;">
-            <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.5rem;">3.6%</div>
-            <div style="font-size: 0.8rem; color: var(--text-muted);">High Performers</div>
-            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">≥150% returns</div>
-        </div>
-        <div style="background: var(--background-secondary); padding: 1.25rem; border-radius: 6px; text-align: center;">
-            <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.5rem;">2.1%</div>
-            <div style="font-size: 0.8rem; color: var(--text-muted);">Breakouts</div>
-            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">≥300% returns</div>
-        </div>
-        <div style="background: var(--background-secondary); padding: 1.25rem; border-radius: 6px; text-align: center;">
-            <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.5rem;">65.8</div>
-            <div style="font-size: 0.8rem; color: var(--text-muted);">Linguistic Score</div>
-            <div style="font-size: 0.75rem; color: var(--text-secondary); margin-top: 0.25rem;">Average (±16.4)</div>
-        </div>
-    </div>
-    
-    <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px;">
-        <h4 style="font-size: 1rem; margin-bottom: 1rem;">Market Posture by Rank Tier</h4>
-        <div class="table-container">
-            <table>
-                <thead>
-                    <tr>
-                        <th>Rank Tier</th>
-                        <th>Count</th>
-                        <th>Share</th>
-                        <th>1Y Avg Return</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td><strong>Vanguard (≤50)</strong></td>
-                        <td>52</td>
-                        <td>1.9%</td>
-                        <td style="color: var(--success-muted); font-weight: 600;">+64.2%</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Established (51-200)</strong></td>
-                        <td>152</td>
-                        <td>5.6%</td>
-                        <td style="color: var(--success-muted); font-weight: 600;">+48.7%</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Mid-Cap (201-500)</strong></td>
-                        <td>298</td>
-                        <td>10.9%</td>
-                        <td style="color: var(--accent-primary);">+34.9%</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Emergent (501-1000)</strong></td>
-                        <td>499</td>
-                        <td>18.2%</td>
-                        <td>+21.1%</td>
-                    </tr>
-                    <tr>
-                        <td><strong>Long Tail (>1000)</strong></td>
-                        <td>1,739</td>
-                        <td>63.4%</td>
-                        <td style="color: var(--text-muted);">+17.8%</td>
-                    </tr>
-                </tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-<!-- The Investment Question -->
-<div class="glass card mb-1">
-    <h2 style="margin-bottom: 1.5rem;">The Investment Question: Is There an Edge?</h2>
-    
-    <div style="background: var(--background-secondary); padding: 2rem; border-radius: 8px; border-left: 4px solid #e0a85a;">
-        <div style="font-size: 1.15rem; font-weight: 700; margin-bottom: 1.5rem; color: #e0a85a;">
-            Real But Modest: Not a Silver Bullet
-        </div>
-        
-        <div style="margin-bottom: 2rem;">
-            <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem;">
-                <p style="margin-bottom: 1rem;">
-                    The <strong>+17.6% cluster performance edge</strong> is statistically real and directionally meaningful. 
-                    High memorability, uniqueness, and brevity correlate with better average performance. However, this is NOT a guaranteed win strategy:
+            <div style="background: rgba(6, 182, 212, 0.08); padding: 1.5rem; border-radius: 12px; border-left: 3px solid var(--accent-cyan); margin-bottom: 1.5rem;">
+                <h3 style="margin-top: 0; font-size: 1.125rem; color: var(--accent-cyan); font-weight: var(--weight-medium);">Central Finding</h3>
+                <p style="margin-bottom: 0; line-height: 1.7;">
+                    High-quality naming—prioritizing memorability above 80, pronounceability above 40, lengths under 7 characters, and maximum uniqueness—positions projects within a <strong>high-performance cohort</strong> that outperforms by nearly 18 percentage points on average.
                 </p>
-                <ul style="margin-bottom: 1.5rem; padding-left: 1.5rem;">
-                    <li style="margin-bottom: 0.5rem;"><strong>Medians remain near zero</strong> — most assets underperform regardless of name quality</li>
-                    <li style="margin-bottom: 0.5rem;"><strong>Heavy-tailed distributions</strong> — a few extreme winners drive averages</li>
-                    <li style="margin-bottom: 0.5rem;"><strong>Linear correlation weak (r = 0.015)</strong> — names don't predict in isolation</li>
-                    <li><strong>Fundamentals still dominate</strong> — technology, team, market fit matter far more</li>
-                </ul>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.02); border-radius: 10px;">
+                <div>
+                    <div style="font-size: var(--text-xs); color: var(--text-subtle); margin-bottom: 0.25rem;">Dataset</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-secondary);">2,740 cryptocurrencies</div>
+                </div>
+                <div>
+                    <div style="font-size: var(--text-xs); color: var(--text-subtle); margin-bottom: 0.25rem;">Methods</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-secondary);">Clustering, regression, ANOVA</div>
+                </div>
+                <div>
+                    <div style="font-size: var(--text-xs); color: var(--text-subtle); margin-bottom: 0.25rem;">Power</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-secondary);">High (n > 2,500)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Transparency Banner -->
+        <div style="background: linear-gradient(135deg, rgba(251, 191, 36, 0.08), rgba(251, 191, 36, 0.03)); padding: 1.5rem; border-radius: 12px; border: 1px solid rgba(251, 191, 36, 0.2); margin-bottom: 2rem;">
+            <div style="display: flex; align-items: flex-start; gap: 1.5rem;">
+                <div style="font-size: 2.5rem; flex-shrink: 0;">⚖️</div>
+                <div>
+                    <div style="font-size: 1.125rem; font-weight: var(--weight-medium); margin-bottom: 0.75rem; color: var(--accent-gold);">Scientific Honesty: No Overselling</div>
+                    <div style="font-size: var(--text-base); color: var(--text-secondary); line-height: 1.7;">
+                        Linear correlation between name features and performance is <strong>weak (r = 0.015)</strong>. However, clustering reveals two distinct archetypes with a <strong>+17.6% performance edge</strong> for high-memorability cohorts. This is a modest signal, not a silver bullet.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- The Honest Assessment -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 2rem;">
+            <h2 style="margin-bottom: 2rem; font-weight: var(--weight-light);">The Honest Assessment</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <!-- Linear Correlation: WEAK -->
+                <div style="background: rgba(239, 68, 68, 0.05); padding: 2rem; border-radius: 12px; border: 1px solid rgba(239, 68, 68, 0.2);">
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <div style="font-size: 3rem; font-weight: var(--weight-thin); color: #f87171; margin-bottom: 0.5rem;">0.015</div>
+                        <div style="font-size: var(--text-sm); color: var(--text-muted); margin-bottom: 0.25rem;">Linear Correlation (Pearson r)</div>
+                        <div style="font-size: var(--text-xs); color: var(--text-subtle);">Name composite vs 1yr returns</div>
+                    </div>
+                    <div style="padding: 1rem; background: rgba(239, 68, 68, 0.08); border-radius: 8px;">
+                        <div style="font-size: var(--text-sm); font-weight: var(--weight-medium); margin-bottom: 0.5rem; color: #f87171;">Interpretation</div>
+                        <div style="font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.6;">
+                            Weak, non-significant. Names alone do NOT yield strong linear predictions of performance. No single name metric cleared p < 0.05 threshold.
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Cluster Performance: REAL -->
+                <div style="background: rgba(16, 185, 129, 0.05); padding: 2rem; border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <div style="font-size: 3rem; font-weight: var(--weight-thin); color: var(--accent-emerald); margin-bottom: 0.5rem;">+17.6%</div>
+                        <div style="font-size: var(--text-sm); color: var(--text-muted); margin-bottom: 0.25rem;">Cluster Performance Edge</div>
+                        <div style="font-size: var(--text-xs); color: var(--text-subtle);">Cluster 0 vs Cluster 1 avg returns</div>
+                    </div>
+                    <div style="padding: 1rem; background: rgba(16, 185, 129, 0.08); border-radius: 8px;">
+                        <div style="font-size: var(--text-sm); font-weight: var(--weight-medium); margin-bottom: 0.5rem; color: var(--accent-emerald);">Interpretation</div>
+                        <div style="font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.6;">
+                            Meaningful difference between linguistic archetypes. High memorability/pronounceability cohort outperforms, though medians remain near zero.
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cluster Comparison -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 2rem;">
+            <h2 style="margin-bottom: 2rem; font-weight: var(--weight-light);">Cluster Comparison</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: center; margin-bottom: 2rem;">
+                <!-- Cluster 0 -->
+                <div style="padding: 2rem; background: rgba(16, 185, 129, 0.05); border-radius: 12px; border: 1px solid rgba(16, 185, 129, 0.2);">
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <div style="font-size: var(--text-xs); color: var(--text-subtle); margin-bottom: 0.5rem; letter-spacing: 0.05em;">CLUSTER 0</div>
+                        <div style="font-size: var(--text-lg); font-weight: var(--weight-medium); color: var(--accent-emerald);">High-Memorability</div>
+                    </div>
+                    <div style="font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.7;">
+                        <div style="margin-bottom: 0.75rem;"><strong>Share:</strong> 54.5% (1,493 assets)</div>
+                        <div style="margin-bottom: 0.75rem;"><strong>Avg Return:</strong> <span style="color: var(--accent-emerald); font-weight: 600;">+37.6%</span></div>
+                        <div style="margin-bottom: 1rem;"><strong>Win Rate:</strong> 16.7%</div>
+                        <div style="border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 1rem;">
+                            <div style="font-size: var(--text-xs); font-weight: var(--weight-medium); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Characteristics</div>
+                            <ul style="margin: 0; padding-left: 1.25rem; font-size: var(--text-sm);">
+                                <li>Short (6.6 chars avg)</li>
+                                <li>High memorability (88.8)</li>
+                                <li>High pronounceability (42.3)</li>
+                                <li>Strong phonetic quality (84.7)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- VS -->
+                <div style="font-size: 1.5rem; font-weight: var(--weight-thin); color: var(--text-muted);">VS</div>
+                
+                <!-- Cluster 1 -->
+                <div style="padding: 2rem; background: rgba(255, 255, 255, 0.02); border-radius: 12px; border: 1px solid var(--glass-border);">
+                    <div style="text-align: center; margin-bottom: 1.5rem;">
+                        <div style="font-size: var(--text-xs); color: var(--text-subtle); margin-bottom: 0.5rem; letter-spacing: 0.05em;">CLUSTER 1</div>
+                        <div style="font-size: var(--text-lg); font-weight: var(--weight-medium); color: var(--text-muted);">Low-Memorability</div>
+                    </div>
+                    <div style="font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.7;">
+                        <div style="margin-bottom: 0.75rem;"><strong>Share:</strong> 45.5% (1,247 assets)</div>
+                        <div style="margin-bottom: 0.75rem;"><strong>Avg Return:</strong> +20.0%</div>
+                        <div style="margin-bottom: 1rem;"><strong>Win Rate:</strong> 21.1%</div>
+                        <div style="border-top: 1px solid rgba(255, 255, 255, 0.08); padding-top: 1rem;">
+                            <div style="font-size: var(--text-xs); font-weight: var(--weight-medium); margin-bottom: 0.5rem; text-transform: uppercase; letter-spacing: 0.05em;">Characteristics</div>
+                            <ul style="margin: 0; padding-left: 1.25rem; font-size: var(--text-sm);">
+                                <li>Long (16.6 chars avg)</li>
+                                <li>Low memorability (43.1)</li>
+                                <li>Low pronounceability (6.7)</li>
+                                <li>Weak phonetic quality (51.1)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
             
-            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
-                <div style="padding: 1.25rem; background: rgba(96, 230, 161, 0.1); border-radius: 6px; border-left: 3px solid var(--success-muted);">
-                    <div style="font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--success-muted);">What Names CAN Do</div>
-                    <ul style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; margin: 0; padding-left: 1.25rem;">
-                        <li><strong>Amplify upside</strong> when paired with strong fundamentals</li>
-                        <li><strong>Signal quality</strong> — well-crafted names suggest thoughtful teams</li>
-                        <li><strong>Aid memorability</strong> — easier to track and discuss</li>
-                        <li><strong>Provide supplementary filter</strong> among many criteria</li>
+            <div style="background: rgba(251, 191, 36, 0.08); padding: 1.5rem; border-radius: 10px; border-left: 3px solid var(--accent-gold);">
+                <div style="font-size: var(--text-base); font-weight: var(--weight-medium); margin-bottom: 0.75rem; color: var(--accent-gold);">Critical Caveat: Medians Tell the Real Story</div>
+                <div style="font-size: var(--text-sm); color: var(--text-secondary); line-height: 1.7;">
+                    Both clusters show <strong>negative medians</strong> despite positive means. This indicates heavy-tailed distributions where a few big winners inflate averages. Even in the "good name" cluster, most assets still underperform. High memorability <strong>increases probability of upside</strong> but doesn't guarantee it.
+                </div>
+            </div>
+        </div>
+
+        <!-- Key Takeaways -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 2rem;">
+            <h2 style="margin-bottom: 2rem; font-weight: var(--weight-light);">Key Takeaways</h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: 10px;">
+                    <h3 style="font-size: var(--text-lg); margin-bottom: 1rem; font-weight: var(--weight-regular); color: var(--accent-cyan);">What Works</h3>
+                    <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.8; font-size: var(--text-sm); color: var(--text-secondary);">
+                        <li>Memorability above 80</li>
+                        <li>Pronounceability above 40</li>
+                        <li>Character length under 7</li>
+                        <li>High uniqueness scores</li>
+                        <li>Strong phonetic quality (80+)</li>
                     </ul>
                 </div>
                 
-                <div style="padding: 1.25rem; background: rgba(230, 96, 96, 0.1); border-radius: 6px; border-left: 3px solid var(--danger-muted);">
-                    <div style="font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem; color: var(--danger-muted);">What Names CAN'T Do</div>
-                    <ul style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7; margin: 0; padding-left: 1.25rem;">
-                        <li><strong>Salvage weak fundamentals</strong> — bad tech stays bad</li>
-                        <li><strong>Guarantee positive returns</strong> — most still underperform</li>
-                        <li><strong>Predict in isolation</strong> — linear correlation too weak</li>
-                        <li><strong>Override market conditions</strong> — macro matters more</li>
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: 10px;">
+                    <h3 style="font-size: var(--text-lg); margin-bottom: 1rem; font-weight: var(--weight-regular); color: var(--accent-purple);">Important Caveats</h3>
+                    <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.8; font-size: var(--text-sm); color: var(--text-secondary);">
+                        <li>Medians remain negative in both clusters</li>
+                        <li>Name quality is necessary, not sufficient</li>
+                        <li>Most assets underperform regardless</li>
+                        <li>Fundamentals still dominate outcomes</li>
+                        <li>Effect size is modest (~18pp)</li>
                     </ul>
                 </div>
             </div>
         </div>
-        
-        <div style="background: rgba(224, 168, 90, 0.15); padding: 1.25rem; border-radius: 6px;">
-            <div style="font-size: 0.9rem; font-weight: 600; margin-bottom: 0.75rem;">Recommended Approach</div>
-            <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
-                Use high uniqueness/memorability as <strong>one screen among many</strong>. Require fundamental strength (technology, team, 
-                market fit, tokenomics) FIRST. Then, among fundamentally sound candidates, favor those with strong naming characteristics. 
-                Think of it as a tiebreaker, not a primary signal.
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Where Names Matter -->
-<div class="glass card mb-1">
-    <h2 style="margin-bottom: 1.5rem;">Where Names Matter: Actionable Insights</h2>
-    
-    <div style="display: grid; gap: 1.25rem;">
-        <!-- Sweet Spot Saturation -->
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px;">
-            <h4 style="font-size: 1.05rem; margin-bottom: 1rem; color: var(--accent-primary);">1. Sweet-Spot Saturation Detected</h4>
-            <div style="display: grid; grid-template-columns: 1fr 2fr; gap: 1.5rem;">
-                <div style="background: var(--background); padding: 1.25rem; border-radius: 6px; text-align: center;">
-                    <div style="font-size: 2.5rem; font-weight: 700; color: var(--danger-muted); margin-bottom: 0.5rem;">-3.2%</div>
-                    <div style="font-size: 0.85rem; color: var(--text-muted);">Traditional sweet spot<br>(2-3 syllables, 5-10 chars)</div>
-                </div>
-                <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
-                    The canonical "good name" pattern (2-3 syllables, 5-10 characters) produces <strong>negative returns on average</strong>. 
-                    This suggests market crowding—too many projects followed the same naming advice. Mission goals should embrace 
-                    <strong>fresher structures</strong>: disciplined acronyms, numeric hybrids, or ultra-short (≤6 chars) distinctive names.
-                </div>
-            </div>
+        <!-- Bottom Navigation -->
+        <div style="text-align: center; padding: 2rem 0;">
+            <a href="{{ url_for('analysis') }}" class="btn-primary" style="padding: 0.875rem 2rem;">
+                View Detailed Statistical Analysis →
+            </a>
         </div>
-        
-        <!-- Ensemble Feature Importance -->
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px;">
-            <h4 style="font-size: 1.05rem; margin-bottom: 1rem; color: var(--accent-primary);">2. Ensemble Model Insights</h4>
-            <div style="margin-bottom: 1rem;">
-                <div style="font-size: 0.85rem; color: var(--text-secondary); margin-bottom: 0.75rem;">
-                    Random forest model (in-sample R² = 0.652) surfaces dominant linguistic features:
-                </div>
-                <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem;">
-                    <div style="background: var(--background); padding: 1rem; border-radius: 6px; text-align: center;">
-                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--accent-primary); margin-bottom: 0.25rem;">41.7%</div>
-                        <div style="font-size: 0.75rem; color: var(--text-muted);">Uniqueness Score</div>
-                    </div>
-                    <div style="background: var(--background); padding: 1rem; border-radius: 6px; text-align: center;">
-                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.25rem;">31.0%</div>
-                        <div style="font-size: 0.75rem; color: var(--text-muted);">Character Length</div>
-                    </div>
-                    <div style="background: var(--background); padding: 1rem; border-radius: 6px; text-align: center;">
-                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.25rem;">11.8%</div>
-                        <div style="font-size: 0.75rem; color: var(--text-muted);">Phonetic Score</div>
-                    </div>
-                    <div style="background: var(--background); padding: 1rem; border-radius: 6px; text-align: center;">
-                        <div style="font-size: 1.8rem; font-weight: 700; color: var(--text-muted); margin-bottom: 0.25rem;">7.2%</div>
-                        <div style="font-size: 0.75rem; color: var(--text-muted);">Memorability Score</div>
-                    </div>
-                </div>
-            </div>
-            <div style="background: rgba(224, 168, 90, 0.1); padding: 1rem; border-radius: 6px;">
-                <div style="font-size: 0.85rem; font-weight: 600; margin-bottom: 0.5rem;">Actionable Takeaway</div>
-                <div style="font-size: 0.8rem; color: var(--text-secondary); line-height: 1.6;">
-                    Prioritize <strong>uniqueness and brevity</strong>. Embed naming reviews into pre-launch diligence: target ≤6 characters, 
-                    ensure high uniqueness differential from competitors, maintain phonetic quality.
-                </div>
-            </div>
-        </div>
-        
-        <!-- Cluster-Based Screening -->
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px;">
-            <h4 style="font-size: 1.05rem; margin-bottom: 1rem; color: var(--accent-primary);">3. Operationalize Cluster Insights</h4>
-            <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.7;">
-                <p style="margin-bottom: 1rem;">
-                    The meaningful cluster difference suggests embedded thresholds for naming diligence:
-                </p>
-                <div style="background: var(--background); padding: 1.25rem; border-radius: 6px;">
-                    <div style="font-weight: 600; margin-bottom: 0.75rem;">Target Cluster 0 Characteristics:</div>
-                    <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8;">
-                        <li><strong>Memorability:</strong> >80</li>
-                        <li><strong>Pronounceability:</strong> >40</li>
-                        <li><strong>Character Length:</strong> ≤6</li>
-                        <li><strong>Uniqueness:</strong> High differential vs sector peers</li>
-                    </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
-<!-- Recommendations & Limitations -->
-<div class="glass card">
-    <h2 style="margin-bottom: 1.5rem;">Recommendations & Limitations</h2>
-    
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border-left: 3px solid var(--success-muted);">
-            <h4 style="font-size: 1rem; margin-bottom: 1rem; color: var(--success-muted);">Evidence-Based Practices</h4>
-            <ul style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.8; margin: 0; padding-left: 1.5rem;">
-                <li><strong>Embed memorability + pronounceability thresholds</strong> (>80 and >40 respectively) in naming diligence</li>
-                <li><strong>Favor brevity and uniqueness</strong> — aim for ≤6 characters with high distinctiveness</li>
-                <li><strong>Avoid saturated sweet spot</strong> — traditional 2-3 syllable patterns show negative returns</li>
-                <li><strong>Monitor outliers</strong> — implement winsorization when presenting to avoid numeric/acronym extremes overstating readiness</li>
-                <li><strong>Re-run analysis post major data refreshes</strong> — track longitudinal trends</li>
-            </ul>
-        </div>
-        
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border-left: 3px solid var(--danger-muted);">
-            <h4 style="font-size: 1rem; margin-bottom: 1rem; color: var(--danger-muted);">Cautions & Limitations</h4>
-            <ul style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.8; margin: 0; padding-left: 1.5rem;">
-                <li><strong>Correlation ≠ causation</strong> — all findings are correlational, not causal</li>
-                <li><strong>Heavy-tailed distributions</strong> — medians near zero despite positive means</li>
-                <li><strong>Sample limitations</strong> — 2,740 assets with complete 1yr data (78% of database)</li>
-                <li><strong>Missing confounds</strong> — token utility, team quality, technology maturity not captured</li>
-                <li><strong>Out-of-sample validation needed</strong> — time-series holdout testing required before operational deployment</li>
-                <li><strong>Market regime dependency</strong> — findings may vary across bull/bear cycles</li>
-            </ul>
-        </div>
     </div>
-</div>
-
-<!-- Complete Statistical Framework -->
-<div class="glass card">
-    <h2 style="margin-bottom: 1.5rem;">Complete Statistical Framework: Multi-Method Validation</h2>
-    
-    <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 2rem;">
-        This analysis employed <strong>multiple independent statistical methods</strong> to test nominative determinism from different angles. 
-        Convergent evidence across methods strengthens conclusions.
-    </p>
-    
-    <div style="display: grid; gap: 1.5rem;">
-        <!-- Method 1 -->
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px;">
-            <div style="display: grid; grid-template-columns: auto 1fr auto; gap: 1.5rem; align-items: center;">
-                <div style="text-align: center; min-width: 80px;">
-                    <div style="font-size: 2rem; margin-bottom: 0.25rem;">📊</div>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">Method 1</div>
-                </div>
-                <div>
-                    <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem;">Classical Correlation Analysis</h4>
-                    <p style="margin: 0; font-size: 0.85rem; line-height: 1.7; color: var(--text-secondary);">
-                        Pearson correlations tested all linguistic features vs. 1-year returns. <strong>Result:</strong> No feature cleared p < 0.05 threshold. 
-                        Strongest: has_numbers (r = +0.046, p = 0.07). <em>Conclusion: Weak linear relationships.</em>
-                    </p>
-                </div>
-                <div style="text-align: center;">
-                    <span class="badge badge-warning">Weak</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Method 2 -->
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px;">
-            <div style="display: grid; grid-template-columns: auto 1fr auto; gap: 1.5rem; align-items: center;">
-                <div style="text-align: center; min-width: 80px;">
-                    <div style="font-size: 2rem; margin-bottom: 0.25rem;">📈</div>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">Method 2</div>
-                </div>
-                <div>
-                    <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem;">Linear Regression (OLS)</h4>
-                    <p style="margin: 0; font-size: 0.85rem; line-height: 1.7; color: var(--text-secondary);">
-                        All 10 linguistic features as predictors. <strong>Result:</strong> Adjusted R² = 0.0059 (explains <1% of variance). 
-                        <em>Conclusion: Linear combinations lack predictive utility.</em>
-                    </p>
-                </div>
-                <div style="text-align: center;">
-                    <span class="badge badge-danger">Very Weak</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Method 3 -->
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border: 2px solid var(--success-muted);">
-            <div style="display: grid; grid-template-columns: auto 1fr auto; gap: 1.5rem; align-items: center;">
-                <div style="text-align: center; min-width: 80px;">
-                    <div style="font-size: 2rem; margin-bottom: 0.25rem;">🌳</div>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">Method 3</div>
-                </div>
-                <div>
-                    <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem;">Random Forest Ensemble</h4>
-                    <p style="margin: 0; font-size: 0.85rem; line-height: 1.7; color: var(--text-secondary);">
-                        Non-linear ensemble modeling. <strong>Result:</strong> In-sample R² = 0.652 (65% variance explained). 
-                        Feature importance: uniqueness (41.7%), brevity (31.0%). <em>Conclusion: Strong signal BUT needs cross-validation.</em>
-                    </p>
-                </div>
-                <div style="text-align: center;">
-                    <span class="badge badge-warning">Promising*</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Method 4 -->
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border: 2px solid var(--success-muted);">
-            <div style="display: grid; grid-template-columns: auto 1fr auto; gap: 1.5rem; align-items: center;">
-                <div style="text-align: center; min-width: 80px;">
-                    <div style="font-size: 2rem; margin-bottom: 0.25rem;">🎯</div>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">Method 4</div>
-                </div>
-                <div>
-                    <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem;">K-Means Clustering</h4>
-                    <p style="margin: 0; font-size: 0.85rem; line-height: 1.7; color: var(--text-secondary);">
-                        Unsupervised archetype discovery. <strong>Result:</strong> Two distinct clusters with +17.6pp performance differential 
-                        (silhouette = 0.401, "good" quality). <em>Conclusion: ROBUST cohort effects.</em>
-                    </p>
-                </div>
-                <div style="text-align: center;">
-                    <span class="badge badge-success">Strong</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Method 5 -->
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px;">
-            <div style="display: grid; grid-template-columns: auto 1fr auto; gap: 1.5rem; align-items: center;">
-                <div style="text-align: center; min-width: 80px;">
-                    <div style="font-size: 2rem; margin-bottom: 0.25rem;">📉</div>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">Method 5</div>
-                </div>
-                <div>
-                    <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem;">ANOVA (Name Categories)</h4>
-                    <p style="margin: 0; font-size: 0.85rem; line-height: 1.7; color: var(--text-secondary);">
-                        Nine name categories tested. <strong>Result:</strong> F = 2.33, p = 0.017 (significant heterogeneity). 
-                        Numeric/acronym means inflated by outliers. <em>Conclusion: Categorical differences exist but medians matter more.</em>
-                    </p>
-                </div>
-                <div style="text-align: center;">
-                    <span class="badge badge-success">Significant</span>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Method 6 -->
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px;">
-            <div style="display: grid; grid-template-columns: auto 1fr auto; gap: 1.5rem; align-items: center;">
-                <div style="text-align: center; min-width: 80px;">
-                    <div style="font-size: 2rem; margin-bottom: 0.25rem;">🔬</div>
-                    <div style="font-size: 0.75rem; color: var(--text-muted);">Method 6</div>
-                </div>
-                <div>
-                    <h4 style="margin: 0 0 0.5rem 0; font-size: 1rem;">Causal Inference (Propensity Scores)</h4>
-                    <p style="margin: 0; font-size: 0.85rem; line-height: 1.7; color: var(--text-secondary);">
-                        Propensity-weighted estimates for high-quality cohorts. <strong>Result:</strong> Non-significant ATEs, wide CIs, 
-                        perfect separation warnings. <em>Conclusion: Insufficient confounders for causal claims.</em>
-                    </p>
-                </div>
-                <div style="text-align: center;">
-                    <span class="badge badge-danger">Failed</span>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(74, 124, 158, 0.1); border-radius: 8px; border-left: 4px solid var(--accent-primary);">
-        <h4 style="margin-top: 0; margin-bottom: 1rem; font-size: 1.05rem;">Methodological Synthesis</h4>
-        <p style="margin: 0; line-height: 1.7; font-size: 0.95rem;">
-            <strong>Convergent evidence:</strong> Clustering (Method 4) and ANOVA (Method 5) both detect meaningful differences across name profiles. 
-            Random Forest (Method 3) suggests non-linear interactions worth investigating.<br><br>
-            <strong>Null results:</strong> Linear methods (1, 2) and causal inference (6) fail to detect effects. This pattern—strong clustering, 
-            weak linear correlations—suggests <em>cohort-based gating mechanisms</em> rather than dose-response relationships.<br><br>
-            <strong>The cornerstone finding:</strong> Cluster analysis (Method 4) provides the most robust result, validated through multiple 
-            independent lenses and resistant to reasonable alternative explanations.
-        </p>
-    </div>
-</div>
-
-<!-- Name Category Deep Dive -->
-<div class="glass card">
-    <h2 style="margin-bottom: 1.5rem;">Name Category Performance: ANOVA Results</h2>
-    
-    <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 2rem;">
-        Nine distinct naming archetypes show <strong>statistically significant heterogeneity</strong> (F = 2.33, p = 0.017). 
-        However, heavy-tailed distributions require median-focused interpretation.
-    </p>
-    
-    <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th>Category</th>
-                    <th>Count</th>
-                    <th>Mean Return</th>
-                    <th>Median Return</th>
-                    <th>Interpretation</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td><strong>Numeric</strong></td>
-                    <td>20</td>
-                    <td style="color: var(--success-muted); font-weight: 600;">+524.7%</td>
-                    <td>+10.7%</td>
-                    <td>Single outlier (>10,000%) inflates mean. Small sample.</td>
-                </tr>
-                <tr>
-                    <td><strong>Acronym</strong></td>
-                    <td>117</td>
-                    <td style="color: var(--success-muted); font-weight: 600;">+302.0%</td>
-                    <td style="color: var(--danger-muted);">-35.9%</td>
-                    <td>Extreme winners bias distribution. Most underperform.</td>
-                </tr>
-                <tr>
-                    <td><strong>Tech-Oriented</strong></td>
-                    <td>378</td>
-                    <td style="color: var(--success-muted); font-weight: 600;">+52.4%</td>
-                    <td style="color: var(--danger-muted);">-36.8%</td>
-                    <td>Largest category. Some breakouts, many failures.</td>
-                </tr>
-                <tr>
-                    <td><strong>Animal</strong></td>
-                    <td>93</td>
-                    <td style="color: var(--success-muted); font-weight: 600;">+43.2%</td>
-                    <td style="color: var(--danger-muted);">-49.0%</td>
-                    <td>Meme coin phenomenon (Dogecoin effect).</td>
-                </tr>
-                <tr>
-                    <td><strong>Financial</strong></td>
-                    <td>134</td>
-                    <td style="color: var(--success-muted); font-weight: 600;">+37.6%</td>
-                    <td>+0.4%</td>
-                    <td>More balanced distribution. Moderate consistency.</td>
-                </tr>
-                <tr>
-                    <td><strong>Invented</strong></td>
-                    <td>771</td>
-                    <td>+9.5%</td>
-                    <td style="color: var(--danger-muted);">-39.9%</td>
-                    <td>Modal category. Fabricated names struggle traction.</td>
-                </tr>
-                <tr>
-                    <td><strong>Astronomical</strong></td>
-                    <td>6</td>
-                    <td style="color: var(--danger-muted);">-22.5%</td>
-                    <td style="color: var(--danger-muted);">-31.2%</td>
-                    <td>Small sample. Limited observations preclude inference.</td>
-                </tr>
-                <tr>
-                    <td><strong>Elemental</strong></td>
-                    <td>17</td>
-                    <td style="color: var(--danger-muted);">-25.4%</td>
-                    <td style="color: var(--danger-muted);">-28.1%</td>
-                    <td>Consistently underperforms. Small sample caveat.</td>
-                </tr>
-                <tr>
-                    <td><strong>Mythological</strong></td>
-                    <td>12</td>
-                    <td style="color: var(--danger-muted);">-31.3%</td>
-                    <td style="color: var(--danger-muted);">-35.7%</td>
-                    <td>Worst performer. Limited observations.</td>
-                </tr>
-            </tbody>
-        </table>
-    </div>
-    
-    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(224, 168, 90, 0.1); border-radius: 8px; border-left: 4px solid #e0a85a;">
-        <h4 style="margin-top: 0; margin-bottom: 1rem; font-size: 1.05rem;">Interpretation Guidelines</h4>
-        <p style="margin: 0; line-height: 1.7; font-size: 0.95rem;">
-            <strong>Median over mean:</strong> Crypto returns are heavily right-tailed. A few extreme winners (>1,000% returns) inflate category 
-            means while most assets underperform. Always check medians for realistic expectations.<br><br>
-            <strong>Sample size matters:</strong> Categories with n<20 (Astronomical, Elemental, Mythological) lack statistical power. 
-            Avoid strong conclusions from small samples.<br><br>
-            <strong>ANOVA significance:</strong> F = 2.33 (p = 0.017) confirms genuine heterogeneity exists across categories, but practical 
-            impact requires examining medians and win rates, not just means.
-        </p>
-    </div>
-</div>
-
-<!-- Random Forest Feature Importance -->
-<div class="glass card">
-    <h2 style="margin-bottom: 1.5rem;">Ensemble Model Insights: Feature Importance Hierarchy</h2>
-    
-    <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 2rem;">
-        Random Forest ensemble (in-sample R² = 0.652) reveals which linguistic features dominate when allowing non-linear interactions.
-    </p>
-    
-    <div style="background: var(--background-secondary); padding: 2rem; border-radius: 8px; margin-bottom: 2rem;">
-        <div style="display: grid; gap: 1rem;">
-            <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 1rem; align-items: center; padding: 1rem; background: var(--background); border-radius: 6px; border-left: 4px solid var(--success-muted);">
-                <div>
-                    <div style="font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;">Uniqueness Score</div>
-                    <div style="font-size: 0.85rem; color: var(--text-secondary);">Distance from common patterns, differentiation premium</div>
-                </div>
-                <div style="text-align: right;">
-                    <div style="font-size: 2rem; font-weight: 700; color: var(--success-muted);">41.7%</div>
-                </div>
-            </div>
-            
-            <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 1rem; align-items: center; padding: 1rem; background: var(--background); border-radius: 6px; border-left: 4px solid var(--accent-primary);">
-                <div>
-                    <div style="font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;">Character Length</div>
-                    <div style="font-size: 0.85rem; color: var(--text-secondary);">Brevity advantage, cognitive efficiency (≤6 chars optimal)</div>
-                </div>
-                <div style="text-align: right;">
-                    <div style="font-size: 2rem; font-weight: 700; color: var(--accent-primary);">31.0%</div>
-                </div>
-            </div>
-            
-            <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 1rem; align-items: center; padding: 1rem; background: var(--background); border-radius: 6px;">
-                <div>
-                    <div style="font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;">Phonetic Score</div>
-                    <div style="font-size: 0.85rem; color: var(--text-secondary);">Euphony, smooth consonant-vowel patterns</div>
-                </div>
-                <div style="text-align: right;">
-                    <div style="font-size: 2rem; font-weight: 700; color: var(--text-muted);">11.8%</div>
-                </div>
-            </div>
-            
-            <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 1rem; align-items: center; padding: 1rem; background: var(--background); border-radius: 6px;">
-                <div>
-                    <div style="font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;">Memorability Score</div>
-                    <div style="font-size: 0.85rem; color: var(--text-secondary);">Recall ease, cognitive accessibility</div>
-                </div>
-                <div style="text-align: right;">
-                    <div style="font-size: 2rem; font-weight: 700; color: var(--text-muted);">7.2%</div>
-                </div>
-            </div>
-            
-            <div style="display: grid; grid-template-columns: 3fr 1fr; gap: 1rem; align-items: center; padding: 1rem; background: var(--background); border-radius: 6px;">
-                <div>
-                    <div style="font-size: 1rem; font-weight: 600; margin-bottom: 0.25rem;">Pronounceability</div>
-                    <div style="font-size: 0.85rem; color: var(--text-secondary);">Ease of vocalization, social transmission</div>
-                </div>
-                <div style="text-align: right;">
-                    <div style="font-size: 2rem; font-weight: 700; color: var(--text-muted);">4.6%</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <div style="background: rgba(224, 168, 90, 0.1); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #e0a85a;">
-        <h4 style="margin-top: 0; margin-bottom: 1rem; font-size: 1.05rem;">Critical Caveat: In-Sample Performance</h4>
-        <p style="margin: 0; line-height: 1.7; font-size: 0.95rem;">
-            The Random Forest R² = 0.652 reflects <strong>in-sample</strong> performance without k-fold cross-validation. 
-            This creates overfitting risk—the model may be memorizing training set patterns rather than learning generalizable relationships. 
-            Out-of-sample validation (time-series train/test splits) is required before treating these importances as operationally reliable. 
-            The stark gap between linear R² (0.006) and ensemble R² (0.652) suggests either: <em>(a) genuine non-linear interactions exist, or 
-            (b) the model is overfitting</em>. Walk-forward testing on 2025-2026 data would resolve this uncertainty.
-        </p>
-    </div>
-</div>
-
-<!-- Sweet-Spot Saturation Analysis -->
-<div class="glass card">
-    <h2 style="margin-bottom: 1.5rem;">Sweet-Spot Saturation: When Optimal Becomes Overcrowded</h2>
-    
-    <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 2rem;">
-        The canonical "good crypto name" formula (2-3 syllables, 5-10 characters) that worked in 2015-2017 now <strong>produces negative returns</strong>.
-    </p>
-    
-    <div style="background: var(--background-secondary); padding: 2rem; border-radius: 8px; margin-bottom: 2rem;">
-        <div style="display: grid; grid-template-columns: 1fr auto 1fr; gap: 2rem; align-items: center;">
-            <div style="text-align: center; padding: 2rem; background: var(--background); border-radius: 8px; border: 2px solid var(--success-muted);">
-                <div style="font-size: 2rem; font-weight: 700; color: var(--success-muted); margin-bottom: 0.75rem;">2015-2017</div>
-                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Early Adopters</div>
-                <div style="font-size: 0.95rem; line-height: 1.7;">
-                    2-3 syllables, 5-10 chars<br>
-                    <strong style="color: var(--success-muted); font-size: 1.5rem;">+45%</strong><br>
-                    <span style="font-size: 0.8rem; color: var(--text-muted);">avg returns</span>
-                </div>
-            </div>
-            
-            <div style="font-size: 3rem; color: var(--accent-primary);">→</div>
-            
-            <div style="text-align: center; padding: 2rem; background: var(--background); border-radius: 8px; border: 2px solid var(--danger-muted);">
-                <div style="font-size: 2rem; font-weight: 700; color: var(--danger-muted); margin-bottom: 0.75rem;">2022-2024</div>
-                <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 1.5rem;">Post-Saturation</div>
-                <div style="font-size: 0.95rem; line-height: 1.7;">
-                    Same pattern (2-3 syl, 5-10 chars)<br>
-                    <strong style="color: var(--danger-muted); font-size: 1.5rem;">-3.2%</strong><br>
-                    <span style="font-size: 0.8rem; color: var(--text-muted);">avg returns</span>
-                </div>
-            </div>
-        </div>
-        
-        <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(230, 96, 96, 0.1); border-radius: 6px;">
-            <h4 style="margin-top: 0; margin-bottom: 1rem; font-size: 1rem;">The Saturation Mechanism</h4>
-            <p style="margin: 0; font-size: 0.9rem; line-height: 1.7;">
-                <strong>819 projects</strong> adopted the sweet-spot pattern (Bitcoin, Ethereum, Cardano imitation), diluting differentiation value. 
-                By 2020, the pattern was so saturated that it became a <em>negative signal</em>—indicating lack of innovation. 
-                Innovation moved to ultra-short (≤6 chars: BTC, ETH, SOL) or novel hybrid structures (numeric-alpha combinations).
-            </p>
-        </div>
-    </div>
-    
-    <div style="background: rgba(74, 124, 158, 0.1); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--accent-primary);">
-        <h4 style="margin-top: 0; margin-bottom: 1rem; font-size: 1.05rem;">Strategic Implication</h4>
-        <p style="margin: 0; line-height: 1.7; font-size: 0.95rem;">
-            <strong>Optimal patterns decay through adoption.</strong> What worked historically may fail today due to market crowding. 
-            Mission branding should embrace <strong>fresher structures</strong>: disciplined acronyms (3-4 chars), numeric hybrids, or 
-            ultra-short distinctive names (≤6 chars) that maintain memorability while escaping pattern fatigue. Relative differentiation 
-            matters more than absolute phonetic quality.
-        </p>
-    </div>
-</div>
-
-<!-- Methodological Limitations -->
-<div class="glass card">
-    <h2 style="margin-bottom: 1.5rem;">Methodological Limitations & Future Directions</h2>
-    
-    <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 2rem;">
-        Scientific integrity demands transparent discussion of constraints that qualify our findings.
-    </p>
-    
-    <div style="display: grid; gap: 1.5rem;">
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--warning-muted);">
-            <h4 style="margin-top: 0; margin-bottom: 1rem; color: var(--warning-muted);">Limitation 1: Survivorship Bias</h4>
-            <p style="margin: 0; font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary);">
-                Database captures active cryptocurrencies but omits failed, delisted, or abandoned projects. If poor names correlate with project failure, 
-                excluding dead assets truncates the left tail, attenuating negative correlations and biasing cluster comparisons. 
-                <strong>Impact:</strong> Likely inflates performance metrics; true name penalties may be stronger than observed.
-            </p>
-        </div>
-        
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--warning-muted);">
-            <h4 style="margin-top: 0; margin-bottom: 1rem; color: var(--warning-muted);">Limitation 2: Confounding Variables</h4>
-            <p style="margin: 0; font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary);">
-                We observe good names associate with better performance, but cannot rule out well-funded teams producing <em>both</em> superior 
-                technology and better branding simultaneously. Team quality, technological innovation, network effects, tokenomics, and macroeconomic 
-                conditions all confound name-performance relationships but remain unmeasured in current dataset.
-            </p>
-        </div>
-        
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--warning-muted);">
-            <h4 style="margin-top: 0; margin-bottom: 1rem; color: var(--warning-muted);">Limitation 3: Temporal Validation Needed</h4>
-            <p style="margin: 0; font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary);">
-                Random Forest metrics lack temporal validation. Walk-forward testing on rolling windows would verify whether patterns persist 
-                across market regimes (bull vs. bear cycles). Heavy-tailed distribution (81.3% negative/near-zero returns, 2.1% achieve 300%+ breakouts) 
-                violates regression assumptions and inflates ensemble overfitting risk.
-            </p>
-        </div>
-        
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--warning-muted);">
-            <h4 style="margin-top: 0; margin-bottom: 1rem; color: var(--warning-muted);">Limitation 4: Causal Inference Failure</h4>
-            <p style="margin: 0; font-size: 0.9rem; line-height: 1.7; color: var(--text-secondary);">
-                Propensity score methods encountered perfect separation warnings and singular matrices. Market rank and capitalization alone don't 
-                capture sufficient confounders. Without experimental or quasi-experimental variation (e.g., A/B testing names), causal claims remain 
-                speculative. The clustering result shows <em>associational</em> cohort differences, not proven causation.
-            </p>
-        </div>
-    </div>
-    
-    <h3 style="margin-top: 2.5rem; margin-bottom: 1.5rem;">Future Research Priorities</h3>
-    
-    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;">
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 6px; text-align: center;">
-            <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">1️⃣</div>
-            <div style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem;">Survivorship Correction</div>
-            <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
-                Collect data on failed projects from archival sources to correct left-tail truncation
-            </div>
-        </div>
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 6px; text-align: center;">
-            <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">2️⃣</div>
-            <div style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem;">Temporal Cross-Validation</div>
-            <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
-                Train/test splits respecting time ordering to assess genuine out-of-sample predictive power
-            </div>
-        </div>
-        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 6px; text-align: center;">
-            <div style="font-size: 1.5rem; margin-bottom: 0.75rem;">3️⃣</div>
-            <div style="font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem;">Expanded Feature Sets</div>
-            <div style="font-size: 0.85rem; color: var(--text-secondary); line-height: 1.6;">
-                Incorporate whitepaper keywords, social signals, developer activity to isolate name effects from confounders
-            </div>
-        </div>
-    </div>
-</div>
-
 </div>
 {% endblock %}
