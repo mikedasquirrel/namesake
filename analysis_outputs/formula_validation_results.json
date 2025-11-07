@@ -1,5 +1,155 @@
 {
-  "validation_date": "2025-11-07T16:10:31.860476",
-  "domains": {},
-  "summary": {}
+  "validation_date": "2025-11-07T16:43:29.233698",
+  "domains": {
+    "crypto": {
+      "sample_size": 1640,
+      "conservative": {
+        "approach": "conservative",
+        "features_used": [
+          "syllable_count",
+          "character_length",
+          "memorability_score",
+          "uniqueness_score",
+          "euphony_score",
+          "pronounceability_score"
+        ],
+        "n_features": 6,
+        "models": {
+          "ridge": {
+            "cv_r2_mean": -0.1499048008529778,
+            "cv_r2_std": 0.3142215091600523,
+            "cv_r2_scores": [
+              0.014686931698730255,
+              0.015857430147459994,
+              0.014799050329348251,
+              -0.01701305296844935,
+              -0.7778543634719781
+            ]
+          },
+          "lasso": {
+            "cv_r2_mean": -0.15037980125668332,
+            "cv_r2_std": 0.3151368534550307,
+            "cv_r2_scores": [
+              0.014690752151919506,
+              0.01585571258915419,
+              0.014823578808060178,
+              -0.01711081927135827,
+              -0.7801582305611923
+            ]
+          },
+          "elastic_net": {
+            "cv_r2_mean": -0.09877326025075306,
+            "cv_r2_std": 0.2120388700866201,
+            "cv_r2_scores": [
+              0.012072763053345259,
+              0.012707147947352393,
+              0.01289390268762236,
+              -0.009018938679586253,
+              -0.522521176262499
+            ]
+          }
+        },
+        "best_model": "elastic_net",
+        "cv_r2_mean": -0.09877326025075306,
+        "cv_r2_std": 0.2120388700866201,
+        "interactions_found": {}
+      },
+      "revolutionary": {
+        "approach": "revolutionary",
+        "features_used": [
+          "syllable_count",
+          "character_length",
+          "memorability_score",
+          "uniqueness_score",
+          "euphony_score",
+          "pronounceability_score",
+          "harshness_score",
+          "smoothness_score",
+          "power_authority_score",
+          "plosive_score",
+          "fricative_score",
+          "liquid_score",
+          "vowel_frontness",
+          "cluster_complexity"
+        ],
+        "n_features": 14,
+        "models": {
+          "ridge": {
+            "cv_r2_mean": -0.33327774208033817,
+            "cv_r2_std": 0.6611433820877071,
+            "cv_r2_scores": [
+              0.03540280750300295,
+              0.03966852419931666,
+              0.012819754403080807,
+              -0.10280695102993098,
+              -1.6514728454771603
+            ]
+          },
+          "lasso": {
+            "cv_r2_mean": -0.33542263689415264,
+            "cv_r2_std": 0.6648082671931358,
+            "cv_r2_scores": [
+              0.03528662843809227,
+              0.039546096521289376,
+              0.012595733401235876,
+              -0.10361152804429419,
+              -1.6609301147870865
+            ]
+          },
+          "elastic_net": {
+            "cv_r2_mean": -0.19117330527779855,
+            "cv_r2_std": 0.39794721920013915,
+            "cv_r2_scores": [
+              0.02931477111269032,
+              0.03247904527375767,
+              0.02266057415163769,
+              -0.05594899873120718,
+              -0.9843719181958712
+            ]
+          },
+          "random_forest": {
+            "cv_r2_mean": -1.0789516907891874,
+            "cv_r2_std": 2.6414104962882234,
+            "cv_r2_scores": [
+              0.6466384936597613,
+              0.737882213068386,
+              0.06661449518318563,
+              -0.5676226923596939,
+              -6.278270963497576
+            ]
+          }
+        },
+        "best_model": "elastic_net",
+        "cv_r2_mean": -0.19117330527779855,
+        "cv_r2_std": 0.39794721920013915,
+        "interactions_found": {
+          "total_polynomial_terms": 0,
+          "total_two_way": 0,
+          "total_three_way": 0,
+          "total_thresholds": 0,
+          "total_sign_flips": 0,
+          "sample_size": 1640,
+          "features_tested": 14
+        }
+      },
+      "comparison": {
+        "winner": "conservative",
+        "conservative_r2": -0.09877326025075306,
+        "revolutionary_r2": -0.19117330527779855,
+        "improvement": -93.54763100101377,
+        "absolute_difference": -0.09240004502704549
+      },
+      "winner": "conservative"
+    }
+  },
+  "summary": {
+    "total_domains_tested": 1,
+    "conservative_wins": 1,
+    "revolutionary_wins": 0,
+    "ties": 0,
+    "avg_conservative_r2": -0.09877326025075306,
+    "avg_revolutionary_r2": -0.19117330527779855,
+    "overall_winner": "conservative",
+    "recommendation": "Deploy HYBRID approach (conservative for some domains, revolutionary for others)"
+  }
 }
