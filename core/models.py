@@ -1573,6 +1573,335 @@ class NBAPlayerAnalysis(db.Model):
 
 
 # =============================================================================
+# NFL PLAYER ANALYSIS
+# =============================================================================
+
+class NFLPlayer(db.Model):
+    """NFL player data from Pro Football Reference and other sources"""
+    __tablename__ = 'nfl_player'
+    __table_args__ = (
+        db.Index('idx_nfl_debut_year', 'debut_year'),
+        db.Index('idx_nfl_position', 'position'),
+        db.Index('idx_nfl_position_group', 'position_group'),
+        db.Index('idx_nfl_era', 'era'),
+        db.Index('idx_nfl_rule_era', 'rule_era'),
+        db.Index('idx_nfl_performance', 'performance_score'),
+    )
+    
+    id = db.Column(db.String(100), primary_key=True)  # Pro Football Reference player ID
+    name = db.Column(db.String(200), nullable=False, index=True)
+    full_name = db.Column(db.String(300))  # Full legal name if available
+    
+    # Position data
+    position = db.Column(db.String(10))  # QB, RB, WR, TE, OT, OG, C, DE, DT, LB, CB, S, K, P, etc.
+    position_group = db.Column(db.String(20))  # Offense, Defense, Special Teams
+    position_category = db.Column(db.String(30))  # Skill, Offensive Line, Defensive Line, Linebackers, Defensive Backs, Special Teams
+    primary_position = db.Column(db.String(5))  # Single primary position
+    
+    # Career span
+    debut_year = db.Column(db.Integer)
+    final_year = db.Column(db.Integer)
+    years_active = db.Column(db.Integer)  # Total seasons played
+    is_active = db.Column(db.Boolean, default=False)
+    
+    # Era classification (dual system)
+    era = db.Column(db.Integer)  # Decade of debut: 1950, 1960, etc.
+    era_group = db.Column(db.String(30))  # Pre-Modern (pre-1978), Modern (1978-2010), Contemporary (2010+)
+    rule_era = db.Column(db.String(30))  # Dead Ball, Modern, Passing Era, Modern Offense
+    
+    # Basic career statistics
+    games_played = db.Column(db.Integer)
+    games_started = db.Column(db.Integer)
+    
+    # QB Statistics
+    passing_attempts = db.Column(db.Integer)
+    passing_completions = db.Column(db.Integer)
+    completion_pct = db.Column(db.Float)  # Completion percentage
+    passing_yards = db.Column(db.Integer)
+    passing_tds = db.Column(db.Integer)  # Passing touchdowns
+    interceptions = db.Column(db.Integer)
+    passer_rating = db.Column(db.Float)  # NFL passer rating
+    qbr = db.Column(db.Float)  # ESPN's Total QBR
+    yards_per_attempt = db.Column(db.Float)  # Yards per pass attempt
+    td_int_ratio = db.Column(db.Float)  # TD to INT ratio
+    
+    # RB/Rushing Statistics
+    rushing_attempts = db.Column(db.Integer)
+    rushing_yards = db.Column(db.Integer)
+    rushing_tds = db.Column(db.Integer)
+    yards_per_carry = db.Column(db.Float)  # Yards per rushing attempt
+    rushing_fumbles = db.Column(db.Integer)
+    
+    # WR/TE/Receiving Statistics
+    receptions = db.Column(db.Integer)
+    receiving_yards = db.Column(db.Integer)
+    receiving_tds = db.Column(db.Integer)
+    yards_per_reception = db.Column(db.Float)
+    catch_rate = db.Column(db.Float)  # Receptions / Targets
+    targets = db.Column(db.Integer)
+    drops = db.Column(db.Integer)
+    yards_after_catch = db.Column(db.Float)  # Average YAC
+    
+    # Offensive Line Statistics (limited availability)
+    sacks_allowed = db.Column(db.Integer)
+    penalties = db.Column(db.Integer)
+    
+    # Defensive Statistics
+    tackles = db.Column(db.Integer)  # Total tackles
+    solo_tackles = db.Column(db.Integer)
+    assisted_tackles = db.Column(db.Integer)
+    sacks = db.Column(db.Float)  # Sacks (can be fractional)
+    tackles_for_loss = db.Column(db.Integer)
+    qb_hits = db.Column(db.Integer)
+    defensive_interceptions = db.Column(db.Integer)
+    pass_deflections = db.Column(db.Integer)
+    forced_fumbles = db.Column(db.Integer)
+    fumble_recoveries = db.Column(db.Integer)
+    defensive_tds = db.Column(db.Integer)
+    
+    # Special Teams Statistics
+    field_goals_made = db.Column(db.Integer)
+    field_goals_attempted = db.Column(db.Integer)
+    field_goal_pct = db.Column(db.Float)
+    extra_points_made = db.Column(db.Integer)
+    extra_points_attempted = db.Column(db.Integer)
+    extra_point_pct = db.Column(db.Float)
+    punts = db.Column(db.Integer)
+    punting_avg = db.Column(db.Float)  # Average punt distance
+    punts_inside_20 = db.Column(db.Integer)
+    touchback_pct = db.Column(db.Float)
+    
+    # Advanced metrics
+    approximate_value = db.Column(db.Float)  # Pro Football Reference's AV metric
+    career_av = db.Column(db.Float)  # Career total AV
+    weighted_career_av = db.Column(db.Float)  # Weighted career AV
+    
+    # Career achievements
+    pro_bowl_count = db.Column(db.Integer, default=0)  # Pro Bowl selections
+    all_pro_first_count = db.Column(db.Integer, default=0)  # First-team All-Pro
+    all_pro_count = db.Column(db.Integer, default=0)  # Total All-Pro teams (1st + 2nd)
+    mvp_count = db.Column(db.Integer, default=0)  # MVP awards
+    championship_count = db.Column(db.Integer, default=0)  # Championships won (Super Bowls)
+    super_bowl_mvp_count = db.Column(db.Integer, default=0)  # Super Bowl MVP awards
+    dpoy_count = db.Column(db.Integer, default=0)  # Defensive Player of Year
+    opoy_count = db.Column(db.Integer, default=0)  # Offensive Player of Year
+    oroy_count = db.Column(db.Integer, default=0)  # Offensive Rookie of Year
+    droy_count = db.Column(db.Integer, default=0)  # Defensive Rookie of Year
+    hof_inducted = db.Column(db.Boolean, default=False)  # Hall of Fame
+    hof_year = db.Column(db.Integer)  # Year inducted to HOF
+    
+    # Derived success metrics (0-100 scale)
+    performance_score = db.Column(db.Float)  # Based on position-specific stats
+    career_achievement_score = db.Column(db.Float)  # Based on awards/honors
+    longevity_score = db.Column(db.Float)  # Based on years active + sustained performance
+    overall_success_score = db.Column(db.Float)  # Weighted combination of above
+    
+    # Physical attributes (if available)
+    height_inches = db.Column(db.Integer)  # Height in inches
+    weight_lbs = db.Column(db.Integer)  # Weight in pounds
+    
+    # College/origin
+    college = db.Column(db.String(200))
+    draft_year = db.Column(db.Integer)
+    draft_round = db.Column(db.Integer)
+    draft_pick = db.Column(db.Integer)
+    draft_team = db.Column(db.String(50))
+    
+    # Teams played for (JSON list)
+    teams = db.Column(db.Text)  # JSON array of team codes
+    primary_team = db.Column(db.String(50))  # Team most associated with
+    
+    # Metadata
+    pro_football_reference_url = db.Column(db.String(500))
+    nfl_com_id = db.Column(db.String(100))  # NFL.com player ID
+    espn_id = db.Column(db.String(100))  # ESPN player ID
+    created_date = db.Column(db.DateTime, default=datetime.utcnow)
+    last_updated = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    player_analysis = db.relationship('NFLPlayerAnalysis', backref='player', uselist=False, cascade='all, delete-orphan')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'full_name': self.full_name,
+            'position': self.position,
+            'position_group': self.position_group,
+            'position_category': self.position_category,
+            'primary_position': self.primary_position,
+            'debut_year': self.debut_year,
+            'final_year': self.final_year,
+            'years_active': self.years_active,
+            'is_active': self.is_active,
+            'era': self.era,
+            'era_group': self.era_group,
+            'rule_era': self.rule_era,
+            'games_played': self.games_played,
+            'games_started': self.games_started,
+            # QB stats
+            'completion_pct': self.completion_pct,
+            'passing_yards': self.passing_yards,
+            'passing_tds': self.passing_tds,
+            'interceptions': self.interceptions,
+            'passer_rating': self.passer_rating,
+            'qbr': self.qbr,
+            'yards_per_attempt': self.yards_per_attempt,
+            'td_int_ratio': self.td_int_ratio,
+            # RB stats
+            'rushing_yards': self.rushing_yards,
+            'rushing_tds': self.rushing_tds,
+            'yards_per_carry': self.yards_per_carry,
+            'rushing_fumbles': self.rushing_fumbles,
+            # Receiving stats
+            'receptions': self.receptions,
+            'receiving_yards': self.receiving_yards,
+            'receiving_tds': self.receiving_tds,
+            'yards_per_reception': self.yards_per_reception,
+            'catch_rate': self.catch_rate,
+            'yards_after_catch': self.yards_after_catch,
+            # Defensive stats
+            'tackles': self.tackles,
+            'sacks': self.sacks,
+            'defensive_interceptions': self.defensive_interceptions,
+            'forced_fumbles': self.forced_fumbles,
+            'pass_deflections': self.pass_deflections,
+            # Special teams
+            'field_goal_pct': self.field_goal_pct,
+            'punting_avg': self.punting_avg,
+            # Advanced metrics
+            'approximate_value': self.approximate_value,
+            'career_av': self.career_av,
+            # Achievements
+            'pro_bowl_count': self.pro_bowl_count,
+            'all_pro_count': self.all_pro_count,
+            'mvp_count': self.mvp_count,
+            'championship_count': self.championship_count,
+            'super_bowl_mvp_count': self.super_bowl_mvp_count,
+            'hof_inducted': self.hof_inducted,
+            # Success scores
+            'performance_score': self.performance_score,
+            'career_achievement_score': self.career_achievement_score,
+            'longevity_score': self.longevity_score,
+            'overall_success_score': self.overall_success_score,
+            # Physical
+            'height_inches': self.height_inches,
+            'weight_lbs': self.weight_lbs,
+            # Other
+            'college': self.college,
+            'draft_year': self.draft_year,
+            'draft_round': self.draft_round,
+            'teams': json.loads(self.teams) if self.teams else [],
+            'primary_team': self.primary_team,
+            'player_analysis': self.player_analysis.to_dict() if self.player_analysis else None
+        }
+
+
+class NFLPlayerAnalysis(db.Model):
+    """Linguistic analysis of NFL player names"""
+    __tablename__ = 'nfl_player_analysis'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    player_id = db.Column(db.String(100), db.ForeignKey('nfl_player.id'), nullable=False, unique=True)
+    
+    # Standard name metrics (matching other spheres)
+    syllable_count = db.Column(db.Integer)
+    character_length = db.Column(db.Integer)
+    word_count = db.Column(db.Integer)
+    phonetic_score = db.Column(db.Float)
+    vowel_ratio = db.Column(db.Float)
+    memorability_score = db.Column(db.Float)
+    pronounceability_score = db.Column(db.Float)
+    uniqueness_score = db.Column(db.Float)
+    name_type = db.Column(db.String(50))
+    
+    # First name analysis
+    first_name_syllables = db.Column(db.Integer)
+    first_name_length = db.Column(db.Integer)
+    first_name_memorability = db.Column(db.Float)
+    
+    # Last name analysis
+    last_name_syllables = db.Column(db.Integer)
+    last_name_length = db.Column(db.Integer)
+    last_name_memorability = db.Column(db.Float)
+    
+    # NFL-specific linguistic metrics
+    power_connotation_score = db.Column(db.Float)  # Aggressive vs gentle
+    harshness_score = db.Column(db.Float)  # Phonetic harshness (stops, fricatives)
+    softness_score = db.Column(db.Float)  # Phonetic softness (liquids, glides)
+    speed_association_score = db.Column(db.Float)  # Quick-sounding vs slow-sounding
+    strength_association_score = db.Column(db.Float)  # Strong vs weak connotations
+    toughness_score = db.Column(db.Float)  # Toughness association (relevant for contact sport)
+    
+    # Phonetic complexity
+    consonant_cluster_complexity = db.Column(db.Float)  # Difficulty of consonant combinations
+    rhythm_score = db.Column(db.Float)  # Rhythmic flow (0-100)
+    alliteration_score = db.Column(db.Float)  # First/last name alliteration
+    
+    # Cultural/ethnic indicators
+    ethnic_origin_indicator = db.Column(db.String(50))  # Based on name pattern (indicative only)
+    international_name_score = db.Column(db.Float)  # How "international" vs "American" sounding
+    
+    # Temporal cohort metrics
+    temporal_cohort = db.Column(db.String(20))  # '1950s', '1960s', etc.
+    era_typicality_score = db.Column(db.Float)  # How typical for the era (0-100)
+    rule_era_cohort = db.Column(db.String(30))  # Dead Ball, Modern, Passing Era, Modern Offense
+    
+    # Position cluster metrics
+    position_cluster = db.Column(db.String(30))  # Offense, Defense, Special Teams
+    position_category_cluster = db.Column(db.String(30))  # Skill, Line, etc.
+    position_typicality_score = db.Column(db.Float)  # How typical for position
+    
+    # Advanced nominative dimensions (JSON fields for complex data)
+    phonosemantic_data = db.Column(db.Text)  # JSON: detailed phoneme analysis
+    semantic_data = db.Column(db.Text)  # JSON: semantic field scores
+    prosodic_data = db.Column(db.Text)  # JSON: rhythmic patterns
+    sound_symbolism_data = db.Column(db.Text)  # JSON: sound symbolism features
+    
+    analyzed_date = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'syllable_count': self.syllable_count,
+            'character_length': self.character_length,
+            'word_count': self.word_count,
+            'phonetic_score': self.phonetic_score,
+            'vowel_ratio': self.vowel_ratio,
+            'memorability_score': self.memorability_score,
+            'pronounceability_score': self.pronounceability_score,
+            'uniqueness_score': self.uniqueness_score,
+            'name_type': self.name_type,
+            'first_name_syllables': self.first_name_syllables,
+            'first_name_length': self.first_name_length,
+            'first_name_memorability': self.first_name_memorability,
+            'last_name_syllables': self.last_name_syllables,
+            'last_name_length': self.last_name_length,
+            'last_name_memorability': self.last_name_memorability,
+            'power_connotation_score': self.power_connotation_score,
+            'harshness_score': self.harshness_score,
+            'softness_score': self.softness_score,
+            'speed_association_score': self.speed_association_score,
+            'strength_association_score': self.strength_association_score,
+            'toughness_score': self.toughness_score,
+            'consonant_cluster_complexity': self.consonant_cluster_complexity,
+            'rhythm_score': self.rhythm_score,
+            'alliteration_score': self.alliteration_score,
+            'ethnic_origin_indicator': self.ethnic_origin_indicator,
+            'international_name_score': self.international_name_score,
+            'temporal_cohort': self.temporal_cohort,
+            'era_typicality_score': self.era_typicality_score,
+            'rule_era_cohort': self.rule_era_cohort,
+            'position_cluster': self.position_cluster,
+            'position_category_cluster': self.position_category_cluster,
+            'position_typicality_score': self.position_typicality_score,
+            'phonosemantic_data': json.loads(self.phonosemantic_data) if self.phonosemantic_data else {},
+            'semantic_data': json.loads(self.semantic_data) if self.semantic_data else {},
+            'prosodic_data': json.loads(self.prosodic_data) if self.prosodic_data else {},
+            'sound_symbolism_data': json.loads(self.sound_symbolism_data) if self.sound_symbolism_data else {}
+        }
+
+
+# =============================================================================
 # MENTAL HEALTH TERMS (DIAGNOSES & MEDICATIONS)
 # =============================================================================
 
@@ -1727,6 +2056,799 @@ class PreComputedStats(db.Model):
             'sample_size': self.sample_size,
             'computed_at': self.computed_at.isoformat() if self.computed_at else None,
             'computation_duration': self.computation_duration
+        }
+
+
+# =============================================================================
+# ACADEMIC NAMES ANALYSIS (NOMINATIVE DETERMINISM IN ACADEMIA)
+# =============================================================================
+
+class Academic(db.Model):
+    """University professor data for nominative determinism analysis"""
+    __tablename__ = 'academic'
+    __table_args__ = (
+        db.Index('idx_academic_university_rank', 'university_name', 'academic_rank'),
+        db.Index('idx_academic_ranking', 'university_ranking'),
+        db.Index('idx_academic_field', 'field_broad'),
+        db.Index('idx_academic_tier', 'university_tier'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    full_name = db.Column(db.String(300), nullable=False, index=True)
+    first_name = db.Column(db.String(100))
+    middle_name = db.Column(db.String(100))
+    last_name = db.Column(db.String(100), index=True)
+    
+    # Academic position
+    academic_rank = db.Column(db.String(50), index=True)  # 'assistant', 'associate', 'full', 'distinguished', 'endowed', 'emeritus'
+    title = db.Column(db.String(200))  # Full title (e.g., "John Smith Endowed Chair in Physics")
+    
+    # University affiliation
+    university_name = db.Column(db.String(200), nullable=False, index=True)
+    university_ranking = db.Column(db.Integer)  # US News ranking (lower = better)
+    university_tier = db.Column(db.String(20))  # 'top_20', 'top_50', 'top_100', 'teaching_focused', 'other'
+    
+    # Department and field
+    department = db.Column(db.String(200))
+    field_broad = db.Column(db.String(50), index=True)  # 'stem', 'humanities', 'social_science', 'professional', 'interdisciplinary'
+    field_specific = db.Column(db.String(100))  # 'physics', 'english', 'economics', 'medicine', etc.
+    
+    # Career information
+    years_at_institution = db.Column(db.Integer)
+    phd_institution = db.Column(db.String(200))
+    phd_year = db.Column(db.Integer)
+    phd_institution_ranking = db.Column(db.Integer)  # PhD institution prestige
+    
+    # Contact and profile
+    email = db.Column(db.String(200))
+    profile_url = db.Column(db.String(500))
+    google_scholar_id = db.Column(db.String(100))
+    google_scholar_url = db.Column(db.String(500))
+    
+    # Collection metadata
+    collected_date = db.Column(db.DateTime, default=datetime.utcnow)
+    last_updated = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    data_source = db.Column(db.String(100))  # 'university_directory', 'manual', 'api'
+    
+    # Relationships
+    analysis = db.relationship('AcademicAnalysis', backref='academic', uselist=False, cascade='all, delete-orphan')
+    research_metrics = db.relationship('AcademicResearchMetrics', backref='academic', uselist=False, cascade='all, delete-orphan')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'full_name': self.full_name,
+            'first_name': self.first_name,
+            'middle_name': self.middle_name,
+            'last_name': self.last_name,
+            'academic_rank': self.academic_rank,
+            'title': self.title,
+            'university_name': self.university_name,
+            'university_ranking': self.university_ranking,
+            'university_tier': self.university_tier,
+            'department': self.department,
+            'field_broad': self.field_broad,
+            'field_specific': self.field_specific,
+            'years_at_institution': self.years_at_institution,
+            'phd_institution': self.phd_institution,
+            'phd_year': self.phd_year,
+            'profile_url': self.profile_url,
+            'analysis': self.analysis.to_dict() if self.analysis else None,
+            'research_metrics': self.research_metrics.to_dict() if self.research_metrics else None
+        }
+
+
+class AcademicAnalysis(db.Model):
+    """Phonetic and linguistic analysis of academic names"""
+    __tablename__ = 'academic_analysis'
+    __table_args__ = (
+        db.Index('idx_academic_analysis_authority', 'authority_score'),
+        db.Index('idx_academic_analysis_sophistication', 'intellectual_sophistication_score'),
+        db.Index('idx_academic_analysis_memorability', 'memorability_score'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    academic_id = db.Column(db.Integer, db.ForeignKey('academic.id'), nullable=False, unique=True)
+    
+    # Basic linguistic metrics (from NameAnalyzer)
+    syllable_count = db.Column(db.Integer)
+    character_length = db.Column(db.Integer)
+    word_count = db.Column(db.Integer)
+    
+    # Phonetic analysis (from NameAnalyzer)
+    phonetic_score = db.Column(db.Float)  # Overall euphony (0-100)
+    vowel_ratio = db.Column(db.Float)
+    consonant_clusters = db.Column(db.Integer)
+    
+    # Memorability and pronounceability (from NameAnalyzer)
+    memorability_score = db.Column(db.Float)
+    pronounceability_score = db.Column(db.Float)
+    uniqueness_score = db.Column(db.Float)
+    
+    # Advanced phonetic features (from AdvancedAnalyzer)
+    phonestheme_score = db.Column(db.Float)
+    phonestheme_type = db.Column(db.String(50))
+    vowel_brightness = db.Column(db.Float)
+    vowel_emotion_profile = db.Column(db.String(50))
+    consonant_hardness = db.Column(db.Float)
+    
+    # Psychological impact (from AdvancedAnalyzer)
+    authority_score = db.Column(db.Float, index=True)
+    innovation_score = db.Column(db.Float)
+    trust_score = db.Column(db.Float)
+    
+    # Phonemic features (from PhonemicAnalyzer)
+    plosive_ratio = db.Column(db.Float)
+    fricative_ratio = db.Column(db.Float)
+    voicing_ratio = db.Column(db.Float)
+    initial_is_plosive = db.Column(db.Boolean)
+    
+    # Academic-specific composite scores
+    intellectual_sophistication_score = db.Column(db.Float, index=True)  # Composite: syllables + phonetic complexity + uniqueness
+    prestige_phonetic_alignment = db.Column(db.Float)  # Similarity to top-20 professor names (0-100)
+    academic_authority_composite = db.Column(db.Float)  # Composite: authority + consonant hardness + memorability
+    
+    # Name categorization
+    name_type = db.Column(db.String(50))
+    has_numbers = db.Column(db.Boolean, default=False)
+    has_special_chars = db.Column(db.Boolean, default=False)
+    capital_pattern = db.Column(db.String(50))
+    
+    # Cultural/ethnic coding (for controls)
+    likely_ethnic_origin = db.Column(db.String(50))  # 'western_european', 'asian', 'hispanic', 'middle_eastern', etc.
+    gender_coding = db.Column(db.String(20))  # 'masculine', 'feminine', 'neutral', 'ambiguous'
+    
+    # Analysis metadata
+    analyzed_date = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'syllable_count': self.syllable_count,
+            'character_length': self.character_length,
+            'phonetic_score': self.phonetic_score,
+            'vowel_ratio': self.vowel_ratio,
+            'consonant_clusters': self.consonant_clusters,
+            'memorability_score': self.memorability_score,
+            'pronounceability_score': self.pronounceability_score,
+            'uniqueness_score': self.uniqueness_score,
+            'authority_score': self.authority_score,
+            'innovation_score': self.innovation_score,
+            'trust_score': self.trust_score,
+            'consonant_hardness': self.consonant_hardness,
+            'vowel_brightness': self.vowel_brightness,
+            'intellectual_sophistication_score': self.intellectual_sophistication_score,
+            'prestige_phonetic_alignment': self.prestige_phonetic_alignment,
+            'academic_authority_composite': self.academic_authority_composite,
+            'gender_coding': self.gender_coding
+        }
+
+
+class AcademicResearchMetrics(db.Model):
+    """Google Scholar research productivity metrics"""
+    __tablename__ = 'academic_research_metrics'
+    __table_args__ = (
+        db.Index('idx_research_h_index', 'h_index'),
+        db.Index('idx_research_citations', 'total_citations'),
+        db.Index('idx_research_productivity', 'citations_per_year'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    academic_id = db.Column(db.Integer, db.ForeignKey('academic.id'), nullable=False, unique=True)
+    
+    # Core Google Scholar metrics
+    h_index = db.Column(db.Integer, index=True)  # Primary productivity measure
+    total_citations = db.Column(db.Integer, index=True)
+    i10_index = db.Column(db.Integer)  # Papers with 10+ citations
+    
+    # Temporal metrics
+    years_publishing = db.Column(db.Integer)  # Years since first publication
+    first_publication_year = db.Column(db.Integer)
+    most_recent_publication_year = db.Column(db.Integer)
+    
+    # Derived productivity metrics
+    citations_per_year = db.Column(db.Float, index=True)  # total_citations / years_publishing
+    h_index_per_year = db.Column(db.Float)  # h_index / years_publishing
+    papers_per_year = db.Column(db.Float)  # Estimated publication rate
+    
+    # Field normalization
+    field_normalized_citations = db.Column(db.Float)  # Citations relative to field median
+    field_normalized_h_index = db.Column(db.Float)  # h-index relative to field median
+    
+    # Top publications
+    most_cited_paper_title = db.Column(db.String(500))
+    most_cited_paper_citations = db.Column(db.Integer)
+    most_cited_paper_year = db.Column(db.Integer)
+    
+    # Co-authorship
+    total_coauthors = db.Column(db.Integer)
+    average_coauthors_per_paper = db.Column(db.Float)
+    
+    # Collection metadata
+    collected_from_google_scholar = db.Column(db.Boolean, default=False)
+    google_scholar_last_updated = db.Column(db.DateTime)
+    collection_errors = db.Column(db.Text)  # Any errors during collection
+    
+    def to_dict(self):
+        return {
+            'h_index': self.h_index,
+            'total_citations': self.total_citations,
+            'i10_index': self.i10_index,
+            'years_publishing': self.years_publishing,
+            'citations_per_year': self.citations_per_year,
+            'field_normalized_citations': self.field_normalized_citations,
+            'field_normalized_h_index': self.field_normalized_h_index,
+            'most_cited_paper_title': self.most_cited_paper_title,
+            'most_cited_paper_citations': self.most_cited_paper_citations
+        }
+
+
+# =============================================================================
+# SHIP TABLES (NOMINATIVE DETERMINISM IN MARITIME HISTORY)
+# =============================================================================
+
+class Ship(db.Model):
+    """Historical ship data for nominative determinism analysis"""
+    __tablename__ = 'ship'
+    __table_args__ = (
+        db.Index('idx_ship_type', 'ship_type'),
+        db.Index('idx_ship_nation', 'nation'),
+        db.Index('idx_ship_era', 'era'),
+        db.Index('idx_ship_significance', 'historical_significance_score'),
+        db.Index('idx_ship_name_category', 'name_category'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False, index=True)
+    full_designation = db.Column(db.String(250))  # e.g., "HMS Beagle", "USS Constitution"
+    prefix = db.Column(db.String(20))  # HMS, USS, RMS, SS, etc.
+    
+    # Classification
+    ship_type = db.Column(db.String(50), index=True)  # 'naval', 'exploration', 'commercial', 'passenger'
+    ship_class = db.Column(db.String(100))  # Ship class (e.g., "Cherokee-class brig-sloop")
+    nation = db.Column(db.String(100), index=True)  # Country of origin
+    
+    # Temporal data
+    launch_year = db.Column(db.Integer)
+    decommission_year = db.Column(db.Integer)
+    years_active = db.Column(db.Integer)  # Longevity metric
+    era = db.Column(db.String(50), index=True)  # 'age_of_sail', 'steam_era', 'modern', 'age_of_discovery'
+    era_decade = db.Column(db.Integer)  # Launch decade
+    
+    # Achievement metrics (OUTCOMES)
+    historical_significance_score = db.Column(db.Float, index=True)  # 0-100 composite score
+    major_events_count = db.Column(db.Integer)  # Number of notable events/battles/discoveries
+    battles_participated = db.Column(db.Integer)  # For naval vessels
+    battles_won = db.Column(db.Integer)
+    ships_sunk = db.Column(db.Integer)  # Enemy vessels defeated
+    
+    # Exploration/Scientific achievement
+    major_discoveries = db.Column(db.Text)  # JSON list of discoveries
+    famous_voyages = db.Column(db.Text)  # JSON list of notable voyages
+    scientific_contributions = db.Column(db.Text)  # JSON: scientific achievements
+    notable_crew_members = db.Column(db.Text)  # JSON: famous people aboard (Darwin, Cook, etc.)
+    
+    # Mission/Purpose
+    primary_purpose = db.Column(db.String(200))  # Main mission type
+    secondary_purposes = db.Column(db.Text)  # JSON list
+    
+    # Geographic data
+    home_port = db.Column(db.String(200))
+    primary_theater = db.Column(db.String(200))  # Main area of operation
+    regions_operated = db.Column(db.Text)  # JSON list of regions
+    
+    # Physical specifications (control variables)
+    tonnage = db.Column(db.Integer)
+    crew_size = db.Column(db.Integer)
+    armament = db.Column(db.String(200))  # For naval vessels
+    
+    # Outcome tracking
+    crew_casualties = db.Column(db.Integer)  # Total casualties during service
+    notable_achievements = db.Column(db.Text)  # JSON list of achievements
+    awards_decorations = db.Column(db.Text)  # JSON list of honors
+    
+    # Failure tracking (survivorship bias elimination)
+    was_sunk = db.Column(db.Boolean, default=False)
+    sunk_year = db.Column(db.Integer)
+    sunk_reason = db.Column(db.String(200))  # 'battle', 'storm', 'accident', 'scuttled', etc.
+    sunk_location = db.Column(db.String(200))
+    
+    # Name categorization (for primary analysis)
+    name_category = db.Column(db.String(50), index=True)  # 'geographic', 'saint', 'monarch', 'virtue', 'mythological', 'animal', 'other'
+    geographic_origin = db.Column(db.String(200))  # If geographic name, which place?
+    geographic_lat = db.Column(db.Float)  # Geocoded location of place name
+    geographic_lon = db.Column(db.Float)
+    
+    # Cultural prestige (for geographic names)
+    place_cultural_prestige_score = db.Column(db.Float)  # Historical/cultural importance of place (0-100)
+    place_population = db.Column(db.Integer)  # Population of place at time of naming
+    place_type = db.Column(db.String(50))  # 'city', 'region', 'country', 'landmark'
+    
+    # Data quality and sources
+    data_completeness_score = db.Column(db.Float)  # 0-100, how complete is the data
+    primary_source = db.Column(db.String(200))  # Wikipedia, Naval Archives, etc.
+    wikipedia_url = db.Column(db.String(500))
+    external_references = db.Column(db.Text)  # JSON list of sources
+    
+    # Metadata
+    created_date = db.Column(db.DateTime, default=datetime.utcnow)
+    last_updated = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    ship_analysis = db.relationship('ShipAnalysis', backref='ship', uselist=False, cascade='all, delete-orphan')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'full_designation': self.full_designation,
+            'prefix': self.prefix,
+            'ship_type': self.ship_type,
+            'ship_class': self.ship_class,
+            'nation': self.nation,
+            'launch_year': self.launch_year,
+            'decommission_year': self.decommission_year,
+            'years_active': self.years_active,
+            'era': self.era,
+            'historical_significance_score': self.historical_significance_score,
+            'major_events_count': self.major_events_count,
+            'battles_participated': self.battles_participated,
+            'battles_won': self.battles_won,
+            'ships_sunk': self.ships_sunk,
+            'major_discoveries': json.loads(self.major_discoveries) if self.major_discoveries else [],
+            'famous_voyages': json.loads(self.famous_voyages) if self.famous_voyages else [],
+            'scientific_contributions': json.loads(self.scientific_contributions) if self.scientific_contributions else [],
+            'notable_crew_members': json.loads(self.notable_crew_members) if self.notable_crew_members else [],
+            'primary_purpose': self.primary_purpose,
+            'home_port': self.home_port,
+            'primary_theater': self.primary_theater,
+            'regions_operated': json.loads(self.regions_operated) if self.regions_operated else [],
+            'tonnage': self.tonnage,
+            'crew_size': self.crew_size,
+            'was_sunk': self.was_sunk,
+            'sunk_year': self.sunk_year,
+            'sunk_reason': self.sunk_reason,
+            'name_category': self.name_category,
+            'geographic_origin': self.geographic_origin,
+            'place_cultural_prestige_score': self.place_cultural_prestige_score,
+            'data_completeness_score': self.data_completeness_score,
+            'ship_analysis': self.ship_analysis.to_dict() if self.ship_analysis else None
+        }
+
+
+class ShipAnalysis(db.Model):
+    """Linguistic and semantic analysis of ship names"""
+    __tablename__ = 'ship_analysis'
+    __table_args__ = (
+        db.Index('idx_ship_analysis_category', 'name_category'),
+        db.Index('idx_ship_analysis_memorability', 'memorability_score'),
+        db.Index('idx_ship_analysis_semantic', 'semantic_alignment_score'),
+        db.Index('idx_ship_analysis_authority', 'authority_score'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    ship_id = db.Column(db.Integer, db.ForeignKey('ship.id'), nullable=False, unique=True)
+    
+    # Standard linguistic metrics (from NameAnalyzer)
+    syllable_count = db.Column(db.Integer)
+    character_length = db.Column(db.Integer)
+    word_count = db.Column(db.Integer)
+    phonetic_score = db.Column(db.Float)
+    vowel_ratio = db.Column(db.Float)
+    consonant_clusters = db.Column(db.Integer)
+    memorability_score = db.Column(db.Float, index=True)
+    pronounceability_score = db.Column(db.Float)
+    uniqueness_score = db.Column(db.Float)
+    name_type = db.Column(db.String(50))
+    
+    # Ship-specific name categorization
+    name_category = db.Column(db.String(50), index=True)  # 'geographic', 'saint', 'monarch', 'virtue', 'mythological', 'animal', 'other'
+    subcategory = db.Column(db.String(50))  # More specific categorization
+    
+    # Geographic name analysis
+    is_geographic_name = db.Column(db.Boolean, default=False)
+    geographic_specificity = db.Column(db.String(50))  # 'city', 'region', 'country', 'landmark', 'none'
+    geographic_origin_name = db.Column(db.String(200))  # Name of the place
+    geographic_cultural_importance = db.Column(db.Float)  # Cultural/historical importance of place (0-100)
+    
+    # Saint name analysis
+    is_saint_name = db.Column(db.Boolean, default=False)
+    saint_name = db.Column(db.String(200))  # Which saint
+    saint_feast_day = db.Column(db.String(50))  # Religious calendar date
+    saint_patronage = db.Column(db.String(200))  # What the saint is patron of
+    
+    # Other categorizations
+    is_monarch_name = db.Column(db.Boolean, default=False)
+    is_virtue_name = db.Column(db.Boolean, default=False)  # Victory, Endeavour, Enterprise, etc.
+    is_mythological_name = db.Column(db.Boolean, default=False)
+    is_animal_name = db.Column(db.Boolean, default=False)
+    
+    # Phonetic power analysis (for warships)
+    authority_score = db.Column(db.Float, index=True)  # How authoritative/commanding (0-100)
+    power_connotation_score = db.Column(db.Float)  # Aggressive vs gentle (-100 to +100)
+    harshness_score = db.Column(db.Float)  # Phonetic harshness (plosives, fricatives)
+    softness_score = db.Column(db.Float)  # Phonetic softness (liquids, glides)
+    
+    # Semantic analysis
+    semantic_alignment_score = db.Column(db.Float, index=True)  # Does name align with achievements? (0-100)
+    semantic_alignment_explanation = db.Column(db.Text)  # How name aligns with ship's history
+    semantic_categories = db.Column(db.Text)  # JSON list of semantic associations
+    
+    # Prestige and sophistication
+    prestige_score = db.Column(db.Float)  # Overall prestige of the name (0-100)
+    intellectual_sophistication_score = db.Column(db.Float)  # Complexity/sophistication
+    
+    # Phonestheme analysis
+    phonestheme_score = db.Column(db.Float)
+    phonestheme_type = db.Column(db.String(50))
+    vowel_brightness = db.Column(db.Float)
+    vowel_emotion_profile = db.Column(db.String(50))
+    consonant_hardness = db.Column(db.Float)
+    
+    # Phonemic features
+    plosive_ratio = db.Column(db.Float)
+    fricative_ratio = db.Column(db.Float)
+    voicing_ratio = db.Column(db.Float)
+    initial_is_plosive = db.Column(db.Boolean)
+    
+    # Advanced features (JSON storage)
+    phonosemantic_data = db.Column(db.Text)  # JSON: detailed phonetic analysis
+    semantic_data = db.Column(db.Text)  # JSON: semantic associations
+    cultural_context_data = db.Column(db.Text)  # JSON: cultural/historical context
+    nominative_determinism_data = db.Column(db.Text)  # JSON: specific name-outcome alignments
+    
+    # Analysis metadata
+    analyzed_date = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'ship_id': self.ship_id,
+            'syllable_count': self.syllable_count,
+            'character_length': self.character_length,
+            'word_count': self.word_count,
+            'phonetic_score': self.phonetic_score,
+            'vowel_ratio': self.vowel_ratio,
+            'consonant_clusters': self.consonant_clusters,
+            'memorability_score': self.memorability_score,
+            'pronounceability_score': self.pronounceability_score,
+            'uniqueness_score': self.uniqueness_score,
+            'name_type': self.name_type,
+            'name_category': self.name_category,
+            'subcategory': self.subcategory,
+            'is_geographic_name': self.is_geographic_name,
+            'geographic_specificity': self.geographic_specificity,
+            'geographic_origin_name': self.geographic_origin_name,
+            'geographic_cultural_importance': self.geographic_cultural_importance,
+            'is_saint_name': self.is_saint_name,
+            'saint_name': self.saint_name,
+            'is_monarch_name': self.is_monarch_name,
+            'is_virtue_name': self.is_virtue_name,
+            'is_mythological_name': self.is_mythological_name,
+            'is_animal_name': self.is_animal_name,
+            'authority_score': self.authority_score,
+            'power_connotation_score': self.power_connotation_score,
+            'harshness_score': self.harshness_score,
+            'softness_score': self.softness_score,
+            'semantic_alignment_score': self.semantic_alignment_score,
+            'semantic_alignment_explanation': self.semantic_alignment_explanation,
+            'prestige_score': self.prestige_score,
+            'intellectual_sophistication_score': self.intellectual_sophistication_score,
+            'phonestheme_score': self.phonestheme_score,
+            'vowel_brightness': self.vowel_brightness,
+            'consonant_hardness': self.consonant_hardness,
+            'phonosemantic_data': json.loads(self.phonosemantic_data) if self.phonosemantic_data else {},
+            'semantic_data': json.loads(self.semantic_data) if self.semantic_data else {},
+            'cultural_context_data': json.loads(self.cultural_context_data) if self.cultural_context_data else {},
+            'nominative_determinism_data': json.loads(self.nominative_determinism_data) if self.nominative_determinism_data else {}
+        }
+
+
+# =============================================================================
+# IMMIGRATION SURNAME SEMANTIC ANALYSIS MODELS
+# =============================================================================
+
+class ImmigrantSurname(db.Model):
+    """Core surname data for semantic meaning analysis"""
+    __tablename__ = 'immigrant_surname'
+    __table_args__ = (
+        db.Index('idx_surname_origin', 'origin_country'),
+        db.Index('idx_surname_semantic', 'semantic_category'),
+        db.Index('idx_surname_toponymic', 'is_toponymic'),
+        db.Index('idx_surname_name', 'surname'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    surname = db.Column(db.String(200), nullable=False, unique=True, index=True)
+    
+    # Origin classification
+    origin_country = db.Column(db.String(100), index=True)  # Primary origin
+    origin_language = db.Column(db.String(50))  # Original language
+    alternative_origins = db.Column(db.Text)  # JSON list of possible origins
+    
+    # Semantic meaning classification
+    semantic_category = db.Column(db.String(50), index=True, nullable=False)  # 'toponymic', 'occupational', 'descriptive', 'patronymic', 'religious', etc.
+    semantic_subcategory = db.Column(db.String(50))  # More specific
+    meaning_in_original = db.Column(db.String(500))  # What the name means
+    is_toponymic = db.Column(db.Boolean, default=False, index=True)  # Has place/geographic meaning
+    
+    # Place reference (for toponymic surnames)
+    place_name = db.Column(db.String(200))  # The actual place referenced (e.g., "Rome" for Romano)
+    place_type = db.Column(db.String(50))  # 'city', 'region', 'country', 'landmark'
+    place_country = db.Column(db.String(100))  # Country where place is located
+    place_cultural_importance = db.Column(db.Float)  # Cultural significance of place (0-100)
+    
+    # Linguistic features (JSON)
+    linguistic_features = db.Column(db.Text)  # JSON: etymology, morphology, etc.
+    phonetic_signature = db.Column(db.String(200))  # Metaphone/Soundex signature
+    
+    # Phonetic analysis
+    syllable_count = db.Column(db.Integer)
+    character_length = db.Column(db.Integer)
+    
+    # Historical frequency data
+    earliest_us_census_year = db.Column(db.Integer)  # First appearance in US census
+    total_bearers_historical = db.Column(db.Integer)  # Total people with surname historically
+    total_bearers_current = db.Column(db.Integer)  # Current bearers (2020 census)
+    frequency_rank = db.Column(db.Integer)  # Rank by frequency (1 = most common)
+    
+    # Classification metadata
+    classifier_version = db.Column(db.String(20))  # Version of classification algorithm
+    classification_date = db.Column(db.DateTime, default=datetime.utcnow)
+    classification_confidence = db.Column(db.Float)  # Confidence in classification (0-100)
+    
+    # Data sources
+    data_sources = db.Column(db.Text)  # JSON list of sources (etymology databases, etc.)
+    
+    # Metadata
+    created_date = db.Column(db.DateTime, default=datetime.utcnow)
+    last_updated = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    immigration_records = db.relationship('ImmigrationRecord', backref='surname_obj', lazy='dynamic', cascade='all, delete-orphan')
+    settlement_patterns = db.relationship('SettlementPattern', backref='surname_obj', lazy='dynamic', cascade='all, delete-orphan')
+    classification = db.relationship('SurnameClassification', backref='surname_obj', uselist=False, cascade='all, delete-orphan')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'surname': self.surname,
+            'origin_country': self.origin_country,
+            'origin_language': self.origin_language,
+            'alternative_origins': json.loads(self.alternative_origins) if self.alternative_origins else [],
+            'semantic_category': self.semantic_category,
+            'semantic_subcategory': self.semantic_subcategory,
+            'meaning_in_original': self.meaning_in_original,
+            'is_toponymic': self.is_toponymic,
+            'place_name': self.place_name,
+            'place_type': self.place_type,
+            'place_country': self.place_country,
+            'place_cultural_importance': self.place_cultural_importance,
+            'linguistic_features': json.loads(self.linguistic_features) if self.linguistic_features else {},
+            'phonetic_signature': self.phonetic_signature,
+            'syllable_count': self.syllable_count,
+            'character_length': self.character_length,
+            'earliest_us_census_year': self.earliest_us_census_year,
+            'total_bearers_historical': self.total_bearers_historical,
+            'total_bearers_current': self.total_bearers_current,
+            'frequency_rank': self.frequency_rank,
+            'classification': self.classification.to_dict() if self.classification else None
+        }
+
+
+class ImmigrationRecord(db.Model):
+    """Historical immigration data by surname and year"""
+    __tablename__ = 'immigration_record'
+    __table_args__ = (
+        db.Index('idx_immigration_surname', 'surname_id'),
+        db.Index('idx_immigration_year', 'year'),
+        db.Index('idx_immigration_decade', 'decade'),
+        db.Index('idx_immigration_origin', 'origin_country'),
+        db.Index('idx_immigration_surname_year', 'surname_id', 'year'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    surname_id = db.Column(db.Integer, db.ForeignKey('immigrant_surname.id'), nullable=False)
+    
+    # Temporal data
+    year = db.Column(db.Integer, nullable=False, index=True)
+    decade = db.Column(db.Integer, index=True)  # For aggregation (1880, 1890, etc.)
+    immigration_wave = db.Column(db.String(50))  # 'first_wave', 'second_wave', 'modern'
+    
+    # Immigration counts
+    immigrant_count = db.Column(db.Integer)  # Number of immigrants that year
+    cumulative_count = db.Column(db.Integer)  # Running total
+    
+    # Origin data
+    origin_country = db.Column(db.String(100), index=True)
+    origin_port = db.Column(db.String(200))  # Departure port if available
+    
+    # Destination data
+    entry_port = db.Column(db.String(200))  # US entry port (Ellis Island, Angel Island, etc.)
+    initial_destination_state = db.Column(db.String(50))  # First settlement state
+    
+    # Demographics (where available)
+    male_count = db.Column(db.Integer)
+    female_count = db.Column(db.Integer)
+    avg_age = db.Column(db.Float)
+    
+    # Data quality
+    data_source = db.Column(db.String(200))  # Census, Ellis Island, INS, etc.
+    data_quality_score = db.Column(db.Float)  # 0-100, confidence in data
+    is_estimated = db.Column(db.Boolean, default=False)  # True if interpolated/estimated
+    
+    # Metadata
+    created_date = db.Column(db.DateTime, default=datetime.utcnow)
+    last_updated = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'surname': self.surname_obj.surname if self.surname_obj else None,
+            'year': self.year,
+            'decade': self.decade,
+            'immigration_wave': self.immigration_wave,
+            'immigrant_count': self.immigrant_count,
+            'cumulative_count': self.cumulative_count,
+            'origin_country': self.origin_country,
+            'entry_port': self.entry_port,
+            'initial_destination_state': self.initial_destination_state,
+            'data_source': self.data_source,
+            'data_quality_score': self.data_quality_score
+        }
+
+
+class SettlementPattern(db.Model):
+    """Geographic distribution and settlement patterns of surnames over time"""
+    __tablename__ = 'settlement_pattern'
+    __table_args__ = (
+        db.Index('idx_settlement_surname', 'surname_id'),
+        db.Index('idx_settlement_state', 'state'),
+        db.Index('idx_settlement_year', 'year'),
+        db.Index('idx_settlement_concentration', 'concentration_index'),
+        db.Index('idx_settlement_surname_state_year', 'surname_id', 'state', 'year'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    surname_id = db.Column(db.Integer, db.ForeignKey('immigrant_surname.id'), nullable=False)
+    
+    # Geographic location
+    state = db.Column(db.String(50), nullable=False, index=True)
+    county = db.Column(db.String(100))  # More specific location
+    city = db.Column(db.String(100))  # Even more specific if available
+    
+    # Temporal
+    year = db.Column(db.Integer, nullable=False, index=True)
+    decade = db.Column(db.Integer, index=True)
+    generation = db.Column(db.Integer)  # 1st, 2nd, 3rd generation estimate
+    
+    # Population counts
+    population_count = db.Column(db.Integer)  # People with surname in this location
+    total_population = db.Column(db.Integer)  # Total population of location
+    percentage_of_total = db.Column(db.Float)  # Percentage of local population
+    
+    # Concentration metrics
+    concentration_index = db.Column(db.Float, index=True)  # Local concentration (0-100)
+    relative_concentration = db.Column(db.Float)  # Compared to national average
+    
+    # Geographic clustering
+    distance_from_entry_port = db.Column(db.Float)  # Miles from primary entry port
+    nearest_entry_port = db.Column(db.String(100))  # NYC, SF, Miami, etc.
+    is_ethnic_enclave = db.Column(db.Boolean, default=False)  # High concentration area
+    
+    # Dispersion metrics (assimilation proxy)
+    dispersion_score = db.Column(db.Float)  # 0-100, higher = more dispersed
+    years_since_arrival = db.Column(db.Integer)  # Time since first immigration
+    
+    # Economic indicators (where available)
+    median_income = db.Column(db.Float)
+    homeownership_rate = db.Column(db.Float)
+    
+    # Data sources
+    data_source = db.Column(db.String(200))  # Census, survey data, etc.
+    data_quality_score = db.Column(db.Float)
+    
+    # Metadata
+    created_date = db.Column(db.DateTime, default=datetime.utcnow)
+    last_updated = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'surname': self.surname_obj.surname if self.surname_obj else None,
+            'state': self.state,
+            'county': self.county,
+            'city': self.city,
+            'year': self.year,
+            'decade': self.decade,
+            'generation': self.generation,
+            'population_count': self.population_count,
+            'percentage_of_total': self.percentage_of_total,
+            'concentration_index': self.concentration_index,
+            'relative_concentration': self.relative_concentration,
+            'distance_from_entry_port': self.distance_from_entry_port,
+            'nearest_entry_port': self.nearest_entry_port,
+            'is_ethnic_enclave': self.is_ethnic_enclave,
+            'dispersion_score': self.dispersion_score,
+            'years_since_arrival': self.years_since_arrival
+        }
+
+
+class SurnameClassification(db.Model):
+    """Detailed classification results for surname semantic meaning"""
+    __tablename__ = 'surname_classification'
+    __table_args__ = (
+        db.Index('idx_classification_surname', 'surname_id'),
+        db.Index('idx_classification_toponymic', 'is_toponymic'),
+        db.Index('idx_classification_category', 'semantic_category'),
+        db.Index('idx_classification_confidence', 'confidence_score'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    surname_id = db.Column(db.Integer, db.ForeignKey('immigrant_surname.id'), nullable=False, unique=True)
+    
+    # Primary classification
+    is_toponymic = db.Column(db.Boolean, nullable=False, index=True)  # Has place/geographic meaning
+    semantic_category = db.Column(db.String(50), index=True)  # 'toponymic', 'occupational', 'descriptive', 'patronymic', 'religious'
+    confidence_score = db.Column(db.Float, index=True)  # 0-100
+    
+    # Etymology analysis
+    etymology_features = db.Column(db.Text)  # JSON: specific etymological features
+    meaning_analysis = db.Column(db.Text)  # JSON: semantic meaning breakdown
+    
+    # Classification evidence
+    etymology_sources = db.Column(db.Text)  # JSON: sources confirming etymology
+    linguistic_evidence = db.Column(db.Text)  # JSON: linguistic markers
+    
+    # For toponymic surnames
+    place_specificity = db.Column(db.String(50))  # 'city', 'region', 'country', 'landmark', 'n/a'
+    place_importance = db.Column(db.Float)  # Cultural/historical importance (0-100)
+    
+    # Linguistic analysis
+    morphological_analysis = db.Column(db.Text)  # JSON: word formation analysis
+    semantic_components = db.Column(db.Text)  # JSON: meaning components
+    
+    # Etymology database matches
+    database_matches = db.Column(db.Text)  # JSON: matches from etymology databases
+    database_confidence = db.Column(db.Float)  # 0-100
+    
+    # Additional semantic categories found
+    alternative_meanings = db.Column(db.Text)  # JSON: other possible meanings
+    meaning_ambiguity_score = db.Column(db.Float)  # How ambiguous the meaning is (0-100)
+    
+    # Classification metadata
+    classifier_version = db.Column(db.String(20))
+    classification_method = db.Column(db.String(100))  # 'hybrid', 'database', 'algorithmic'
+    classification_date = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    # Manual review (if applicable)
+    manually_reviewed = db.Column(db.Boolean, default=False)
+    reviewer_notes = db.Column(db.Text)
+    
+    # Alternative classifications
+    alternative_classifications = db.Column(db.Text)  # JSON: other possible classifications
+    
+    # Metadata
+    created_date = db.Column(db.DateTime, default=datetime.utcnow)
+    last_updated = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'surname': self.surname_obj.surname if self.surname_obj else None,
+            'is_toponymic': self.is_toponymic,
+            'semantic_category': self.semantic_category,
+            'confidence_score': self.confidence_score,
+            'etymology_features': json.loads(self.etymology_features) if self.etymology_features else {},
+            'meaning_analysis': json.loads(self.meaning_analysis) if self.meaning_analysis else {},
+            'place_specificity': self.place_specificity,
+            'place_importance': self.place_importance,
+            'morphological_analysis': json.loads(self.morphological_analysis) if self.morphological_analysis else {},
+            'semantic_components': json.loads(self.semantic_components) if self.semantic_components else {},
+            'database_matches': json.loads(self.database_matches) if self.database_matches else [],
+            'database_confidence': self.database_confidence,
+            'alternative_meanings': json.loads(self.alternative_meanings) if self.alternative_meanings else [],
+            'meaning_ambiguity_score': self.meaning_ambiguity_score,
+            'classifier_version': self.classifier_version,
+            'classification_method': self.classification_method
         }
 
 

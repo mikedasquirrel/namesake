@@ -44,9 +44,66 @@ logging.basicConfig(
 )
 logger = logging.getLogger(__name__)
 
+# Custom JSON encoder to handle numpy types
+class NumpyEncoder(json.JSONEncoder):
+    """Custom JSON encoder that handles numpy types"""
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        elif isinstance(obj, np.bool_):
+            return bool(obj)
+        elif pd.isna(obj):
+            return None
+        return super(NumpyEncoder, self).default(obj)
+
+def convert_numpy_types(obj):
+    """Recursively convert numpy types to native Python types"""
+    if isinstance(obj, dict):
+        return {key: convert_numpy_types(value) for key, value in obj.items()}
+    elif isinstance(obj, list):
+        return [convert_numpy_types(item) for item in obj]
+    elif isinstance(obj, np.integer):
+        return int(obj)
+    elif isinstance(obj, np.floating):
+        return float(obj)
+    elif isinstance(obj, np.ndarray):
+        return obj.tolist()
+    elif isinstance(obj, np.bool_):
+        return bool(obj)
+    elif pd.isna(obj):
+        return None
+    return obj
+
 # Initialize Flask app
 app = Flask(__name__)
 app.config.from_object(Config)
+
+# Set custom JSON encoder (for Flask < 2.2)
+try:
+    app.json_encoder = NumpyEncoder
+except AttributeError:
+    # Flask 2.2+ uses json_provider_class
+    from flask.json.provider import DefaultJSONProvider
+    
+    class NumpyJSONProvider(DefaultJSONProvider):
+        def default(self, obj):
+            if isinstance(obj, np.integer):
+                return int(obj)
+            elif isinstance(obj, np.floating):
+                return float(obj)
+            elif isinstance(obj, np.ndarray):
+                return obj.tolist()
+            elif isinstance(obj, np.bool_):
+                return bool(obj)
+            elif pd.isna(obj):
+                return None
+            return super().default(obj)
+    
+    app.json = NumpyJSONProvider(app)
 
 # Initialize database
 db.init_app(app)
@@ -2122,6 +2179,18 @@ def hurricanes_page():
     return render_template('hurricanes.html')
 
 
+@app.route('/earthquakes')
+def earthquakes_page():
+    """Earthquake nominative determinism analysis page"""
+    return render_template('earthquakes.html')
+
+
+@app.route('/academics')
+def academics_page():
+    """Academic names nominative determinism analysis page"""
+    return render_template('academics.html')
+
+
 @app.route('/api/hurricanes/list')
 def get_hurricanes_list():
     """Get paginated list of hurricanes with analysis"""
@@ -3730,6 +3799,180 @@ def get_nba_timeline_data():
         return jsonify({'error': str(e)}), 500
 
 
+@app.route('/api/nba/shooting-analysis')
+def get_nba_shooting_analysis():
+    """Get comprehensive shooting percentage analysis"""
+    try:
+        from analyzers.nba_shooting_analyzer import NBAShootingAnalyzer
+        import os
+        
+        # Check if cached analysis exists
+        cache_file = 'analysis_outputs/current/nba_shooting_analysis_latest.json'
+        
+        if os.path.exists(cache_file):
+            # Return cached results
+            with open(cache_file, 'r') as f:
+                results = json.load(f)
+            return jsonify(results)
+        else:
+            # Run fresh analysis
+            analyzer = NBAShootingAnalyzer()
+            df = analyzer.get_shooting_dataset()
+            
+            if len(df) < 30:
+                return jsonify({
+                    'error': 'Insufficient data',
+                    'message': 'Need at least 30 players with shooting stats',
+                    'current_count': len(df)
+                }), 400
+            
+            results = analyzer.analyze_comprehensive_shooting(df)
+            
+            # Cache results
+            os.makedirs(os.path.dirname(cache_file), exist_ok=True)
+            with open(cache_file, 'w') as f:
+                json.dump(results, f, indent=2)
+            
+            return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"NBA shooting analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nba/shooting-leaders')
+def get_nba_shooting_leaders():
+    """Get top shooting percentage leaders"""
+    try:
+        from core.models import NBAPlayer, NBAPlayerAnalysis
+        
+        # Get FT leaders
+        ft_leaders = db.session.query(NBAPlayer, NBAPlayerAnalysis).join(
+            NBAPlayerAnalysis,
+            NBAPlayer.id == NBAPlayerAnalysis.player_id
+        ).filter(
+            NBAPlayer.ft_percentage.isnot(None),
+            NBAPlayer.games_played >= 100  # Minimum 100 games
+        ).order_by(NBAPlayer.ft_percentage.desc()).limit(20).all()
+        
+        # Get 3PT leaders
+        three_pt_leaders = db.session.query(NBAPlayer, NBAPlayerAnalysis).join(
+            NBAPlayerAnalysis,
+            NBAPlayer.id == NBAPlayerAnalysis.player_id
+        ).filter(
+            NBAPlayer.three_point_percentage.isnot(None),
+            NBAPlayer.games_played >= 100
+        ).order_by(NBAPlayer.three_point_percentage.desc()).limit(20).all()
+        
+        return jsonify({
+            'ft_leaders': [{
+                'id': player.id,
+                'name': player.name,
+                'ft_percentage': float(player.ft_percentage),
+                'games_played': player.games_played,
+                'era': player.era,
+                'position': player.position_group,
+                'syllable_count': analysis.syllable_count,
+                'harshness_score': float(analysis.harshness_score) if analysis.harshness_score else 0,
+                'memorability_score': float(analysis.memorability_score) if analysis.memorability_score else 0
+            } for player, analysis in ft_leaders],
+            'three_pt_leaders': [{
+                'id': player.id,
+                'name': player.name,
+                'three_point_percentage': float(player.three_point_percentage),
+                'games_played': player.games_played,
+                'era': player.era,
+                'position': player.position_group,
+                'syllable_count': analysis.syllable_count,
+                'harshness_score': float(analysis.harshness_score) if analysis.harshness_score else 0,
+                'memorability_score': float(analysis.memorability_score) if analysis.memorability_score else 0
+            } for player, analysis in three_pt_leaders]
+        })
+    
+    except Exception as e:
+        logger.error(f"NBA shooting leaders error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nba/shooting-by-position')
+def get_nba_shooting_by_position():
+    """Get shooting percentages aggregated by position"""
+    try:
+        from core.models import NBAPlayer, NBAPlayerAnalysis
+        
+        # Aggregate by position group
+        position_data = db.session.query(
+            NBAPlayer.position_group,
+            db.func.count(NBAPlayer.id).label('count'),
+            db.func.avg(NBAPlayer.ft_percentage).label('avg_ft'),
+            db.func.avg(NBAPlayer.three_point_percentage).label('avg_3pt'),
+            db.func.avg(NBAPlayerAnalysis.harshness_score).label('avg_harshness'),
+            db.func.avg(NBAPlayerAnalysis.memorability_score).label('avg_memorability'),
+            db.func.avg(NBAPlayerAnalysis.syllable_count).label('avg_syllables')
+        ).join(
+            NBAPlayerAnalysis,
+            NBAPlayer.id == NBAPlayerAnalysis.player_id
+        ).filter(
+            NBAPlayer.position_group.isnot(None),
+            NBAPlayer.games_played >= 100
+        ).group_by(NBAPlayer.position_group).all()
+        
+        results = [{
+            'position': row.position_group,
+            'count': row.count,
+            'avg_ft_percentage': float(row.avg_ft) if row.avg_ft else None,
+            'avg_3pt_percentage': float(row.avg_3pt) if row.avg_3pt else None,
+            'avg_harshness': float(row.avg_harshness) if row.avg_harshness else 0,
+            'avg_memorability': float(row.avg_memorability) if row.avg_memorability else 0,
+            'avg_syllables': float(row.avg_syllables) if row.avg_syllables else 0
+        } for row in position_data]
+        
+        return jsonify({'position_data': results})
+    
+    except Exception as e:
+        logger.error(f"NBA shooting by position error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nba/shooting-by-era')
+def get_nba_shooting_by_era():
+    """Get shooting percentages aggregated by era"""
+    try:
+        from core.models import NBAPlayer, NBAPlayerAnalysis
+        
+        # Aggregate by era
+        era_data = db.session.query(
+            NBAPlayer.era,
+            db.func.count(NBAPlayer.id).label('count'),
+            db.func.avg(NBAPlayer.ft_percentage).label('avg_ft'),
+            db.func.avg(NBAPlayer.three_point_percentage).label('avg_3pt'),
+            db.func.avg(NBAPlayerAnalysis.harshness_score).label('avg_harshness'),
+            db.func.avg(NBAPlayerAnalysis.memorability_score).label('avg_memorability')
+        ).join(
+            NBAPlayerAnalysis,
+            NBAPlayer.id == NBAPlayerAnalysis.player_id
+        ).filter(
+            NBAPlayer.era.isnot(None),
+            NBAPlayer.games_played >= 100
+        ).group_by(NBAPlayer.era).order_by(NBAPlayer.era).all()
+        
+        results = [{
+            'era': f"{row.era}s",
+            'year': row.era,
+            'count': row.count,
+            'avg_ft_percentage': float(row.avg_ft) if row.avg_ft else None,
+            'avg_3pt_percentage': float(row.avg_3pt) if row.avg_3pt else None,
+            'avg_harshness': float(row.avg_harshness) if row.avg_harshness else 0,
+            'avg_memorability': float(row.avg_memorability) if row.avg_memorability else 0
+        } for row in era_data]
+        
+        return jsonify({'era_data': results})
+    
+    except Exception as e:
+        logger.error(f"NBA shooting by era error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
 @app.route('/api/nba/role-patterns')
 def get_nba_role_patterns():
     """Get role-specific naming patterns (scorers, playmakers, etc.)"""
@@ -3748,6 +3991,295 @@ def get_nba_role_patterns():
     
     except Exception as e:
         logger.error(f"Role patterns error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
+# NFL PLAYER ANALYSIS ROUTES
+# =============================================================================
+
+@app.route('/nfl')
+def nfl_page():
+    """NFL player name analysis - Interactive dashboard"""
+    return render_template('nfl.html')
+
+
+@app.route('/api/nfl/overview')
+def get_nfl_overview():
+    """Get NFL dataset overview"""
+    try:
+        from core.models import NFLPlayer, NFLPlayerAnalysis
+        
+        total_players = NFLPlayer.query.count()
+        total_analyzed = NFLPlayerAnalysis.query.count()
+        
+        # Position distribution
+        position_counts = db.session.query(
+            NFLPlayer.position_group,
+            db.func.count(NFLPlayer.id)
+        ).filter(
+            NFLPlayer.position_group.isnot(None)
+        ).group_by(NFLPlayer.position_group).all()
+        
+        position_distribution = dict(position_counts)
+        
+        # Era distribution
+        era_counts = db.session.query(
+            NFLPlayer.era,
+            db.func.count(NFLPlayer.id)
+        ).filter(
+            NFLPlayer.era.isnot(None)
+        ).group_by(NFLPlayer.era).all()
+        
+        era_distribution = {f"{int(e)}s": count for e, count in era_counts}
+        
+        # Rule era distribution
+        rule_era_counts = db.session.query(
+            NFLPlayer.rule_era,
+            db.func.count(NFLPlayer.id)
+        ).filter(
+            NFLPlayer.rule_era.isnot(None)
+        ).group_by(NFLPlayer.rule_era).all()
+        
+        rule_era_distribution = dict(rule_era_counts)
+        
+        return jsonify({
+            'total_players': total_players,
+            'total_analyzed': total_analyzed,
+            'position_distribution': position_distribution,
+            'era_distribution': era_distribution,
+            'rule_era_distribution': rule_era_distribution,
+        })
+    
+    except Exception as e:
+        logger.error(f"NFL overview error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nfl/position-analysis')
+def get_nfl_position_analysis():
+    """Get position-specific linguistic patterns"""
+    try:
+        from analyzers.nfl_position_analyzer import NFLPositionAnalyzer
+        
+        analyzer = NFLPositionAnalyzer()
+        results = analyzer.analyze_position_groups()
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"NFL position analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nfl/position-correlations')
+def get_nfl_position_correlations():
+    """Get feature-position correlations"""
+    try:
+        from analyzers.nfl_position_analyzer import NFLPositionAnalyzer
+        
+        analyzer = NFLPositionAnalyzer()
+        results = analyzer.analyze_position_categories()
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"NFL position correlations error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nfl/performance-predictors')
+def get_nfl_performance_predictors():
+    """Get performance prediction models"""
+    try:
+        from analyzers.nfl_statistical_analyzer import NFLStatisticalAnalyzer
+        
+        analyzer = NFLStatisticalAnalyzer()
+        results = analyzer.run_comprehensive_analysis()
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"NFL performance predictors error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nfl/qb-analysis')
+def get_nfl_qb_analysis():
+    """Get QB-specific deep dive analysis"""
+    try:
+        from analyzers.nfl_performance_analyzer import NFLPerformanceAnalyzer
+        
+        analyzer = NFLPerformanceAnalyzer()
+        results = analyzer.analyze_qb_performance()
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"NFL QB analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nfl/rb-analysis')
+def get_nfl_rb_analysis():
+    """Get RB-specific analysis"""
+    try:
+        from analyzers.nfl_performance_analyzer import NFLPerformanceAnalyzer
+        
+        analyzer = NFLPerformanceAnalyzer()
+        results = analyzer.analyze_rb_performance()
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"NFL RB analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nfl/wr-analysis')
+def get_nfl_wr_analysis():
+    """Get WR/TE-specific analysis"""
+    try:
+        from analyzers.nfl_performance_analyzer import NFLPerformanceAnalyzer
+        
+        analyzer = NFLPerformanceAnalyzer()
+        results = analyzer.analyze_wr_performance()
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"NFL WR analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nfl/defensive-analysis')
+def get_nfl_defensive_analysis():
+    """Get defensive player analysis"""
+    try:
+        from analyzers.nfl_performance_analyzer import NFLPerformanceAnalyzer
+        
+        analyzer = NFLPerformanceAnalyzer()
+        results = analyzer.analyze_defensive_performance()
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"NFL defensive analysis error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nfl/timeline-data')
+def get_nfl_timeline_data():
+    """Get temporal evolution timeline data"""
+    try:
+        from analyzers.nfl_temporal_analyzer import NFLTemporalAnalyzer
+        
+        analyzer = NFLTemporalAnalyzer()
+        results = analyzer.analyze_decade_evolution()
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"NFL timeline data error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nfl/era-comparison')
+def get_nfl_era_comparison():
+    """Compare decades and rule eras"""
+    try:
+        from analyzers.nfl_temporal_analyzer import NFLTemporalAnalyzer
+        
+        analyzer = NFLTemporalAnalyzer()
+        
+        # Get both decade and rule era evolution
+        decade_results = analyzer.analyze_decade_evolution()
+        rule_era_results = analyzer.analyze_rule_era_evolution()
+        
+        return jsonify({
+            'decade_evolution': decade_results,
+            'rule_era_evolution': rule_era_results
+        })
+    
+    except Exception as e:
+        logger.error(f"NFL era comparison error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nfl/search')
+def search_nfl_players():
+    """Search for players by name"""
+    try:
+        from core.models import NFLPlayer
+        
+        query_str = request.args.get('q', '').strip()
+        
+        if not query_str or len(query_str) < 2:
+            return jsonify({'error': 'Query too short'}), 400
+        
+        # Search players
+        players = NFLPlayer.query.filter(
+            NFLPlayer.name.ilike(f'%{query_str}%')
+        ).limit(20).all()
+        
+        results = [{
+            'id': p.id,
+            'name': p.name,
+            'position': p.position,
+            'position_group': p.position_group,
+            'era': f"{p.era}s" if p.era else None,
+            'rule_era': p.rule_era,
+            'overall_success_score': p.overall_success_score
+        } for p in players]
+        
+        return jsonify({
+            'query': query_str,
+            'count': len(results),
+            'players': results
+        })
+    
+    except Exception as e:
+        logger.error(f"NFL search error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nfl/<player_id>')
+def get_nfl_player_detail(player_id):
+    """Get detailed information for a specific player"""
+    try:
+        from core.models import NFLPlayer, NFLPlayerAnalysis
+        
+        player = NFLPlayer.query.get(player_id)
+        
+        if not player:
+            return jsonify({'error': 'Player not found'}), 404
+        
+        analysis = NFLPlayerAnalysis.query.filter_by(player_id=player_id).first()
+        
+        result = player.to_dict()
+        if analysis:
+            result['analysis'] = analysis.to_dict()
+        
+        return jsonify(result)
+    
+    except Exception as e:
+        logger.error(f"NFL player detail error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/nfl/position-temporal')
+def get_nfl_position_temporal():
+    """Get position temporal evolution patterns"""
+    try:
+        from analyzers.nfl_temporal_analyzer import NFLTemporalAnalyzer
+        
+        analyzer = NFLTemporalAnalyzer()
+        results = analyzer.analyze_position_temporal_patterns()
+        
+        return jsonify(results)
+    
+    except Exception as e:
+        logger.error(f"NFL position temporal error: {e}")
         return jsonify({'error': str(e)}), 500
 
 
@@ -4248,6 +4780,663 @@ def get_mental_health_term(term_id):
         
     except Exception as e:
         logger.error(f"Error getting mental health term: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
+# SHIP ANALYSIS ROUTES (Nominative Determinism in Maritime History)
+# =============================================================================
+
+@app.route('/ships')
+def ships_page():
+    """Main ships findings page - comprehensive narrative"""
+    try:
+        return render_template('ship_findings.html')
+    except Exception as e:
+        logger.error(f"Error rendering ships page: {e}")
+        return render_template('error.html', error=str(e)), 500
+
+
+@app.route('/ships/interactive')
+def ships_interactive():
+    """Interactive ships analysis dashboard"""
+    try:
+        from core.models import Ship
+        
+        # Get basic statistics
+        total_ships = Ship.query.count()
+        geographic_count = Ship.query.filter_by(name_category='geographic').count()
+        saint_count = Ship.query.filter_by(name_category='saint').count()
+        
+        return render_template('ships.html',
+                             total_ships=total_ships,
+                             geographic_count=geographic_count,
+                             saint_count=saint_count)
+    except Exception as e:
+        logger.error(f"Error rendering ships interactive page: {e}")
+        return render_template('error.html', error=str(e)), 500
+
+
+@app.route('/api/ships/stats')
+def ship_stats():
+    """Overall ship dataset statistics"""
+    try:
+        from core.models import Ship, ShipAnalysis
+        import pandas as pd
+        
+        # Get all ships
+        ships = Ship.query.all()
+        
+        if not ships:
+            return jsonify({
+                'message': 'No ships in database. Run ship collector first.',
+                'total_ships': 0
+            })
+        
+        # Convert to DataFrame for analysis
+        ships_data = []
+        for ship in ships:
+            ship_dict = ship.to_dict()
+            ships_data.append(ship_dict)
+        
+        df = pd.DataFrame(ships_data)
+        
+        # Basic statistics
+        stats = {
+            'total_ships': len(ships),
+            'by_category': df['name_category'].value_counts().to_dict(),
+            'by_type': df['ship_type'].value_counts().to_dict(),
+            'by_era': df['era'].value_counts().to_dict(),
+            'by_nation': df['nation'].value_counts().head(10).to_dict(),
+            'achievement_stats': {
+                'mean_significance': float(df['historical_significance_score'].mean()),
+                'median_significance': float(df['historical_significance_score'].median()),
+                'std_significance': float(df['historical_significance_score'].std()),
+            },
+            'temporal_range': {
+                'earliest': int(df['launch_year'].min()) if not df['launch_year'].isna().all() else None,
+                'latest': int(df['launch_year'].max()) if not df['launch_year'].isna().all() else None
+            },
+            'analysis_coverage': {
+                'with_analysis': ShipAnalysis.query.count(),
+                'percentage': float(ShipAnalysis.query.count() / len(ships) * 100) if ships else 0
+            }
+        }
+        
+        # Convert numpy types to native Python types
+        stats = convert_numpy_types(stats)
+        
+        return jsonify(stats)
+        
+    except Exception as e:
+        logger.error(f"Error getting ship stats: {e}", exc_info=True)
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/ships/geographic-analysis')
+def ships_geographic_analysis():
+    """Primary hypothesis test: Geographic vs Saint names"""
+    try:
+        from core.models import Ship
+        from analyzers.ship_semantic_analyzer import ShipSemanticAnalyzer
+        import pandas as pd
+        
+        # Get ships
+        ships = Ship.query.all()
+        
+        if len(ships) < 10:
+            return jsonify({
+                'error': 'Insufficient data',
+                'message': 'Need at least 10 ships for analysis. Run ship collector.'
+            })
+        
+        # Convert to DataFrame
+        ships_data = [ship.to_dict() for ship in ships]
+        df = pd.DataFrame(ships_data)
+        
+        # Run analysis
+        analyzer = ShipSemanticAnalyzer()
+        results = analyzer.analyze_geographic_vs_saint(df)
+        
+        # Convert numpy types to native Python types
+        results = convert_numpy_types(results)
+        
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error in geographic analysis: {e}", exc_info=True)
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/ships/semantic-alignment')
+def ships_semantic_alignment():
+    """Nominative determinism: name-achievement alignment (HMS Beagle)"""
+    try:
+        from core.models import Ship, ShipAnalysis
+        from analyzers.ship_semantic_analyzer import ShipSemanticAnalyzer
+        import pandas as pd
+        
+        # Get ships and analysis
+        ships = Ship.query.all()
+        analyses = ShipAnalysis.query.all()
+        
+        if not ships or not analyses:
+            return jsonify({
+                'error': 'Insufficient data',
+                'message': 'Need ships with analysis data'
+            })
+        
+        # Convert to DataFrames
+        ships_df = pd.DataFrame([s.to_dict() for s in ships])
+        analysis_df = pd.DataFrame([a.to_dict() for a in analyses])
+        
+        # Run analysis
+        analyzer = ShipSemanticAnalyzer()
+        results = analyzer.analyze_semantic_alignment(ships_df, analysis_df)
+        
+        # Convert numpy types to native Python types
+        results = convert_numpy_types(results)
+        
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error in semantic alignment analysis: {e}", exc_info=True)
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/ships/achievements')
+def ships_achievements():
+    """Achievement metrics by name category"""
+    try:
+        from core.models import Ship
+        from analyzers.ship_semantic_analyzer import ShipSemanticAnalyzer
+        import pandas as pd
+        
+        ships = Ship.query.all()
+        
+        if not ships:
+            return jsonify({'error': 'No ships in database'})
+        
+        df = pd.DataFrame([s.to_dict() for s in ships])
+        
+        analyzer = ShipSemanticAnalyzer()
+        results = analyzer.analyze_name_category_outcomes(df)
+        
+        # Convert numpy types to native Python types
+        results = convert_numpy_types(results)
+        
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error in achievements analysis: {e}", exc_info=True)
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/ships/phonetic-power')
+def ships_phonetic_power():
+    """Phonetic features and battle success correlation"""
+    try:
+        from core.models import Ship, ShipAnalysis
+        from analyzers.ship_semantic_analyzer import ShipSemanticAnalyzer
+        import pandas as pd
+        
+        ships = Ship.query.all()
+        analyses = ShipAnalysis.query.all()
+        
+        if not ships or not analyses:
+            return jsonify({'error': 'Insufficient data'})
+        
+        ships_df = pd.DataFrame([s.to_dict() for s in ships])
+        analysis_df = pd.DataFrame([a.to_dict() for a in analyses])
+        
+        analyzer = ShipSemanticAnalyzer()
+        results = analyzer.analyze_phonetic_power(ships_df, analysis_df)
+        
+        # Convert numpy types to native Python types
+        results = convert_numpy_types(results)
+        
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error in phonetic power analysis: {e}", exc_info=True)
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/ships/temporal-analysis')
+def ships_temporal_analysis():
+    """How naming patterns evolved over eras"""
+    try:
+        from core.models import Ship
+        from analyzers.ship_semantic_analyzer import ShipSemanticAnalyzer
+        import pandas as pd
+        
+        ships = Ship.query.all()
+        
+        if not ships:
+            return jsonify({'error': 'No ships in database'})
+        
+        df = pd.DataFrame([s.to_dict() for s in ships])
+        
+        analyzer = ShipSemanticAnalyzer()
+        results = analyzer.analyze_temporal_evolution(df)
+        
+        # Convert numpy types to native Python types
+        results = convert_numpy_types(results)
+        
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error in temporal analysis: {e}", exc_info=True)
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/ships/list')
+def ships_list():
+    """Get paginated list of ships with filters"""
+    try:
+        from core.models import Ship
+        
+        # Pagination
+        page = request.args.get('page', 1, type=int)
+        per_page = request.args.get('per_page', 50, type=int)
+        
+        # Filters
+        category = request.args.get('category')
+        ship_type = request.args.get('type')
+        era = request.args.get('era')
+        nation = request.args.get('nation')
+        
+        # Build query
+        query = Ship.query
+        
+        if category:
+            query = query.filter_by(name_category=category)
+        if ship_type:
+            query = query.filter_by(ship_type=ship_type)
+        if era:
+            query = query.filter_by(era=era)
+        if nation:
+            query = query.filter_by(nation=nation)
+        
+        # Order by significance
+        query = query.order_by(Ship.historical_significance_score.desc())
+        
+        # Paginate
+        pagination = query.paginate(page=page, per_page=per_page, error_out=False)
+        
+        results = {
+            'ships': [s.to_dict() for s in pagination.items],
+            'total': pagination.total,
+            'pages': pagination.pages,
+            'current_page': page,
+            'per_page': per_page
+        }
+        
+        # Convert numpy types to native Python types
+        results = convert_numpy_types(results)
+        
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error listing ships: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/ships/<int:ship_id>')
+def ship_detail(ship_id):
+    """Get detailed information about a specific ship"""
+    try:
+        from core.models import Ship
+        
+        ship = Ship.query.get_or_404(ship_id)
+        
+        result = ship.to_dict()
+        result = convert_numpy_types(result)
+        
+        return jsonify(result)
+        
+    except Exception as e:
+        logger.error(f"Error getting ship detail: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/ships/beagle-case-study')
+def beagle_case_study():
+    """HMS Beagle nominative determinism case study"""
+    try:
+        from core.models import Ship, ShipAnalysis
+        
+        # Find HMS Beagle
+        beagle = Ship.query.filter(Ship.name.ilike('%beagle%')).first()
+        
+        if not beagle:
+            return jsonify({
+                'error': 'HMS Beagle not in database',
+                'message': 'Run ship collector to add HMS Beagle'
+            })
+        
+        beagle_data = beagle.to_dict()
+        
+        # Add case study analysis
+        case_study = {
+            'ship': beagle_data,
+            'nominative_determinism_analysis': {
+                'hypothesis': 'Animal name (beagle dog breed) semantically aligned with carrying naturalist Darwin and contributing to evolutionary theory (biological connection)',
+                'evidence': [
+                    'Name: Beagle (small hunting dog breed)',
+                    'Mission: Survey and exploration',
+                    'Key passenger: Charles Darwin (naturalist)',
+                    'Achievement: Foundation for "On the Origin of Species"',
+                    'Semantic connection: Animal name → animal studies → evolution theory'
+                ],
+                'semantic_alignment_score': beagle_data.get('ship_analysis', {}).get('semantic_alignment_score', 0),
+                'historical_significance': beagle_data['historical_significance_score'],
+                'conclusion': 'Strong nominative determinism: name meaningfully aligned with ship\'s most famous achievement'
+            }
+        }
+        
+        # Convert numpy types to native Python types
+        case_study = convert_numpy_types(case_study)
+        
+        return jsonify(case_study)
+        
+    except Exception as e:
+        logger.error(f"Error in Beagle case study: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/ships/comprehensive-report')
+def ships_comprehensive_report():
+    """Complete statistical analysis report"""
+    try:
+        from core.models import Ship, ShipAnalysis
+        from analyzers.ship_semantic_analyzer import ShipSemanticAnalyzer
+        import pandas as pd
+        
+        ships = Ship.query.all()
+        analyses = ShipAnalysis.query.all()
+        
+        if not ships:
+            return jsonify({
+                'error': 'No ships in database',
+                'message': 'Run collector first: python -m collectors.ship_collector'
+            })
+        
+        # Convert to DataFrames
+        ships_df = pd.DataFrame([s.to_dict() for s in ships])
+        analysis_df = pd.DataFrame([a.to_dict() for a in analyses]) if analyses else None
+        
+        # Run complete analysis
+        analyzer = ShipSemanticAnalyzer()
+        results = analyzer.analyze_all(ships_df, analysis_df)
+        
+        # Add metadata
+        results['metadata'] = {
+            'analysis_date': datetime.now().isoformat(),
+            'total_ships': len(ships),
+            'ships_with_analysis': len(analyses),
+            'version': '1.0'
+        }
+        
+        # Convert numpy types to native Python types
+        results = convert_numpy_types(results)
+        
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error generating comprehensive report: {e}", exc_info=True)
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/ships/advanced-statistics')
+def ships_advanced_statistics():
+    """Advanced statistical analysis: regression, interactions, mediation, diagnostics"""
+    try:
+        from core.models import Ship, ShipAnalysis
+        from analyzers.ship_advanced_statistical_analyzer import ShipAdvancedStatisticalAnalyzer
+        import pandas as pd
+        
+        ships = Ship.query.all()
+        analyses = ShipAnalysis.query.all()
+        
+        if not ships:
+            return jsonify({
+                'error': 'No ships in database',
+                'message': 'Run collector first'
+            })
+        
+        ships_df = pd.DataFrame([s.to_dict() for s in ships])
+        analysis_df = pd.DataFrame([a.to_dict() for a in analyses]) if analyses else None
+        
+        # Run advanced analysis
+        analyzer = ShipAdvancedStatisticalAnalyzer()
+        results = analyzer.comprehensive_analysis(ships_df, analysis_df)
+        
+        # Convert numpy types
+        results = convert_numpy_types(results)
+        
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error in advanced statistics: {e}", exc_info=True)
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
+# IMMIGRATION ANALYSIS ROUTES (Surname Semantic Meaning Analysis)
+# Research Question: Galilei (toponymic) vs Shoemaker (occupational)?
+# =============================================================================
+
+@app.route('/immigration')
+def immigration_findings():
+    """Main immigration findings page - semantic meaning analysis"""
+    try:
+        return render_template('immigration_findings.html')
+    except Exception as e:
+        logger.error(f"Error rendering immigration findings page: {e}")
+        return render_template('error.html', error=str(e)), 500
+
+
+@app.route('/immigration/interactive')
+def immigration_interactive():
+    """Interactive immigration analysis dashboard"""
+    try:
+        return render_template('immigration.html')
+    except Exception as e:
+        logger.error(f"Error rendering immigration interactive page: {e}")
+        return render_template('error.html', error=str(e)), 500
+
+
+@app.route('/api/immigration/stats')
+def immigration_stats():
+    """Statistical summary and key metrics - semantic meaning analysis"""
+    try:
+        from core.models import ImmigrantSurname, ImmigrationRecord, SettlementPattern
+        
+        # Get counts
+        total_surnames = ImmigrantSurname.query.count()
+        toponymic_surnames = ImmigrantSurname.query.filter_by(is_toponymic=True).count()
+        total_immigration_records = ImmigrationRecord.query.count()
+        total_settlement_patterns = SettlementPattern.query.count()
+        
+        # Get all surnames
+        surnames = ImmigrantSurname.query.all()
+        
+        # Count by semantic category
+        from collections import Counter
+        semantic_categories = Counter(s.semantic_category for s in surnames if s.semantic_category)
+        origins = Counter(s.origin_country for s in surnames if s.origin_country)
+        
+        stats = {
+            'dataset_summary': {
+                'total_surnames': total_surnames,
+                'toponymic_surnames': toponymic_surnames,
+                'toponymic_percentage': round(toponymic_surnames / total_surnames * 100, 2) if total_surnames > 0 else 0,
+                'total_immigration_records': total_immigration_records,
+                'total_settlement_patterns': total_settlement_patterns
+            },
+            'semantic_category_distribution': {
+                'toponymic': semantic_categories.get('toponymic', 0),
+                'occupational': semantic_categories.get('occupational', 0),
+                'descriptive': semantic_categories.get('descriptive', 0),
+                'patronymic': semantic_categories.get('patronymic', 0),
+                'religious': semantic_categories.get('religious', 0)
+            },
+            'origin_distribution': dict(origins.most_common(10)),
+            'example_surnames': {
+                'toponymic': [s.surname for s in surnames if s.is_toponymic][:5],
+                'occupational': [s.surname for s in surnames if s.semantic_category == 'occupational'][:5],
+                'descriptive': [s.surname for s in surnames if s.semantic_category == 'descriptive'][:5],
+                'patronymic': [s.surname for s in surnames if s.semantic_category == 'patronymic'][:5]
+            }
+        }
+        
+        stats = convert_numpy_types(stats)
+        return jsonify(stats)
+        
+    except Exception as e:
+        logger.error(f"Error getting immigration stats: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/immigration/surname/<surname>')
+def immigration_surname_detail(surname):
+    """Individual surname analysis - with semantic meaning"""
+    try:
+        from core.models import ImmigrantSurname, ImmigrationRecord, SettlementPattern
+        
+        # Get surname
+        surname_obj = ImmigrantSurname.query.filter_by(surname=surname).first()
+        
+        if not surname_obj:
+            return jsonify({'error': f'Surname "{surname}" not found in database'}), 404
+        
+        # Get immigration records
+        immigration_records = ImmigrationRecord.query.filter_by(surname_id=surname_obj.id).all()
+        immigration_data = [r.to_dict() for r in immigration_records]
+        
+        # Get settlement patterns
+        settlement_patterns = SettlementPattern.query.filter_by(surname_id=surname_obj.id).all()
+        settlement_data = [p.to_dict() for p in settlement_patterns]
+        
+        # Build response
+        result = {
+            'surname': surname_obj.to_dict(),
+            'semantic_info': {
+                'category': surname_obj.semantic_category,
+                'meaning': surname_obj.meaning_in_original,
+                'is_toponymic': surname_obj.is_toponymic,
+                'place_name': surname_obj.place_name if surname_obj.is_toponymic else None,
+                'place_importance': surname_obj.place_cultural_importance if surname_obj.is_toponymic else None
+            },
+            'immigration_history': {
+                'records': immigration_data,
+                'total_immigrants': sum(r['immigrant_count'] for r in immigration_data if r.get('immigrant_count')),
+                'peak_decade': max(immigration_data, key=lambda x: x.get('immigrant_count', 0))['decade'] if immigration_data else None
+            },
+            'settlement_patterns': {
+                'patterns': settlement_data,
+                'primary_states': list(set(p['state'] for p in settlement_data))[:5],
+                'ethnic_enclaves': [p for p in settlement_data if p.get('is_ethnic_enclave')]
+            }
+        }
+        
+        result = convert_numpy_types(result)
+        return jsonify(result)
+        
+    except Exception as e:
+        logger.error(f"Error getting surname detail for {surname}: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/immigration/analysis')
+def immigration_full_analysis():
+    """Complete analytical results from analysis outputs"""
+    try:
+        import os
+        import json
+        
+        analysis_dir = 'analysis_outputs/immigration_analysis'
+        
+        # Check if analysis has been run
+        if not os.path.exists(analysis_dir):
+            return jsonify({
+                'error': 'Analysis not yet run',
+                'message': 'Please run: python3 scripts/immigration_deep_dive_analysis.py'
+            }), 404
+        
+        # Load analysis results
+        results = {}
+        
+        files_to_load = [
+            'summary_statistics.json',
+            'hypothesis_tests.json',
+            'regression_results.json',
+            'temporal_trends.json'
+        ]
+        
+        for filename in files_to_load:
+            filepath = os.path.join(analysis_dir, filename)
+            if os.path.exists(filepath):
+                with open(filepath, 'r') as f:
+                    key = filename.replace('.json', '')
+                    results[key] = json.load(f)
+        
+        if not results:
+            return jsonify({
+                'error': 'No analysis results found',
+                'message': 'Please run: python3 scripts/immigration_deep_dive_analysis.py'
+            }), 404
+        
+        results = convert_numpy_types(results)
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error loading immigration analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/immigration/search')
+def immigration_search():
+    """Search for surnames by semantic category, origin, or pattern"""
+    try:
+        from core.models import ImmigrantSurname
+        
+        # Get search parameters
+        query = request.args.get('q', '')
+        origin = request.args.get('origin', '')
+        semantic_category = request.args.get('category', '')
+        toponymic_only = request.args.get('toponymic', type=bool)
+        limit = request.args.get('limit', 50, type=int)
+        
+        # Build query
+        q = ImmigrantSurname.query
+        
+        if query:
+            q = q.filter(ImmigrantSurname.surname.ilike(f'%{query}%'))
+        
+        if origin:
+            q = q.filter(ImmigrantSurname.origin_country.ilike(f'%{origin}%'))
+        
+        if semantic_category:
+            q = q.filter(ImmigrantSurname.semantic_category == semantic_category)
+        
+        if toponymic_only is not None:
+            q = q.filter(ImmigrantSurname.is_toponymic == toponymic_only)
+        
+        # Execute query
+        surnames = q.limit(limit).all()
+        
+        results = {
+            'count': len(surnames),
+            'surnames': [s.to_dict() for s in surnames]
+        }
+        
+        results = convert_numpy_types(results)
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error searching surnames: {e}")
         return jsonify({'error': str(e)}), 500
 
 

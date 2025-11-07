@@ -15,9 +15,14 @@
             <li><a href="{{ url_for('formula') }}" {% if request.endpoint == 'formula' %}class="active"{% endif %}>Formula</a></li>
             <li><a href="{{ url_for('crypto_findings') }}" {% if request.endpoint == 'crypto_findings' or request.endpoint == 'analysis' %}class="active"{% endif %}>Crypto</a></li>
             <li><a href="{{ url_for('hurricanes_page') }}" {% if request.endpoint == 'hurricanes_page' %}class="active"{% endif %}>Hurricanes</a></li>
+            <li><a href="{{ url_for('earthquakes_page') }}" {% if request.endpoint == 'earthquakes_page' %}class="active"{% endif %}>Earthquakes</a></li>
+            <li><a href="{{ url_for('academics_page') }}" {% if request.endpoint == 'academics_page' %}class="active"{% endif %}>Academics</a></li>
             <li><a href="{{ url_for('mtg_page') }}" {% if request.endpoint == 'mtg_page' %}class="active"{% endif %}>MTG</a></li>
             <li><a href="{{ url_for('bands_page') }}" {% if request.endpoint == 'bands_page' %}class="active"{% endif %}>Bands</a></li>
             <li><a href="{{ url_for('nba_findings') }}" {% if request.endpoint == 'nba_findings' %}class="active"{% endif %}>NBA</a></li>
+            <li><a href="{{ url_for('nfl_page') }}" {% if request.endpoint == 'nfl_page' %}class="active"{% endif %}>NFL</a></li>
+            <li><a href="{{ url_for('ships_page') }}" {% if request.endpoint == 'ships_page' %}class="active"{% endif %}>Ships</a></li>
+            <li><a href="{{ url_for('immigration_findings') }}" {% if request.endpoint == 'immigration_findings' or request.endpoint == 'immigration_interactive' %}class="active"{% endif %}>Immigration</a></li>
             <li><a href="{{ url_for('america_page') }}" {% if request.endpoint == 'america_page' %}class="active"{% endif %}>America</a></li>
             <li><a href="{{ url_for('mental_health_page') }}" {% if request.endpoint == 'mental_health_page' %}class="active"{% endif %}>Mental Health</a></li>
         </ul>
