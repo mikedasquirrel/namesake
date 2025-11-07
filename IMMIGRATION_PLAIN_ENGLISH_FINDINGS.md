@@ -3,7 +3,60 @@
 **Research Question in Simple Terms**: If your last name means "from Rome" (like Romano) vs "makes shoes" (like Shoemaker), did your ancestors immigrate to America differently?
 
 **Date**: November 7, 2025  
-**Data**: 367 surnames, 140 years of immigration history (1880-2020)
+**Data**: **367 surnames**, 140 years of immigration history (1880-2020)
+
+---
+
+## 📊 What We Measured (Variables Explained)
+
+### What We Compared (Independent Variable)
+**Semantic Category** = What your surname MEANS in its original language
+- 🗺️ Toponymic: Place-meaning (Galilei, Romano)
+- 👞 Occupational: Job-meaning (Shoemaker, Smith)
+- 👤 Descriptive: Trait-meaning (Brown, Long)
+- 👨‍👦 Patronymic: Father-name (Johnson, O'Brien)
+- ⛪ Religious: Religious-meaning (Christian, Bishop)
+
+### What We Measured (Dependent Variables)
+
+**1. Immigration Rate** = immigrants ÷ total people with surname
+- Example: 0.14 = 14% = 14 per 100 people immigrated
+- Higher number = more family members came to America
+
+**2. HHI (Clustering Index)** = How concentrated in specific states (0-10,000)
+- 10,000 = everyone in ONE state (maximum clustering)
+- 2,400 = spread across ~7 states (moderate)
+- 200 = evenly across all 50 states (maximum spread)
+- Higher number = MORE clustered (ethnic neighborhoods)
+
+**3. Dispersion Score** = How spread out across states (0-100)
+- 0 = all in one state
+- 50 = moderate spread
+- 100 = perfectly even across all states
+- Higher number = MORE spread out
+
+**4. Dispersion Change** = 2020 dispersion - 1900 dispersion
+- Positive number = became MORE spread out over time
+- Example: +31 = 31 points more dispersed over 120 years
+
+### How We Know Results Are Real
+
+**P-Value** (Confidence):
+- p<0.001 = ★★★ 99.9%+ confident (virtually certain)
+- p<0.05 = ★ 95%+ confident (standard cutoff)
+- p>0.05 = Not confident (might be random)
+
+**Effect Size (Cohen's d)** (Size of difference):
+- d>1.2 = VERY LARGE ⭐⭐ (rare in social science!)
+- d>0.8 = Large ⭐
+- d>0.5 = Medium
+- d>0.2 = Small
+
+**Sample Size (n)** (Enough data):
+- n>100 = Excellent ✓✓
+- n>30 = Good ✓
+- n<20 = Too small
+- Our study: n=103 toponymic, n=264 non-toponymic = Excellent!
 
 ---
 

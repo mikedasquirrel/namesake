@@ -7,29 +7,29 @@
       },
       "descriptive_statistics": {
         "toponymic": {
-          "mean_rate": 0.13607779323941788,
-          "median_rate": 0.1389642857142857,
-          "std_rate": 0.022452706646844296
+          "mean_rate": 0.1354348944244702,
+          "median_rate": 0.139296,
+          "std_rate": 0.022534577652686214
         },
         "non_toponymic": {
-          "mean_rate": 0.1324072085304728,
-          "median_rate": 0.13623633325124004,
-          "std_rate": 0.021730205409690534
+          "mean_rate": 0.13258801824638236,
+          "median_rate": 0.1338324420677362,
+          "std_rate": 0.020631767944913938
         }
       },
       "hypothesis_test": {
-        "t_statistic": 1.195191780140371,
-        "p_value": 0.2333929293563729,
+        "t_statistic": 0.9481457228281093,
+        "p_value": 0.3441716227700218,
         "significant": false,
-        "effect_size_cohens_d": 0.16614508122015176,
+        "effect_size_cohens_d": 0.13180290455922847,
         "interpretation": "negligible"
       },
       "correlation": {
-        "r": 0.08318648747290516,
-        "p_value": 0.23339292935637415,
-        "r_squared": 0.006919991698079808
+        "r": 0.0660766462908829,
+        "p_value": 0.34417162277002367,
+        "r_squared": 0.004366123185050449
       },
-      "conclusion": "No significant difference in immigration rates between toponymic and non-toponymic surnames (p=0.2334)"
+      "conclusion": "No significant difference in immigration rates between toponymic and non-toponymic surnames (p=0.3442)"
     },
     "H2_toponymic_clustering": {
       "sample_sizes": {
@@ -103,9 +103,9 @@
     "H4_place_importance": {
       "immigration_rate_correlation": {
         "n": 29,
-        "r": -0.1837798531340521,
-        "p_value": 0.33992512891488896,
-        "r_squared": 0.033775034417973755,
+        "r": -0.17521226891517047,
+        "p_value": 0.36329554923177215,
+        "r_squared": 0.03069933917840201,
         "significant": false,
         "interpretation": "No significant correlation"
       },
@@ -121,117 +121,117 @@
   },
   "cross_category_comparisons": {
     "anova": {
-      "f_statistic": 2.501678756484263,
-      "p_value": 0.0436658538752078,
-      "significant": true,
-      "eta_squared": 0.047199990928178066,
-      "interpretation": "Significant differences across categories"
+      "f_statistic": 1.7876233649260624,
+      "p_value": 0.13267657258980595,
+      "significant": false,
+      "eta_squared": 0.03418826961114442,
+      "interpretation": "No significant differences"
     },
     "descriptive_by_category": {
       "toponymic": {
         "n": 103,
-        "mean": 0.13607779323941788,
-        "median": 0.1389642857142857,
-        "std": 0.022452706646844296
+        "mean": 0.1354348944244702,
+        "median": 0.139296,
+        "std": 0.022534577652686214
       },
       "occupational": {
         "n": 32,
-        "mean": 0.1414103280988319,
-        "median": 0.14748256730676895,
-        "std": 0.022920149822969603
+        "mean": 0.140343881237794,
+        "median": 0.1431555558290525,
+        "std": 0.020847456916773352
       },
       "patronymic": {
         "n": 41,
-        "mean": 0.12664504828104417,
-        "median": 0.13178979315655664,
-        "std": 0.02362416018702061
+        "mean": 0.12867363737339152,
+        "median": 0.1299598719378812,
+        "std": 0.024170571185861044
       },
       "descriptive": {
         "n": 21,
-        "mean": 0.13023006303026208,
-        "median": 0.1332928311057108,
-        "std": 0.015802762124752123
+        "mean": 0.1287715239497302,
+        "median": 0.12942307692307692,
+        "std": 0.012422906433195572
       },
       "religious": {
         "n": 10,
-        "mean": 0.1317940884848237,
-        "median": 0.13513937808191606,
-        "std": 0.010405530665038227
+        "mean": 0.1318328562760971,
+        "median": 0.13173820656070745,
+        "std": 0.010806089198681059
       }
     },
     "pairwise_comparisons": [
       {
         "comparison": "toponymic vs occupational",
-        "t_statistic": -1.1678114179812102,
-        "p_value": 0.2449720844319433,
+        "t_statistic": -1.0949377972413072,
+        "p_value": 0.2755227936914352,
         "bonferroni_significant": false,
-        "cohens_d": -0.23634477190364142
+        "cohens_d": -0.22159641527142196
       },
       {
         "comparison": "toponymic vs patronymic",
-        "t_statistic": 2.2415384018347444,
-        "p_value": 0.026542301517807666,
+        "t_statistic": 1.591450375858149,
+        "p_value": 0.11373201529449627,
         "bonferroni_significant": false,
-        "cohens_d": 0.4139204551201154
+        "cohens_d": 0.2938757878683216
       },
       {
         "comparison": "toponymic vs descriptive",
-        "t_statistic": 1.135760090635085,
-        "p_value": 0.25828322658257813,
+        "t_statistic": 1.3121175529709366,
+        "p_value": 0.19194391518090326,
         "bonferroni_significant": false,
-        "cohens_d": 0.2719375539800534
+        "cohens_d": 0.31416321178329953
       },
       {
         "comparison": "toponymic vs religious",
-        "t_statistic": 0.5952713223280113,
-        "p_value": 0.5528738022010788,
+        "t_statistic": 0.49839982223500584,
+        "p_value": 0.6191884062787292,
         "bonferroni_significant": false,
-        "cohens_d": 0.1971676090297749
+        "cohens_d": 0.16508153106826864
       },
       {
         "comparison": "occupational vs patronymic",
-        "t_statistic": 2.6842934464923736,
-        "p_value": 0.009039349559625098,
-        "bonferroni_significant": true,
-        "cohens_d": 0.6331760855695509
+        "t_statistic": 2.1719226049593403,
+        "p_value": 0.03320309087588713,
+        "bonferroni_significant": false,
+        "cohens_d": 0.5123171071200111
       },
       {
         "comparison": "occupational vs descriptive",
-        "t_statistic": 1.948943872391404,
-        "p_value": 0.05681292996322039,
+        "t_statistic": 2.286797046717934,
+        "p_value": 0.026391445532287967,
         "bonferroni_significant": false,
-        "cohens_d": 0.5473342561960186
+        "cohens_d": 0.6422157037805378
       },
       {
         "comparison": "occupational vs religious",
-        "t_statistic": 1.2778140218053953,
-        "p_value": 0.20868125821958217,
+        "t_statistic": 1.2328728008540921,
+        "p_value": 0.22482009175207848,
         "bonferroni_significant": false,
-        "cohens_d": 0.4629321100386377
+        "cohens_d": 0.4466506059326608
       },
       {
         "comparison": "patronymic vs descriptive",
-        "t_statistic": -0.6260992934511235,
-        "p_value": 0.5336245005133426,
+        "t_statistic": -0.017371955310555277,
+        "p_value": 0.986197521450721,
         "bonferroni_significant": false,
-        "cohens_d": -0.16801090946175085
+        "cohens_d": -0.00466168552078574
       },
       {
         "comparison": "patronymic vs religious",
-        "t_statistic": -0.6695254000295284,
-        "p_value": 0.5063031467366863,
+        "t_statistic": -0.4012502226479538,
+        "p_value": 0.6899804460186787,
         "bonferroni_significant": false,
-        "cohens_d": -0.2361349207422538
+        "cohens_d": -0.1415169454640668
       },
       {
         "comparison": "descriptive vs religious",
-        "t_statistic": -0.283739662123241,
-        "p_value": 0.7786258395249437,
+        "t_statistic": -0.667065416284385,
+        "p_value": 0.5100036624681201,
         "bonferroni_significant": false,
-        "cohens_d": -0.10901625199321563
+        "cohens_d": -0.25629469977317365
       }
     ],
-    "conclusion": "Significant differences in immigration rates across semantic categories (F=2.50, p=0.0437)"
+    "conclusion": "No significant differences in immigration rates across semantic categories (F=1.79, p=0.1327)"
   },
   "interaction_effects": {
     "by_origin_country": {
@@ -243,14 +243,14 @@
           "descriptive",
           "religious"
         ],
-        "f_statistic": 5.84693257015102,
-        "p_value": 0.0015840490612738,
+        "f_statistic": 11.782352772292652,
+        "p_value": 5.0332300421501144e-06,
         "significant": true,
         "mean_by_category": {
-          "toponymic": 0.14334980805468844,
-          "occupational": 0.1385650854990748,
-          "descriptive": 0.1292523292399296,
-          "religious": 0.12343653250773994
+          "toponymic": 0.14261510771507835,
+          "occupational": 0.14054934055611606,
+          "descriptive": 0.12648370616504384,
+          "religious": 0.12241315334183209
         }
       },
       "English": {
@@ -262,15 +262,15 @@
           "patronymic",
           "religious"
         ],
-        "f_statistic": 12.526240376176174,
-        "p_value": 6.262445635429369e-07,
+        "f_statistic": 16.520368696020245,
+        "p_value": 2.1293971540373727e-08,
         "significant": true,
         "mean_by_category": {
-          "toponymic": 0.15712961104093687,
-          "occupational": 0.15232246665402954,
-          "descriptive": 0.13732765048605733,
-          "patronymic": 0.13775747172197383,
-          "religious": 0.13786880795895326
+          "toponymic": 0.16098798067110096,
+          "occupational": 0.15260578597187688,
+          "descriptive": 0.13441584671729448,
+          "patronymic": 0.13828274147144926,
+          "religious": 0.1328884192187836
         }
       },
       "German": {
@@ -280,13 +280,13 @@
           "occupational",
           "descriptive"
         ],
-        "f_statistic": 5.432826638679375,
-        "p_value": 0.007877080288765109,
-        "significant": true,
+        "f_statistic": 2.664429654938362,
+        "p_value": 0.08112058666556168,
+        "significant": false,
         "mean_by_category": {
-          "toponymic": 0.11123350304684451,
-          "occupational": 0.10918682541140434,
-          "descriptive": 0.09010582243083991
+          "toponymic": 0.10941031414565633,
+          "occupational": 0.11054070182087682,
+          "descriptive": 0.09812677519225008
         }
       }
     },
