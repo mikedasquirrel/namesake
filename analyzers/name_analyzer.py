@@ -6,6 +6,10 @@ import Levenshtein
 from core.config import Config
 import logging
 
+# Import new standardized phonetic analysis
+from analyzers.phonetic_base import get_analyzer as get_phonetic_analyzer
+from analyzers.phonetic_composites import get_composite_analyzer
+
 logger = logging.getLogger(__name__)
 
 
@@ -16,6 +20,10 @@ class NameAnalyzer:
         self.pyphen_dic = pyphen.Pyphen(lang='en_US')
         self.vowels = set('aeiouAEIOU')
         self.consonants = set('bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ')
+        
+        # New standardized analyzers
+        self.phonetic_analyzer = get_phonetic_analyzer()
+        self.composite_analyzer = get_composite_analyzer()
         
         # Common word lists for categorization
         self.animal_words = {
@@ -51,17 +59,23 @@ class NameAnalyzer:
             'flame', 'ocean', 'wind', 'stone', 'crystal', 'plasma'
         }
     
-    def analyze_name(self, name, all_names=None):
+    def analyze_name(self, name, all_names=None, use_standardized=True):
         """
         Perform comprehensive analysis of a cryptocurrency name
         
         Args:
             name: The cryptocurrency name to analyze
             all_names: List of all cryptocurrency names for similarity comparison
+            use_standardized: If True, use new standardized phonetic analysis
             
         Returns:
             Dictionary with all analysis metrics
         """
+        if use_standardized:
+            # Use new standardized analysis
+            return self.analyze_name_standardized(name, all_names)
+        
+        # Legacy analysis (for backward compatibility)
         analysis = {}
         
         # Basic metrics
@@ -103,6 +117,69 @@ class NameAnalyzer:
             analysis['closest_match_distance'] = None
         
         return analysis
+    
+    def analyze_name_standardized(self, name, all_names=None):
+        """
+        NEW: Use standardized phonetic analysis.
+        
+        This method uses PhoneticBase and PhoneticComposites for consistent
+        measurements across all domains.
+        """
+        # Get standardized phonetic analysis
+        composite_analysis = self.composite_analyzer.analyze(name, all_names)
+        
+        # Add domain-specific metrics (crypto-specific)
+        analysis = composite_analysis.copy()
+        
+        # Categorization (domain-specific)
+        analysis['name_type'], analysis['category_tags'] = self._categorize_name(name)
+        
+        # Character composition
+        analysis['has_numbers'] = bool(re.search(r'\d', name))
+        analysis['has_special_chars'] = bool(re.search(r'[^a-zA-Z0-9\s]', name))
+        analysis['capital_pattern'] = self._analyze_capitalization(name)
+        
+        # Semantic analysis
+        analysis['is_real_word'] = self._is_real_word(name)
+        analysis['semantic_category'] = self._get_semantic_category(name)
+        analysis['word_count'] = len(re.findall(r'\w+', name))
+        
+        # Crypto-specific scores
+        analysis['tech_credibility_score'] = self._calculate_tech_credibility(analysis)
+        analysis['meme_potential_score'] = self._calculate_meme_potential(analysis)
+        
+        return analysis
+    
+    def _calculate_tech_credibility(self, analysis):
+        """
+        Crypto-specific: Calculate tech credibility score.
+        
+        Formula: blend of syllables + uniqueness - memorability
+        (Tech names should sound sophisticated, not overly memorable)
+        """
+        syllable_component = (3 - min(analysis['syllable_count'], 3)) * 20  # Prefer 2-3 syllables
+        uniqueness_component = analysis.get('uniqueness_score', 50) * 0.4
+        memorability_penalty = analysis['memorability_score'] * 0.2  # High memorability = less tech credibility
+        euphony_component = analysis['euphony_score'] * 0.3
+        
+        score = syllable_component + uniqueness_component + euphony_component - memorability_penalty
+        return max(0.0, min(100.0, score))
+    
+    def _calculate_meme_potential(self, analysis):
+        """
+        Crypto-specific: Calculate meme potential score.
+        
+        Formula: animal tags × memorability × brevity
+        """
+        # Check for animal/meme words
+        is_animal = 'animal' in analysis.get('category_tags', [])
+        animal_bonus = 40 if is_animal else 0
+        
+        memorability_component = analysis['memorability_score'] * 0.4
+        brevity_component = (100 - min(analysis['character_length'] * 10, 100)) * 0.3
+        
+        score = animal_bonus + memorability_component + brevity_component
+        return max(0.0, min(100.0, score))
     
     def _count_syllables(self, word):
         """Count syllables in a word using pyphen"""

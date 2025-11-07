@@ -1,0 +1,354 @@
+{% extends "base.html" %}
+
+{% block title %}Election Linguistics - Interactive Dashboard{% endblock %}
+
+{% block content %}
+<div style="max-width: 1400px; margin: 0 auto;">
+
+<!-- Header -->
+<div style="text-align: center; margin-bottom: 3rem;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 0.75rem;">Election Linguistics Dashboard</h1>
+    <p style="font-size: 1.15rem; color: var(--text-secondary); margin-bottom: 1.5rem;">
+        Explore 75 Years of Election Data Through the Lens of Nominative Determinism
+    </p>
+    <div>
+        <a href="/elections/findings" class="btn-primary">View Research Findings →</a>
+    </div>
+</div>
+
+<!-- Dataset Overview Cards -->
+<div id="overview-cards" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+    <div class="glass card" style="padding: 1.5rem; text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: 700; color: var(--primary);" id="total-candidates">---</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Total Candidates</div>
+    </div>
+    
+    <div class="glass card" style="padding: 1.5rem; text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: 700; color: var(--success);" id="total-tickets">---</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Presidential Tickets</div>
+    </div>
+    
+    <div class="glass card" style="padding: 1.5rem; text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: 700; color: var(--warning);" id="year-range">---</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Years Covered</div>
+    </div>
+    
+    <div class="glass card" style="padding: 1.5rem; text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: 700; color: var(--info);" id="positions-count">---</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Position Types</div>
+    </div>
+</div>
+
+<!-- Search and Filters -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">Search Candidates</h2>
+    
+    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+        <input type="text" id="search-input" placeholder="Search by name..." 
+               style="padding: 0.75rem; background: var(--background-secondary); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: var(--text-primary);">
+        
+        <select id="filter-position" style="padding: 0.75rem; background: var(--background-secondary); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: var(--text-primary);">
+            <option value="">All Positions</option>
+            <option value="President">President</option>
+            <option value="Senate">Senate</option>
+            <option value="House">House</option>
+            <option value="Governor">Governor</option>
+        </select>
+        
+        <select id="filter-party" style="padding: 0.75rem; background: var(--background-secondary); border: 1px solid rgba(255,255,255,0.1); border-radius: 6px; color: var(--text-primary);">
+            <option value="">All Parties</option>
+            <option value="D">Democratic</option>
+            <option value="R">Republican</option>
+            <option value="I">Independent</option>
+        </select>
+        
+        <button id="search-btn" class="btn-primary" style="padding: 0.75rem;">Search</button>
+    </div>
+    
+    <div id="search-results" style="min-height: 200px;">
+        <p style="text-align: center; color: var(--text-muted); margin: 2rem 0;">
+            Enter a name or select filters to search for candidates
+        </p>
+    </div>
+</div>
+
+<!-- Recent Presidential Tickets -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">Recent Presidential Tickets</h2>
+    <div id="recent-tickets" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+        <div style="text-align: center; color: var(--text-muted); padding: 2rem;">
+            Loading tickets...
+        </div>
+    </div>
+</div>
+
+<!-- Position Distribution -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">Position Distribution</h2>
+    <div id="position-distribution" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem;">
+        <div style="text-align: center; color: var(--text-muted); padding: 2rem;">
+            Loading distribution...
+        </div>
+    </div>
+</div>
+
+<!-- Candidate Detail Modal (shown when clicking a candidate) -->
+<div id="candidate-modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; overflow-y: auto;">
+    <div style="max-width: 800px; margin: 2rem auto; background: var(--background); border-radius: 12px; padding: 2rem;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+            <h2 id="modal-candidate-name" style="margin: 0;">Candidate Name</h2>
+            <button onclick="closeModal()" style="background: none; border: none; font-size: 1.5rem; cursor: pointer; color: var(--text-primary);">×</button>
+        </div>
+        <div id="modal-content">
+            <!-- Candidate details will be inserted here -->
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+let overviewData = null;
+
+// Load overview data on page load
+async function loadOverview() {
+    try {
+        const response = await fetch('/api/elections/overview');
+        if (!response.ok) throw new Error('Failed to load overview');
+        
+        const data = await response.json();
+        overviewData = data.dataset;
+        
+        // Update overview cards
+        document.getElementById('total-candidates').textContent = overviewData.total_candidates.toLocaleString();
+        document.getElementById('total-tickets').textContent = overviewData.total_tickets.toLocaleString();
+        
+        if (overviewData.year_range) {
+            document.getElementById('year-range').textContent = 
+                `${overviewData.year_range.earliest}-${overviewData.year_range.latest}`;
+        }
+        
+        document.getElementById('positions-count').textContent = Object.keys(overviewData.positions || {}).length;
+        
+        // Display position distribution
+        displayPositionDistribution(overviewData.positions);
+        
+        // Load recent presidential tickets
+        loadRecentTickets();
+        
+    } catch (error) {
+        console.error('Error loading overview:', error);
+        showError('overview-cards', 'Failed to load data');
+    }
+}
+
+// Display position distribution
+function displayPositionDistribution(positions) {
+    const container = document.getElementById('position-distribution');
+    if (!positions || Object.keys(positions).length === 0) {
+        container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No position data available</p>';
+        return;
+    }
+    
+    container.innerHTML = Object.entries(positions)
+        .sort((a, b) => b[1] - a[1])
+        .map(([position, count]) => `
+            <div style="background: var(--background-secondary); padding: 1rem; border-radius: 8px; text-align: center;">
+                <div style="font-size: 1.8rem; font-weight: 700; color: var(--primary);">${count}</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.25rem;">${position}</div>
+            </div>
+        `).join('');
+}
+
+// Load recent presidential tickets
+async function loadRecentTickets() {
+    try {
+        // Get presidential candidates for recent elections
+        const response = await fetch('/api/elections/candidates?position=President&limit=20');
+        if (!response.ok) throw new Error('Failed to load tickets');
+        
+        const data = await response.json();
+        const candidates = data.candidates || [];
+        
+        // Group by year
+        const ticketsByYear = {};
+        candidates.forEach(c => {
+            if (!ticketsByYear[c.election_year]) {
+                ticketsByYear[c.election_year] = [];
+            }
+            ticketsByYear[c.election_year].push(c);
+        });
+        
+        // Display most recent years
+        const container = document.getElementById('recent-tickets');
+        const recentYears = Object.keys(ticketsByYear).sort((a, b) => b - a).slice(0, 6);
+        
+        if (recentYears.length === 0) {
+            container.innerHTML = '<p style="text-align: center; color: var(--text-muted);">No presidential data available yet</p>';
+            return;
+        }
+        
+        container.innerHTML = recentYears.map(year => {
+            const yearCandidates = ticketsByYear[year];
+            return `
+                <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px;">
+                    <h3 style="margin-top: 0; margin-bottom: 1rem; color: var(--primary);">${year}</h3>
+                    ${yearCandidates.map(c => `
+                        <div style="padding: 0.75rem; margin-bottom: 0.5rem; background: var(--background); border-radius: 6px; cursor: pointer;" onclick="showCandidate(${c.id})">
+                            <div style="font-weight: 600; margin-bottom: 0.25rem;">${c.full_name}</div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted);">
+                                ${c.party} • ${c.won_election ? '✓ Won' : 'Lost'} ${c.vote_share_percent ? `(${c.vote_share_percent.toFixed(1)}%)` : ''}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }).join('');
+        
+    } catch (error) {
+        console.error('Error loading tickets:', error);
+        document.getElementById('recent-tickets').innerHTML = 
+            '<p style="text-align: center; color: var(--text-muted);">Failed to load tickets</p>';
+    }
+}
+
+// Search candidates
+async function searchCandidates() {
+    const query = document.getElementById('search-input').value;
+    const position = document.getElementById('filter-position').value;
+    const party = document.getElementById('filter-party').value;
+    
+    const resultsContainer = document.getElementById('search-results');
+    resultsContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted); margin: 2rem 0;">Searching...</p>';
+    
+    try {
+        let url = '/api/elections/candidates?limit=50';
+        if (position) url += `&position=${position}`;
+        if (party) url += `&party=${party}`;
+        
+        // If there's a search query, use the search endpoint
+        if (query && query.length >= 2) {
+            url = `/api/elections/search?q=${encodeURIComponent(query)}`;
+        }
+        
+        const response = await fetch(url);
+        if (!response.ok) throw new Error('Search failed');
+        
+        const data = await response.json();
+        const candidates = data.results || data.candidates || [];
+        
+        if (candidates.length === 0) {
+            resultsContainer.innerHTML = '<p style="text-align: center; color: var(--text-muted); margin: 2rem 0;">No candidates found</p>';
+            return;
+        }
+        
+        resultsContainer.innerHTML = `
+            <div style="display: grid; gap: 1rem;">
+                ${candidates.map(c => `
+                    <div style="display: grid; grid-template-columns: 2fr 1fr 1fr 1fr 1fr; gap: 1rem; padding: 1rem; background: var(--background-secondary); border-radius: 8px; align-items: center; cursor: pointer;" onclick="showCandidate(${c.id})">
+                        <div>
+                            <div style="font-weight: 600;">${c.full_name}</div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted);">${c.position} ${c.state ? `(${c.state})` : ''}</div>
+                        </div>
+                        <div style="text-align: center;">${c.election_year || '-'}</div>
+                        <div style="text-align: center;">${c.party || '-'}</div>
+                        <div style="text-align: center;">${c.won_election ? '✓ Won' : 'Lost'}</div>
+                        <div style="text-align: center;">${c.vote_share_percent ? c.vote_share_percent.toFixed(1) + '%' : '-'}</div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+        
+    } catch (error) {
+        console.error('Error searching:', error);
+        resultsContainer.innerHTML = '<p style="text-align: center; color: var(--error); margin: 2rem 0;">Search failed</p>';
+    }
+}
+
+// Show candidate details in modal
+async function showCandidate(candidateId) {
+    try {
+        const response = await fetch(`/api/elections/candidate/${candidateId}`);
+        if (!response.ok) throw new Error('Failed to load candidate');
+        
+        const data = await response.json();
+        const candidate = data.candidate;
+        
+        document.getElementById('modal-candidate-name').textContent = candidate.full_name;
+        
+        const analysis = candidate.linguistic_analysis || {};
+        
+        document.getElementById('modal-content').innerHTML = `
+            <div style="display: grid; gap: 1.5rem;">
+                <div>
+                    <h3 style="margin-top: 0;">Election Details</h3>
+                    <div style="background: var(--background-secondary); padding: 1rem; border-radius: 8px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem;">
+                            <div><strong>Position:</strong> ${candidate.position}</div>
+                            <div><strong>Year:</strong> ${candidate.election_year}</div>
+                            <div><strong>Party:</strong> ${candidate.party}</div>
+                            <div><strong>Outcome:</strong> ${candidate.won_election ? '✓ Won' : 'Lost'}</div>
+                            ${candidate.vote_share_percent ? `<div><strong>Vote Share:</strong> ${candidate.vote_share_percent.toFixed(1)}%</div>` : ''}
+                            ${candidate.state ? `<div><strong>State:</strong> ${candidate.state}</div>` : ''}
+                        </div>
+                    </div>
+                </div>
+                
+                ${analysis ? `
+                <div>
+                    <h3 style="margin-top: 0;">Linguistic Analysis</h3>
+                    <div style="background: var(--background-secondary); padding: 1rem; border-radius: 8px;">
+                        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem;">
+                            ${analysis.syllable_count ? `<div><strong>Syllables:</strong> ${analysis.syllable_count}</div>` : ''}
+                            ${analysis.memorability ? `<div><strong>Memorability:</strong> ${analysis.memorability.toFixed(1)}/100</div>` : ''}
+                            ${analysis.pronounceability ? `<div><strong>Pronounceability:</strong> ${analysis.pronounceability.toFixed(1)}/100</div>` : ''}
+                            ${analysis.uniqueness ? `<div><strong>Uniqueness:</strong> ${analysis.uniqueness.toFixed(1)}/100</div>` : ''}
+                            ${analysis.title_euphony ? `<div><strong>Title Euphony:</strong> ${analysis.title_euphony.toFixed(1)}/100</div>` : ''}
+                            ${analysis.power_score ? `<div><strong>Power Score:</strong> ${analysis.power_score.toFixed(1)}/100</div>` : ''}
+                        </div>
+                    </div>
+                </div>
+                ` : ''}
+            </div>
+        `;
+        
+        document.getElementById('candidate-modal').style.display = 'block';
+        
+    } catch (error) {
+        console.error('Error loading candidate:', error);
+        alert('Failed to load candidate details');
+    }
+}
+
+// Close modal
+function closeModal() {
+    document.getElementById('candidate-modal').style.display = 'none';
+}
+
+// Close modal when clicking outside
+window.onclick = function(event) {
+    const modal = document.getElementById('candidate-modal');
+    if (event.target == modal) {
+        closeModal();
+    }
+}
+
+// Event listeners
+document.getElementById('search-btn').addEventListener('click', searchCandidates);
+document.getElementById('search-input').addEventListener('keypress', (e) => {
+    if (e.key === 'Enter') searchCandidates();
+});
+
+// Load data on page load
+document.addEventListener('DOMContentLoaded', () => {
+    loadOverview();
+});
+
+function showError(containerId, message) {
+    document.getElementById(containerId).innerHTML = 
+        `<p style="text-align: center; color: var(--error); margin: 2rem 0;">${message}</p>`;
+}
+</script>
+
+{% endblock %}
+

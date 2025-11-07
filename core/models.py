@@ -2852,3 +2852,336 @@ class SurnameClassification(db.Model):
         }
 
 
+# =============================================================================
+# ELECTION LINGUISTICS ANALYSIS
+# =============================================================================
+
+class ElectionCandidate(db.Model):
+    """Election candidate data for nominative determinism in democratic outcomes"""
+    __tablename__ = 'election_candidate'
+    __table_args__ = (
+        db.Index('idx_election_position_year', 'position', 'election_year'),
+        db.Index('idx_election_state', 'state'),
+        db.Index('idx_election_party', 'party'),
+        db.Index('idx_election_outcome', 'won_election'),
+        db.Index('idx_election_vote_share', 'vote_share_percent'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Name information
+    full_name = db.Column(db.String(300), nullable=False, index=True)
+    first_name = db.Column(db.String(100))
+    middle_name = db.Column(db.String(100))
+    last_name = db.Column(db.String(100), index=True)
+    ballot_name = db.Column(db.String(300))  # As it appears on ballot
+    nickname = db.Column(db.String(100))  # Common nickname used in campaign
+    
+    # Position and election details
+    position = db.Column(db.String(100), nullable=False, index=True)  # 'President', 'Senate', 'House', 'Governor', etc.
+    position_level = db.Column(db.String(20), index=True)  # 'federal', 'state', 'local'
+    position_type = db.Column(db.String(50))  # 'executive', 'legislative', 'judicial'
+    election_year = db.Column(db.Integer, nullable=False, index=True)
+    election_date = db.Column(db.Date)
+    election_type = db.Column(db.String(30))  # 'general', 'primary', 'runoff', 'special'
+    
+    # Geographic location
+    state = db.Column(db.String(50), index=True)
+    district = db.Column(db.String(50))  # Congressional district, state senate district, etc.
+    city = db.Column(db.String(100))  # For local elections
+    
+    # Party and political details
+    party = db.Column(db.String(50), index=True)  # 'Democratic', 'Republican', 'Independent', etc.
+    party_simplified = db.Column(db.String(20))  # 'D', 'R', 'I', 'O' for analysis
+    incumbent = db.Column(db.Boolean, default=False, index=True)
+    prior_office = db.Column(db.String(200))  # Previous offices held
+    years_in_politics = db.Column(db.Integer)
+    
+    # Election outcome
+    won_election = db.Column(db.Boolean, index=True)
+    vote_count = db.Column(db.Integer)
+    vote_share_percent = db.Column(db.Float)  # Percentage of votes received
+    margin_of_victory = db.Column(db.Float)  # Percentage point margin (positive if won)
+    total_votes_cast = db.Column(db.Integer)  # Total votes in race
+    
+    # Competitiveness metrics
+    district_pvi = db.Column(db.Float)  # Cook PVI or partisan lean score
+    race_competitiveness = db.Column(db.String(30))  # 'safe', 'likely', 'lean', 'toss-up'
+    number_of_candidates = db.Column(db.Integer)  # Total candidates in race
+    
+    # Campaign metrics
+    campaign_spending = db.Column(db.Float)  # Total spending in dollars
+    opponent_spending = db.Column(db.Float)  # Top opponent's spending
+    spending_ratio = db.Column(db.Float)  # Candidate spending / opponent spending
+    
+    # Running mate information (for President/VP, Governor/Lt. Gov)
+    has_running_mate = db.Column(db.Boolean, default=False)
+    running_mate_id = db.Column(db.Integer, db.ForeignKey('election_candidate.id'))
+    running_mate = db.relationship('ElectionCandidate', remote_side=[id], backref='ticket_leader', foreign_keys=[running_mate_id])
+    
+    # Ballot structure reference
+    ballot_id = db.Column(db.Integer, db.ForeignKey('ballot_structure.id'))
+    ballot_position = db.Column(db.Integer)  # Position on ballot (for alphabetical effects)
+    
+    # National/state political environment
+    presidential_approval = db.Column(db.Float)  # If available for that year
+    generic_ballot = db.Column(db.Float)  # Generic ballot polling for that party
+    wave_year = db.Column(db.String(10))  # 'R_wave', 'D_wave', 'neutral'
+    
+    # Data sources and metadata
+    data_source = db.Column(db.String(200))  # 'MIT_Election_Lab', 'FEC', 'Ballotpedia', etc.
+    data_quality = db.Column(db.String(20))  # 'complete', 'partial', 'limited'
+    notes = db.Column(db.Text)
+    
+    created_date = db.Column(db.DateTime, default=datetime.utcnow)
+    last_updated = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    linguistic_analysis = db.relationship('ElectionCandidateAnalysis', backref='candidate', uselist=False, cascade='all, delete-orphan')
+    tickets = db.relationship('RunningMateTicket', foreign_keys='RunningMateTicket.primary_candidate_id', backref='primary', cascade='all, delete-orphan')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'full_name': self.full_name,
+            'first_name': self.first_name,
+            'middle_name': self.middle_name,
+            'last_name': self.last_name,
+            'ballot_name': self.ballot_name,
+            'position': self.position,
+            'position_level': self.position_level,
+            'election_year': self.election_year,
+            'election_type': self.election_type,
+            'state': self.state,
+            'district': self.district,
+            'party': self.party,
+            'incumbent': self.incumbent,
+            'won_election': self.won_election,
+            'vote_share_percent': self.vote_share_percent,
+            'margin_of_victory': self.margin_of_victory,
+            'campaign_spending': self.campaign_spending,
+            'number_of_candidates': self.number_of_candidates,
+            'race_competitiveness': self.race_competitiveness,
+            'linguistic_analysis': self.linguistic_analysis.to_dict() if self.linguistic_analysis else None
+        }
+
+
+class RunningMateTicket(db.Model):
+    """Presidential/VP or Governor/Lt. Gov ticket pairings for phonetic harmony analysis"""
+    __tablename__ = 'running_mate_ticket'
+    __table_args__ = (
+        db.Index('idx_ticket_year_position', 'election_year', 'position_type'),
+        db.Index('idx_ticket_won', 'won_election'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Ticket details
+    primary_candidate_id = db.Column(db.Integer, db.ForeignKey('election_candidate.id'), nullable=False)
+    running_mate_candidate_id = db.Column(db.Integer, db.ForeignKey('election_candidate.id'), nullable=False)
+    
+    # Election details
+    position_type = db.Column(db.String(50))  # 'Presidential', 'Gubernatorial'
+    election_year = db.Column(db.Integer, nullable=False)
+    state = db.Column(db.String(50))  # For gubernatorial races
+    party = db.Column(db.String(50))
+    
+    # Outcome
+    won_election = db.Column(db.Boolean, index=True)
+    vote_share_percent = db.Column(db.Float)
+    
+    # Phonetic harmony metrics (computed)
+    syllable_pattern_match = db.Column(db.Float)  # 0-100, how well syllable counts match
+    vowel_harmony_score = db.Column(db.Float)  # 0-100, vowel pattern compatibility
+    rhythm_compatibility = db.Column(db.Float)  # 0-100, overall phonetic rhythm match
+    combined_memorability = db.Column(db.Float)  # Average memorability of both names
+    combined_pronounceability = db.Column(db.Float)  # Average pronounceability
+    name_length_similarity = db.Column(db.Float)  # How similar name lengths are
+    
+    # Phonetic analysis details (JSON)
+    phonetic_analysis = db.Column(db.Text)  # Detailed phonetic breakdown
+    harmony_components = db.Column(db.Text)  # JSON: specific harmony elements
+    
+    created_date = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    # Relationships
+    primary_cand = db.relationship('ElectionCandidate', foreign_keys=[primary_candidate_id], backref='ticket_as_primary')
+    running_mate_cand = db.relationship('ElectionCandidate', foreign_keys=[running_mate_candidate_id], backref='ticket_as_mate')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'primary_candidate': self.primary_cand.full_name if self.primary_cand else None,
+            'running_mate': self.running_mate_cand.full_name if self.running_mate_cand else None,
+            'position_type': self.position_type,
+            'election_year': self.election_year,
+            'state': self.state,
+            'party': self.party,
+            'won_election': self.won_election,
+            'vote_share_percent': self.vote_share_percent,
+            'syllable_pattern_match': self.syllable_pattern_match,
+            'vowel_harmony_score': self.vowel_harmony_score,
+            'rhythm_compatibility': self.rhythm_compatibility,
+            'combined_memorability': self.combined_memorability,
+            'phonetic_analysis': json.loads(self.phonetic_analysis) if self.phonetic_analysis else {}
+        }
+
+
+class BallotStructure(db.Model):
+    """Full ballot structure for analyzing phonetic clustering among candidates"""
+    __tablename__ = 'ballot_structure'
+    __table_args__ = (
+        db.Index('idx_ballot_election', 'election_year', 'position', 'state'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Ballot identification
+    position = db.Column(db.String(100), nullable=False)  # The office being contested
+    election_year = db.Column(db.Integer, nullable=False)
+    election_type = db.Column(db.String(30))  # 'general', 'primary'
+    state = db.Column(db.String(50))
+    district = db.Column(db.String(50))
+    
+    # Ballot details
+    total_candidates = db.Column(db.Integer)
+    ballot_format = db.Column(db.String(50))  # 'alphabetical', 'random', 'party_grouped', etc.
+    primary_party = db.Column(db.String(50))  # For primary elections
+    
+    # Phonetic clustering metrics (computed across all candidates)
+    avg_name_similarity = db.Column(db.Float)  # Average pairwise phonetic similarity
+    max_name_similarity = db.Column(db.Float)  # Highest pairwise similarity
+    clustering_coefficient = db.Column(db.Float)  # Overall phonetic clustering
+    
+    # Similarity analysis (JSON)
+    similarity_matrix = db.Column(db.Text)  # JSON: pairwise similarity scores
+    clustering_analysis = db.Column(db.Text)  # JSON: detailed clustering metrics
+    
+    created_date = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    # Relationships
+    candidates = db.relationship('ElectionCandidate', backref='ballot', foreign_keys='ElectionCandidate.ballot_id')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'position': self.position,
+            'election_year': self.election_year,
+            'election_type': self.election_type,
+            'state': self.state,
+            'district': self.district,
+            'total_candidates': self.total_candidates,
+            'ballot_format': self.ballot_format,
+            'avg_name_similarity': self.avg_name_similarity,
+            'max_name_similarity': self.max_name_similarity,
+            'clustering_coefficient': self.clustering_coefficient,
+            'candidates': [c.to_dict() for c in self.candidates] if self.candidates else [],
+            'similarity_matrix': json.loads(self.similarity_matrix) if self.similarity_matrix else {}
+        }
+
+
+class ElectionCandidateAnalysis(db.Model):
+    """Comprehensive linguistic analysis of candidate names"""
+    __tablename__ = 'election_candidate_analysis'
+    __table_args__ = (
+        db.Index('idx_election_analysis_memorability', 'memorability_score'),
+        db.Index('idx_election_analysis_syllables', 'syllable_count'),
+        db.Index('idx_election_analysis_title_euphony', 'title_euphony_score'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    candidate_id = db.Column(db.Integer, db.ForeignKey('election_candidate.id'), nullable=False, unique=True)
+    
+    # Basic metrics
+    syllable_count = db.Column(db.Integer)  # Full name syllables
+    first_name_syllables = db.Column(db.Integer)
+    last_name_syllables = db.Column(db.Integer)
+    character_length = db.Column(db.Integer)
+    word_count = db.Column(db.Integer)  # Number of name parts
+    
+    # Phonetic analysis
+    phonetic_score = db.Column(db.Float)  # Overall euphony
+    vowel_ratio = db.Column(db.Float)  # Vowels / total letters
+    consonant_clusters = db.Column(db.Integer)  # Number of consonant clusters
+    
+    # Memorability and pronounceability
+    memorability_score = db.Column(db.Float)  # 0-100
+    pronounceability_score = db.Column(db.Float)  # 0-100
+    uniqueness_score = db.Column(db.Float)  # How distinctive the name is
+    
+    # Sound characteristics
+    harshness_score = db.Column(db.Float)  # Plosives and harsh sounds
+    softness_score = db.Column(db.Float)  # Soft, flowing sounds
+    power_connotation_score = db.Column(db.Float)  # Authority/power associations
+    trustworthiness_score = db.Column(db.Float)  # Trust-inducing phonetic qualities
+    
+    # Name structure
+    has_middle_name = db.Column(db.Boolean, default=False)
+    has_nickname = db.Column(db.Boolean, default=False)
+    alliteration_score = db.Column(db.Float)  # First/last name alliteration
+    rhythm_score = db.Column(db.Float)  # Overall rhythmic quality
+    
+    # Position title euphony (KEY METRIC)
+    title_euphony_score = db.Column(db.Float)  # How well "Senator Smith" flows
+    title_name_consonance = db.Column(db.Float)  # Phonetic compatibility of title + name
+    title_name_analysis = db.Column(db.Text)  # JSON: detailed title + name analysis
+    
+    # Similarity to other names
+    similarity_to_famous = db.Column(db.Float)  # Similarity to famous political names
+    closest_famous_name = db.Column(db.String(200))
+    
+    # Alphabetical position effects
+    alphabetical_advantage = db.Column(db.Float)  # A-M vs N-Z
+    first_letter = db.Column(db.String(1))
+    
+    # Ethnic/cultural name analysis
+    name_ethnicity = db.Column(db.String(100))  # Perceived ethnicity/origin
+    name_cultural_markers = db.Column(db.Text)  # JSON: cultural associations
+    
+    # Advanced phonetic features (JSON storage)
+    phoneme_breakdown = db.Column(db.Text)  # JSON: individual phonemes
+    stress_pattern = db.Column(db.Text)  # JSON: syllable stress pattern
+    sound_symbolism = db.Column(db.Text)  # JSON: sound-meaning associations
+    
+    # Comparative metrics
+    percentile_memorability = db.Column(db.Float)  # Percentile among all candidates
+    percentile_pronounceability = db.Column(db.Float)
+    percentile_title_euphony = db.Column(db.Float)
+    
+    analyzed_date = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'candidate_id': self.candidate_id,
+            'syllable_count': self.syllable_count,
+            'first_name_syllables': self.first_name_syllables,
+            'last_name_syllables': self.last_name_syllables,
+            'character_length': self.character_length,
+            'phonetic_score': self.phonetic_score,
+            'memorability_score': self.memorability_score,
+            'pronounceability_score': self.pronounceability_score,
+            'uniqueness_score': self.uniqueness_score,
+            'harshness_score': self.harshness_score,
+            'softness_score': self.softness_score,
+            'power_connotation_score': self.power_connotation_score,
+            'trustworthiness_score': self.trustworthiness_score,
+            'has_middle_name': self.has_middle_name,
+            'alliteration_score': self.alliteration_score,
+            'rhythm_score': self.rhythm_score,
+            'title_euphony_score': self.title_euphony_score,
+            'title_name_consonance': self.title_name_consonance,
+            'title_name_analysis': json.loads(self.title_name_analysis) if self.title_name_analysis else {},
+            'similarity_to_famous': self.similarity_to_famous,
+            'closest_famous_name': self.closest_famous_name,
+            'alphabetical_advantage': self.alphabetical_advantage,
+            'first_letter': self.first_letter,
+            'name_ethnicity': self.name_ethnicity,
+            'percentile_memorability': self.percentile_memorability,
+            'percentile_pronounceability': self.percentile_pronounceability,
+            'percentile_title_euphony': self.percentile_title_euphony,
+            'phoneme_breakdown': json.loads(self.phoneme_breakdown) if self.phoneme_breakdown else {},
+            'stress_pattern': json.loads(self.stress_pattern) if self.stress_pattern else {},
+            'sound_symbolism': json.loads(self.sound_symbolism) if self.sound_symbolism else {}
+        }
+
+

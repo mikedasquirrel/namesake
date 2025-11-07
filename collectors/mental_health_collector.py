@@ -479,3 +479,4 @@ class MentalHealthCollector:
         return min(100.0, base_score)
 
 
+

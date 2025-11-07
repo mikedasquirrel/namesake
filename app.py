@@ -5682,6 +5682,228 @@ def api_africa_run_analysis():
 
 
 # =============================================================================
+# ELECTION LINGUISTICS ANALYSIS ROUTES (Nominative Determinism in Democracy)
+# =============================================================================
+
+@app.route('/elections')
+def elections_page():
+    """Election linguistics - Interactive dashboard"""
+    return render_template('elections.html')
+
+
+@app.route('/elections/findings')
+def elections_findings():
+    """Election linguistics research findings page"""
+    return render_template('election_findings.html')
+
+
+@app.route('/api/elections/overview')
+def get_elections_overview():
+    """Get election dataset overview"""
+    try:
+        from core.models import ElectionCandidate, RunningMateTicket, BallotStructure
+        
+        total_candidates = ElectionCandidate.query.count()
+        total_tickets = RunningMateTicket.query.count()
+        total_ballots = BallotStructure.query.count()
+        
+        # Position distribution
+        position_counts = db.session.query(
+            ElectionCandidate.position,
+            db.func.count(ElectionCandidate.id)
+        ).group_by(ElectionCandidate.position).all()
+        
+        position_distribution = dict(position_counts)
+        
+        # Year range
+        year_range = db.session.query(
+            db.func.min(ElectionCandidate.election_year),
+            db.func.max(ElectionCandidate.election_year)
+        ).first()
+        
+        # Party distribution
+        party_counts = db.session.query(
+            ElectionCandidate.party_simplified,
+            db.func.count(ElectionCandidate.id)
+        ).group_by(ElectionCandidate.party_simplified).all()
+        
+        party_distribution = {party: count for party, count in party_counts if party}
+        
+        # Win/loss distribution
+        outcome_counts = db.session.query(
+            ElectionCandidate.won_election,
+            db.func.count(ElectionCandidate.id)
+        ).group_by(ElectionCandidate.won_election).all()
+        
+        outcome_distribution = {('Won' if won else 'Lost'): count for won, count in outcome_counts}
+        
+        return jsonify({
+            'status': 'success',
+            'dataset': {
+                'total_candidates': total_candidates,
+                'total_tickets': total_tickets,
+                'total_ballots': total_ballots,
+                'positions': position_distribution,
+                'year_range': {
+                    'earliest': year_range[0],
+                    'latest': year_range[1]
+                } if year_range[0] else None,
+                'parties': party_distribution,
+                'outcomes': outcome_distribution
+            }
+        })
+    except Exception as e:
+        logger.error(f"Error getting elections overview: {e}")
+        return jsonify({'error': str(e), 'status': 'error'}), 500
+
+
+@app.route('/api/elections/analysis')
+def get_elections_analysis():
+    """Run and return comprehensive election linguistic analysis"""
+    try:
+        from analyzers.election_analyzer import ElectionAnalyzer
+        
+        logger.info("Running election linguistic analysis...")
+        analyzer = ElectionAnalyzer()
+        results = analyzer.run_full_analysis()
+        
+        return jsonify({
+            'status': 'success',
+            'analysis': results,
+            'generated_at': datetime.now().isoformat()
+        })
+    except Exception as e:
+        logger.error(f"Error running election analysis: {e}")
+        return jsonify({'error': str(e), 'status': 'error'}), 500
+
+
+@app.route('/api/elections/candidate/<int:candidate_id>')
+def get_election_candidate(candidate_id):
+    """Get detailed information about a specific candidate"""
+    try:
+        from core.models import ElectionCandidate, ElectionCandidateAnalysis
+        
+        candidate = ElectionCandidate.query.get(candidate_id)
+        if not candidate:
+            return jsonify({'error': 'Candidate not found', 'status': 'error'}), 404
+        
+        return jsonify({
+            'status': 'success',
+            'candidate': candidate.to_dict()
+        })
+    except Exception as e:
+        logger.error(f"Error getting candidate: {e}")
+        return jsonify({'error': str(e), 'status': 'error'}), 500
+
+
+@app.route('/api/elections/candidates')
+def get_elections_candidates():
+    """Get list of election candidates with filters"""
+    try:
+        from core.models import ElectionCandidate, ElectionCandidateAnalysis
+        
+        # Get filter parameters
+        position = request.args.get('position')
+        year = request.args.get('year', type=int)
+        party = request.args.get('party')
+        won = request.args.get('won', type=lambda x: x.lower() == 'true')
+        limit = request.args.get('limit', type=int, default=100)
+        
+        # Build query
+        query = ElectionCandidate.query
+        
+        if position:
+            query = query.filter(ElectionCandidate.position == position)
+        if year:
+            query = query.filter(ElectionCandidate.election_year == year)
+        if party:
+            query = query.filter(ElectionCandidate.party_simplified == party)
+        if won is not None:
+            query = query.filter(ElectionCandidate.won_election == won)
+        
+        # Order by year (most recent first) and limit
+        candidates = query.order_by(ElectionCandidate.election_year.desc()).limit(limit).all()
+        
+        return jsonify({
+            'status': 'success',
+            'count': len(candidates),
+            'candidates': [c.to_dict() for c in candidates]
+        })
+    except Exception as e:
+        logger.error(f"Error getting candidates: {e}")
+        return jsonify({'error': str(e), 'status': 'error'}), 500
+
+
+@app.route('/api/elections/ticket/<int:year>')
+def get_election_ticket(year):
+    """Get presidential ticket information for a specific year"""
+    try:
+        from core.models import RunningMateTicket
+        
+        tickets = RunningMateTicket.query.filter_by(
+            election_year=year,
+            position_type='Presidential'
+        ).all()
+        
+        if not tickets:
+            return jsonify({'error': 'No tickets found for that year', 'status': 'error'}), 404
+        
+        return jsonify({
+            'status': 'success',
+            'year': year,
+            'tickets': [t.to_dict() for t in tickets]
+        })
+    except Exception as e:
+        logger.error(f"Error getting ticket: {e}")
+        return jsonify({'error': str(e), 'status': 'error'}), 500
+
+
+@app.route('/api/elections/ballot/<int:ballot_id>')
+def get_election_ballot(ballot_id):
+    """Get full ballot structure with clustering analysis"""
+    try:
+        from core.models import BallotStructure
+        
+        ballot = BallotStructure.query.get(ballot_id)
+        if not ballot:
+            return jsonify({'error': 'Ballot not found', 'status': 'error'}), 404
+        
+        return jsonify({
+            'status': 'success',
+            'ballot': ballot.to_dict()
+        })
+    except Exception as e:
+        logger.error(f"Error getting ballot: {e}")
+        return jsonify({'error': str(e), 'status': 'error'}), 500
+
+
+@app.route('/api/elections/search')
+def search_election_candidates():
+    """Search candidates by name"""
+    try:
+        from core.models import ElectionCandidate
+        
+        query_string = request.args.get('q', '')
+        if len(query_string) < 2:
+            return jsonify({'error': 'Query too short', 'status': 'error'}), 400
+        
+        # Search by name
+        candidates = ElectionCandidate.query.filter(
+            ElectionCandidate.full_name.ilike(f'%{query_string}%')
+        ).order_by(ElectionCandidate.election_year.desc()).limit(50).all()
+        
+        return jsonify({
+            'status': 'success',
+            'query': query_string,
+            'count': len(candidates),
+            'results': [c.to_dict() for c in candidates]
+        })
+    except Exception as e:
+        logger.error(f"Error searching candidates: {e}")
+        return jsonify({'error': str(e), 'status': 'error'}), 500
+
+
+# =============================================================================
 
 if __name__ == '__main__':
     # Generate a random odd port between 5001 and 65535
