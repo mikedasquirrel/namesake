@@ -415,10 +415,18 @@ class ImmigrationSurnameClassifier:
             }
         
         if surname.startswith("O'") or surname.startswith('Mc') or surname.startswith('Mac'):
+            # Extract base name
+            if surname.startswith("O'"):
+                base_name = surname[2:]
+            elif surname.startswith('Mc') or surname.startswith('Mac'):
+                base_name = surname[2:]
+            else:
+                base_name = surname
+            
             return {
                 'semantic_category': 'patronymic',
                 'is_toponymic': False,
-                'meaning_in_original': f"descendant of {surname[2:] if surname.startswith(\"O'\") else surname[2:]}",
+                'meaning_in_original': f"descendant of {base_name}",
                 'confidence_score': 75.0,
                 'etymology_features': {
                     'category': 'patronymic',

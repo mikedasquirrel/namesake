@@ -91,6 +91,25 @@ def main():
         output_dir = Path('analysis_outputs/immigration_analysis')
         output_dir.mkdir(parents=True, exist_ok=True)
         
+        # Convert numpy types to native Python types for JSON
+        import numpy as np
+        def convert_numpy(obj):
+            if isinstance(obj, dict):
+                return {key: convert_numpy(value) for key, value in obj.items()}
+            elif isinstance(obj, list):
+                return [convert_numpy(item) for item in obj]
+            elif isinstance(obj, (np.integer, np.int64, np.int32)):
+                return int(obj)
+            elif isinstance(obj, (np.floating, np.float64, np.float32)):
+                return float(obj)
+            elif isinstance(obj, (np.bool_, bool)):
+                return bool(obj)
+            elif isinstance(obj, np.ndarray):
+                return obj.tolist()
+            return obj
+        
+        results = convert_numpy(results)
+        
         # Export results
         logger.info("\nExporting results...")
         
@@ -103,15 +122,15 @@ def main():
             }, f, indent=2)
         logger.info("✓ Saved summary_statistics.json")
         
-        # 2. Hypothesis test results
+        # 2. Hypothesis test results (primary hypotheses)
         with open(output_dir / 'hypothesis_tests.json', 'w') as f:
-            json.dump(results['hypothesis_tests'], f, indent=2)
+            json.dump({
+                'primary_hypotheses': results.get('primary_hypotheses', {}),
+                'expanded_analyses': results.get('expanded_analyses', {}),
+                'cross_category_comparisons': results.get('cross_category_comparisons', {}),
+                'interaction_effects': results.get('interaction_effects', {})
+            }, f, indent=2)
         logger.info("✓ Saved hypothesis_tests.json")
-        
-        # 3. Regression results
-        with open(output_dir / 'regression_results.json', 'w') as f:
-            json.dump(results['regression_models'], f, indent=2)
-        logger.info("✓ Saved regression_results.json")
         
         # 4. Temporal trends
         with open(output_dir / 'temporal_trends.json', 'w') as f:
