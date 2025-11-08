@@ -4792,6 +4792,180 @@ def get_mlb_temporal():
 
 
 # =============================================================================
+# MLB TEAMS ANALYSIS ROUTES (Team-Level with Roster Amalgamation)
+# =============================================================================
+
+@app.route('/mlb-teams')
+def mlb_teams_page():
+    """MLB teams analysis dashboard"""
+    return render_template('mlb_teams.html')
+
+
+@app.route('/mlb-teams/findings')
+def mlb_teams_findings():
+    """MLB teams research findings page"""
+    return render_template('mlb_teams_findings.html')
+
+
+@app.route('/api/mlb-teams/stats')
+def get_mlb_teams_stats():
+    """Get MLB teams overview statistics"""
+    try:
+        from core.models import MLBTeam, MLBTeamAnalysis
+        
+        total_teams = MLBTeam.query.count()
+        
+        if total_teams == 0:
+            return jsonify({
+                'total_teams': 0,
+                'message': 'No teams collected yet. Run bootstrap_mlb_teams.py first.'
+            })
+        
+        # Get all teams with analysis
+        teams_with_analysis = db.session.query(MLBTeam, MLBTeamAnalysis).join(
+            MLBTeamAnalysis,
+            MLBTeam.id == MLBTeamAnalysis.team_id
+        ).all()
+        
+        if not teams_with_analysis:
+            return jsonify({'total_teams': total_teams, 'analyzed': 0})
+        
+        # Calculate aggregates
+        composite_scores = [a.composite_linguistic_score for t, a in teams_with_analysis if a.composite_linguistic_score]
+        harmony_scores = [a.roster_harmony_score for t, a in teams_with_analysis if a.roster_harmony_score]
+        intl_pcts = [a.roster_international_percentage for t, a in teams_with_analysis if a.roster_international_percentage]
+        
+        # Rankings
+        rankings = {
+            'by_composite': [
+                {
+                    'full_name': t.full_name,
+                    'composite_linguistic_score': a.composite_linguistic_score,
+                    'win_percentage': t.win_percentage or 0.500
+                }
+                for t, a in sorted(teams_with_analysis, key=lambda x: x[1].composite_linguistic_score or 0, reverse=True)[:10]
+            ]
+        }
+        
+        return jsonify({
+            'total_teams': total_teams,
+            'analyzed': len(teams_with_analysis),
+            'mean_composite': sum(composite_scores) / len(composite_scores) if composite_scores else 0,
+            'mean_harmony': sum(harmony_scores) / len(harmony_scores) if harmony_scores else 0,
+            'mean_international': sum(intl_pcts) / len(intl_pcts) if intl_pcts else 0,
+            'rankings': rankings
+        })
+        
+    except Exception as e:
+        logger.error(f"Error getting MLB teams stats: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mlb-teams/rankings')
+def get_mlb_teams_rankings():
+    """Get team rankings by various metrics"""
+    try:
+        from analyzers.mlb_team_statistical_analyzer import MLBTeamStatisticalAnalyzer
+        
+        analyzer = MLBTeamStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 5:
+            return jsonify({'error': 'Insufficient data'})
+        
+        results = analyzer.rank_teams(df)
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error getting rankings: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mlb-teams/roster-analysis')
+def get_mlb_teams_roster_analysis():
+    """Get roster amalgamation analysis"""
+    try:
+        from analyzers.mlb_team_statistical_analyzer import MLBTeamStatisticalAnalyzer
+        
+        analyzer = MLBTeamStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 5:
+            return jsonify({'error': 'Insufficient data'})
+        
+        results = analyzer.analyze_rosters(df)
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error in roster analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mlb-teams/city-analysis')
+def get_mlb_teams_city_analysis():
+    """Get city prestige analysis"""
+    try:
+        from analyzers.mlb_team_statistical_analyzer import MLBTeamStatisticalAnalyzer
+        
+        analyzer = MLBTeamStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 5:
+            return jsonify({'error': 'Insufficient data'})
+        
+        results = analyzer.analyze_cities(df)
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error in city analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mlb-teams/matchup-predictor', methods=['GET', 'POST'])
+def mlb_matchup_predictor():
+    """Predict matchup outcome from linguistic differential"""
+    try:
+        if request.method == 'POST':
+            data = request.json
+            home_team_id = data.get('home_team')
+            away_team_id = data.get('away_team')
+            
+            if not home_team_id or not away_team_id:
+                return jsonify({'error': 'Missing team IDs'}), 400
+            
+            # Get team analyses
+            home_analysis = MLBTeamAnalysis.query.filter_by(team_id=home_team_id).first()
+            away_analysis = MLBTeamAnalysis.query.filter_by(team_id=away_team_id).first()
+            
+            if not home_analysis or not away_analysis:
+                return jsonify({'error': 'Team analysis not found'}), 404
+            
+            # Calculate differential
+            differential = (home_analysis.composite_linguistic_score or 0) - (away_analysis.composite_linguistic_score or 0)
+            
+            # Simple prediction: positive differential favors home team
+            if differential > 5:
+                prediction = {'winner': home_team_id, 'confidence': 0.65}
+            elif differential < -5:
+                prediction = {'winner': away_team_id, 'confidence': 0.65}
+            else:
+                prediction = {'winner': home_team_id, 'confidence': 0.52}  # Slight home advantage
+            
+            return jsonify({
+                'home_team': home_team_id,
+                'away_team': away_team_id,
+                'composite_differential': differential,
+                'prediction': prediction
+            })
+        else:
+            return jsonify({'message': 'POST home_team and away_team IDs to predict'})
+        
+    except Exception as e:
+        logger.error(f"Error in matchup predictor: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
 # MENTAL HEALTH ENDPOINTS
 # =============================================================================
 

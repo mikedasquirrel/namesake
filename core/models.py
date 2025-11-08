@@ -3482,6 +3482,9 @@ class MLBPlayer(db.Model):
     position_group = db.Column(db.String(20), index=True)  # Pitcher, Catcher, Infield, Outfield, DH
     pitcher_role = db.Column(db.String(20))  # SP (starter), RP (reliever), CL (closer)
     
+    # Team assignment (for roster amalgamation analysis)
+    team_id = db.Column(db.String(10), db.ForeignKey('mlb_teams.id'), index=True)  # Current team
+    
     # Career
     debut_year = db.Column(db.Integer, index=True)
     final_year = db.Column(db.Integer)
@@ -3624,6 +3627,236 @@ class MLBPlayerAnalysis(db.Model):
             'memorability_score': self.memorability_score,
             'name_origin': self.name_origin,
             'position_cluster': self.position_cluster
+        }
+
+
+# =============================================================================
+# MLB TEAM MODELS (Team-Level Analysis with Roster Amalgamation)
+# =============================================================================
+
+class MLBTeam(db.Model):
+    """MLB team entity with historical data and performance metrics"""
+    __tablename__ = 'mlb_teams'
+    __table_args__ = (
+        db.Index('idx_mlb_team_win_pct', 'win_percentage'),
+        db.Index('idx_mlb_team_city', 'city'),
+        db.Index('idx_mlb_team_ws_titles', 'world_series_titles'),
+    )
+    
+    id = db.Column(db.String(10), primary_key=True)  # Team abbreviation (NYY, BOS, LAD, etc.)
+    name = db.Column(db.String(100), nullable=False)  # Team name (Yankees, Red Sox, Dodgers)
+    full_name = db.Column(db.String(150))  # New York Yankees
+    city = db.Column(db.String(100), nullable=False, index=True)  # New York, Boston, Los Angeles
+    state = db.Column(db.String(50))
+    
+    # League structure
+    league = db.Column(db.String(10))  # AL, NL
+    division = db.Column(db.String(20))  # AL East, NL West, etc.
+    
+    # Historical data
+    founded_year = db.Column(db.Integer)
+    franchise_relocations = db.Column(db.Text)  # JSON of relocations
+    name_changes = db.Column(db.Text)  # JSON of name changes
+    previous_names = db.Column(db.Text)  # JSON array of historical names
+    
+    # Performance metrics (current/recent)
+    wins_season = db.Column(db.Integer)
+    losses_season = db.Column(db.Integer)
+    win_percentage = db.Column(db.Float, index=True)
+    runs_scored = db.Column(db.Integer)
+    runs_allowed = db.Column(db.Integer)
+    
+    # Historical success
+    playoff_appearances = db.Column(db.Integer)
+    division_titles = db.Column(db.Integer)
+    pennants = db.Column(db.Integer)
+    world_series_titles = db.Column(db.Integer, index=True)
+    
+    # Stadium
+    stadium_name = db.Column(db.String(150))
+    stadium_capacity = db.Column(db.Integer)
+    
+    # Market
+    market_size_rank = db.Column(db.Integer)  # 1-30 by metro population
+    payroll = db.Column(db.Integer)  # For confound control
+    
+    # Metadata
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    analysis = db.relationship('MLBTeamAnalysis', backref='team',
+                              lazy=True, uselist=False, cascade='all, delete-orphan')
+    home_matchups = db.relationship('MLBMatchup', foreign_keys='MLBMatchup.home_team_id',
+                                   backref='home_team', lazy='dynamic')
+    away_matchups = db.relationship('MLBMatchup', foreign_keys='MLBMatchup.away_team_id',
+                                   backref='away_team', lazy='dynamic')
+    
+    def __repr__(self):
+        return f'<MLBTeam {self.full_name}>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'full_name': self.full_name,
+            'city': self.city,
+            'league': self.league,
+            'division': self.division,
+            'wins': self.wins_season,
+            'losses': self.losses_season,
+            'win_percentage': self.win_percentage,
+            'world_series_titles': self.world_series_titles,
+            'playoff_appearances': self.playoff_appearances
+        }
+
+
+class MLBTeamAnalysis(db.Model):
+    """3-Layer linguistic analysis: Team Name + City Name + Roster Amalgamation"""
+    __tablename__ = 'mlb_team_analyses'
+    __table_args__ = (
+        db.Index('idx_mlb_team_analysis_composite', 'composite_linguistic_score'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    team_id = db.Column(db.String(10), db.ForeignKey('mlb_teams.id'), nullable=False, unique=True)
+    
+    # ===========================================================================
+    # LAYER 1: Team Name Analysis
+    # ===========================================================================
+    team_name_syllables = db.Column(db.Integer)
+    team_name_character_length = db.Column(db.Integer)
+    team_name_memorability = db.Column(db.Float)
+    team_name_power_score = db.Column(db.Float)
+    team_name_prestige = db.Column(db.Float)
+    team_name_harshness = db.Column(db.Float)
+    team_name_type = db.Column(db.String(50))  # Animal, Color, Historical, Regional, Occupation, etc.
+    team_name_semantic_category = db.Column(db.String(50))  # For typology
+    
+    # ===========================================================================
+    # LAYER 2: City Name Analysis
+    # ===========================================================================
+    city_syllables = db.Column(db.Integer)
+    city_character_length = db.Column(db.Integer)
+    city_prestige_score = db.Column(db.Float, index=True)  # NYC, LA, Boston = high; TB, Oak = low
+    city_memorability = db.Column(db.Float)
+    city_phonetic_authority = db.Column(db.Float)
+    city_vowel_ratio = db.Column(db.Float)
+    city_market_tier = db.Column(db.String(20))  # Major, Mid, Small
+    
+    # ===========================================================================
+    # LAYER 3: Roster Amalgamation (Aggregate of all 25 players' names)
+    # ===========================================================================
+    roster_size = db.Column(db.Integer)  # Number of players analyzed
+    roster_mean_syllables = db.Column(db.Float)
+    roster_mean_harshness = db.Column(db.Float)
+    roster_mean_memorability = db.Column(db.Float)
+    roster_mean_power_score = db.Column(db.Float)
+    
+    # Roster diversity/harmony
+    roster_syllable_stddev = db.Column(db.Float)  # Diversity measure
+    roster_harmony_score = db.Column(db.Float)  # Low stddev = high harmony
+    roster_phonetic_diversity = db.Column(db.Float)  # Range of phonetic features
+    
+    # Roster composition
+    roster_international_percentage = db.Column(db.Float)  # % Latino/Asian names
+    roster_anglo_percentage = db.Column(db.Float)
+    roster_latino_percentage = db.Column(db.Float)
+    roster_asian_percentage = db.Column(db.Float)
+    
+    # Roster extremes
+    roster_max_syllables = db.Column(db.Integer)  # Longest name on roster
+    roster_min_syllables = db.Column(db.Integer)  # Shortest name on roster
+    roster_harshest_player = db.Column(db.Float)
+    roster_softest_player = db.Column(db.Float)
+    
+    # ===========================================================================
+    # COMPOSITE SCORES (Combination of all 3 layers)
+    # ===========================================================================
+    composite_linguistic_score = db.Column(db.Float, index=True)  # Weighted: team 30% + city 20% + roster 50%
+    composite_memorability = db.Column(db.Float)
+    composite_prestige = db.Column(db.Float)
+    composite_power = db.Column(db.Float)
+    composite_harmony = db.Column(db.Float)  # Overall phonetic cohesion
+    
+    # Cluster assignments
+    team_name_cluster = db.Column(db.Integer)
+    roster_cluster = db.Column(db.Integer)
+    composite_cluster = db.Column(db.Integer)
+    
+    # Metadata
+    analysis_date = db.Column(db.DateTime, default=datetime.utcnow)
+    roster_season = db.Column(db.Integer)  # Season for which roster was analyzed
+    
+    def __repr__(self):
+        return f'<MLBTeamAnalysis for {self.team_id}>'
+    
+    def to_dict(self):
+        return {
+            'team_id': self.team_id,
+            'team_name_syllables': self.team_name_syllables,
+            'team_name_type': self.team_name_type,
+            'city_prestige_score': self.city_prestige_score,
+            'roster_mean_syllables': self.roster_mean_syllables,
+            'roster_harmony_score': self.roster_harmony_score,
+            'roster_international_percentage': self.roster_international_percentage,
+            'composite_linguistic_score': self.composite_linguistic_score,
+            'composite_cluster': self.composite_cluster
+        }
+
+
+class MLBMatchup(db.Model):
+    """Head-to-head team matchups for linguistic prediction analysis"""
+    __tablename__ = 'mlb_matchups'
+    __table_args__ = (
+        db.Index('idx_mlb_matchup_season', 'season'),
+        db.Index('idx_mlb_matchup_teams', 'home_team_id', 'away_team_id'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    season = db.Column(db.Integer, nullable=False, index=True)
+    game_date = db.Column(db.Date)
+    game_number = db.Column(db.Integer)  # Game # of season
+    
+    # Teams
+    home_team_id = db.Column(db.String(10), db.ForeignKey('mlb_teams.id'), nullable=False)
+    away_team_id = db.Column(db.String(10), db.ForeignKey('mlb_teams.id'), nullable=False)
+    
+    # Outcome
+    home_score = db.Column(db.Integer)
+    away_score = db.Column(db.Integer)
+    winner_id = db.Column(db.String(10))  # Team ID of winner
+    is_home_win = db.Column(db.Boolean)
+    
+    # Linguistic differentials (home - away)
+    composite_differential = db.Column(db.Float)  # Home composite - away composite
+    roster_differential = db.Column(db.Float)
+    city_differential = db.Column(db.Float)
+    team_name_differential = db.Column(db.Float)
+    
+    # Prediction
+    predicted_winner_id = db.Column(db.String(10))  # Based on linguistic model
+    prediction_correct = db.Column(db.Boolean)
+    prediction_confidence = db.Column(db.Float)  # 0-1
+    
+    # Metadata
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def __repr__(self):
+        return f'<MLBMatchup {self.home_team_id} vs {self.away_team_id} ({self.season})>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'season': self.season,
+            'home_team': self.home_team_id,
+            'away_team': self.away_team_id,
+            'home_score': self.home_score,
+            'away_score': self.away_score,
+            'winner': self.winner_id,
+            'composite_differential': self.composite_differential,
+            'predicted_winner': self.predicted_winner_id,
+            'prediction_correct': self.prediction_correct
         }
 
 

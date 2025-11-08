@@ -1,0 +1,154 @@
+{% extends "base.html" %}
+
+{% block title %}MLB Teams - Team-Level Analysis{% endblock %}
+
+{% block content %}
+
+<style>
+.team-hero {
+    position: relative;
+    padding: 3rem 0;
+    margin-bottom: 3rem;
+    overflow: hidden;
+}
+
+.team-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(220, 38, 38, 0.1) 0%, transparent 70%);
+    z-index: -1;
+}
+</style>
+
+<div style="max-width: 1400px; margin: 0 auto;">
+
+<!-- Hero Section -->
+<div class="team-hero">
+    <div style="text-align: center;">
+        <div style="font-size: 4rem; margin-bottom: 1rem;">⚾🏟️</div>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">MLB Teams: 3-Layer Linguistic Analysis</h1>
+        <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 2rem;">
+            Team Names + City Prestige + Roster Amalgamation
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="{{ url_for('mlb_teams_findings') }}" class="btn-primary">View Research Findings →</a>
+            <a href="/api/mlb-teams/stats" class="btn-secondary" target="_blank">View API Data →</a>
+        </div>
+    </div>
+</div>
+
+<!-- Overview Stats -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 4rem;" id="overview-stats">
+    <div class="glass card" style="padding: 2rem; text-align: center;">
+        <div style="font-size: 3rem; font-weight: 700; color: #dc2626; margin-bottom: 0.5rem;" id="total-teams">...</div>
+        <div style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted);">MLB Teams</div>
+    </div>
+    <div class="glass card" style="padding: 2rem; text-align: center;">
+        <div style="font-size: 3rem; font-weight: 700; color: #16a34a; margin-bottom: 0.5rem;" id="mean-composite">...</div>
+        <div style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted);">Mean Composite Score</div>
+    </div>
+    <div class="glass card" style="padding: 2rem; text-align: center;">
+        <div style="font-size: 3rem; font-weight: 700; color: #2563eb; margin-bottom: 0.5rem;" id="mean-harmony">...</div>
+        <div style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted);">Mean Roster Harmony</div>
+    </div>
+    <div class="glass card" style="padding: 2rem; text-align: center;">
+        <div style="font-size: 3rem; font-weight: 700; color: #f59e0b; margin-bottom: 0.5rem;" id="intl-pct">...</div>
+        <div style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted);">Avg International %</div>
+    </div>
+</div>
+
+<!-- Top Teams by Composite -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">Team Rankings by Composite Linguistic Score</h2>
+    <div id="team-rankings">
+        <p style="color: var(--text-secondary);">Loading team rankings...</p>
+    </div>
+</div>
+
+<!-- Layer Breakdown -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">3-Layer Analysis Breakdown</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem;">
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #dc2626;">Layer 1: Team Names</h3>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;" id="layer1-info">
+                Loading team name analysis...
+            </div>
+        </div>
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #16a34a;">Layer 2: Cities</h3>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;" id="layer2-info">
+                Loading city prestige analysis...
+            </div>
+        </div>
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #2563eb;">Layer 3: Rosters</h3>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;" id="layer3-info">
+                Loading roster amalgamation...
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- City Prestige Hierarchy -->
+<div class="glass card" style="padding: 2.5rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">City Prestige Hierarchy</h2>
+    <div id="city-hierarchy">
+        <p style="color: var(--text-secondary);">Loading city analysis...</p>
+    </div>
+</div>
+
+</div>
+
+<script>
+async function loadTeamStats() {
+    try {
+        const response = await fetch('/api/mlb-teams/stats');
+        if (response.ok) {
+            const data = await response.json();
+            
+            document.getElementById('total-teams').textContent = data.total_teams || '0';
+            document.getElementById('mean-composite').textContent = data.mean_composite?.toFixed(1) || '...';
+            document.getElementById('mean-harmony').textContent = data.mean_harmony?.toFixed(1) || '...';
+            document.getElementById('intl-pct').textContent = data.mean_international ? data.mean_international.toFixed(0) + '%' : '...';
+            
+            // Rankings
+            if (data.rankings && data.rankings.by_composite) {
+                const container = document.getElementById('team-rankings');
+                let html = '<div style="display: grid; gap: 1rem;">';
+                
+                data.rankings.by_composite.forEach((team, idx) => {
+                    html += `
+                        <div style="padding: 1rem; background: var(--background-secondary); border-radius: 6px; display: flex; justify-content: space-between; align-items: center;">
+                            <div>
+                                <span style="font-weight: 700; color: #dc2626; margin-right: 1rem;">#${idx + 1}</span>
+                                <span style="font-weight: 600;">${team.full_name}</span>
+                            </div>
+                            <div style="text-align: right;">
+                                <div style="font-weight: 700; color: #16a34a;">${team.composite_linguistic_score.toFixed(1)}</div>
+                                <div style="font-size: 0.85rem; color: var(--text-muted);">Win%: ${(team.win_percentage * 100).toFixed(1)}%</div>
+                            </div>
+                        </div>
+                    `;
+                });
+                
+                html += '</div>';
+                container.innerHTML = html;
+            }
+        }
+    } catch (error) {
+        console.error('Error loading team stats:', error);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadTeamStats);
+</script>
+
+{% endblock %}
+
+
