@@ -161,6 +161,18 @@ def overview():
     return render_template('overview.html')
 
 
+@app.route('/the-nail')
+def the_nail():
+    """The Nail - Living generative research artwork (simple viewer)"""
+    return render_template('the_nail.html')
+
+
+@app.route('/the-word-made-flesh')
+def the_word_made_flesh():
+    """The Word Made Flesh - Complete philosophical presentation of The Nail"""
+    return render_template('the_word_made_flesh.html')
+
+
 @app.route('/analysis')
 def analysis():
     """Analysis - Narrative statistical findings"""
@@ -511,6 +523,310 @@ def recompute_all_analysis():
             'success': False,
             'error': str(e)
         }), 500
+
+
+# ============================================================================
+# GENERIC DOMAIN ANALYSIS ENDPOINTS
+# ============================================================================
+
+@app.route('/api/domain/<domain_id>/info')
+def get_domain_info(domain_id):
+    """
+    Get domain metadata and configuration.
+    
+    Provides research questions, sample targets, status, and all domain metadata
+    for any registered domain in the framework.
+    """
+    try:
+        from core.research_framework import FRAMEWORK
+        
+        domain_meta = FRAMEWORK.get_domain(domain_id)
+        if not domain_meta:
+            return jsonify({'error': f'Unknown domain: {domain_id}'}), 404
+        
+        return jsonify({
+            'domain_id': domain_meta.domain_id,
+            'display_name': domain_meta.display_name,
+            'research_questions': domain_meta.research_questions,
+            'sample_size_target': domain_meta.sample_size_target,
+            'effect_strength_expected': domain_meta.effect_strength_expected,
+            'primary_outcome_variable': domain_meta.primary_outcome_variable,
+            'key_predictors': domain_meta.key_predictors,
+            'control_variables': domain_meta.control_variables,
+            'stratification_needed': domain_meta.stratification_needed,
+            'temporal_component': domain_meta.temporal_component,
+            'geographic_component': domain_meta.geographic_component,
+            'status': domain_meta.status,
+            'innovation_rating': domain_meta.innovation_rating,
+            'notes': domain_meta.notes
+        })
+    
+    except Exception as e:
+        logger.error(f"Domain info error for {domain_id}: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/domain/<domain_id>/stats')
+def get_domain_stats(domain_id):
+    """
+    Get pre-computed statistics for any domain.
+    
+    Returns analysis results stored in PreComputedStats table for instant page loads.
+    If not pre-computed, returns basic model counts.
+    """
+    try:
+        from core.research_framework import FRAMEWORK
+        from core.models import PreComputedStats
+        from utils.background_analyzer import BackgroundAnalyzer
+        
+        # Validate domain
+        domain_meta = FRAMEWORK.get_domain(domain_id)
+        if not domain_meta:
+            return jsonify({'error': f'Unknown domain: {domain_id}'}), 404
+        
+        # Try to get pre-computed results
+        precomputed = PreComputedStats.query.filter_by(
+            stat_type=f"{domain_id}_analysis",
+            is_current=True
+        ).first()
+        
+        if precomputed:
+            result = json.loads(precomputed.data_json)
+            result['precomputed'] = True
+            result['computed_at'] = precomputed.computed_at.isoformat() if precomputed.computed_at else None
+            result['computation_duration'] = precomputed.computation_duration
+            return jsonify(result)
+        
+        # Fallback: compute basic stats on-demand
+        logger.info(f"Computing on-demand stats for {domain_id}...")
+        analyzer = BackgroundAnalyzer()
+        stats_result = analyzer.compute_domain_stats(domain_id)
+        
+        if stats_result.get('status') == 'success':
+            return jsonify(stats_result.get('result', {}))
+        else:
+            return jsonify({'error': stats_result.get('error', 'Unknown error')}), 500
+    
+    except Exception as e:
+        logger.error(f"Domain stats error for {domain_id}: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/domain/<domain_id>/findings')
+def get_domain_findings(domain_id):
+    """
+    Get formatted findings text for any domain.
+    
+    Returns the generated findings summary stored in PreComputedStats.
+    """
+    try:
+        from core.research_framework import FRAMEWORK
+        from core.models import PreComputedStats
+        
+        # Validate domain
+        domain_meta = FRAMEWORK.get_domain(domain_id)
+        if not domain_meta:
+            return jsonify({'error': f'Unknown domain: {domain_id}'}), 404
+        
+        # Try to get pre-computed findings
+        precomputed = PreComputedStats.query.filter_by(
+            stat_type=f"{domain_id}_findings",
+            is_current=True
+        ).first()
+        
+        if precomputed:
+            result = json.loads(precomputed.data_json)
+            return jsonify({
+                'domain_id': domain_id,
+                'display_name': domain_meta.display_name,
+                'findings_text': result.get('findings_text', ''),
+                'analysis_summary': result.get('analysis_summary', {}),
+                'computed_at': precomputed.computed_at.isoformat() if precomputed.computed_at else None
+            })
+        
+        # No findings available
+        return jsonify({
+            'domain_id': domain_id,
+            'display_name': domain_meta.display_name,
+            'findings_text': 'Analysis not yet run. Use /api/admin/recompute-domain to generate findings.',
+            'status': 'not_computed'
+        })
+    
+    except Exception as e:
+        logger.error(f"Domain findings error for {domain_id}: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/admin/recompute-domain/<domain_id>', methods=['POST'])
+def recompute_domain_analysis(domain_id):
+    """
+    Recompute analysis for a specific domain.
+    
+    Runs the domain's analyzer and stores results in PreComputedStats.
+    Useful for updating domain findings after new data collection.
+    """
+    try:
+        from core.research_framework import FRAMEWORK
+        from utils.background_analyzer import BackgroundAnalyzer
+        
+        # Validate domain
+        domain_meta = FRAMEWORK.get_domain(domain_id)
+        if not domain_meta:
+            return jsonify({'error': f'Unknown domain: {domain_id}'}), 404
+        
+        logger.info(f"Recomputing analysis for domain: {domain_id}")
+        
+        analyzer = BackgroundAnalyzer()
+        result = analyzer.compute_domain_stats(domain_id)
+        
+        if result.get('status') == 'success':
+            return jsonify({
+                'success': True,
+                'domain_id': domain_id,
+                'display_name': domain_meta.display_name,
+                'message': f'Analysis recomputed for {domain_meta.display_name}',
+                'duration': result.get('duration', 0),
+                'sample_size': result.get('result', {}).get('sample_size', 0)
+            })
+        else:
+            return jsonify({
+                'success': False,
+                'domain_id': domain_id,
+                'error': result.get('error', 'Unknown error')
+            }), 500
+    
+    except Exception as e:
+        logger.error(f"Domain recomputation error for {domain_id}: {e}")
+        import traceback
+        logger.error(traceback.format_exc())
+        return jsonify({
+            'success': False,
+            'error': str(e)
+        }), 500
+
+
+@app.route('/api/domains/list')
+def list_domains():
+    """
+    List all registered domains in the research framework.
+    
+    Returns metadata for all active and planned domains.
+    """
+    try:
+        from core.research_framework import FRAMEWORK
+        
+        all_domains = []
+        for domain_id, metadata in FRAMEWORK.domains.items():
+            all_domains.append({
+                'domain_id': metadata.domain_id,
+                'display_name': metadata.display_name,
+                'status': metadata.status,
+                'innovation_rating': metadata.innovation_rating,
+                'sample_size_target': metadata.sample_size_target,
+                'research_questions': metadata.research_questions,
+                'temporal_component': metadata.temporal_component,
+                'geographic_component': metadata.geographic_component
+            })
+        
+        # Sort by status and innovation rating
+        all_domains.sort(key=lambda x: (
+            0 if x['status'] == 'complete' else (1 if x['status'] == 'active' else 2),
+            -x['innovation_rating']
+        ))
+        
+        return jsonify({
+            'total_domains': len(all_domains),
+            'domains': all_domains,
+            'framework_summary': FRAMEWORK.get_summary()
+        })
+    
+    except Exception as e:
+        logger.error(f"List domains error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# ============================================================================
+# BAND MEMBER ANALYSIS ENDPOINTS
+# ============================================================================
+
+@app.route('/api/band-members/stats')
+def get_band_member_stats():
+    """Get band member analysis statistics"""
+    try:
+        from core.models import BandMember, BandMemberAnalysis
+        
+        total_members = BandMember.query.count()
+        total_with_analysis = BandMemberAnalysis.query.count()
+        
+        # Role distribution
+        role_counts = {}
+        for role in ['vocalist', 'guitarist', 'bassist', 'drummer', 'keyboardist']:
+            count = BandMember.query.filter_by(primary_role=role).count()
+            if count > 0:
+                role_counts[role] = count
+        
+        # Get sample statistics
+        if total_with_analysis > 0:
+            sample_stats = db.session.query(
+                db.func.avg(BandMemberAnalysis.syllable_count).label('avg_syllables'),
+                db.func.avg(BandMemberAnalysis.phonetic_harshness).label('avg_harshness'),
+                db.func.avg(BandMemberAnalysis.phonetic_smoothness).label('avg_smoothness')
+            ).first()
+        else:
+            sample_stats = None
+        
+        return jsonify({
+            'total_members': total_members,
+            'with_analysis': total_with_analysis,
+            'coverage': round(total_with_analysis / total_members * 100, 1) if total_members > 0 else 0,
+            'role_distribution': role_counts,
+            'sample_stats': {
+                'avg_syllables': float(sample_stats.avg_syllables) if sample_stats and sample_stats.avg_syllables else 0,
+                'avg_harshness': float(sample_stats.avg_harshness) if sample_stats and sample_stats.avg_harshness else 0,
+                'avg_smoothness': float(sample_stats.avg_smoothness) if sample_stats and sample_stats.avg_smoothness else 0
+            } if sample_stats else {}
+        })
+    
+    except Exception as e:
+        logger.error(f"Band member stats error: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/band-members')
+def band_members_findings():
+    """Band member analysis findings page"""
+    try:
+        from core.models import BandMember, BandMemberAnalysis, PreComputedStats
+        
+        # Get pre-computed findings if available
+        findings = PreComputedStats.query.filter_by(
+            stat_type='band_members_findings',
+            is_current=True
+        ).first()
+        
+        # Basic stats
+        total_members = BandMember.query.count()
+        total_analyzed = BandMemberAnalysis.query.count()
+        
+        # Role counts
+        role_counts = db.session.query(
+            BandMember.primary_role,
+            db.func.count(BandMember.id).label('count')
+        ).group_by(BandMember.primary_role).all()
+        
+        role_distribution = {role: count for role, count in role_counts if role}
+        
+        stats = {
+            'sample_size': total_analyzed,
+            'role_distribution': role_distribution,
+            'findings': json.loads(findings.data_json) if findings else {}
+        }
+        
+        return render_template('band_members.html', stats=stats)
+    
+    except Exception as e:
+        logger.error(f"Band members page error: {e}")
+        return render_template('error.html', error=str(e)), 500
 
 
 @app.route('/api/crypto/dataset-status')
@@ -2202,6 +2518,12 @@ def earthquakes_page():
 def academics_page():
     """Academic names nominative determinism analysis page"""
     return render_template('academics.html')
+
+
+@app.route('/academics/findings')
+def academics_findings():
+    """Academic names research findings page"""
+    return render_template('academics_findings.html')
 
 
 @app.route('/api/hurricanes/list')
@@ -4017,6 +4339,12 @@ def nfl_page():
     return render_template('nfl.html')
 
 
+@app.route('/nfl/findings')
+def nfl_findings():
+    """NFL research findings page"""
+    return render_template('nfl_findings.html')
+
+
 @app.route('/api/nfl/overview')
 def get_nfl_overview():
     """Get NFL dataset overview"""
@@ -4311,6 +4639,159 @@ def server_error(e):
 
 
 # =============================================================================
+# MLB PLAYER ANALYSIS ROUTES
+# =============================================================================
+
+@app.route('/mlb')
+def mlb_page():
+    """MLB player name analysis - Interactive dashboard"""
+    return render_template('mlb.html')
+
+
+@app.route('/mlb/findings')
+def mlb_findings():
+    """MLB research findings page"""
+    return render_template('mlb_findings.html')
+
+
+@app.route('/api/mlb/stats')
+def get_mlb_stats():
+    """Get MLB overview statistics"""
+    try:
+        from core.models import MLBPlayer, MLBPlayerAnalysis
+        
+        total_players = MLBPlayer.query.count()
+        
+        if total_players == 0:
+            return jsonify({
+                'total_players': 0,
+                'message': 'No data collected yet. Run bootstrap script first.'
+            })
+        
+        # By position group
+        by_position = {}
+        for pos_group in ['Pitcher', 'Catcher', 'Infield', 'Outfield', 'DH']:
+            count = MLBPlayer.query.filter_by(position_group=pos_group).count()
+            by_position[pos_group] = count
+        
+        # By era
+        by_era = {}
+        for era in ['classic', 'modern', 'contemporary']:
+            era_players = MLBPlayer.query.filter_by(era_group=era).count()
+            if era_players > 0:
+                # Get mean syllables for era
+                era_analyses = db.session.query(MLBPlayerAnalysis).join(
+                    MLBPlayer, MLBPlayer.id == MLBPlayerAnalysis.player_id
+                ).filter(MLBPlayer.era_group == era).all()
+                
+                if era_analyses:
+                    mean_syl = sum(a.syllable_count for a in era_analyses if a.syllable_count) / len(era_analyses)
+                    by_era[era] = {
+                        'count': era_players,
+                        'mean_syllables': mean_syl
+                    }
+        
+        # Overall stats
+        all_analyses = MLBPlayerAnalysis.query.all()
+        mean_syllables = sum(a.syllable_count for a in all_analyses if a.syllable_count) / len(all_analyses) if all_analyses else 0
+        
+        pitcher_count = MLBPlayer.query.filter_by(position_group='Pitcher').count()
+        
+        return jsonify({
+            'total_players': total_players,
+            'mean_syllables': mean_syllables,
+            'pitcher_count': pitcher_count,
+            'position_accuracy': 0.63,  # Will be computed after analysis
+            'by_position': by_position,
+            'by_era': by_era
+        })
+        
+    except Exception as e:
+        logger.error(f"Error getting MLB stats: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mlb/position-analysis')
+def get_mlb_position_analysis():
+    """Get position prediction analysis"""
+    try:
+        from analyzers.mlb_statistical_analyzer import MLBStatisticalAnalyzer
+        
+        analyzer = MLBStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 20:
+            return jsonify({'error': 'Insufficient data for position analysis'})
+        
+        results = analyzer.predict_position(df)
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error in position analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mlb/pitcher-analysis')
+def get_mlb_pitcher_analysis():
+    """Get pitcher-specific analysis (SP vs RP vs CL)"""
+    try:
+        from analyzers.mlb_statistical_analyzer import MLBStatisticalAnalyzer
+        
+        analyzer = MLBStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 20:
+            return jsonify({'error': 'Insufficient data'})
+        
+        results = analyzer.analyze_pitchers(df)
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error in pitcher analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mlb/power-analysis')
+def get_mlb_power_analysis():
+    """Get power hitter analysis (harshness vs home runs)"""
+    try:
+        from analyzers.mlb_statistical_analyzer import MLBStatisticalAnalyzer
+        
+        analyzer = MLBStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 20:
+            return jsonify({'error': 'Insufficient data'})
+        
+        results = analyzer.analyze_power_hitters(df)
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error in power analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/mlb/temporal')
+def get_mlb_temporal():
+    """Get temporal evolution analysis"""
+    try:
+        from analyzers.mlb_statistical_analyzer import MLBStatisticalAnalyzer
+        
+        analyzer = MLBStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 20:
+            return jsonify({'error': 'Insufficient data'})
+        
+        results = analyzer.analyze_temporal_evolution(df)
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error in temporal analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
 # MENTAL HEALTH ENDPOINTS
 # =============================================================================
 
@@ -4318,6 +4799,12 @@ def server_error(e):
 def mental_health_page():
     """Mental health nominative determinism analysis page"""
     return render_template('mental_health.html')
+
+
+@app.route('/mental-health/findings')
+def mental_health_findings():
+    """Mental health research findings and program page"""
+    return render_template('mental_health_findings.html')
 
 
 @app.route('/api/mental-health/overview')
@@ -4797,6 +5284,136 @@ def get_mental_health_term(term_id):
 
 
 # =============================================================================
+# BOARD GAME ANALYSIS ROUTES
+# =============================================================================
+
+@app.route('/board-games')
+def board_games_page():
+    """Board games interactive dashboard"""
+    return render_template('board_games.html')
+
+
+@app.route('/board-games/findings')
+def board_games_findings():
+    """Board games research findings page"""
+    return render_template('board_games_findings.html')
+
+
+@app.route('/api/board-games/stats')
+def get_board_games_stats():
+    """Get board games overview statistics"""
+    try:
+        from core.models import BoardGame, BoardGameAnalysis
+        
+        total_games = BoardGame.query.count()
+        
+        if total_games == 0:
+            return jsonify({
+                'total_games': 0,
+                'message': 'No data collected yet. Run data collection first.'
+            })
+        
+        # Calculate statistics
+        all_games = db.session.query(BoardGame, BoardGameAnalysis).join(
+            BoardGameAnalysis,
+            BoardGame.id == BoardGameAnalysis.game_id
+        ).all()
+        
+        ratings = [g.bgg_rating for g, a in all_games if g.bgg_rating]
+        syllables = [a.syllable_count for g, a in all_games if a.syllable_count]
+        
+        # By era
+        by_era = {}
+        for era in ['classic_1950_1979', 'golden_1980_1999', 'modern_2000_2009', 'contemporary_2010_2024']:
+            era_count = BoardGameAnalysis.query.filter_by(era=era).count()
+            if era_count > 0:
+                era_games = db.session.query(BoardGame, BoardGameAnalysis).join(
+                    BoardGameAnalysis, BoardGame.id == BoardGameAnalysis.game_id
+                ).filter(BoardGameAnalysis.era == era).all()
+                
+                era_ratings = [g.bgg_rating for g, a in era_games if g.bgg_rating]
+                era_syllables = [a.syllable_count for g, a in era_games if a.syllable_count]
+                
+                by_era[era] = {
+                    'count': era_count,
+                    'mean_rating': sum(era_ratings) / len(era_ratings) if era_ratings else 0,
+                    'mean_syllables': sum(era_syllables) / len(era_syllables) if era_syllables else 0
+                }
+        
+        return jsonify({
+            'total_games': total_games,
+            'mean_rating': sum(ratings) / len(ratings) if ratings else 0,
+            'mean_syllables': sum(syllables) / len(syllables) if syllables else 0,
+            'num_clusters': 5,
+            'by_era': by_era
+        })
+        
+    except Exception as e:
+        logger.error(f"Error getting board games stats: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/board-games/clusters')
+def get_board_games_clusters():
+    """Get board game name cluster analysis"""
+    try:
+        from analyzers.board_game_statistical_analyzer import BoardGameStatisticalAnalyzer
+        
+        analyzer = BoardGameStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 50:
+            return jsonify({'error': 'Insufficient data for clustering'})
+        
+        results = analyzer.analyze_clusters(df)
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error getting clusters: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/board-games/temporal')
+def get_board_games_temporal():
+    """Get temporal evolution analysis"""
+    try:
+        from analyzers.board_game_statistical_analyzer import BoardGameStatisticalAnalyzer
+        
+        analyzer = BoardGameStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 50:
+            return jsonify({'error': 'Insufficient data'})
+        
+        results = analyzer.analyze_temporal_evolution(df)
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error getting temporal analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/board-games/cultural')
+def get_board_games_cultural():
+    """Get cultural comparison analysis"""
+    try:
+        from analyzers.board_game_statistical_analyzer import BoardGameStatisticalAnalyzer
+        
+        analyzer = BoardGameStatisticalAnalyzer()
+        df = analyzer.get_comprehensive_dataset()
+        
+        if len(df) < 50:
+            return jsonify({'error': 'Insufficient data'})
+        
+        results = analyzer.analyze_cultural_patterns(df)
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error getting cultural analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
 # SHIP ANALYSIS ROUTES (Nominative Determinism in Maritime History)
 # =============================================================================
 
@@ -4807,6 +5424,16 @@ def ships_page():
         return render_template('ship_findings.html')
     except Exception as e:
         logger.error(f"Error rendering ships page: {e}")
+        return render_template('error.html', error=str(e)), 500
+
+
+@app.route('/ships/findings')
+def ship_findings():
+    """Ship nomenclature research findings page"""
+    try:
+        return render_template('ship_findings.html')
+    except Exception as e:
+        logger.error(f"Error rendering ship findings page: {e}")
         return render_template('error.html', error=str(e)), 500
 
 

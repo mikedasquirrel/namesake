@@ -1,0 +1,119 @@
+# Band Member Role & Name Analysis Domain Configuration
+# Individual band member names and role prediction
+
+domain: band_members
+display_name: "Band Member Role & Name Analysis"
+
+research_questions:
+  - "Do phonetic features predict which role (bassist/drummer/vocalist/etc.) a member plays?"
+  - "Does name 'harshness' correlate with drummer/guitarist roles?"
+  - "Do 'smoother' names correlate with vocalist/songwriter roles?"
+  - "Does collective member name composition predict band commercial success?"
+  - "Are there temporal shifts in name-role patterns?"
+
+# Data collection configuration
+collector_class: "collectors.band_members_collector.BandMembersCollector"
+collector_params:
+  source: "musicbrainz"
+  rate_limit_seconds: 1.0
+  include_deceased: true
+  verify_roles: true
+
+# Analysis configuration
+analyzer_class: "analyzers.band_members_statistical_analyzer.BandMembersStatisticalAnalyzer"
+analyzer_params:
+  role_prediction_model: "random_forest"
+  collective_analysis: true
+  temporal_analysis: true
+
+# Database models
+models:
+  - BandMember
+  - BandMemberAnalysis
+
+# Sample targets
+target_sample_size: 3000
+min_sample_size: 1500
+
+# Stratification strategy
+stratification:
+  enabled: true
+  field: "primary_role"
+  targets:
+    vocalist: 600
+    guitarist: 700
+    bassist: 600
+    drummer: 600
+    keyboardist: 400
+    multi_instrumentalist: 100
+
+# Primary analysis variables
+primary_outcome_variable: "primary_role"
+secondary_outcome_variables:
+  - "is_songwriter"
+  - "is_lead_vocalist"
+  - "is_founding_member"
+  - "band_commercial_success"
+
+key_predictors:
+  - "syllable_count"
+  - "phonetic_harshness"
+  - "phonetic_smoothness"
+  - "memorability"
+  - "name_origin"
+  - "stage_name_indicator"
+
+control_variables:
+  - "band_genre"
+  - "formation_year"
+  - "nationality"
+  - "birth_year"
+
+# Temporal analysis
+temporal_component: true
+temporal_field: "years_active_start"
+temporal_periods:
+  classic_rock: [1960, 1979]
+  new_wave_metal: [1980, 1989]
+  grunge_alternative: [1990, 1999]
+  modern: [2000, 2024]
+
+# Geographic analysis
+geographic_component: true
+geographic_field: "nationality"
+
+# Web interface
+page_template: "band_members.html"
+findings_cache_key: "band_members_findings"
+api_endpoints:
+  - "/api/band-members/stats"
+  - "/api/band-members/role-prediction"
+  - "/api/band-members/collective-analysis"
+
+# Expected outcomes
+effect_strength_expected: "moderate"
+expected_correlations:
+  harshness_drummer: 0.31
+  smoothness_vocalist: -0.28
+  syllables_role: 0.23
+  collective_diversity_success: 0.19
+
+# Quality thresholds
+quality_checks:
+  min_data_completeness: 0.90
+  role_prediction_accuracy_threshold: 0.45
+  require_out_of_sample_validation: true
+  require_cross_validation: true
+  min_members_per_role: 100
+
+# Status
+status: "active"
+innovation_rating: 2
+priority: "high"
+
+notes: |
+  Individual band member analysis (vs band name analysis).
+  Role prediction analogous to NFL/NBA position analysis.
+  Novel multi-level modeling: members nested within bands.
+  Collective composition effects on band success.
+  Links to existing Band table for combined analyses.

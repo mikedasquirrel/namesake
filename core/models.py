@@ -1346,6 +1346,111 @@ class BandAnalysis(db.Model):
 
 
 # =============================================================================
+# BAND MEMBER TABLES (INDIVIDUAL MEMBER NAME ANALYSIS)
+# =============================================================================
+
+class BandMember(db.Model):
+    """Individual band member data"""
+    __tablename__ = 'band_member'
+    __table_args__ = (
+        db.Index('idx_band_member_name', 'name'),
+        db.Index('idx_band_member_role', 'primary_role'),
+        db.Index('idx_band_member_band', 'band_id'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False, index=True)
+    band_id = db.Column(db.String(100), db.ForeignKey('band.id'))
+    
+    # Role information
+    primary_role = db.Column(db.String(50))  # vocalist, guitarist, bassist, drummer, keyboardist
+    secondary_roles = db.Column(db.Text)  # JSON array
+    is_songwriter = db.Column(db.Boolean, default=False)
+    is_lead_vocalist = db.Column(db.Boolean, default=False)
+    is_founding_member = db.Column(db.Boolean, default=False)
+    
+    # Member metadata
+    birth_year = db.Column(db.Integer)
+    nationality = db.Column(db.String(100))
+    years_active_start = db.Column(db.Integer)
+    years_active_end = db.Column(db.Integer)
+    
+    # Timestamps
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    last_updated = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationship to band
+    band = db.relationship('Band', backref='members')
+    analysis = db.relationship('BandMemberAnalysis', backref='member', uselist=False, cascade='all, delete-orphan')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'band_id': self.band_id,
+            'primary_role': self.primary_role,
+            'secondary_roles': json.loads(self.secondary_roles) if self.secondary_roles else [],
+            'is_songwriter': self.is_songwriter,
+            'is_lead_vocalist': self.is_lead_vocalist,
+            'is_founding_member': self.is_founding_member,
+            'birth_year': self.birth_year,
+            'nationality': self.nationality,
+            'years_active_start': self.years_active_start,
+            'years_active_end': self.years_active_end,
+            'analysis': self.analysis.to_dict() if self.analysis else None
+        }
+
+
+class BandMemberAnalysis(db.Model):
+    """Linguistic analysis of band member names"""
+    __tablename__ = 'band_member_analysis'
+    __table_args__ = (
+        db.Index('idx_band_member_analysis_syllables', 'syllable_count'),
+        db.Index('idx_band_member_analysis_harshness', 'phonetic_harshness'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    member_id = db.Column(db.Integer, db.ForeignKey('band_member.id'), nullable=False, unique=True)
+    
+    # Standard phonetic features
+    syllable_count = db.Column(db.Integer)
+    character_length = db.Column(db.Integer)
+    phonetic_harshness = db.Column(db.Float)
+    phonetic_smoothness = db.Column(db.Float)
+    memorability_score = db.Column(db.Float)
+    uniqueness_score = db.Column(db.Float)
+    pronounceability_score = db.Column(db.Float)
+    
+    # Name origin features
+    name_origin = db.Column(db.String(50))  # Anglo, Nordic, Italian, etc.
+    stage_name_indicator = db.Column(db.Boolean, default=False)  # vs birth name
+    
+    # Vowel/consonant features
+    vowel_ratio = db.Column(db.Float)
+    consonant_cluster_score = db.Column(db.Float)
+    
+    # Advanced features (JSON)
+    phonetic_features_json = db.Column(db.Text)  # JSON: detailed phonetic breakdown
+    
+    # Timestamps
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'syllables': self.syllable_count,
+            'length': self.character_length,
+            'phonetic_harshness': self.phonetic_harshness,
+            'phonetic_smoothness': self.phonetic_smoothness,
+            'memorability': self.memorability_score,
+            'uniqueness': self.uniqueness_score,
+            'pronounceability': self.pronounceability_score,
+            'name_origin': self.name_origin,
+            'stage_name': self.stage_name_indicator,
+            'vowel_ratio': self.vowel_ratio
+        }
+
+
+# =============================================================================
 # NBA PLAYER TABLES
 # =============================================================================
 
@@ -3182,6 +3287,343 @@ class ElectionCandidateAnalysis(db.Model):
             'phoneme_breakdown': json.loads(self.phoneme_breakdown) if self.phoneme_breakdown else {},
             'stress_pattern': json.loads(self.stress_pattern) if self.stress_pattern else {},
             'sound_symbolism': json.loads(self.sound_symbolism) if self.sound_symbolism else {}
+        }
+
+
+# =============================================================================
+# BOARD GAME MODELS
+# =============================================================================
+
+class BoardGame(db.Model):
+    """Board game entity with BGG data"""
+    __tablename__ = 'board_games'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(255), nullable=False, index=True)
+    bgg_id = db.Column(db.Integer, unique=True, index=True)
+    year_published = db.Column(db.Integer, index=True)
+    
+    # Ratings & Metrics
+    bgg_rating = db.Column(db.Float)  # BGG weighted rating
+    average_rating = db.Column(db.Float)
+    num_ratings = db.Column(db.Integer)
+    complexity_weight = db.Column(db.Float)  # 1-5 scale
+    ownership_count = db.Column(db.Integer)
+    
+    # Game Characteristics
+    min_players = db.Column(db.Integer)
+    max_players = db.Column(db.Integer)
+    playing_time = db.Column(db.Integer)  # minutes
+    min_age = db.Column(db.Integer)
+    
+    # Classification
+    category = db.Column(db.String(100), index=True)  # strategy, party, family, etc.
+    primary_mechanic = db.Column(db.String(100))
+    designer = db.Column(db.String(255))
+    designer_nationality = db.Column(db.String(50), index=True)  # US, DE, JP, etc.
+    publisher = db.Column(db.String(255))
+    
+    # Rankings
+    bgg_rank = db.Column(db.Integer)  # Overall BGG rank
+    category_rank = db.Column(db.Integer)  # Rank within category
+    
+    # Metadata
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    analysis = db.relationship('BoardGameAnalysis', backref='game', 
+                              lazy=True, uselist=False, cascade='all, delete-orphan')
+    
+    def __repr__(self):
+        return f'<BoardGame {self.name} ({self.year_published})>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'bgg_id': self.bgg_id,
+            'year_published': self.year_published,
+            'bgg_rating': self.bgg_rating,
+            'average_rating': self.average_rating,
+            'num_ratings': self.num_ratings,
+            'complexity_weight': self.complexity_weight,
+            'ownership_count': self.ownership_count,
+            'min_players': self.min_players,
+            'max_players': self.max_players,
+            'playing_time': self.playing_time,
+            'min_age': self.min_age,
+            'category': self.category,
+            'primary_mechanic': self.primary_mechanic,
+            'designer': self.designer,
+            'designer_nationality': self.designer_nationality,
+            'publisher': self.publisher,
+            'bgg_rank': self.bgg_rank,
+            'category_rank': self.category_rank
+        }
+
+
+class BoardGameAnalysis(db.Model):
+    """Phonetic and linguistic analysis of board game names"""
+    __tablename__ = 'board_game_analyses'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    game_id = db.Column(db.Integer, db.ForeignKey('board_games.id'), nullable=False, unique=True)
+    
+    # Name Structure
+    word_count = db.Column(db.Integer)
+    syllable_count = db.Column(db.Integer)
+    character_length = db.Column(db.Integer)
+    contains_colon = db.Column(db.Boolean)  # Base game vs expansion pattern
+    contains_number = db.Column(db.Boolean)
+    contains_article = db.Column(db.Boolean)  # "The", "A", etc.
+    
+    # Phonetic Features (standard suite)
+    harshness_score = db.Column(db.Float)
+    smoothness_score = db.Column(db.Float)
+    plosive_ratio = db.Column(db.Float)
+    fricative_ratio = db.Column(db.Float)
+    vowel_ratio = db.Column(db.Float)
+    consonant_cluster_density = db.Column(db.Float)
+    
+    # Advanced Phonetic
+    phonetic_complexity = db.Column(db.Float)
+    sound_symbolism_score = db.Column(db.Float)
+    alliteration_score = db.Column(db.Float)
+    
+    # Semantic Features
+    name_type = db.Column(db.String(50))  # descriptive, abstract, thematic, compound, portmanteau
+    memorability_score = db.Column(db.Float)
+    pronounceability_score = db.Column(db.Float)
+    semantic_transparency = db.Column(db.Float)  # How clear is the theme from name?
+    
+    # Cultural/Linguistic
+    is_fantasy_name = db.Column(db.Boolean)  # Made-up words (Carcassonne, Splendor)
+    is_latin_derived = db.Column(db.Boolean)
+    is_compound_word = db.Column(db.Boolean)
+    primary_language = db.Column(db.String(20))  # en, de, fr, jp, etc.
+    
+    # Classification Clusters
+    phonetic_cluster = db.Column(db.Integer)
+    semantic_cluster = db.Column(db.Integer)
+    combined_cluster = db.Column(db.Integer)
+    
+    # Composite Scores
+    name_quality_score = db.Column(db.Float)  # Overall name effectiveness
+    cultural_alignment_score = db.Column(db.Float)  # Match to tradition
+    thematic_resonance = db.Column(db.Float)  # Name-game theme alignment
+    
+    # Era Classification
+    era = db.Column(db.String(50))  # classic, golden, modern, contemporary
+    
+    # Metadata
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def __repr__(self):
+        return f'<BoardGameAnalysis for game_id={self.game_id}>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'game_id': self.game_id,
+            'word_count': self.word_count,
+            'syllable_count': self.syllable_count,
+            'character_length': self.character_length,
+            'contains_colon': self.contains_colon,
+            'contains_number': self.contains_number,
+            'contains_article': self.contains_article,
+            'harshness_score': self.harshness_score,
+            'smoothness_score': self.smoothness_score,
+            'plosive_ratio': self.plosive_ratio,
+            'fricative_ratio': self.fricative_ratio,
+            'vowel_ratio': self.vowel_ratio,
+            'consonant_cluster_density': self.consonant_cluster_density,
+            'phonetic_complexity': self.phonetic_complexity,
+            'sound_symbolism_score': self.sound_symbolism_score,
+            'alliteration_score': self.alliteration_score,
+            'name_type': self.name_type,
+            'memorability_score': self.memorability_score,
+            'pronounceability_score': self.pronounceability_score,
+            'semantic_transparency': self.semantic_transparency,
+            'is_fantasy_name': self.is_fantasy_name,
+            'is_latin_derived': self.is_latin_derived,
+            'is_compound_word': self.is_compound_word,
+            'primary_language': self.primary_language,
+            'phonetic_cluster': self.phonetic_cluster,
+            'semantic_cluster': self.semantic_cluster,
+            'combined_cluster': self.combined_cluster,
+            'name_quality_score': self.name_quality_score,
+            'cultural_alignment_score': self.cultural_alignment_score,
+            'thematic_resonance': self.thematic_resonance,
+            'era': self.era
+        }
+
+
+# =============================================================================
+# MLB PLAYER MODELS
+# =============================================================================
+
+class MLBPlayer(db.Model):
+    """MLB player data from Baseball Reference"""
+    __tablename__ = 'mlb_players'
+    __table_args__ = (
+        db.Index('idx_mlb_debut_year', 'debut_year'),
+        db.Index('idx_mlb_position', 'position'),
+        db.Index('idx_mlb_position_group', 'position_group'),
+        db.Index('idx_mlb_era_group', 'era_group'),
+    )
+    
+    id = db.Column(db.String(100), primary_key=True)  # Baseball Reference player ID
+    name = db.Column(db.String(200), nullable=False, index=True)
+    full_name = db.Column(db.String(300))
+    
+    # Position
+    position = db.Column(db.String(10), index=True)  # P, C, 1B, 2B, 3B, SS, LF, CF, RF, DH
+    position_group = db.Column(db.String(20), index=True)  # Pitcher, Catcher, Infield, Outfield, DH
+    pitcher_role = db.Column(db.String(20))  # SP (starter), RP (reliever), CL (closer)
+    
+    # Career
+    debut_year = db.Column(db.Integer, index=True)
+    final_year = db.Column(db.Integer)
+    years_active = db.Column(db.Integer)
+    is_active = db.Column(db.Boolean, default=False)
+    
+    # Era classification
+    era_group = db.Column(db.String(30))  # classic (1950-1979), modern (1980-1999), contemporary (2000-2024)
+    
+    # Batting Stats (for position players)
+    games_played = db.Column(db.Integer)
+    at_bats = db.Column(db.Integer)
+    batting_average = db.Column(db.Float)
+    home_runs = db.Column(db.Integer, index=True)  # Indexed for power analysis
+    rbis = db.Column(db.Integer)
+    stolen_bases = db.Column(db.Integer)
+    ops = db.Column(db.Float)  # On-base plus slugging
+    slugging_percentage = db.Column(db.Float)
+    on_base_percentage = db.Column(db.Float)
+    
+    # Pitching Stats (for pitchers)
+    wins = db.Column(db.Integer)
+    losses = db.Column(db.Integer)
+    era = db.Column(db.Float)  # Earned run average
+    strikeouts = db.Column(db.Integer)
+    saves = db.Column(db.Integer)
+    innings_pitched = db.Column(db.Float)
+    whip = db.Column(db.Float)  # Walks + hits per inning
+    games_started = db.Column(db.Integer)
+    complete_games = db.Column(db.Integer)
+    
+    # Achievements
+    all_star_count = db.Column(db.Integer)
+    mvp_awards = db.Column(db.Integer)
+    cy_young_awards = db.Column(db.Integer)
+    gold_gloves = db.Column(db.Integer)
+    silver_sluggers = db.Column(db.Integer)
+    hof_inducted = db.Column(db.Boolean, default=False)
+    
+    # Demographics
+    birth_country = db.Column(db.String(50), index=True)
+    birth_state = db.Column(db.String(50))
+    ethnicity = db.Column(db.String(50))  # For internationalization analysis
+    
+    # Composite scores
+    performance_score = db.Column(db.Float)
+    career_achievement_score = db.Column(db.Float)
+    power_score = db.Column(db.Float)  # For power hitters
+    
+    # Metadata
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    analysis = db.relationship('MLBPlayerAnalysis', backref='player',
+                              lazy=True, uselist=False, cascade='all, delete-orphan')
+    
+    def __repr__(self):
+        return f'<MLBPlayer {self.name} ({self.position})>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'position': self.position,
+            'position_group': self.position_group,
+            'pitcher_role': self.pitcher_role,
+            'debut_year': self.debut_year,
+            'years_active': self.years_active,
+            'era_group': self.era_group,
+            'batting_average': self.batting_average,
+            'home_runs': self.home_runs,
+            'era': self.era,
+            'strikeouts': self.strikeouts,
+            'all_star_count': self.all_star_count,
+            'hof_inducted': self.hof_inducted,
+            'birth_country': self.birth_country
+        }
+
+
+class MLBPlayerAnalysis(db.Model):
+    """Phonetic and linguistic analysis of MLB player names"""
+    __tablename__ = 'mlb_player_analyses'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    player_id = db.Column(db.String(100), db.ForeignKey('mlb_players.id'), nullable=False, unique=True)
+    
+    # Name structure
+    syllable_count = db.Column(db.Integer)
+    word_count = db.Column(db.Integer)
+    character_length = db.Column(db.Integer)
+    first_name_syllables = db.Column(db.Integer)
+    last_name_syllables = db.Column(db.Integer)
+    first_name_length = db.Column(db.Integer)
+    last_name_length = db.Column(db.Integer)
+    
+    # Phonetic features (standard suite)
+    harshness_score = db.Column(db.Float)
+    smoothness_score = db.Column(db.Float)
+    power_connotation_score = db.Column(db.Float)  # For power hitter analysis
+    memorability_score = db.Column(db.Float)
+    pronounceability_score = db.Column(db.Float)
+    phonetic_complexity = db.Column(db.Float)
+    
+    # Advanced phonetic
+    plosive_ratio = db.Column(db.Float)
+    vowel_ratio = db.Column(db.Float)
+    consonant_cluster_density = db.Column(db.Float)
+    alliteration_score = db.Column(db.Float)
+    
+    # Name origin classification
+    name_origin = db.Column(db.String(50))  # Anglo, Latino, Asian, European, African
+    is_nickname = db.Column(db.Boolean)
+    has_accent = db.Column(db.Boolean)  # Accented characters (José, Ramón)
+    
+    # Position-specific scores
+    pitcher_name_score = db.Column(db.Float)  # Complexity/professionalism
+    power_name_score = db.Column(db.Float)  # Harshness for sluggers
+    speed_name_score = db.Column(db.Float)  # For base stealers
+    
+    # Clusters
+    position_cluster = db.Column(db.Integer)
+    phonetic_cluster = db.Column(db.Integer)
+    temporal_cohort = db.Column(db.String(30))  # Era-based naming cohort
+    
+    # Metadata
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def __repr__(self):
+        return f'<MLBPlayerAnalysis for player_id={self.player_id}>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'player_id': self.player_id,
+            'syllable_count': self.syllable_count,
+            'word_count': self.word_count,
+            'harshness_score': self.harshness_score,
+            'power_connotation_score': self.power_connotation_score,
+            'memorability_score': self.memorability_score,
+            'name_origin': self.name_origin,
+            'position_cluster': self.position_cluster
         }
 
 

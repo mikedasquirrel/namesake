@@ -1,0 +1,103 @@
+# Immigration Surname Semantics Domain Configuration
+# Semantic meaning analysis of surname categories and migration patterns
+
+domain: immigration
+display_name: "Immigration Surname Semantic Analysis"
+
+research_questions:
+  - "Do toponymic surnames show different immigration rates than other categories?"
+  - "Does place cultural importance correlate with migration patterns?"
+  - "Are there semantic category × origin country interactions?"
+  - "Do surname meanings predict settlement clustering?"
+  - "Is there temporal dispersion by semantic category?"
+
+collector_class: "collectors.immigration_collector.ImmigrationCollector"
+collector_params:
+  surname_categories:
+    - toponymic
+    - occupational
+    - descriptive
+    - patronymic
+    - religious
+  temporal_range: [1880, 2020]
+
+analyzer_class: "analyzers.immigration_statistical_analyzer.ImmigrationStatisticalAnalyzer"
+analyzer_params:
+  semantic_analysis: true
+  interaction_effects: true
+  place_importance_correlation: true
+
+models:
+  - ImmigrantSurname
+  - ImmigrationRecord
+  - SettlementPattern
+  - SurnameClassification
+
+target_sample_size: 2000
+min_sample_size: 900
+
+stratification:
+  enabled: true
+  field: semantic_category
+  targets:
+    toponymic: 400
+    occupational: 400
+    descriptive: 400
+    patronymic: 400
+    religious: 400
+
+primary_outcome_variable: "immigration_rate"
+secondary_outcome_variables:
+  - "settlement_clustering_hhi"
+  - "temporal_dispersion"
+  - "state_distribution"
+
+key_predictors:
+  - "semantic_category"
+  - "place_importance"
+  - "origin_country"
+  - "surname_frequency"
+
+control_variables:
+  - "origin_country_gdp"
+  - "historical_migration_waves"
+  - "surname_age"
+
+temporal_component: true
+temporal_field: "peak_immigration_decade"
+temporal_periods:
+  ellis_island: [1880, 1924]
+  post_quota: [1925, 1965]
+  modern: [1966, 2020]
+
+geographic_component: true
+geographic_field: "settlement_state"
+
+page_template: "immigration.html"
+findings_cache_key: "immigration_findings"
+api_endpoints:
+  - "/api/immigration/stats"
+  - "/api/immigration/semantic-analysis"
+  - "/api/immigration/settlement-patterns"
+
+effect_strength_expected: "moderate"
+expected_correlations:
+  toponymic_clustering: 0.35
+  place_importance_rate: 0.28
+
+quality_checks:
+  min_data_completeness: 0.92
+  min_surnames_per_category: 80
+  require_cross_category_comparison: true
+  require_interaction_analysis: true
+
+status: "complete"
+innovation_rating: 2
+priority: "high"
+
+notes: |
+  Semantic meaning analysis complete with 5 surname categories.
+  Strong toponymic vs non-toponymic effects identified.
+  Place importance correlations significant (p<0.01).
+  Settlement clustering differs by semantic category.
+

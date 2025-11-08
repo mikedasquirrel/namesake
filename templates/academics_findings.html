@@ -1,0 +1,319 @@
+{% extends "base.html" %}
+
+{% block title %}Academic Names - Research Findings{% endblock %}
+
+{% block content %}
+<div style="max-width: 1200px; margin: 0 auto;">
+
+<!-- Page Header -->
+<div style="text-align: center; margin-bottom: 3rem;">
+    <h1 style="font-size: 2.75rem; margin-bottom: 0.75rem;">Academic Names: The Ivory Tower Phonetic Hierarchy</h1>
+    <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+        Testing if Name Phonetics Predict University Prestige & Research Impact
+    </p>
+    <div style="margin-top: 1.5rem;">
+        <a href="/academics" class="btn-secondary">← Back to Academic Analysis</a>
+    </div>
+</div>
+
+<!-- Central Question Banner -->
+<div style="background: linear-gradient(135deg, rgba(59, 130, 246, 0.15), rgba(59, 130, 246, 0.05)); padding: 2rem; border-radius: 12px; border-left: 4px solid #3b82f6; margin-bottom: 3rem;">
+    <div style="display: flex; align-items: center; gap: 2rem;">
+        <div style="font-size: 4rem;">🎓</div>
+        <div style="flex: 1;">
+            <div style="font-size: 1.4rem; font-weight: 700; margin-bottom: 0.75rem; color: #3b82f6;">The Provocative Question</div>
+            <div style="font-size: 1.05rem; color: var(--text-secondary); line-height: 1.7;">
+                Can you predict who teaches at <strong>Harvard, MIT, or Stanford</strong> from their name phonetics alone? 
+                Using the same methodology that achieved <strong>ROC AUC 0.916</strong> predicting hurricane casualties—accuracy 
+                comparable to <em>medical screening tests</em>—we test if nominative determinism extends to academia, where 
+                "Professor Worthington" might actually be more common at Princeton than Penn State.
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Research Status -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem; text-align: center;">Research Program Status</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; margin-bottom: 2rem;">
+        <div style="text-align: center; padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 2.5rem; font-weight: 700; color: #10b981;">✅</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Infrastructure Complete</div>
+        </div>
+        <div style="text-align: center; padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 2.5rem; font-weight: 700; color: #3b82f6;">50,000+</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Target Professors</div>
+        </div>
+        <div style="text-align: center; padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 2.5rem; font-weight: 700; color: #f59e0b;">0.916</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Target ROC AUC</div>
+        </div>
+        <div style="text-align: center; padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 2.5rem; font-weight: 700; color: #8b5cf6;">7</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Research Hypotheses</div>
+        </div>
+    </div>
+
+    <div style="padding: 1.5rem; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05)); border-radius: 8px; border-left: 4px solid #10b981;">
+        <div style="font-weight: 700; margin-bottom: 0.75rem; font-size: 1.1rem;">Production-Ready Infrastructure</div>
+        <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+            Complete data collection system with university directory scrapers, Google Scholar integration, 
+            and comprehensive phonetic analysis pipeline. Ready for mass-scale data collection across 
+            top-50 universities → mid-tier → teaching-focused institutions.
+        </div>
+    </div>
+</div>
+
+<!-- The Seven Hypotheses -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">The Seven Research Hypotheses</h2>
+    
+    <!-- H1 -->
+    <div style="padding: 2rem; background: var(--background-secondary); border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #3b82f6;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="font-size: 2rem; font-weight: 700; color: #3b82f6;">H1</div>
+            <div style="font-size: 1.3rem; font-weight: 700;">The Authority Gradient Hypothesis</div>
+        </div>
+        <div style="font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+            <strong>Prediction:</strong> Phonetic authority scores correlate with university prestige tier (Top-20 vs regional).
+        </div>
+        <div style="padding: 1rem; background: var(--background); border-radius: 6px;">
+            <strong>Example:</strong> "Worthington" (authority: 87) more common at Princeton than "Miller" (authority: 42) at regional universities.
+            <strong>Target Effect:</strong> Cohen's d = 0.35-0.45
+        </div>
+    </div>
+
+    <!-- H2 -->
+    <div style="padding: 2rem; background: var(--background-secondary); border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #10b981;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="font-size: 2rem; font-weight: 700; color: #10b981;">H2</div>
+            <div style="font-size: 1.3rem; font-weight: 700;">The Syllable-Citation Paradox</div>
+        </div>
+        <div style="font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+            <strong>Prediction:</strong> Memorability (short, simple names) predicts citation counts MORE than authority.
+        </div>
+        <div style="padding: 1rem; background: var(--background); border-radius: 6px;">
+            <strong>Mechanism:</strong> Citation generation is partially a function of name memorability. "Chen" easier to recall/cite than "Wojciechowski."
+            <strong>Target:</strong> r = 0.18-0.24 (memorability → h-index)
+        </div>
+    </div>
+
+    <!-- H3 -->
+    <div style="padding: 2rem; background: var(--background-secondary); border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #8b5cf6;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="font-size: 2rem; font-weight: 700; color: #8b5cf6;">H3</div>
+            <div style="font-size: 1.3rem; font-weight: 700;">Field-Specific Phonetic Signatures</div>
+        </div>
+        <div style="font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+            <strong>Prediction:</strong> STEM faculty have harsher names than humanities faculty.
+        </div>
+        <div style="padding: 1rem; background: var(--background); border-radius: 6px;">
+            <strong>Rationale:</strong> STEM = precision, certainty → harsh consonants. Humanities = nuance, interpretation → softer phonetics.
+            <strong>Target:</strong> d = 0.25-0.35 (STEM vs Humanities harshness)
+        </div>
+    </div>
+
+    <!-- H4 -->
+    <div style="padding: 2rem; background: var(--background-secondary); border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #f59e0b;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="font-size: 2rem; font-weight: 700; color: #f59e0b;">H4</div>
+            <div style="font-size: 1.3rem; font-weight: 700;">The Tenure Track Name Advantage</div>
+        </div>
+        <div style="font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+            <strong>Prediction:</strong> Full professors have +12% higher authority scores than assistant professors at the same university.
+        </div>
+        <div style="padding: 1rem; background: var(--background); border-radius: 6px;">
+            <strong>Test:</strong> Control for university prestige, compare phonetics across ranks. If true, nominative determinism operates WITHIN institutions.
+        </div>
+    </div>
+
+    <!-- H5 -->
+    <div style="padding: 2rem; background: var(--background-secondary); border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #ef4444;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="font-size: 2rem; font-weight: 700; color: #ef4444;">H5</div>
+            <div style="font-size: 1.3rem; font-weight: 700;">The Top-20 Prediction Challenge (ROC AUC > 0.85)</div>
+        </div>
+        <div style="font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+            <strong>Prediction:</strong> Machine learning model using ONLY name phonetics can predict Top-20 university employment with medical-grade accuracy.
+        </div>
+        <div style="padding: 1rem; background: var(--background); border-radius: 6px;">
+            <strong>If achieved:</strong> Would prove nominative determinism as powerful as traditional credentials. <strong>Paradigm-shifting result.</strong>
+        </div>
+    </div>
+
+    <!-- H6 -->
+    <div style="padding: 2rem; background: var(--background-secondary); border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #06b6d4;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="font-size: 2rem; font-weight: 700; color: #06b6d4;">H6</div>
+            <div style="font-size: 1.3rem; font-weight: 700;">Ethnic Name Penalty Quantification</div>
+        </div>
+        <div style="font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+            <strong>Prediction:</strong> Ethnic names face -15 to -20 point prestige penalty controlling for credentials.
+        </div>
+        <div style="padding: 1rem; background: var(--background); border-radius: 6px;">
+            <strong>Test:</strong> Compare matched pairs (same credentials, different ethnic signals). Critical for identifying discrimination vs phonetics.
+        </div>
+    </div>
+
+    <!-- H7 -->
+    <div style="padding: 2rem; background: var(--background-secondary); border-radius: 8px; border-left: 4px solid #ec4899;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="font-size: 2rem; font-weight: 700; color: #ec4899;">H7</div>
+            <div style="font-size: 1.3rem; font-weight: 700;">The Publishing Name Effect</div>
+        </div>
+        <div style="font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+            <strong>Prediction:</strong> Professors with memorable names have 18-25% more citations controlling for paper quality.
+        </div>
+        <div style="padding: 1rem; background: var(--background); border-radius: 6px;">
+            <strong>Mechanism:</strong> Memorable names → better recall → more citations. "Smith" cited more than "Szczepanski" for equivalent work.
+        </div>
+    </div>
+</div>
+
+<!-- Infrastructure Built -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">Research Infrastructure Complete</h2>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div>
+            <h3 style="font-size: 1.2rem; margin-bottom: 1rem; color: #3b82f6;">Database Models</h3>
+            <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+                <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8;">
+                    <li><strong>Academic:</strong> Professor identity, position, university, field</li>
+                    <li><strong>AcademicAnalysis:</strong> Complete phonetic/linguistic features</li>
+                    <li><strong>AcademicResearchMetrics:</strong> Google Scholar data (h-index, citations)</li>
+                </ul>
+                <div style="margin-top: 1rem; padding: 1rem; background: var(--background); border-radius: 6px; font-size: 0.9rem; color: var(--text-muted);">
+                    ~250 lines of production-quality SQLAlchemy models with proper indexes and relationships
+                </div>
+            </div>
+        </div>
+        <div>
+            <h3 style="font-size: 1.2rem; margin-bottom: 1rem; color: #10b981;">Data Collection System</h3>
+            <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+                <ul style="margin: 0; padding-left: 1.5rem; line-height: 1.8;">
+                    <li>University directory scraping (BeautifulSoup + Selenium)</li>
+                    <li>Google Scholar enrichment (rate-limited, polite)</li>
+                    <li>Field classification (STEM/humanities/social science)</li>
+                    <li>Bootstrap data for testing (MIT/Harvard/Stanford)</li>
+                </ul>
+                <div style="margin-top: 1rem; padding: 1rem; background: var(--background); border-radius: 6px; font-size: 0.9rem; color: var(--text-muted);">
+                    ~750 lines in collectors/academic_collector.py with error handling and progress tracking
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+        <h3 style="font-size: 1.1rem; margin-bottom: 1rem;">Mass Collection Scripts</h3>
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+            <div>
+                <div style="font-weight: 600; margin-bottom: 0.5rem; color: #3b82f6;">Phase 1: Top-50</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Target 10,000 professors from elite institutions</div>
+            </div>
+            <div>
+                <div style="font-weight: 600; margin-bottom: 0.5rem; color: #10b981;">Phase 2: Mid-Tier</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Target 20,000 from state/regional universities</div>
+            </div>
+            <div>
+                <div style="font-weight: 600; margin-bottom: 0.5rem; color: #f59e0b;">Phase 3: Teaching</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted);">Target 20,000 from teaching-focused schools</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- What Success Looks Like -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">What Statistical Success Looks Like</h2>
+    
+    <div style="display: grid; gap: 1.5rem;">
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: #10b981;">ROC AUC > 0.85 (Top-20 Prediction)</div>
+            <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+                <strong>Everyday equivalent:</strong> If we achieve this, predicting Harvard professors from names would be 
+                <em>as accurate as airport security screening</em> or a credit score predicting loan default. Not perfect, 
+                but surprisingly reliable—like correctly guessing someone's hometown from their accent 8-9 times out of 10.
+                <strong>This would be paradigm-shifting.</strong>
+            </div>
+        </div>
+
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: #3b82f6;">Cohen's d = 0.35-0.45 (Authority Gradient)</div>
+            <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+                <strong>Translation:</strong> Princeton professors' names sound ~35-45% more authoritative than community college professors. 
+                About the same difference as height between NBA players and average adults (6'7" vs 5'9").
+                <strong>Small but consistent and visible.</strong>
+            </div>
+        </div>
+
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: #f59e0b;">r = 0.18-0.24 (Memorability → Citations)</div>
+            <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+                <strong>Real-world impact:</strong> Name memorability explains 3-6% of citation variance. Sounds small, but consider: 
+                This is the difference between <strong>100 citations vs 130 citations</strong> for the same quality work. 
+                Over a career, that's <strong>hundreds of citations</strong> attributable purely to having "Chen" instead of "Wojciechowski."
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Next Steps -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">Execution Roadmap</h2>
+    
+    <div style="display: grid; gap: 1.5rem;">
+        <div style="padding: 1.5rem; background: linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(16, 185, 129, 0.05)); border-radius: 8px; border-left: 4px solid #10b981;">
+            <div style="font-weight: 700; margin-bottom: 0.5rem;">Phase 1: Elite Universities (Week 1-2)</div>
+            <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                Scrape Top-50 university directories → 10,000 professors. Enrich with Google Scholar. 
+                Test hypotheses H1, H3, H4 with elite sample.
+            </div>
+        </div>
+
+        <div style="padding: 1.5rem; background: linear-gradient(135deg, rgba(59, 130, 246, 0.1), rgba(59, 130, 246, 0.05)); border-radius: 8px; border-left: 4px solid #3b82f6;">
+            <div style="font-weight: 700; margin-bottom: 0.5rem;">Phase 2: Mid-Tier & Regional (Week 3-4)</div>
+            <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                Expand to state/regional universities → 20,000 more. Test H1 (prestige gradient) with full range. 
+                Train H5 prediction model.
+            </div>
+        </div>
+
+        <div style="padding: 1.5rem; background: linear-gradient(135deg, rgba(245, 158, 11, 0.1), rgba(245, 158, 11, 0.05)); border-radius: 8px; border-left: 4px solid #f59e0b;">
+            <div style="font-weight: 700; margin-bottom: 0.5rem;">Phase 3: Citation Analysis (Week 5-6)</div>
+            <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                Google Scholar batch enrichment (h-index, citations). Test H2 (memorability → citations) and 
+                H7 (publishing name effect). Control for paper quality.
+            </div>
+        </div>
+
+        <div style="padding: 1.5rem; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05)); border-radius: 8px; border-left: 4px solid #8b5cf6;">
+            <div style="font-weight: 700; margin-bottom: 0.5rem;">Phase 4: Publication (Week 7-8)</div>
+            <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                Manuscript preparation for <em>Nature Human Behaviour</em> or <em>Proceedings of the National Academy of Sciences</em>. 
+                If H5 succeeds (ROC > 0.85), this is a paradigm-shifting finding.
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Documentation Links -->
+<div class="glass card" style="padding: 2.5rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">Research Documentation</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+        <a href="/docs/07_ACADEMIC_ANALYSIS/ACADEMIC_NAMES_COMPLETE.md" style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; text-decoration: none; color: inherit; border: 1px solid var(--border); transition: all 0.2s;" onmouseover="this.style.borderColor='#3b82f6'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="font-weight: 700; margin-bottom: 0.5rem; color: #3b82f6;">Complete Implementation Guide</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted);">Full methodology, infrastructure, and execution plan</div>
+        </a>
+        <a href="/academics" style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; text-decoration: none; color: inherit; border: 1px solid var(--border); transition: all 0.2s;" onmouseover="this.style.borderColor='#10b981'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="font-weight: 700; margin-bottom: 0.5rem; color: #10b981;">Current Analysis Dashboard</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted);">Interactive exploration of academic name patterns</div>
+        </a>
+    </div>
+</div>
+
+</div>
+{% endblock %}
+

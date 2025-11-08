@@ -1,0 +1,96 @@
+# Electoral Politics & Nomenclature Domain Configuration
+# Geographic nomenclature and political identity analysis
+
+domain: elections
+display_name: "Electoral Politics & Nomenclature Analysis"
+
+research_questions:
+  - "Does 'America' vs 'United States' usage predict political identity?"
+  - "Do pronunciation shibboleths signal tribal affiliation?"
+  - "Are there regional naming pattern differences?"
+  - "Is there an America Paradox (subjective vs algorithmic scores)?"
+
+collector_class: "collectors.election_collector.ElectionCollector"
+collector_params:
+  sources:
+    - gdelt
+    - political_speech_corpus
+  temporal_range: [2000, 2024]
+  include_pronunciation: true
+
+analyzer_class: "analyzers.election_analyzer.ElectionAnalyzer"
+analyzer_params:
+  nomenclature_variant_analysis: true
+  shibboleth_detection: true
+  regional_comparison: true
+
+models:
+  - ElectionData
+  - NomenclatureVariant
+  - PoliticalIdentity
+
+target_sample_size: 5000
+min_sample_size: 2000
+
+stratification:
+  enabled: true
+  field: data_type
+  targets:
+    speech_transcripts: 2000
+    news_articles: 2000
+    social_media: 1000
+
+primary_outcome_variable: "political_identity"
+secondary_outcome_variables:
+  - "nomenclature_variant_frequency"
+  - "pronunciation_pattern"
+  - "regional_affiliation"
+
+key_predictors:
+  - "nomenclature_variant"
+  - "pronunciation_features"
+  - "geographic_region"
+  - "temporal_period"
+
+control_variables:
+  - "speaker_age"
+  - "speaker_education"
+  - "media_outlet_bias"
+
+temporal_component: true
+temporal_field: "date"
+
+geographic_component: true
+geographic_field: "speaker_state"
+
+page_template: "elections.html"
+findings_cache_key: "election_findings"
+api_endpoints:
+  - "/api/elections/stats"
+  - "/api/elections/nomenclature-analysis"
+  - "/api/elections/shibboleth-detection"
+
+effect_strength_expected: "moderate"
+expected_correlations:
+  america_usage_conservative: 0.38
+  pronunciation_tribal_identity: 0.43
+
+quality_checks:
+  min_data_completeness: 0.90
+  min_instances_per_variant: 100
+  require_regional_stratification: true
+
+status: "complete"
+innovation_rating: 2
+priority: "high"
+
+notes: |
+  Key findings:
+  - "America" usage β=0.38*** (+46% odds conservative)
+  - America Paradox: 95 subjective vs 6.5 algorithmic score
+  - CHY-NAH case study: pronunciation as tribal marker
+  - Strong shibboleth function (r=0.43)
+  
+  Nomenclature variants predict political identity.
+  Clear tribal signaling through pronunciation choices.
+

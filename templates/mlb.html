@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block title %}MLB - Baseball Player Name Analysis{% endblock %}
+
+{% block content %}
+
+<style>
+.mlb-hero {
+    position: relative;
+    padding: 3rem 0;
+    margin-bottom: 3rem;
+    overflow: hidden;
+}
+
+.mlb-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(220, 38, 38, 0.1) 0%, transparent 70%);
+    z-index: -1;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+</style>
+
+<div style="max-width: 1400px; margin: 0 auto;">
+
+<!-- Hero Section -->
+<div class="mlb-hero">
+    <div style="text-align: center;">
+        <div style="font-size: 4rem; margin-bottom: 1rem;">⚾</div>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">MLB Player Name Analysis</h1>
+        <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 2rem;">
+            Position Prediction, Power Names, and the Pitcher Mystique
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="{{ url_for('mlb_findings') }}" class="btn-primary">View Research Findings →</a>
+            <a href="/api/mlb/stats" class="btn-secondary" target="_blank">View API Data →</a>
+        </div>
+    </div>
+</div>
+
+<!-- Overview Stats -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 4rem;" id="overview-stats">
+    <div class="stat-card">
+        <div style="font-size: 3rem; font-weight: 700; color: #dc2626; margin-bottom: 0.5rem;" id="total-players">...</div>
+        <div style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted);">Total Players</div>
+    </div>
+    <div class="stat-card">
+        <div style="font-size: 3rem; font-weight: 700; color: #16a34a; margin-bottom: 0.5rem;" id="position-accuracy">...</div>
+        <div style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted);">Position Accuracy</div>
+    </div>
+    <div class="stat-card">
+        <div style="font-size: 3rem; font-weight: 700; color: #2563eb; margin-bottom: 0.5rem;" id="mean-syllables">...</div>
+        <div style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted);">Mean Syllables</div>
+    </div>
+    <div class="stat-card">
+        <div style="font-size: 3rem; font-weight: 700; color: #9333ea; margin-bottom: 0.5rem;" id="pitcher-count">...</div>
+        <div style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted);">Pitchers Analyzed</div>
+    </div>
+</div>
+
+<!-- Position Breakdown -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">Position Distribution</h2>
+    <div id="position-breakdown" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem;">
+        <!-- Will be populated by JavaScript -->
+    </div>
+</div>
+
+<!-- Era Comparison -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">Evolution Across Baseball Eras</h2>
+    <div id="era-comparison" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">
+        <!-- Will be populated by JavaScript -->
+    </div>
+</div>
+
+<!-- Power Analysis -->
+<div class="glass card" style="padding: 2.5rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">Power Hitters: The Harsh Name Hypothesis</h2>
+    <div id="power-analysis">
+        <p style="color: var(--text-secondary);">Loading power analysis...</p>
+    </div>
+</div>
+
+</div>
+
+<script>
+async function loadMLBStats() {
+    try {
+        const response = await fetch('/api/mlb/stats');
+        if (response.ok) {
+            const data = await response.json();
+            document.getElementById('total-players').textContent = data.total_players || '0';
+            document.getElementById('position-accuracy').textContent = data.position_accuracy ? (data.position_accuracy * 100).toFixed(0) + '%' : '...';
+            document.getElementById('mean-syllables').textContent = data.mean_syllables?.toFixed(1) || '0.0';
+            document.getElementById('pitcher-count').textContent = data.pitcher_count || '0';
+            
+            // Position breakdown
+            if (data.by_position) {
+                const container = document.getElementById('position-breakdown');
+                let html = '';
+                for (const [pos, count] of Object.entries(data.by_position)) {
+                    html += `
+                        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; text-align: center;">
+                            <div style="font-size: 2rem; font-weight: 700; color: #dc2626; margin-bottom: 0.5rem;">${count}</div>
+                            <div style="font-size: 0.9rem; color: var(--text-muted);">${pos}</div>
+                        </div>
+                    `;
+                }
+                container.innerHTML = html;
+            }
+            
+            // Era comparison
+            if (data.by_era) {
+                const container = document.getElementById('era-comparison');
+                let html = '';
+                const eraNames = {
+                    'classic': 'Classic (1950-1979)',
+                    'modern': 'Modern (1980-1999)',
+                    'contemporary': 'Contemporary (2000-2024)'
+                };
+                for (const [era, stats] of Object.entries(data.by_era)) {
+                    html += `
+                        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+                            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #dc2626;">${eraNames[era] || era}</h3>
+                            <div style="font-size: 0.9rem; color: var(--text-secondary);">
+                                <div><strong>Players:</strong> ${stats.count}</div>
+                                <div><strong>Avg Syllables:</strong> ${stats.mean_syllables?.toFixed(1) || '0.0'}</div>
+                            </div>
+                        </div>
+                    `;
+                }
+                container.innerHTML = html;
+            }
+        }
+    } catch (error) {
+        console.error('Error loading MLB stats:', error);
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadMLBStats);
+</script>
+
+{% endblock %}
+

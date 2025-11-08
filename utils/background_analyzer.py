@@ -1,12 +1,17 @@
 """
 Background Analyzer - Pre-Compute All Analysis for Instant Page Loads
 Computes and stores all expensive analysis so pages load in <100ms
+
+Extended to support dynamic multi-domain computation.
 """
 
 import json
 import time
 import logging
 from datetime import datetime
+from pathlib import Path
+from typing import Dict, List, Optional
+import yaml
 import numpy as np
 from scipy.stats import pearsonr, spearmanr
 from sklearn.model_selection import train_test_split
@@ -14,6 +19,7 @@ from sklearn.linear_model import LinearRegression
 from sklearn.metrics import r2_score, mean_squared_error
 
 from core.models import db, Cryptocurrency, NameAnalysis, PriceHistory, PreComputedStats
+from core.research_framework import FRAMEWORK
 
 logger = logging.getLogger(__name__)
 
@@ -423,4 +429,141 @@ class BackgroundAnalyzer:
         except Exception as e:
             logger.error(f"Error retrieving {stat_type}: {e}")
             return None
+    
+    def compute_domain_stats(self, domain_id: str) -> Dict:
+        """
+        Compute statistics for any registered domain.
+        
+        Args:
+            domain_id: Domain identifier from framework
+        
+        Returns:
+            Computation results
+        """
+        start_time = time.time()
+        
+        try:
+            logger.info(f"\nComputing statistics for domain: {domain_id}")
+            
+            # Get domain metadata
+            domain_meta = FRAMEWORK.get_domain(domain_id)
+            if not domain_meta:
+                raise ValueError(f"Unknown domain: {domain_id}")
+            
+            # Load domain config
+            config_file = Path(__file__).parent.parent / "core" / "domain_configs" / f"{domain_id}.yaml"
+            if not config_file.exists():
+                logger.warning(f"No config file found for {domain_id}, using metadata only")
+                config = {}
+            else:
+                with open(config_file, 'r') as f:
+                    config = yaml.safe_load(f)
+            
+            # Try to load analyzer
+            analyzer_class = config.get('analyzer_class')
+            if analyzer_class:
+                try:
+                    analyzer_module, analyzer_class_name = analyzer_class.rsplit('.', 1)
+                    analyzer_mod = __import__(analyzer_module, fromlist=[analyzer_class_name])
+                    analyzer_cls = getattr(analyzer_mod, analyzer_class_name)
+                    
+                    logger.info(f"Running {analyzer_class_name}...")
+                    analyzer = analyzer_cls()
+                    
+                    if hasattr(analyzer, 'run_full_analysis'):
+                        result = analyzer.run_full_analysis()
+                    else:
+                        logger.warning(f"Analyzer has no run_full_analysis method")
+                        result = self._compute_generic_stats(domain_id, config)
+                    
+                except Exception as e:
+                    logger.error(f"Failed to run analyzer: {e}")
+                    result = self._compute_generic_stats(domain_id, config)
+            else:
+                logger.info("No analyzer specified, using generic statistics")
+                result = self._compute_generic_stats(domain_id, config)
+            
+            # Store result
+            duration = time.time() - start_time
+            self._store_result(f"{domain_id}_analysis", result, 
+                             result.get('sample_size', 0), duration)
+            
+            logger.info(f"✓ {domain_id} statistics computed in {duration:.1f}s")
+            return {'status': 'success', 'duration': duration, 'result': result}
+            
+        except Exception as e:
+            logger.error(f"Error computing {domain_id} stats: {e}")
+            import traceback
+            logger.error(traceback.format_exc())
+            return {'status': 'error', 'error': str(e)}
+    
+    def _compute_generic_stats(self, domain_id: str, config: Dict) -> Dict:
+        """
+        Compute generic statistics when no analyzer is available.
+        
+        Args:
+            domain_id: Domain identifier
+            config: Domain configuration
+        
+        Returns:
+            Basic statistics dictionary
+        """
+        logger.info(f"Computing generic statistics for {domain_id}...")
+        
+        result = {
+            'domain_id': domain_id,
+            'timestamp': datetime.now().isoformat(),
+            'sample_size': 0,
+            'model_counts': {}
+        }
+        
+        # Try to count records in database
+        models = config.get('models', [])
+        for model_name in models:
+            try:
+                from core import models
+                model_cls = getattr(models, model_name, None)
+                if model_cls:
+                    count = model_cls.query.count()
+                    result['model_counts'][model_name] = count
+                    result['sample_size'] += count
+                    logger.info(f"  {model_name}: {count:,} records")
+            except Exception as e:
+                logger.warning(f"  {model_name}: Unable to count ({e})")
+        
+        return result
+    
+    def compute_all_domains(self) -> Dict:
+        """
+        Compute statistics for all active domains.
+        
+        Returns:
+            Results dictionary for all domains
+        """
+        logger.info("="*70)
+        logger.info("COMPUTING STATISTICS FOR ALL DOMAINS")
+        logger.info("="*70)
+        
+        active_domains = FRAMEWORK.list_active_domains()
+        logger.info(f"Active domains: {len(active_domains)}")
+        
+        results = {}
+        
+        for domain_id in active_domains:
+            logger.info(f"\n{'='*70}")
+            logger.info(f"Domain: {domain_id}")
+            logger.info(f"{'='*70}")
+            
+            result = self.compute_domain_stats(domain_id)
+            results[domain_id] = result
+        
+        logger.info("\n" + "="*70)
+        logger.info("✅ ALL DOMAIN STATISTICS COMPUTED")
+        logger.info("="*70)
+        
+        for domain_id, result in results.items():
+            status = result.get('status', 'unknown')
+            logger.info(f"{domain_id}: {status}")
+        
+        return results
 

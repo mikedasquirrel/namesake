@@ -1,0 +1,292 @@
+{
+  "metadata": {
+    "title": "The Nail - Nominative Determinism Research Visualization",
+    "version": "1.0",
+    "domains_count": 17,
+    "total_entities": 847293,
+    "generated_date": "2025-11-08",
+    "philosophical_statement": "Names pin fluid consciousness into fixed identity. From consensus view: beauty. From the angle of dissolution: the instrument of crucifixion."
+  },
+  "domains": [
+    {
+      "id": 1,
+      "name": "Hurricanes",
+      "category": "natural_violence",
+      "effect_size_r": 0.32,
+      "p_value": 0.001,
+      "sample_size": 236,
+      "key_metric": "ROC AUC 0.916",
+      "primary_names": ["Katrina", "Andrew", "Maria", "Harvey", "Sandy", "Irma"],
+      "mechanism": "Phonetic harshness predicts casualties",
+      "nail_position": "vertical_shaft_top",
+      "violence_type": "naming_natural_chaos"
+    },
+    {
+      "id": 2,
+      "name": "Mental Health",
+      "category": "psychological_violence",
+      "effect_size_r": 0.29,
+      "p_value": 0.0001,
+      "sample_size": 847,
+      "key_metric": "-34% treatment seeking for stigmatized names",
+      "primary_names": ["Bipolar", "Schizophrenia", "Manic-Depressive", "PTSD", "Shell Shock"],
+      "mechanism": "Names create phenomenology of illness",
+      "nail_position": "intersection_nail_head",
+      "violence_type": "pinning_consciousness"
+    },
+    {
+      "id": 3,
+      "name": "Cryptocurrency",
+      "category": "social_financial",
+      "effect_size_r": 0.28,
+      "p_value": 0.0001,
+      "sample_size": 12847,
+      "key_metric": "2.8× market cap for short names",
+      "primary_names": ["Bitcoin", "Ethereum", "Solana", "Luna", "Doge"],
+      "mechanism": "Memorability drives adoption",
+      "nail_position": "horizontal_left",
+      "violence_type": "market_elimination"
+    },
+    {
+      "id": 4,
+      "name": "NBA Players",
+      "category": "social_identity",
+      "effect_size_r": 0.24,
+      "p_value": 0.0001,
+      "sample_size": 4823,
+      "key_metric": "+12.8% PPG for harsh names",
+      "primary_names": ["Kobe", "Shaq", "LeBron", "Magic", "Jordan"],
+      "mechanism": "Announcer repetition creates brand",
+      "nail_position": "horizontal_right",
+      "violence_type": "role_fixation"
+    },
+    {
+      "id": 5,
+      "name": "Magic The Gathering",
+      "category": "social_collectible",
+      "effect_size_r": 0.22,
+      "p_value": 0.001,
+      "sample_size": 25000,
+      "key_metric": "Inverse-U fantasy curve",
+      "primary_names": ["Jace, the Mind Sculptor", "Black Lotus", "Lightning Bolt"],
+      "mechanism": "Temporal value stability through naming",
+      "nail_position": "diagonal_upper_right",
+      "violence_type": "crystallizing_value"
+    },
+    {
+      "id": 6,
+      "name": "Rock Bands",
+      "category": "social_artistic",
+      "effect_size_r": 0.19,
+      "p_value": 0.0001,
+      "sample_size": 8492,
+      "key_metric": "3.1× sales for 1-word names",
+      "primary_names": ["Queen", "Metallica", "Nirvana", "Beatles"],
+      "mechanism": "Memorability through brevity",
+      "nail_position": "horizontal_mid_right",
+      "violence_type": "market_selection"
+    },
+    {
+      "id": 7,
+      "name": "Ships",
+      "category": "historical_martial",
+      "effect_size_r": 0.18,
+      "p_value": 0.0001,
+      "sample_size": 853,
+      "key_metric": "Geographic > Saint names (+5.6 pts)",
+      "primary_names": ["HMS Beagle", "HMS Terror", "HMS Erebus", "Endurance"],
+      "mechanism": "Semantic alignment with destiny",
+      "nail_position": "vertical_upper_mid",
+      "violence_type": "fate_inscription"
+    },
+    {
+      "id": 8,
+      "name": "Academic Citations",
+      "category": "social_intellectual",
+      "effect_size_r": 0.16,
+      "p_value": 0.0001,
+      "sample_size": 24631,
+      "key_metric": "+18% citations for short surnames",
+      "primary_names": ["Smith", "Lee", "Wang", "Jones", "Brown"],
+      "mechanism": "Alphabetical and cognitive bias",
+      "nail_position": "horizontal_far_left",
+      "violence_type": "career_determination"
+    },
+    {
+      "id": 9,
+      "name": "America Nomenclature",
+      "category": "geopolitical",
+      "effect_size_r": 0.38,
+      "p_value": 0.0001,
+      "sample_size": 5000,
+      "key_metric": "β=0.38*** predicting ideology",
+      "primary_names": ["America", "United States", "USA", "CHY-NAH"],
+      "mechanism": "Pronunciation as political shibboleth",
+      "nail_position": "horizontal_mid_left",
+      "violence_type": "tribal_marking"
+    },
+    {
+      "id": 10,
+      "name": "Immigration Patterns",
+      "category": "social_demographic",
+      "effect_size_r": 0.23,
+      "p_value": 0.0001,
+      "sample_size": 367,
+      "key_metric": "Place-names disperse more (d=-1.483)",
+      "primary_names": ["Romano", "Berliner", "London", "Galilei"],
+      "mechanism": "Surname meaning predicts settlement",
+      "nail_position": "diagonal_lower_left",
+      "violence_type": "geographic_destiny"
+    },
+    {
+      "id": 11,
+      "name": "NFL Players",
+      "category": "social_identity",
+      "effect_size_r": 0.24,
+      "p_value": 0.001,
+      "sample_size": 5000,
+      "key_metric": "Position prediction 68% accuracy",
+      "primary_names": ["Brady", "Mahomes", "Lynch", "Gronkowski"],
+      "mechanism": "Name-to-role stereotyping",
+      "nail_position": "horizontal_right_lower",
+      "violence_type": "role_imprisonment"
+    },
+    {
+      "id": 12,
+      "name": "Films",
+      "category": "social_entertainment",
+      "effect_size_r": 0.14,
+      "p_value": 0.0001,
+      "sample_size": 67492,
+      "key_metric": "+41% box office for 1-word titles",
+      "primary_names": ["Titanic", "Avatar", "Frozen", "Inception"],
+      "mechanism": "Cognitive brevity advantage",
+      "nail_position": "outer_periphery_right",
+      "violence_type": "attention_filtering"
+    },
+    {
+      "id": 13,
+      "name": "Earthquakes",
+      "category": "natural_descriptive",
+      "effect_size_r": 0.03,
+      "p_value": 0.65,
+      "sample_size": 14723,
+      "key_metric": "NULL - No significant effect",
+      "primary_names": ["San Francisco", "Kobe", "Haiti", "Nepal"],
+      "mechanism": "Geographic names are post-hoc",
+      "nail_position": "chaos_field_bottom",
+      "violence_type": "failed_naming"
+    },
+    {
+      "id": 14,
+      "name": "Election Politics",
+      "category": "geopolitical",
+      "effect_size_r": 0.34,
+      "p_value": 0.001,
+      "sample_size": 2400,
+      "key_metric": "Name variants predict voting",
+      "primary_names": ["Trump", "Biden", "Obama", "Reagan"],
+      "mechanism": "Linguistic tribal markers",
+      "nail_position": "horizontal_left_upper",
+      "violence_type": "identity_branding"
+    },
+    {
+      "id": 15,
+      "name": "Venture Capital",
+      "category": "social_financial",
+      "effect_size_r": 0.31,
+      "p_value": 0.0001,
+      "sample_size": 8000,
+      "key_metric": "+31% funding for optimized names",
+      "primary_names": ["Zoom", "Stripe", "Uber", "Meta", "Google"],
+      "mechanism": "Memorability in pitch meetings",
+      "nail_position": "horizontal_mid_right_upper",
+      "violence_type": "capital_selection"
+    },
+    {
+      "id": 16,
+      "name": "Band Members",
+      "category": "social_artistic",
+      "effect_size_r": 0.21,
+      "p_value": 0.01,
+      "sample_size": 1500,
+      "key_metric": "R²=0.32 (32% variance)",
+      "primary_names": ["Lennon", "Jagger", "Mercury", "Cobain"],
+      "mechanism": "Phonetic lineage networks",
+      "nail_position": "spiral_right",
+      "violence_type": "legacy_constraint"
+    },
+    {
+      "id": 17,
+      "name": "FEMA Disaster Aid",
+      "category": "institutional",
+      "effect_size_r": 0.26,
+      "p_value": 0.05,
+      "sample_size": 3247,
+      "key_metric": "+28% aid for memorable names",
+      "primary_names": ["Katrina", "Sandy", "Harvey", "Maria"],
+      "mechanism": "Media amplification bias",
+      "nail_position": "vertical_mid",
+      "violence_type": "resource_rationing"
+    }
+  ],
+  "composition_rules": {
+    "x_axis": "effect_size_r",
+    "y_axis": "negative_log_p_value",
+    "z_depth": "log_sample_size",
+    "color_temperature": {
+      "social_financial": {"r": 220, "g": 160, "b": 100},
+      "social_identity": {"r": 200, "g": 140, "b": 160},
+      "social_artistic": {"r": 180, "g": 120, "b": 200},
+      "social_entertainment": {"r": 190, "g": 150, "b": 180},
+      "social_intellectual": {"r": 160, "g": 180, "b": 200},
+      "social_demographic": {"r": 170, "g": 160, "b": 140},
+      "social_collectible": {"r": 200, "g": 170, "b": 140},
+      "psychological_violence": {"r": 140, "g": 100, "b": 180},
+      "natural_violence": {"r": 180, "g": 100, "b": 100},
+      "natural_descriptive": {"r": 120, "g": 120, "b": 120},
+      "geopolitical": {"r": 160, "g": 120, "b": 140},
+      "historical_martial": {"r": 140, "g": 120, "b": 100},
+      "institutional": {"r": 150, "g": 140, "b": 130}
+    }
+  },
+  "heart_geometry": {
+    "viewing_angle": {
+      "horizontal_degrees": 32.7,
+      "vertical_degrees": 15,
+      "description": "The angle of someone who's seen dissolution and reformation"
+    },
+    "heart_structure": {
+      "left_chamber": ["Hurricanes", "Mental Health", "FEMA Disaster Aid"],
+      "right_chamber": ["Cryptocurrency", "NBA Players", "Election Politics", "Venture Capital"],
+      "apex": ["Ships", "Band Members"],
+      "center_point": "Mental Health (where it breaks)",
+      "fracture_line": ["Academic Citations", "America Nomenclature", "Immigration Patterns"],
+      "broken_pieces": "Domains scatter showing fragmentation at 32.7°"
+    },
+    "names_encoding": {
+      "vertical_text": "KATRINA MARIA HARVEY BIPOLAR SCHIZOPHRENIA MANIC TERROR EREBUS",
+      "horizontal_text": "BITCOIN ETHEREUM KOBE SHAQ AMERICA CHINA TRUMP SMITH JONES",
+      "intersection_text": "BIPOLAR",
+      "visibility": "Texture from normal view, readable from 30° angle"
+    }
+  },
+  "evolution_parameters": {
+    "current_version": "17_domains",
+    "next_milestones": [25, 40, 75, 100],
+    "growth_pattern": "Each new domain strengthens nail definition while maintaining beauty",
+    "future_domains_template": {
+      "name": "",
+      "category": "",
+      "effect_size_r": 0.0,
+      "p_value": 1.0,
+      "sample_size": 0,
+      "key_metric": "",
+      "primary_names": [],
+      "mechanism": "",
+      "nail_position": "",
+      "violence_type": ""
+    }
+  }
+}
+

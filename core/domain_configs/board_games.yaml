@@ -1,0 +1,124 @@
+# Board Game Names Domain Configuration
+# Comprehensive phonetic, semantic, and cultural analysis of board game nomenclature
+
+domain: board_games
+display_name: "Board Game Nomenclature Analysis"
+
+research_questions:
+  - "Do name characteristics predict BoardGameGeek ratings?"
+  - "Are there distinct naming clusters by game category?"
+  - "How have naming conventions evolved 1950s-2024?"
+  - "Do cultural traditions (US vs Euro vs Japanese) show different patterns?"
+  - "Does name complexity correlate with game complexity?"
+
+collector_class: "collectors.board_game_collector.BoardGameCollector"
+collector_params:
+  sources:
+    - boardgamegeek_api
+    - kaggle_bgg_dataset
+  categories:
+    - strategy
+    - family
+    - party
+    - war_game
+    - abstract
+    - thematic
+  temporal_range: [1950, 2024]
+  min_ratings: 100  # Minimum number of ratings to include
+
+analyzer_class: "analyzers.board_game_statistical_analyzer.BoardGameStatisticalAnalyzer"
+analyzer_params:
+  cluster_analysis: true
+  temporal_evolution: true
+  cultural_comparison: true
+  complexity_correlation: true
+
+models:
+  - BoardGame
+  - BoardGameAnalysis
+
+target_sample_size: 2000
+min_sample_size: 1500
+
+stratification:
+  enabled: true
+  field: era
+  targets:
+    "classic_1950_1979": 200
+    "golden_1980_1999": 400
+    "modern_2000_2009": 600
+    "contemporary_2010_2024": 800
+
+primary_outcome_variable: "bgg_rating"
+secondary_outcome_variables:
+  - "num_ratings"
+  - "complexity_weight"
+  - "ownership_count"
+  - "players_recommended"
+
+key_predictors:
+  - "syllable_count"
+  - "word_count"
+  - "phonetic_features"
+  - "memorability"
+  - "name_type"  # descriptive vs abstract
+  - "contains_colon"  # expansions pattern
+
+control_variables:
+  - "year_published"
+  - "category"
+  - "designer_prominence"
+  - "publisher_size"
+
+temporal_component: true
+temporal_field: "year_published"
+temporal_analysis_types:
+  - naming_evolution
+  - complexity_trends
+  - cultural_shifts
+
+cultural_component: true
+cultural_field: "designer_nationality"
+cultural_analysis_types:
+  - american_vs_euro_vs_japanese
+  - naming_traditions
+  - translation_effects
+
+page_template: "board_games.html"
+findings_cache_key: "board_games_findings"
+api_endpoints:
+  - "/api/board-games/stats"
+  - "/api/board-games/clusters"
+  - "/api/board-games/temporal"
+  - "/api/board-games/cultural"
+
+effect_strength_expected: "moderate"
+expected_correlations:
+  syllables_rating: -0.15
+  memorability_popularity: 0.25
+  complexity_name_length: 0.30
+
+quality_checks:
+  min_data_completeness: 0.85
+  min_games_per_era: 150
+  require_temporal_validation: true
+  require_cultural_validation: true
+
+status: "planned"
+innovation_rating: 2
+priority: "high"
+
+notes: |
+  Novel analysis examining board game naming patterns across:
+  - 75 years of gaming history (1950-2024)
+  - Multiple cultural traditions (American mass-market, European designer, Japanese imports)
+  - Gaming revolution eras (pre-Catan, Eurogame explosion, contemporary crowdfunding)
+  - Name complexity vs game complexity correlation
+  - The "colon problem" (base game vs expansions)
+  
+  Expected discoveries:
+  - Euro abstraction (Agricola, Azul) vs American thematics (Pandemic, Betrayal)
+  - Temporal expansion (+1.2 syllables per decade hypothesis)
+  - Complexity correlation (heavier games = longer names)
+  - Memorability paradox in gaming context
+

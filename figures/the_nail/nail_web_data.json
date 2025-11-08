@@ -1,0 +1,558 @@
+{
+  "metadata": {
+    "title": "The Nail - Nominative Determinism Research Visualization",
+    "version": "1.0",
+    "domains_count": 17,
+    "total_entities": 847293,
+    "generated_date": "2025-11-08",
+    "philosophical_statement": "Names pin fluid consciousness into fixed identity. From consensus view: beauty. From the angle of dissolution: the instrument of crucifixion."
+  },
+  "normal_view": [
+    {
+      "name": "Hurricanes",
+      "x": 0.48,
+      "y": 0.15999999999999992,
+      "z": 0.5274547022818188,
+      "color": "rgb(180, 100, 100)",
+      "size": 0.02926421581340492,
+      "names": [
+        "Katrina",
+        "Andrew",
+        "Maria",
+        "Harvey",
+        "Sandy",
+        "Irma"
+      ],
+      "violence": "naming_natural_chaos"
+    },
+    {
+      "name": "Mental Health",
+      "x": 0.3599999999999999,
+      "y": 0.4800000000000002,
+      "z": 0.6271112534062084,
+      "color": "rgb(140, 100, 180)",
+      "size": 0.09013167392319305,
+      "names": [
+        "Bipolar",
+        "Schizophrenia",
+        "Manic-Depressive",
+        "PTSD",
+        "Shell Shock"
+      ],
+      "violence": "pinning_consciousness"
+    },
+    {
+      "name": "Cryptocurrency",
+      "x": 0.32000000000000006,
+      "y": 0.4800000000000002,
+      "z": 0.839590395028229,
+      "color": "rgb(220, 160, 100)",
+      "size": 0.15,
+      "names": [
+        "Bitcoin",
+        "Ethereum",
+        "Solana",
+        "Luna",
+        "Doge"
+      ],
+      "violence": "market_elimination"
+    },
+    {
+      "name": "NBA Players",
+      "x": 0.15999999999999992,
+      "y": 0.4800000000000002,
+      "z": 0.763013313843777,
+      "color": "rgb(200, 140, 160)",
+      "size": 0.12833596790389282,
+      "names": [
+        "Kobe",
+        "Shaq",
+        "LeBron",
+        "Magic",
+        "Jordan"
+      ],
+      "violence": "role_fixation"
+    },
+    {
+      "name": "Magic The Gathering",
+      "x": 0.07999999999999985,
+      "y": 0.15999999999999992,
+      "z": 0.8916323284186998,
+      "color": "rgb(200, 170, 140)",
+      "size": 0.049721153792505746,
+      "names": [
+        "Jace, the Mind Sculptor",
+        "Black Lotus",
+        "Lightning Bolt"
+      ],
+      "violence": "crystallizing_value"
+    },
+    {
+      "name": "Rock Bands",
+      "x": -0.040000000000000036,
+      "y": 0.4800000000000002,
+      "z": 0.8072310023352578,
+      "color": "rgb(180, 120, 200)",
+      "size": 0.14479461589869647,
+      "names": [
+        "Queen",
+        "Metallica",
+        "Nirvana",
+        "Beatles"
+      ],
+      "violence": "market_selection"
+    },
+    {
+      "name": "Ships",
+      "x": -0.08000000000000007,
+      "y": 0.4800000000000002,
+      "z": 0.6276624167240209,
+      "color": "rgb(140, 120, 100)",
+      "size": 0.09025554548133877,
+      "names": [
+        "HMS Beagle",
+        "HMS Terror",
+        "HMS Erebus",
+        "Endurance"
+      ],
+      "violence": "fate_inscription"
+    },
+    {
+      "name": "Academic Citations",
+      "x": -0.16000000000000003,
+      "y": 0.4800000000000002,
+      "z": 0.8904699416611256,
+      "color": "rgb(160, 180, 200)",
+      "size": 0.15,
+      "names": [
+        "Smith",
+        "Lee",
+        "Wang",
+        "Jones",
+        "Brown"
+      ],
+      "violence": "career_determination"
+    },
+    {
+      "name": "America Nomenclature",
+      "x": 0.72,
+      "y": 0.4800000000000002,
+      "z": 0.7658302338185802,
+      "color": "rgb(160, 120, 140)",
+      "size": 0.12931653398298287,
+      "names": [
+        "America",
+        "United States",
+        "USA",
+        "CHY-NAH"
+      ],
+      "violence": "tribal_marking"
+    },
+    {
+      "name": "Immigration Patterns",
+      "x": 0.11999999999999988,
+      "y": 0.4800000000000002,
+      "z": 0.5618526073612332,
+      "color": "rgb(170, 160, 140)",
+      "size": 0.07689968581857808,
+      "names": [
+        "Romano",
+        "Berliner",
+        "London",
+        "Galilei"
+      ],
+      "violence": "geographic_destiny"
+    },
+    {
+      "name": "NFL Players",
+      "x": 0.15999999999999992,
+      "y": 0.15999999999999992,
+      "z": 0.7658302338185802,
+      "color": "rgb(200, 140, 160)",
+      "size": 0.03987573345145143,
+      "names": [
+        "Brady",
+        "Mahomes",
+        "Lynch",
+        "Gronkowski"
+      ],
+      "violence": "role_imprisonment"
+    },
+    {
+      "name": "Films",
+      "x": -0.24,
+      "y": 0.4800000000000002,
+      "z": 0.9692665718588723,
+      "color": "rgb(190, 150, 180)",
+      "size": 0.15,
+      "names": [
+        "Titanic",
+        "Avatar",
+        "Frozen",
+        "Inception"
+      ],
+      "violence": "attention_filtering"
+    },
+    {
+      "name": "Earthquakes",
+      "x": -0.68,
+      "y": -0.7401322741257138,
+      "z": 0.8502446455794331,
+      "color": "rgb(120, 120, 120)",
+      "size": 0.02004405470119563,
+      "names": [
+        "San Francisco",
+        "Kobe",
+        "Haiti",
+        "Nepal"
+      ],
+      "violence": "failed_naming"
+    },
+    {
+      "name": "Election Politics",
+      "x": 0.56,
+      "y": 0.15999999999999992,
+      "z": 0.7084705888102649,
+      "color": "rgb(160, 120, 140)",
+      "size": 0.03654373150929003,
+      "names": [
+        "Trump",
+        "Biden",
+        "Obama",
+        "Reagan"
+      ],
+      "violence": "identity_branding"
+    },
+    {
+      "name": "Venture Capital",
+      "x": 0.43999999999999995,
+      "y": 0.4800000000000002,
+      "z": 0.802565968673717,
+      "color": "rgb(220, 160, 100)",
+      "size": 0.14294640917041285,
+      "names": [
+        "Zoom",
+        "Stripe",
+        "Uber",
+        "Meta",
+        "Google"
+      ],
+      "violence": "capital_selection"
+    },
+    {
+      "name": "Band Members",
+      "x": 0.039999999999999813,
+      "y": -0.15999999999999992,
+      "z": 0.6717485246037886,
+      "color": "rgb(180, 120, 200)",
+      "size": 0.02160204528806935,
+      "names": [
+        "Lennon",
+        "Jagger",
+        "Mercury",
+        "Cobain"
+      ],
+      "violence": "legacy_constraint"
+    },
+    {
+      "name": "FEMA Disaster Aid",
+      "x": 0.24,
+      "y": -0.38367040138752606,
+      "z": 0.7320908837024448,
+      "color": "rgb(150, 140, 130)",
+      "size": 0.020391747464487946,
+      "names": [
+        "Katrina",
+        "Sandy",
+        "Harvey",
+        "Maria"
+      ],
+      "violence": "resource_rationing"
+    }
+  ],
+  "nail_view": [
+    {
+      "name": "Hurricanes",
+      "x": 0.336,
+      "y": 0.20156921938165295,
+      "z": 0.5274547022818188,
+      "color": "rgb(180, 100, 100)",
+      "size": 0.02926421581340492,
+      "names": [
+        "Katrina",
+        "Andrew",
+        "Maria",
+        "Harvey",
+        "Sandy",
+        "Irma"
+      ],
+      "violence": "naming_natural_chaos",
+      "nail_role": "vertical_shaft_top"
+    },
+    {
+      "name": "Mental Health",
+      "x": 0.0,
+      "y": 0.0,
+      "z": 0.6271112534062084,
+      "color": "rgb(140, 100, 180)",
+      "size": 0.09013167392319305,
+      "names": [
+        "Bipolar",
+        "Schizophrenia",
+        "Manic-Depressive",
+        "PTSD",
+        "Shell Shock"
+      ],
+      "violence": "pinning_consciousness",
+      "nail_role": "intersection_nail_head"
+    },
+    {
+      "name": "Cryptocurrency",
+      "x": 0.4031384387633062,
+      "y": 0.3360000000000002,
+      "z": 0.839590395028229,
+      "color": "rgb(220, 160, 100)",
+      "size": 0.15,
+      "names": [
+        "Bitcoin",
+        "Ethereum",
+        "Solana",
+        "Luna",
+        "Doge"
+      ],
+      "violence": "market_elimination",
+      "nail_role": "horizontal_left"
+    },
+    {
+      "name": "NBA Players",
+      "x": 0.20156921938165295,
+      "y": 0.3360000000000002,
+      "z": 0.763013313843777,
+      "color": "rgb(200, 140, 160)",
+      "size": 0.12833596790389282,
+      "names": [
+        "Kobe",
+        "Shaq",
+        "LeBron",
+        "Magic",
+        "Jordan"
+      ],
+      "violence": "role_fixation",
+      "nail_role": "horizontal_right"
+    },
+    {
+      "name": "Magic The Gathering",
+      "x": 0.07599999999999986,
+      "y": 0.1519999999999999,
+      "z": 0.8916323284186998,
+      "color": "rgb(200, 170, 140)",
+      "size": 0.049721153792505746,
+      "names": [
+        "Jace, the Mind Sculptor",
+        "Black Lotus",
+        "Lightning Bolt"
+      ],
+      "violence": "crystallizing_value",
+      "nail_role": "diagonal_upper_right"
+    },
+    {
+      "name": "Rock Bands",
+      "x": -0.05039230484541331,
+      "y": 0.3360000000000002,
+      "z": 0.8072310023352578,
+      "color": "rgb(180, 120, 200)",
+      "size": 0.14479461589869647,
+      "names": [
+        "Queen",
+        "Metallica",
+        "Nirvana",
+        "Beatles"
+      ],
+      "violence": "market_selection",
+      "nail_role": "horizontal_mid_right"
+    },
+    {
+      "name": "Ships",
+      "x": -0.05600000000000005,
+      "y": 0.6047076581449594,
+      "z": 0.6276624167240209,
+      "color": "rgb(140, 120, 100)",
+      "size": 0.09025554548133877,
+      "names": [
+        "HMS Beagle",
+        "HMS Terror",
+        "HMS Erebus",
+        "Endurance"
+      ],
+      "violence": "fate_inscription",
+      "nail_role": "vertical_upper_mid"
+    },
+    {
+      "name": "Academic Citations",
+      "x": -0.2015692193816531,
+      "y": 0.3360000000000002,
+      "z": 0.8904699416611256,
+      "color": "rgb(160, 180, 200)",
+      "size": 0.15,
+      "names": [
+        "Smith",
+        "Lee",
+        "Wang",
+        "Jones",
+        "Brown"
+      ],
+      "violence": "career_determination",
+      "nail_role": "horizontal_far_left"
+    },
+    {
+      "name": "America Nomenclature",
+      "x": 0.9070614872174387,
+      "y": 0.3360000000000002,
+      "z": 0.7658302338185802,
+      "color": "rgb(160, 120, 140)",
+      "size": 0.12931653398298287,
+      "names": [
+        "America",
+        "United States",
+        "USA",
+        "CHY-NAH"
+      ],
+      "violence": "tribal_marking",
+      "nail_role": "horizontal_mid_left"
+    },
+    {
+      "name": "Immigration Patterns",
+      "x": 0.11399999999999988,
+      "y": 0.4560000000000002,
+      "z": 0.5618526073612332,
+      "color": "rgb(170, 160, 140)",
+      "size": 0.07689968581857808,
+      "names": [
+        "Romano",
+        "Berliner",
+        "London",
+        "Galilei"
+      ],
+      "violence": "geographic_destiny",
+      "nail_role": "diagonal_lower_left"
+    },
+    {
+      "name": "NFL Players",
+      "x": 0.20156921938165295,
+      "y": 0.11199999999999996,
+      "z": 0.7658302338185802,
+      "color": "rgb(200, 140, 160)",
+      "size": 0.03987573345145143,
+      "names": [
+        "Brady",
+        "Mahomes",
+        "Lynch",
+        "Gronkowski"
+      ],
+      "violence": "role_imprisonment",
+      "nail_role": "horizontal_right_lower"
+    },
+    {
+      "name": "Films",
+      "x": -0.22799999999999998,
+      "y": 0.4560000000000002,
+      "z": 0.9692665718588723,
+      "color": "rgb(190, 150, 180)",
+      "size": 0.15,
+      "names": [
+        "Titanic",
+        "Avatar",
+        "Frozen",
+        "Inception"
+      ],
+      "violence": "attention_filtering",
+      "nail_role": "outer_periphery_right"
+    },
+    {
+      "name": "Earthquakes",
+      "x": -0.646,
+      "y": -0.703125660419428,
+      "z": 0.8502446455794331,
+      "color": "rgb(120, 120, 120)",
+      "size": 0.02004405470119563,
+      "names": [
+        "San Francisco",
+        "Kobe",
+        "Haiti",
+        "Nepal"
+      ],
+      "violence": "failed_naming",
+      "nail_role": "chaos_field_bottom"
+    },
+    {
+      "name": "Election Politics",
+      "x": 0.7054922678357858,
+      "y": 0.11199999999999996,
+      "z": 0.7084705888102649,
+      "color": "rgb(160, 120, 140)",
+      "size": 0.03654373150929003,
+      "names": [
+        "Trump",
+        "Biden",
+        "Obama",
+        "Reagan"
+      ],
+      "violence": "identity_branding",
+      "nail_role": "horizontal_left_upper"
+    },
+    {
+      "name": "Venture Capital",
+      "x": 0.5543153532995458,
+      "y": 0.3360000000000002,
+      "z": 0.802565968673717,
+      "color": "rgb(220, 160, 100)",
+      "size": 0.14294640917041285,
+      "names": [
+        "Zoom",
+        "Stripe",
+        "Uber",
+        "Meta",
+        "Google"
+      ],
+      "violence": "capital_selection",
+      "nail_role": "horizontal_mid_right_upper"
+    },
+    {
+      "name": "Band Members",
+      "x": 0.03799999999999982,
+      "y": -0.1519999999999999,
+      "z": 0.6717485246037886,
+      "color": "rgb(180, 120, 200)",
+      "size": 0.02160204528806935,
+      "names": [
+        "Lennon",
+        "Jagger",
+        "Mercury",
+        "Cobain"
+      ],
+      "violence": "legacy_constraint",
+      "nail_role": "spiral_right"
+    },
+    {
+      "name": "FEMA Disaster Aid",
+      "x": 0.168,
+      "y": -0.483350895672057,
+      "z": 0.7320908837024448,
+      "color": "rgb(150, 140, 130)",
+      "size": 0.020391747464487946,
+      "names": [
+        "Katrina",
+        "Sandy",
+        "Harvey",
+        "Maria"
+      ],
+      "violence": "resource_rationing",
+      "nail_role": "vertical_mid"
+    }
+  ],
+  "viewing_angle": {
+    "horizontal_degrees": 32.7,
+    "vertical_degrees": 15,
+    "description": "The angle of someone who's seen dissolution and reformation"
+  }
+}

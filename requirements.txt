@@ -25,3 +25,6 @@ matplotlib==3.8.2
 # Ship Analysis Dependencies
 geopy==2.4.1
 
+# Domain Analysis Template System
+PyYAML==6.0.1
+

@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Band Member Role Analysis - Nominative Determinism Research</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Band Member Role & Name Analysis</h1>
+            <p class="subtitle">Individual Member Names → Role Prediction</p>
+        </header>
+        
+        <nav>
+            <a href="{{ url_for('index') }}">Home</a>
+            <a href="{{ url_for('overview') }}">Overview</a>
+            <a href="{{ url_for('bands_page') }}">Band Names</a>
+            <a href="{{ url_for('band_members_findings') }}" class="active">Band Members</a>
+        </nav>
+        
+        <main>
+            <section class="research-overview">
+                <h2>Research Focus</h2>
+                <p><strong>Novel Angle:</strong> While our <a href="{{ url_for('bands_page') }}">Band Names analysis</a> 
+                examines band nomenclature (e.g., "The Beatles", "Metallica"), this study analyzes 
+                <strong>individual band member names</strong> and their correlation with musical roles.</p>
+            </section>
+            
+            <section class="research-questions">
+                <h2>Research Questions</h2>
+                <ol>
+                    <li>Do phonetic features predict which role (bassist/drummer/vocalist/etc.) a member plays?</li>
+                    <li>Does name 'harshness' correlate with drummer/guitarist roles?</li>
+                    <li>Do 'smoother' names correlate with vocalist/songwriter roles?</li>
+                    <li>Does collective member name composition predict band commercial success?</li>
+                    <li>Are there temporal shifts in name-role patterns?</li>
+                </ol>
+            </section>
+            
+            <section class="sample">
+                <h2>Sample</h2>
+                <p><strong>N</strong> = {{ stats.get('sample_size', 'N/A') }} band members</p>
+                <p><strong>Data Source:</strong> MusicBrainz API (artist relationships)</p>
+                
+                {% if stats.get('role_distribution') %}
+                <h3>Role Distribution</h3>
+                <ul>
+                    {% for role, count in stats.role_distribution.items() %}
+                    <li><strong>{{ role|title }}:</strong> {{ count }} members</li>
+                    {% endfor %}
+                </ul>
+                {% endif %}
+            </section>
+            
+            <section class="hypothesis">
+                <h2>Hypotheses</h2>
+                <div class="hypothesis-list">
+                    <div class="hypothesis-item">
+                        <h3>H1: Phonetic Harshness → Drummer/Guitarist</h3>
+                        <p>Expectation: Harsher names (plosives, fricatives) predict rhythm section roles.</p>
+                        <p><em>Analogous to NFL linemen analysis.</em></p>
+                    </div>
+                    
+                    <div class="hypothesis-item">
+                        <h3>H2: Phonetic Smoothness → Vocalist</h3>
+                        <p>Expectation: Smoother names (liquids, glides) predict lead vocalist roles.</p>
+                        <p>Expected effect: r = 0.25-0.35</p>
+                    </div>
+                    
+                    <div class="hypothesis-item">
+                        <h3>H3: Syllable Patterns by Role</h3>
+                        <p>Expectation: Shorter names (1-2 syllables) for rhythm section (bass/drums).</p>
+                        <p>Longer names for frontmen/vocalists.</p>
+                    </div>
+                    
+                    <div class="hypothesis-item">
+                        <h3>H4: Collective Composition → Band Success</h3>
+                        <p>Expectation: Phonetically diverse member names predict greater commercial success.</p>
+                        <p>"Harsh bassist + smooth vocalist" = optimal combination</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section class="findings">
+                <h2>Key Findings</h2>
+                
+                {% if stats.get('findings') and stats.findings %}
+                    <div class="findings-content">
+                        {{ stats.findings.findings_text|safe }}
+                    </div>
+                {% else %}
+                    <p class="status-message">
+                        <strong>Status:</strong> Data collection in progress<br>
+                        <strong>Target:</strong> 3,000 band members across all roles<br>
+                        <strong>Strategy:</strong> Stratified sampling by role (vocalist, guitarist, bassist, drummer, keyboardist)<br>
+                        <strong>Source:</strong> MusicBrainz API + existing Band table
+                    </p>
+                    
+                    <p>Once data collection completes, analysis will include:</p>
+                    <ul>
+                        <li><strong>Role Prediction Model:</strong> Random Forest classifier (target >45% accuracy)</li>
+                        <li><strong>Feature Importance:</strong> Which name features best predict roles</li>
+                        <li><strong>Collective Analysis:</strong> Member composition → band success</li>
+                        <li><strong>Temporal Evolution:</strong> Are name-role patterns changing over time?</li>
+                    </ul>
+                {% endif %}
+            </section>
+            
+            <section class="methodology">
+                <h2>Methodology</h2>
+                <p>
+                    This analysis follows the comprehensive nominative determinism 
+                    research framework with:
+                </p>
+                <ul>
+                    <li><strong>Statistical Rigor:</strong> 23 standard methods including Random Forest, ANOVA, correlations</li>
+                    <li><strong>Out-of-Sample Validation:</strong> Train/test split + 5-fold cross-validation</li>
+                    <li><strong>Effect Size Reporting:</strong> Cohen's d, correlation coefficients, accuracy improvements</li>
+                    <li><strong>Multi-Level Modeling:</strong> Members nested within bands</li>
+                    <li><strong>Transparent Reporting:</strong> All findings—positive, negative, and null</li>
+                </ul>
+                
+                <h3>Analogous Studies</h3>
+                <p>This research parallels our NFL and NBA position analyses, applying the same
+                   phonetic feature → role prediction framework to musical performance.</p>
+            </section>
+            
+            <section class="integration">
+                <h2>Integration with Band Name Analysis</h2>
+                <p>This study complements our existing <a href="{{ url_for('bands_page') }}">Band Names analysis</a> by examining:</p>
+                <ul>
+                    <li><strong>Individual Level:</strong> Member names → individual roles</li>
+                    <li><strong>Collective Level:</strong> Combined member features → band success</li>
+                    <li><strong>Interaction:</strong> Band name + member composition = comprehensive model</li>
+                </ul>
+            </section>
+        </main>
+        
+        <footer>
+            <p>&copy; 2025 Nominative Determinism Research Platform | <a href="{{ url_for('index') }}">Home</a></p>
+        </footer>
+    </div>
+    
+    <style>
+        .hypothesis-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .hypothesis-item {
+            background: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid #007bff;
+        }
+        
+        .hypothesis-item h3 {
+            margin-top: 0;
+            color: #007bff;
+        }
+        
+        .status-message {
+            background: #fff3cd;
+            border: 1px solid #ffc107;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+        }
+        
+        .findings-content {
+            background: #e7f3ff;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-top: 1rem;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+        }
+        
+        .research-overview {
+            background: #e8f4f8;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            border-left: 4px solid #17a2b8;
+        }
+        
+        .integration {
+            background: #f0f8ff;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-top: 2rem;
+        }
+    </style>
+</body>
+</html>

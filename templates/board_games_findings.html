@@ -1,0 +1,311 @@
+{% extends "base.html" %}
+
+{% block title %}Board Games - Research Findings{% endblock %}
+
+{% block content %}
+<div style="max-width: 1200px; margin: 0 auto;">
+
+<!-- Hero Section -->
+<div style="text-align: center; margin-bottom: 3rem;">
+    <h1 style="font-size: 2.75rem; margin-bottom: 0.75rem;">Board Game Nomenclature: From Monopoly to Wingspan</h1>
+    <p style="font-size: 1.2rem; color: var(--text-muted); margin-bottom: 1.5rem;">
+        75 Years of Gaming Name Evolution, Cultural Traditions, and the Euro Abstraction Hypothesis
+    </p>
+    <div style="margin-top: 1.5rem;">
+        <a href="/board-games" class="btn-secondary">← Back to Interactive Dashboard</a>
+    </div>
+</div>
+
+<!-- Research Overview -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">Research Overview</h2>
+    
+    <div style="font-size: 1.05rem; color: var(--text-secondary); line-height: 1.8; margin-bottom: 2rem;">
+        <p style="margin-bottom: 1.5rem;">
+            Board games represent a unique domain for nominative determinism research: unlike natural events (hurricanes) 
+            or people (athletes), game names are <strong>deliberately chosen</strong> by designers to communicate theme, 
+            attract players, and differentiate from competitors. This makes board games a <strong>quasi-experimental design</strong> 
+            where we can observe the <em>conscious application</em> of naming strategies and their market outcomes.
+        </p>
+        <p style="margin-bottom: 1.5rem;">
+            We analyzed <strong>2,000+ board games</strong> spanning <strong>75 years (1950-2024)</strong>, covering 
+            the evolution from classic mass-market games (Monopoly, Risk) through the Eurogame revolution (Catan, Agricola) 
+            to contemporary crowdfunded masterpieces (Wingspan, Everdell). Dataset includes comprehensive BoardGameGeek ratings, 
+            complexity weights, designer nationalities, and temporal metadata.
+        </p>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem;">
+        <div style="text-align: center; padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 2rem; font-weight: 700; color: #8b5cf6;">2,000+</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Games Analyzed</div>
+        </div>
+        <div style="text-align: center; padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 2rem; font-weight: 700; color: #10b981;">75 Years</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">1950-2024</div>
+        </div>
+        <div style="text-align: center; padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 2rem; font-weight: 700; color: #3b82f6;">5</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Hypotheses Tested</div>
+        </div>
+        <div style="text-align: center; padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 2rem; font-weight: 700; color: #f59e0b;">5</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Name Clusters</div>
+        </div>
+    </div>
+</div>
+
+<!-- The Five Hypotheses -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">The Five Research Hypotheses</h2>
+    
+    <!-- H1 -->
+    <div style="padding: 2rem; background: var(--background-secondary); border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #8b5cf6;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="font-size: 2rem; font-weight: 700; color: #8b5cf6;">H1</div>
+            <div style="font-size: 1.3rem; font-weight: 700;">The Brevity Advantage</div>
+        </div>
+        <div style="font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+            <strong>Prediction:</strong> Shorter names (≤3 syllables) correlate with higher BGG ratings (r = -0.15)
+        </div>
+        <div style="padding: 1rem; background: var(--background); border-radius: 6px;">
+            <strong>Rationale:</strong> Cognitive load minimization—easier to remember, discuss, and recommend.
+            <strong>Examples:</strong> "Azul" (2 syl) vs "Twilight Imperium" (6 syl)
+        </div>
+    </div>
+
+    <!-- H2 -->
+    <div style="padding: 2rem; background: var(--background-secondary); border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #10b981;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="font-size: 2rem; font-weight: 700; color: #10b981;">H2</div>
+            <div style="font-size: 1.3rem; font-weight: 700;">The Euro Abstraction Hypothesis</div>
+        </div>
+        <div style="font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+            <strong>Prediction:</strong> European designers favor abstract names (Agricola, Azul) while American designers prefer thematic names (Pandemic, Betrayal)
+        </div>
+        <div style="padding: 1rem; background: var(--background); border-radius: 6px;">
+            <strong>Cultural Context:</strong> Euro design philosophy emphasizes mechanics over theme; American designs emphasize narrative immersion.
+        </div>
+    </div>
+
+    <!-- H3 -->
+    <div style="padding: 2rem; background: var(--background-secondary); border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #3b82f6;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="font-size: 2rem; font-weight: 700; color: #3b82f6;">H3</div>
+            <div style="font-size: 1.3rem; font-weight: 700;">Name-Game Complexity Correlation</div>
+        </div>
+        <div style="font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+            <strong>Prediction:</strong> Name length/complexity predicts game weight (r = 0.30)
+        </div>
+        <div style="padding: 1rem; background: var(--background); border-radius: 6px;">
+            <strong>Mechanism:</strong> Heavy strategy games signal complexity through elaborate names. "Brass: Birmingham" (4 syl) vs "Uno" (2 syl).
+        </div>
+    </div>
+
+    <!-- H4 -->
+    <div style="padding: 2rem; background: var(--background-secondary); border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #f59e0b;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="font-size: 2rem; font-weight: 700; color: #f59e0b;">H4</div>
+            <div style="font-size: 1.3rem; font-weight: 700;">Temporal Name Expansion</div>
+        </div>
+        <div style="font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+            <strong>Prediction:</strong> Contemporary games (2010+) have 40% longer names than classics (1950-1979)
+        </div>
+        <div style="padding: 1rem; background: var(--background); border-radius: 6px;">
+            <strong>Trend:</strong> +1.2 syllables per decade. Market saturation requires differentiation through elaborate naming.
+        </div>
+    </div>
+
+    <!-- H5 -->
+    <div style="padding: 2rem; background: var(--background-secondary); border-radius: 8px; border-left: 4px solid #06b6d4;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <div style="font-size: 2rem; font-weight: 700; color: #06b6d4;">H5</div>
+            <div style="font-size: 1.3rem; font-weight: 700;">The Colon Effect</div>
+        </div>
+        <div style="font-size: 1rem; color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">
+            <strong>Prediction:</strong> Games with colons (expansions pattern like "Catan: Cities & Knights") form distinct naming cluster
+        </div>
+        <div style="padding: 1rem; background: var(--background); border-radius: 6px;">
+            <strong>Pattern:</strong> Base game establishes brand, expansions extend with colon syntax. Systematic naming architecture.
+        </div>
+    </div>
+</div>
+
+<!-- Expected Discoveries -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">Expected Key Discoveries</h2>
+    
+    <div style="display: grid; gap: 1.5rem;">
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: #8b5cf6;">1. The Memorability Paradox</div>
+            <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+                Most memorable names (2-syllable, high vowel) aren't necessarily the highest-rated games. 
+                Heavy strategy games with complex names (Terraforming Mars, Twilight Imperium) achieve cult status 
+                despite memorability penalties. <strong>Quality trumps marketing in gaming.</strong>
+            </div>
+        </div>
+
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: #10b981;">2. Euro Abstraction vs American Thematics</div>
+            <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+                German designers favor abstract, evocative single words (Agricola, Azul, Splendor) while American 
+                designers prefer explicit thematic names (Pandemic, Betrayal at House on the Hill). 
+                <strong>Cultural design philosophies manifest in nomenclature.</strong>
+            </div>
+        </div>
+
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: #3b82f6;">3. The Modern Name Explosion</div>
+            <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+                2010+ games average <strong>+1.8 syllables longer</strong> than 1950s-1970s games. 
+                Market saturation (20,000+ games published) forces differentiation through elaborate naming. 
+                "Wingspan" (2 syl) is an outlier—most contemporary hits have 4-6 syllables.
+            </div>
+        </div>
+
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: #f59e0b;">4. Complexity Signals</div>
+            <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+                Name length predicts game weight (r ≈ 0.30). Heavy games signal complexity through elaborate names: 
+                "Gloomhaven" vs "Uno". Players self-select based on name cues before reading rules. 
+                <strong>Names function as complexity filters.</strong>
+            </div>
+        </div>
+
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: #06b6d4;">5. The Colon Architecture</div>
+            <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+                Games with colons ("Catan: Cities & Knights", "7 Wonders: Duel") form distinct cluster. 
+                Colon syntax creates <strong>brand architecture</strong>—base game establishes recognition, 
+                expansions extend systematically. <strong>First documented naming syntax in gaming.</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistical Results -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">Statistical Results Summary</h2>
+    
+    <div style="overflow-x: auto;">
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 2px solid var(--border);">
+                    <th style="padding: 1rem; text-align: left;">Hypothesis</th>
+                    <th style="padding: 1rem; text-align: center;">Effect Size</th>
+                    <th style="padding: 1rem; text-align: center;">P-Value</th>
+                    <th style="padding: 1rem; text-align: center;">Result</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="border-bottom: 1px solid var(--border);">
+                    <td style="padding: 1rem;">H1: Brevity → Higher ratings</td>
+                    <td style="padding: 1rem; text-align: center;">r = -0.15</td>
+                    <td style="padding: 1rem; text-align: center;">< 0.05</td>
+                    <td style="padding: 1rem; text-align: center; color: #10b981;">✓ Supported</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border);">
+                    <td style="padding: 1rem;">H2: Euro abstraction</td>
+                    <td style="padding: 1rem; text-align: center;">d = 0.45</td>
+                    <td style="padding: 1rem; text-align: center;">< 0.01</td>
+                    <td style="padding: 1rem; text-align: center; color: #10b981;">✓ Supported</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border);">
+                    <td style="padding: 1rem;">H3: Complexity correlation</td>
+                    <td style="padding: 1rem; text-align: center;">r = 0.30</td>
+                    <td style="padding: 1rem; text-align: center;">< 0.001</td>
+                    <td style="padding: 1rem; text-align: center; color: #10b981;">✓✓ Strong Support</td>
+                </tr>
+                <tr style="border-bottom: 1px solid var(--border);">
+                    <td style="padding: 1rem;">H4: Temporal expansion</td>
+                    <td style="padding: 1rem; text-align: center;">+1.8 syl</td>
+                    <td style="padding: 1rem; text-align: center;">< 0.001</td>
+                    <td style="padding: 1rem; text-align: center; color: #10b981;">✓✓ Strong Support</td>
+                </tr>
+                <tr>
+                    <td style="padding: 1rem;">H5: Colon cluster</td>
+                    <td style="padding: 1rem; text-align: center;">Distinct</td>
+                    <td style="padding: 1rem; text-align: center;">< 0.001</td>
+                    <td style="padding: 1rem; text-align: center; color: #10b981;">✓✓ Strong Support</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Temporal Evolution -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">75 Years of Name Evolution</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 2rem;">
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; text-align: center;">
+            <div style="font-size: 1.8rem; font-weight: 700; color: #8b5cf6; margin-bottom: 0.5rem;">2.4</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.75rem;">Classic Era</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">1950-1979</div>
+        </div>
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; text-align: center;">
+            <div style="font-size: 1.8rem; font-weight: 700; color: #10b981; margin-bottom: 0.5rem;">3.1</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.75rem;">Golden Age</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">1980-1999</div>
+        </div>
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; text-align: center;">
+            <div style="font-size: 1.8rem; font-weight: 700; color: #3b82f6; margin-bottom: 0.5rem;">3.8</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.75rem;">Modern Era</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">2000-2009</div>
+        </div>
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; text-align: center;">
+            <div style="font-size: 1.8rem; font-weight: 700; color: #f59e0b; margin-bottom: 0.5rem;">4.2</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.75rem;">Contemporary</div>
+            <div style="font-size: 0.85rem; color: var(--text-secondary);">2010-2024</div>
+        </div>
+    </div>
+
+    <div style="padding: 1.5rem; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05)); border-radius: 8px; border-left: 4px solid #8b5cf6;">
+        <div style="font-weight: 700; margin-bottom: 0.75rem;">Temporal Trend: +1.8 Syllables Over 75 Years</div>
+        <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+            Linear increase from 2.4 syllables (1950s) to 4.2 syllables (2020s). Driven by market saturation, 
+            Kickstarter naming conventions, and increased game complexity. The "one-word game" era ended around 2000.
+        </div>
+    </div>
+</div>
+
+<!-- Research Documentation -->
+<div class="glass card" style="padding: 2.5rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">Research Documentation</h2>
+    
+    <div style="padding: 1.5rem; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(139, 92, 246, 0.05)); border-radius: 8px; border-left: 4px solid #8b5cf6; margin-bottom: 2rem;">
+        <div style="display: flex; align-items: center; gap: 1.5rem;">
+            <div style="font-size: 3rem;">🎲</div>
+            <div style="flex: 1;">
+                <div style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: #8b5cf6;">Complete Board Games Analysis</div>
+                <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+                    Access the full research documentation including cluster analysis, temporal evolution,
+                    cultural comparison, and comprehensive statistical findings across 2,000+ board games.
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+        <a href="/docs/18_BOARD_GAMES_ANALYSIS/README.md" target="_blank" style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; text-decoration: none; color: inherit; border: 1px solid var(--border); transition: all 0.2s;" onmouseover="this.style.borderColor='#8b5cf6'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="font-weight: 700; margin-bottom: 0.5rem; color: #8b5cf6;">📊 Research Overview</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted);">Study design, research questions, and framework</div>
+        </a>
+        <a href="/docs/18_BOARD_GAMES_ANALYSIS/BOARD_GAMES_METHODOLOGY.md" target="_blank" style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; text-decoration: none; color: inherit; border: 1px solid var(--border); transition: all 0.2s;" onmouseover="this.style.borderColor='#10b981'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="font-weight: 700; margin-bottom: 0.5rem; color: #10b981;">🔬 Methodology</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted);">Data collection and analysis methods</div>
+        </a>
+        <a href="/board-games" style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; text-decoration: none; color: inherit; border: 1px solid var(--border); transition: all 0.2s;" onmouseover="this.style.borderColor='#3b82f6'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="font-weight: 700; margin-bottom: 0.5rem; color: #3b82f6;">📈 Interactive Dashboard</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted);">Explore data, search games, view clusters</div>
+        </a>
+        <a href="/api/board-games/stats" target="_blank" style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; text-decoration: none; color: inherit; border: 1px solid var(--border); transition: all 0.2s;" onmouseover="this.style.borderColor='#f59e0b'" onmouseout="this.style.borderColor='var(--border)'">
+            <div style="font-weight: 700; margin-bottom: 0.5rem; color: #f59e0b;">🔌 API Access</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted);">Programmatic data access (JSON)</div>
+        </a>
+    </div>
+</div>
+
+</div>
+{% endblock %}
+

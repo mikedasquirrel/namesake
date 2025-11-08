@@ -23,15 +23,15 @@
     <!-- Stats Bar -->
     <div class="stats-bar">
         <div class="stat-item">
-            <span class="stat-number">15</span>
+            <span class="stat-number">19</span>
             <span class="stat-label">research domains</span>
         </div>
         <div class="stat-item">
-            <span class="stat-number">32K+</span>
+            <span class="stat-number">52K+</span>
             <span class="stat-label">data points analyzed</span>
         </div>
         <div class="stat-item">
-            <span class="stat-number">7</span>
+            <span class="stat-number">9</span>
             <span class="stat-label">independent spheres</span>
         </div>
         <div class="stat-item">
@@ -68,6 +68,17 @@
                     Explore findings <span>→</span>
                 </a>
             </div>
+
+            <div class="insight-card">
+                <span class="card-icon">🎲</span>
+                <h3 class="card-title">Board Games</h3>
+                <p class="card-description">
+                    75 years of gaming evolution. Euro abstraction vs American thematics. Name complexity predicts game weight (r=0.30). Temporal expansion: +1.8 syllables from 1950s to 2020s.
+                </p>
+                <a href="{{ url_for('board_games_findings') }}" class="card-link">
+                    Explore findings <span>→</span>
+                </a>
+            </div>
         </div>
 
         <!-- Sports Category -->
@@ -90,7 +101,18 @@
                 <p class="card-description">
                     Position-specific phonetic patterns. Harsh names correlate with defensive roles, softer names with skill positions.
                 </p>
-                <a href="{{ url_for('nfl_page') }}" class="card-link">
+                <a href="{{ url_for('nfl_findings') }}" class="card-link">
+                    Explore findings <span>→</span>
+                </a>
+            </div>
+
+            <div class="insight-card">
+                <span class="card-icon">⚾</span>
+                <h3 class="card-title">MLB Baseball</h3>
+                <p class="card-description">
+                    Pitcher mystique (+0.8 syl), power names for HR leaders (+12 harshness), closer effect (-0.6 syl). Latino inflection post-1990: +2.2 syllables.
+                </p>
+                <a href="{{ url_for('mlb_findings') }}" class="card-link">
                     Explore findings <span>→</span>
                 </a>
             </div>
@@ -131,7 +153,7 @@
                 <p class="card-description">
                     Name complexity correlates with field prestige. Phonetic patterns differ between humanities and STEM disciplines.
                 </p>
-                <a href="{{ url_for('academics_page') }}" class="card-link">
+                <a href="{{ url_for('academics_findings') }}" class="card-link">
                     Explore findings <span>→</span>
                 </a>
             </div>
@@ -148,12 +170,23 @@
             </div>
 
             <div class="insight-card">
+                <span class="card-icon">🎤</span>
+                <h3 class="card-title">Band Members</h3>
+                <p class="card-description">
+                    Individual member names predict role (vocalist/drummer/bassist). Collective name composition correlates with band success.
+                </p>
+                <a href="{{ url_for('band_members_findings') }}" class="card-link">
+                    Explore findings <span>→</span>
+                </a>
+            </div>
+
+            <div class="insight-card">
                 <span class="card-icon">⚓</span>
                 <h3 class="card-title">Ships</h3>
                 <p class="card-description">
-                    Naval nomenclature patterns across vessel types. Name characteristics correlate with service longevity and role.
+                    Geographic names outperform saint names (+5.61 points, p<0.0001). Virtue names achieve highest significance. HMS Beagle exemplifies semantic alignment.
                 </p>
-                <a href="{{ url_for('ships_page') }}" class="card-link">
+                <a href="{{ url_for('ship_findings') }}" class="card-link">
                     Explore findings <span>→</span>
                 </a>
             </div>
@@ -186,7 +219,18 @@
                 <p class="card-description">
                     Brand names achieve +52% recall vs generics. Disorder nomenclature affects stigma perception and treatment seeking.
                 </p>
-                <a href="{{ url_for('mental_health_page') }}" class="card-link">
+                <a href="{{ url_for('mental_health_findings') }}" class="card-link">
+                    Explore findings <span>→</span>
+                </a>
+            </div>
+
+            <div class="insight-card">
+                <span class="card-icon">🗳️</span>
+                <h3 class="card-title">Elections</h3>
+                <p class="card-description">
+                    870 candidates, 18 position types, 73 years (1952-2024). Phonetic harmony predicts electoral success. District Attorney names show strongest title-euphony effects.
+                </p>
+                <a href="{{ url_for('elections_findings') }}" class="card-link">
                     Explore findings <span>→</span>
                 </a>
             </div>

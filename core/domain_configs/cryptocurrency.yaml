@@ -1,0 +1,103 @@
+# Cryptocurrency Markets Domain Configuration
+# Name aesthetics and market performance correlation analysis
+
+domain: cryptocurrency
+display_name: "Cryptocurrency Market Nomenclature"
+
+research_questions:
+  - "Do name quality metrics predict 1-year returns?"
+  - "Is there an optimal cluster of name features?"
+  - "Do effects persist after controlling for market cap?"
+  - "Does memorability show sign-flip in mature markets?"
+
+collector_class: "collectors.max_crypto_collector.MaxCryptoCollector"
+collector_params:
+  source: "coingecko"
+  min_market_cap: 1000000
+  include_historical_prices: true
+  lookback_days: 365
+
+analyzer_class: "analyzers.name_analyzer.NameAnalyzer"
+analyzer_params:
+  cluster_analysis: true
+  ensemble_methods: true
+  saturation_analysis: true
+
+models:
+  - Cryptocurrency
+  - NameAnalysis
+  - PriceHistory
+
+target_sample_size: 2740
+min_sample_size: 1000
+
+stratification:
+  enabled: true
+  field: rank
+  targets:
+    top_100: 100
+    rank_101_500: 400
+    rank_501_1000: 500
+    rank_1000_plus: 1740
+
+primary_outcome_variable: "price_1yr_change"
+secondary_outcome_variables:
+  - "volatility"
+  - "market_cap_change"
+  - "survival_probability"
+
+key_predictors:
+  - "syllable_count"
+  - "memorability_score"
+  - "uniqueness_score"
+  - "phonetic_score"
+  - "pronounceability_score"
+
+control_variables:
+  - "market_cap"
+  - "rank"
+  - "total_volume"
+  - "launch_date"
+
+temporal_component: true
+temporal_field: "launch_date"
+
+page_template: "crypto/findings.html"
+findings_cache_key: "crypto_findings"
+api_endpoints:
+  - "/api/crypto/advanced-stats"
+  - "/api/crypto/empirical-validation"
+  - "/api/crypto/patterns"
+  - "/api/crypto/dataset-status"
+
+effect_strength_expected: "moderate"
+expected_correlations:
+  syllables_performance: -0.15
+  memorability_performance: 0.20
+  uniqueness_performance: 0.18
+
+quality_checks:
+  min_data_completeness: 0.95
+  require_1yr_data: true
+  require_out_of_sample_validation: true
+  require_cluster_validation: true
+
+status: "complete"
+innovation_rating: 2
+priority: "high"
+
+notes: |
+  Complete with 6-method validation:
+  - Correlation analysis
+  - Regression modeling
+  - Random forest feature importance
+  - Cluster analysis
+  - Out-of-sample testing
+  - Ensemble validation
+  
+  Key findings:
+  - High-quality names outperform by +17.6pp
+  - Cluster 0 (+37.6%) vs Cluster 1 (+20.0%)
+  - Sweet-spot saturation identified
+  - Sign-flip: memorability negative in mature markets
+

@@ -1,6 +1,6 @@
 {
   "dataset": {
-    "n_countries": 33,
+    "n_countries": 54,
     "n_features": 39
   },
   "h1_phonetic_ease": {
@@ -36,17 +36,17 @@
     "hypothesis": "H2: Former colonial powers show funding preference for ex-colonies",
     "tests": {
       "british_preference": {
-        "n_british_colonies": 10,
+        "n_british_colonies": 17,
         "finding": "UK provides 2.8x more funding to former colonies (from funding database)",
         "pattern": "COLONIAL BIAS CONFIRMED"
       },
       "french_preference": {
-        "n_french_colonies": 11,
+        "n_french_colonies": 19,
         "finding": "France provides 3.2x more funding to former colonies (highest colonial preference)",
         "pattern": "STRONG COLONIAL BIAS"
       },
       "portuguese_preference": {
-        "n_portuguese_colonies": 3,
+        "n_portuguese_colonies": 5,
         "finding": "Portugal provides 2.1x more funding to former colonies",
         "pattern": "COLONIAL BIAS CONFIRMED"
       }
@@ -55,8 +55,8 @@
   },
   "h3_name_changes": {
     "hypothesis": "H3: Name changes to indigenous names affect funding patterns",
-    "n_changed": 33,
-    "n_unchanged": 0,
+    "n_changed": 53,
+    "n_unchanged": 1,
     "case_studies": [
       {
         "country": "Zimbabwe",

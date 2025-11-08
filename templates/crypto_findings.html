@@ -202,10 +202,57 @@
 
         <!-- Bottom Navigation -->
         <div style="text-align: center; padding: 2rem 0;">
-            <a href="{{ url_for('analysis') }}" class="btn-primary" style="padding: 0.875rem 2rem;">
+            <a href="{{ url_for('analysis') }}" class="btn-primary" style="padding: 0.875rem 2rem;">                                                            
                 View Detailed Statistical Analysis →
             </a>
         </div>
+
+        <!-- Research Documentation Section -->
+        <section class="glass card" style="padding: 2.5rem; margin-top: 3rem;">
+            <h2 style="margin-top: 0; margin-bottom: 2rem;">Research Documentation</h2>
+            
+            <div style="padding: 1.5rem; background: linear-gradient(135deg, rgba(251, 191, 36, 0.1), rgba(251, 191, 36, 0.05)); border-radius: 8px; border-left: 4px solid #fbbf24; margin-bottom: 2rem;">
+                <div style="display: flex; align-items: center; gap: 1.5rem;">
+                    <div style="font-size: 3rem;">₿</div>
+                    <div style="flex: 1;">
+                        <div style="font-size: 1.2rem; font-weight: 700; margin-bottom: 0.5rem; color: #fbbf24;">Complete Crypto Analysis</div>
+                        <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7;">
+                            Access the full research documentation including mission analysis, cluster effects,
+                            6-method validation, and ensemble feature importance across 2,740+ cryptocurrencies.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                <a href="/docs/01_CRYPTO_ANALYSIS/CRYPTO_MISSION_ANALYSIS.md" target="_blank" style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; text-decoration: none; color: inherit; border: 1px solid var(--border); transition: all 0.2s;" onmouseover="this.style.borderColor='#fbbf24'" onmouseout="this.style.borderColor='var(--border)'">
+                    <div style="font-weight: 700; margin-bottom: 0.5rem; color: #fbbf24;">📊 Mission Analysis</div>
+                    <div style="font-size: 0.9rem; color: var(--text-muted);">Comprehensive findings, cluster effects, validation methods</div>
+                </a>
+                <a href="/api/crypto/advanced-stats" target="_blank" style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; text-decoration: none; color: inherit; border: 1px solid var(--border); transition: all 0.2s;" onmouseover="this.style.borderColor='#10b981'" onmouseout="this.style.borderColor='var(--border)'">
+                    <div style="font-weight: 700; margin-bottom: 0.5rem; color: #10b981;">📈 Live Statistics</div>
+                    <div style="font-size: 0.9rem; color: var(--text-muted);">Real-time advanced statistical analysis API</div>
+                </a>
+            </div>
+
+            <div style="margin-top: 2rem; padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+                <h3 style="font-size: 1.1rem; margin-bottom: 1rem;">Key Dataset Statistics</h3>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 0.5rem; color: #fbbf24;">Sample: 2,740+</div>
+                        <div style="font-size: 0.9rem; color: var(--text-muted);">Cryptocurrencies analyzed</div>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 0.5rem; color: #10b981;">+17.6pp</div>
+                        <div style="font-size: 0.9rem; color: var(--text-muted);">High-quality name advantage</div>
+                    </div>
+                    <div>
+                        <div style="font-weight: 600; margin-bottom: 0.5rem; color: #f59e0b;">6 Methods</div>
+                        <div style="font-size: 0.9rem; color: var(--text-muted);">Validation approaches used</div>
+                    </div>
+                </div>
+            </div>
+        </section>
 
     </div>
 </div>

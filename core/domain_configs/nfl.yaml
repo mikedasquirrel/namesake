@@ -1,0 +1,106 @@
+# NFL Player Analysis Domain Configuration
+# Phonetic features and position prediction in professional football
+
+domain: nfl
+display_name: "NFL Player Performance & Position Analysis"
+
+research_questions:
+  - "Do phonetic features predict playing position?"
+  - "Does name complexity correlate with QB performance metrics?"
+  - "Are there temporal shifts in naming conventions?"
+  - "Do syllable counts differ significantly across positions?"
+
+# Data collection configuration
+collector_class: "collectors.nfl_collector.NFLCollector"
+collector_params:
+  source: "sports_reference"
+  rate_limit_seconds: 2.0
+  respect_robots_txt: true
+
+# Analysis configuration
+analyzer_class: "analyzers.nfl_statistical_analyzer.NFLStatisticalAnalyzer"
+analyzer_params:
+  min_games_played: 16
+  include_practice_squad: false
+
+# Database models
+models:
+  - NFLPlayer
+  - NFLPlayerAnalysis
+
+# Sample targets
+target_sample_size: 1000
+min_sample_size: 500
+
+# Stratification strategy
+stratification:
+  enabled: true
+  field: position
+  targets:
+    QB: 100
+    RB: 100
+    WR: 150
+    TE: 75
+    OL: 150
+    DL: 150
+    LB: 150
+    DB: 125
+
+# Primary analysis variables
+primary_outcome_variable: "position"
+secondary_outcome_variables:
+  - "performance_metrics"
+  - "career_length"
+  - "pro_bowl_selections"
+
+key_predictors:
+  - "syllable_count"
+  - "phonetic_strength"
+  - "phonetic_harshness"
+  - "name_length"
+  - "memorability"
+
+control_variables:
+  - "draft_round"
+  - "draft_year"
+  - "college_tier"
+
+# Temporal analysis
+temporal_component: true
+temporal_field: "draft_year"
+temporal_periods:
+  early: [1970, 1989]
+  modern: [1990, 2009]
+  contemporary: [2010, 2024]
+
+# Web interface
+page_template: "nfl.html"
+findings_cache_key: "nfl_findings"
+api_endpoints:
+  - "/api/nfl/stats"
+  - "/api/nfl/position-analysis"
+  - "/api/nfl/temporal-trends"
+
+# Expected outcomes
+effect_strength_expected: "moderate"
+expected_correlations:
+  syllables_position: 0.25
+  phonetic_qb_performance: 0.20
+
+# Quality thresholds
+quality_checks:
+  min_data_completeness: 0.95
+  max_missing_per_variable: 0.10
+  require_out_of_sample_validation: true
+  require_cross_validation: true
+
+# Status
+status: "active"
+innovation_rating: 2
+priority: "high"
+
+notes: |
+  Data collection in progress. Position analysis framework ready.
+  Rate limiting issues resolved. Targeting 1000+ players across all positions.
+  Focus on QB position for performance correlation analysis.
+

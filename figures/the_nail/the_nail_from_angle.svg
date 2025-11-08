@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="1800" height="1200" xmlns="http://www.w3.org/2000/svg">
+  <rect width="100%" height="100%" fill="#0a0a0a"/>
+
+  <!-- The Nail: 17 Domains, Viewing Angle: 30° -->
+  <!-- Generated from Nominative Determinism Research Data -->
+
+  <circle cx="1202.40" cy="479.06" r="70.23" fill="rgb(180, 100, 100)" opacity="0.076"/>
+  <circle cx="1202.40" cy="479.06" r="105.35" fill="rgb(180, 100, 100)" opacity="0.038"/>
+  <circle cx="1202.40" cy="479.06" r="140.47" fill="rgb(180, 100, 100)" opacity="0.025"/>
+  <circle cx="1202.40" cy="479.06" r="35.12" fill="rgb(180, 100, 100)" opacity="0.764" data-domain="Hurricanes" data-violence="naming_natural_chaos"/>
+  <text x="1202.40" y="467.06" font-family="serif" font-size="8" fill="rgb(180, 100, 100)" opacity="0.4" text-anchor="middle">Katrina</text>
+  <text x="1202.40" y="479.06" font-family="serif" font-size="8" fill="rgb(180, 100, 100)" opacity="0.4" text-anchor="middle">Andrew</text>
+  <text x="1202.40" y="491.06" font-family="serif" font-size="8" fill="rgb(180, 100, 100)" opacity="0.4" text-anchor="middle">Maria</text>
+  <circle cx="1002.60" cy="326.40" r="184.56" fill="rgb(170, 160, 140)" opacity="0.078"/>
+  <circle cx="1002.60" cy="326.40" r="276.84" fill="rgb(170, 160, 140)" opacity="0.039"/>
+  <circle cx="1002.60" cy="326.40" r="369.12" fill="rgb(170, 160, 140)" opacity="0.026"/>
+  <circle cx="1002.60" cy="326.40" r="92.28" fill="rgb(170, 160, 140)" opacity="0.781" data-domain="Immigration Patterns" data-violence="geographic_destiny"/>
+  <text x="1002.60" y="314.40" font-family="serif" font-size="8" fill="rgb(170, 160, 140)" opacity="0.4" text-anchor="middle">Romano</text>
+  <text x="1002.60" y="326.40" font-family="serif" font-size="8" fill="rgb(170, 160, 140)" opacity="0.4" text-anchor="middle">Berliner</text>
+  <text x="1002.60" y="338.40" font-family="serif" font-size="8" fill="rgb(170, 160, 140)" opacity="0.4" text-anchor="middle">London</text>
+  <circle cx="900.00" cy="600.00" r="216.32" fill="rgb(140, 100, 180)" opacity="0.081"/>
+  <circle cx="900.00" cy="600.00" r="324.47" fill="rgb(140, 100, 180)" opacity="0.041"/>
+  <circle cx="900.00" cy="600.00" r="432.63" fill="rgb(140, 100, 180)" opacity="0.027"/>
+  <circle cx="900.00" cy="600.00" r="108.16" fill="rgb(140, 100, 180)" opacity="0.814" data-domain="Mental Health" data-violence="pinning_consciousness"/>
+  <text x="900.00" y="588.00" font-family="serif" font-size="8" fill="rgb(140, 100, 180)" opacity="0.4" text-anchor="middle">Bipolar</text>
+  <text x="900.00" y="600.00" font-family="serif" font-size="8" fill="rgb(140, 100, 180)" opacity="0.4" text-anchor="middle">Schizophrenia</text>
+  <text x="900.00" y="612.00" font-family="serif" font-size="8" fill="rgb(140, 100, 180)" opacity="0.4" text-anchor="middle">Manic-Depressive</text>
+  <circle cx="849.60" cy="237.18" r="216.61" fill="rgb(140, 120, 100)" opacity="0.081"/>
+  <circle cx="849.60" cy="237.18" r="324.92" fill="rgb(140, 120, 100)" opacity="0.041"/>
+  <circle cx="849.60" cy="237.18" r="433.23" fill="rgb(140, 120, 100)" opacity="0.027"/>
+  <circle cx="849.60" cy="237.18" r="108.31" fill="rgb(140, 120, 100)" opacity="0.814" data-domain="Ships" data-violence="fate_inscription"/>
+  <text x="849.60" y="225.18" font-family="serif" font-size="8" fill="rgb(140, 120, 100)" opacity="0.4" text-anchor="middle">HMS Beagle</text>
+  <text x="849.60" y="237.18" font-family="serif" font-size="8" fill="rgb(140, 120, 100)" opacity="0.4" text-anchor="middle">HMS Terror</text>
+  <text x="849.60" y="249.18" font-family="serif" font-size="8" fill="rgb(140, 120, 100)" opacity="0.4" text-anchor="middle">HMS Erebus</text>
+  <circle cx="934.20" cy="691.20" r="51.84" fill="rgb(180, 120, 200)" opacity="0.084"/>
+  <circle cx="934.20" cy="691.20" r="77.77" fill="rgb(180, 120, 200)" opacity="0.042"/>
+  <circle cx="934.20" cy="691.20" r="103.69" fill="rgb(180, 120, 200)" opacity="0.028"/>
+  <circle cx="934.20" cy="691.20" r="25.92" fill="rgb(180, 120, 200)" opacity="0.836" data-domain="Band Members" data-violence="legacy_constraint"/>
+  <text x="934.20" y="679.20" font-family="serif" font-size="8" fill="rgb(180, 120, 200)" opacity="0.4" text-anchor="middle">Lennon</text>
+  <text x="934.20" y="691.20" font-family="serif" font-size="8" fill="rgb(180, 120, 200)" opacity="0.4" text-anchor="middle">Jagger</text>
+  <text x="934.20" y="703.20" font-family="serif" font-size="8" fill="rgb(180, 120, 200)" opacity="0.4" text-anchor="middle">Mercury</text>
+  <circle cx="1534.94" cy="532.80" r="87.70" fill="rgb(160, 120, 140)" opacity="0.085"/>
+  <circle cx="1534.94" cy="532.80" r="131.56" fill="rgb(160, 120, 140)" opacity="0.043"/>
+  <circle cx="1534.94" cy="532.80" r="175.41" fill="rgb(160, 120, 140)" opacity="0.028"/>
+  <circle cx="1534.94" cy="532.80" r="43.85" fill="rgb(160, 120, 140)" opacity="0.854" data-domain="Election Politics" data-violence="identity_branding"/>
+  <text x="1534.94" y="520.80" font-family="serif" font-size="8" fill="rgb(160, 120, 140)" opacity="0.4" text-anchor="middle">Trump</text>
+  <text x="1534.94" y="532.80" font-family="serif" font-size="8" fill="rgb(160, 120, 140)" opacity="0.4" text-anchor="middle">Biden</text>
+  <text x="1534.94" y="544.80" font-family="serif" font-size="8" fill="rgb(160, 120, 140)" opacity="0.4" text-anchor="middle">Obama</text>
+  <circle cx="1051.20" cy="890.01" r="48.94" fill="rgb(150, 140, 130)" opacity="0.087"/>
+  <circle cx="1051.20" cy="890.01" r="73.41" fill="rgb(150, 140, 130)" opacity="0.043"/>
+  <circle cx="1051.20" cy="890.01" r="97.88" fill="rgb(150, 140, 130)" opacity="0.029"/>
+  <circle cx="1051.20" cy="890.01" r="24.47" fill="rgb(150, 140, 130)" opacity="0.866" data-domain="FEMA Disaster Aid" data-violence="resource_rationing"/>
+  <text x="1051.20" y="878.01" font-family="serif" font-size="8" fill="rgb(150, 140, 130)" opacity="0.4" text-anchor="middle">Katrina</text>
+  <text x="1051.20" y="890.01" font-family="serif" font-size="8" fill="rgb(150, 140, 130)" opacity="0.4" text-anchor="middle">Sandy</text>
+  <text x="1051.20" y="902.01" font-family="serif" font-size="8" fill="rgb(150, 140, 130)" opacity="0.4" text-anchor="middle">Harvey</text>
+  <circle cx="1081.41" cy="398.40" r="308.01" fill="rgb(200, 140, 160)" opacity="0.088"/>
+  <circle cx="1081.41" cy="398.40" r="462.01" fill="rgb(200, 140, 160)" opacity="0.044"/>
+  <circle cx="1081.41" cy="398.40" r="616.01" fill="rgb(200, 140, 160)" opacity="0.029"/>
+  <circle cx="1081.41" cy="398.40" r="154.00" fill="rgb(200, 140, 160)" opacity="0.882" data-domain="NBA Players" data-violence="role_fixation"/>
+  <text x="1081.41" y="386.40" font-family="serif" font-size="8" fill="rgb(200, 140, 160)" opacity="0.4" text-anchor="middle">Kobe</text>
+  <text x="1081.41" y="398.40" font-family="serif" font-size="8" fill="rgb(200, 140, 160)" opacity="0.4" text-anchor="middle">Shaq</text>
+  <text x="1081.41" y="410.40" font-family="serif" font-size="8" fill="rgb(200, 140, 160)" opacity="0.4" text-anchor="middle">LeBron</text>
+  <circle cx="1716.36" cy="398.40" r="310.36" fill="rgb(160, 120, 140)" opacity="0.088"/>
+  <circle cx="1716.36" cy="398.40" r="465.54" fill="rgb(160, 120, 140)" opacity="0.044"/>
+  <circle cx="1716.36" cy="398.40" r="620.72" fill="rgb(160, 120, 140)" opacity="0.029"/>
+  <circle cx="1716.36" cy="398.40" r="155.18" fill="rgb(160, 120, 140)" opacity="0.883" data-domain="America Nomenclature" data-violence="tribal_marking"/>
+  <text x="1716.36" y="386.40" font-family="serif" font-size="8" fill="rgb(160, 120, 140)" opacity="0.4" text-anchor="middle">America</text>
+  <text x="1716.36" y="398.40" font-family="serif" font-size="8" fill="rgb(160, 120, 140)" opacity="0.4" text-anchor="middle">United States</text>
+  <text x="1716.36" y="410.40" font-family="serif" font-size="8" fill="rgb(160, 120, 140)" opacity="0.4" text-anchor="middle">USA</text>
+  <circle cx="1081.41" cy="532.80" r="95.70" fill="rgb(200, 140, 160)" opacity="0.088"/>
+  <circle cx="1081.41" cy="532.80" r="143.55" fill="rgb(200, 140, 160)" opacity="0.044"/>
+  <circle cx="1081.41" cy="532.80" r="191.40" fill="rgb(200, 140, 160)" opacity="0.029"/>
+  <circle cx="1081.41" cy="532.80" r="47.85" fill="rgb(200, 140, 160)" opacity="0.883" data-domain="NFL Players" data-violence="role_imprisonment"/>
+  <text x="1081.41" y="520.80" font-family="serif" font-size="8" fill="rgb(200, 140, 160)" opacity="0.4" text-anchor="middle">Brady</text>
+  <text x="1081.41" y="532.80" font-family="serif" font-size="8" fill="rgb(200, 140, 160)" opacity="0.4" text-anchor="middle">Mahomes</text>
+  <text x="1081.41" y="544.80" font-family="serif" font-size="8" fill="rgb(200, 140, 160)" opacity="0.4" text-anchor="middle">Lynch</text>
+  <circle cx="1398.88" cy="398.40" r="343.07" fill="rgb(220, 160, 100)" opacity="0.090"/>
+  <circle cx="1398.88" cy="398.40" r="514.61" fill="rgb(220, 160, 100)" opacity="0.045"/>
+  <circle cx="1398.88" cy="398.40" r="686.14" fill="rgb(220, 160, 100)" opacity="0.030"/>
+  <circle cx="1398.88" cy="398.40" r="171.54" fill="rgb(220, 160, 100)" opacity="0.901" data-domain="Venture Capital" data-violence="capital_selection"/>
+  <text x="1398.88" y="386.40" font-family="serif" font-size="8" fill="rgb(220, 160, 100)" opacity="0.4" text-anchor="middle">Zoom</text>
+  <text x="1398.88" y="398.40" font-family="serif" font-size="8" fill="rgb(220, 160, 100)" opacity="0.4" text-anchor="middle">Stripe</text>
+  <text x="1398.88" y="410.40" font-family="serif" font-size="8" fill="rgb(220, 160, 100)" opacity="0.4" text-anchor="middle">Uber</text>
+  <circle cx="854.65" cy="398.40" r="347.51" fill="rgb(180, 120, 200)" opacity="0.090"/>
+  <circle cx="854.65" cy="398.40" r="521.26" fill="rgb(180, 120, 200)" opacity="0.045"/>
+  <circle cx="854.65" cy="398.40" r="695.01" fill="rgb(180, 120, 200)" opacity="0.030"/>
+  <circle cx="854.65" cy="398.40" r="173.75" fill="rgb(180, 120, 200)" opacity="0.904" data-domain="Rock Bands" data-violence="market_selection"/>
+  <text x="854.65" y="386.40" font-family="serif" font-size="8" fill="rgb(180, 120, 200)" opacity="0.4" text-anchor="middle">Queen</text>
+  <text x="854.65" y="398.40" font-family="serif" font-size="8" fill="rgb(180, 120, 200)" opacity="0.4" text-anchor="middle">Metallica</text>
+  <text x="854.65" y="410.40" font-family="serif" font-size="8" fill="rgb(180, 120, 200)" opacity="0.4" text-anchor="middle">Nirvana</text>
+  <circle cx="1262.82" cy="398.40" r="360.00" fill="rgb(220, 160, 100)" opacity="0.092"/>
+  <circle cx="1262.82" cy="398.40" r="540.00" fill="rgb(220, 160, 100)" opacity="0.046"/>
+  <circle cx="1262.82" cy="398.40" r="720.00" fill="rgb(220, 160, 100)" opacity="0.031"/>
+  <circle cx="1262.82" cy="398.40" r="180.00" fill="rgb(220, 160, 100)" opacity="0.920" data-domain="Cryptocurrency" data-violence="market_elimination"/>
+  <text x="1262.82" y="386.40" font-family="serif" font-size="8" fill="rgb(220, 160, 100)" opacity="0.4" text-anchor="middle">Bitcoin</text>
+  <text x="1262.82" y="398.40" font-family="serif" font-size="8" fill="rgb(220, 160, 100)" opacity="0.4" text-anchor="middle">Ethereum</text>
+  <text x="1262.82" y="410.40" font-family="serif" font-size="8" fill="rgb(220, 160, 100)" opacity="0.4" text-anchor="middle">Solana</text>
+  <circle cx="318.60" cy="1021.88" r="48.11" fill="rgb(120, 120, 120)" opacity="0.093"/>
+  <circle cx="318.60" cy="1021.88" r="72.16" fill="rgb(120, 120, 120)" opacity="0.046"/>
+  <circle cx="318.60" cy="1021.88" r="96.21" fill="rgb(120, 120, 120)" opacity="0.031"/>
+  <circle cx="318.60" cy="1021.88" r="24.05" fill="rgb(120, 120, 120)" opacity="0.925" data-domain="Earthquakes" data-violence="failed_naming"/>
+  <text x="318.60" y="1009.88" font-family="serif" font-size="8" fill="rgb(120, 120, 120)" opacity="0.4" text-anchor="middle">San Francisco</text>
+  <text x="318.60" y="1021.88" font-family="serif" font-size="8" fill="rgb(120, 120, 120)" opacity="0.4" text-anchor="middle">Kobe</text>
+  <text x="318.60" y="1033.88" font-family="serif" font-size="8" fill="rgb(120, 120, 120)" opacity="0.4" text-anchor="middle">Haiti</text>
+  <circle cx="718.59" cy="398.40" r="360.00" fill="rgb(160, 180, 200)" opacity="0.095"/>
+  <circle cx="718.59" cy="398.40" r="540.00" fill="rgb(160, 180, 200)" opacity="0.047"/>
+  <circle cx="718.59" cy="398.40" r="720.00" fill="rgb(160, 180, 200)" opacity="0.032"/>
+  <circle cx="718.59" cy="398.40" r="180.00" fill="rgb(160, 180, 200)" opacity="0.945" data-domain="Academic Citations" data-violence="career_determination"/>
+  <text x="718.59" y="386.40" font-family="serif" font-size="8" fill="rgb(160, 180, 200)" opacity="0.4" text-anchor="middle">Smith</text>
+  <text x="718.59" y="398.40" font-family="serif" font-size="8" fill="rgb(160, 180, 200)" opacity="0.4" text-anchor="middle">Lee</text>
+  <text x="718.59" y="410.40" font-family="serif" font-size="8" fill="rgb(160, 180, 200)" opacity="0.4" text-anchor="middle">Wang</text>
+  <circle cx="968.40" cy="508.80" r="119.33" fill="rgb(200, 170, 140)" opacity="0.095"/>
+  <circle cx="968.40" cy="508.80" r="179.00" fill="rgb(200, 170, 140)" opacity="0.047"/>
+  <circle cx="968.40" cy="508.80" r="238.66" fill="rgb(200, 170, 140)" opacity="0.032"/>
+  <circle cx="968.40" cy="508.80" r="59.67" fill="rgb(200, 170, 140)" opacity="0.946" data-domain="Magic The Gathering" data-violence="crystallizing_value"/>
+  <text x="968.40" y="496.80" font-family="serif" font-size="8" fill="rgb(200, 170, 140)" opacity="0.4" text-anchor="middle">Jace, the Mind Sculptor</text>
+  <text x="968.40" y="508.80" font-family="serif" font-size="8" fill="rgb(200, 170, 140)" opacity="0.4" text-anchor="middle">Black Lotus</text>
+  <text x="968.40" y="520.80" font-family="serif" font-size="8" fill="rgb(200, 170, 140)" opacity="0.4" text-anchor="middle">Lightning Bolt</text>
+  <circle cx="694.80" cy="326.40" r="360.00" fill="rgb(190, 150, 180)" opacity="0.098"/>
+  <circle cx="694.80" cy="326.40" r="540.00" fill="rgb(190, 150, 180)" opacity="0.049"/>
+  <circle cx="694.80" cy="326.40" r="720.00" fill="rgb(190, 150, 180)" opacity="0.033"/>
+  <circle cx="694.80" cy="326.40" r="180.00" fill="rgb(190, 150, 180)" opacity="0.985" data-domain="Films" data-violence="attention_filtering"/>
+  <text x="694.80" y="314.40" font-family="serif" font-size="8" fill="rgb(190, 150, 180)" opacity="0.4" text-anchor="middle">Titanic</text>
+  <text x="694.80" y="326.40" font-family="serif" font-size="8" fill="rgb(190, 150, 180)" opacity="0.4" text-anchor="middle">Avatar</text>
+  <text x="694.80" y="338.40" font-family="serif" font-size="8" fill="rgb(190, 150, 180)" opacity="0.4" text-anchor="middle">Frozen</text>
+
+  <!-- The Nail: Visible Only From This Angle -->
+  <polyline points="849.5999999999999,237.17540511302434 1202.4,479.05846837100825 1051.2,890.0105374032343" stroke="rgba(180, 100, 100, 0.6)" stroke-width="3" fill="none"/>
+  <polyline points="718.5877025565122,398.39999999999986 854.646925639128,398.39999999999986 1081.4122974434877,398.39999999999986 1081.4122974434877,532.8 1262.8245948869755,398.39999999999986 1398.8838179695913,398.39999999999986 1534.9430410522073,532.8 1716.355338495695,398.39999999999986" stroke="rgba(180, 100, 100, 0.6)" stroke-width="3" fill="none"/>
+  <circle cx="900.00" cy="600.00" r="360.00" fill="none" stroke="rgba(200, 80, 80, 0.8)" stroke-width="4"/>
+  <text x="900.00" y="60.00" font-family="serif" font-size="24" font-weight="bold" fill="rgba(200, 80, 80, 0.9)" text-anchor="middle">BIPOLAR</text>
+</svg>

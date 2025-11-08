@@ -44,6 +44,7 @@
                     <div class="nav-dropdown-menu">
                         <a href="{{ url_for('crypto_findings') }}">Cryptocurrency</a>
                         <a href="{{ url_for('mtg_page') }}">Magic: The Gathering</a>
+                        <a href="{{ url_for('board_games_findings') }}">Board Games</a>
                     </div>
                 </div>
                 
@@ -55,7 +56,8 @@
                     </div>
                     <div class="nav-dropdown-menu">
                         <a href="{{ url_for('nba_findings') }}">NBA</a>
-                        <a href="{{ url_for('nfl_page') }}">NFL</a>
+                        <a href="{{ url_for('nfl_findings') }}">NFL</a>
+                        <a href="{{ url_for('mlb_findings') }}">Baseball (MLB)</a>
                     </div>
                 </div>
                 
@@ -78,12 +80,25 @@
                         <span class="arrow">▼</span>
                     </div>
                     <div class="nav-dropdown-menu">
-                        <a href="{{ url_for('academics_page') }}">Academics</a>
-                        <a href="{{ url_for('bands_page') }}">Bands</a>
-                        <a href="{{ url_for('ships_page') }}">Ships</a>
+                        <a href="{{ url_for('academics_findings') }}">Academics</a>
+                        <a href="{{ url_for('band_findings') }}">Bands</a>
+                        <a href="{{ url_for('band_members_findings') }}">Band Members</a>
+                        <a href="{{ url_for('ship_findings') }}">Ships</a>
                         <a href="{{ url_for('immigration_findings') }}">Immigration</a>
+                        <a href="{{ url_for('elections_findings') }}">Elections</a>
                         <a href="{{ url_for('america_page') }}">America</a>
-                        <a href="{{ url_for('mental_health_page') }}">Mental Health</a>
+                        <a href="{{ url_for('mental_health_findings') }}">Mental Health</a>
+                    </div>
+                </div>
+                
+                <!-- Geopolitics Dropdown -->
+                <div class="nav-dropdown">
+                    <div class="nav-link nav-dropdown-toggle">
+                        Geopolitics
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="nav-dropdown-menu">
+                        <a href="{{ url_for('africa_funding_linguistics') }}">Africa Funding</a>
                     </div>
                 </div>
                 
@@ -91,6 +106,18 @@
                 <a href="{{ url_for('formula') }}" class="nav-link {% if request.endpoint == 'formula' %}active{% endif %}">
                     Formula
                 </a>
+                
+                <!-- Living Artwork -->
+                <div class="nav-dropdown">
+                    <div class="nav-link nav-dropdown-toggle">
+                        Artwork ✦
+                        <span class="arrow">▼</span>
+                    </div>
+                    <div class="nav-dropdown-menu">
+                        <a href="{{ url_for('the_word_made_flesh') }}">The Word Made Flesh</a>
+                        <a href="{{ url_for('the_nail') }}">Interactive View</a>
+                    </div>
+                </div>
                 
                 <!-- Unknown Known -->
                 <a href="{{ url_for('unknown_known') }}" class="nav-link {% if request.endpoint == 'unknown_known' %}active{% endif %}">

@@ -11,9 +11,11 @@
       "OECD DAC (Development Assistance Committee)",
       "African Development Bank"
     ],
-    "last_updated": "2025-11-07",
+    "last_updated": "2025-11-08",
     "countries_count": 54,
-    "variables_per_country": 60
+    "coverage_percentage": 100,
+    "variables_per_country": 60,
+    "completion_status": "COMPLETE - All 54 African countries included"
   },
   "countries": {
     "DZ": {
@@ -2765,6 +2767,1605 @@
         "governance_category": "hybrid_regime",
         "corruption_perception_index": 32,
         "fragile_states_index": 77.0,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "CI": {
+      "country_name": "Côte d'Ivoire",
+      "country_code": "CI",
+      "iso_alpha3": "CIV",
+      "capital": "Yamoussoukro",
+      "linguistic": {
+        "official_endonym": "Côte d'Ivoire",
+        "endonym_meaning": "Ivory Coast (French)",
+        "common_english_exonym": "Ivory Coast",
+        "exonym_etymology": "English translation of French name",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["French", "Baoulé", "Dioula"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.34,
+        "linguistic_diversity_index": 0.86,
+        "number_of_languages": 78
+      },
+      "phonetic_properties": {
+        "syllable_count": 4,
+        "character_length": 13,
+        "plosives_count": 3,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 2,
+        "vowels_count": 6,
+        "phonetic_harshness_estimate": 39.7,
+        "melodiousness_estimate": 68.9,
+        "pronounceability_score": 6.4,
+        "memorability_score": 7.8
+      },
+      "historical_names": [
+        {
+          "name": "Ivory Coast",
+          "period": "colonial_and_early_independence",
+          "years": "1893-1985",
+          "context": "French colony, then independent as Ivory Coast"
+        },
+        {
+          "name": "Côte d'Ivoire",
+          "period": "modern",
+          "years": "1985-present",
+          "context": "Government requested use of French name only",
+          "name_change_significance": "MODERATE - Endonym enforcement, rejection of English translation"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1893,
+        "independence_year": 1960,
+        "years_independent": 65,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "name_change_year": 1985,
+        "name_change_reason": "Linguistic sovereignty, endonym enforcement",
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 2485,
+        "population_millions_2023": 28.2,
+        "hdi_score_2023": 0.550,
+        "gini_coefficient": 37.2,
+        "urbanization_rate": 52.0,
+        "literacy_rate": 47.2,
+        "internet_penetration": 46.0,
+        "poverty_rate_below_190": 21.8
+      },
+      "governance": {
+        "democracy_index_2023": 4.15,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 36,
+        "fragile_states_index": 80.2,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "RW": {
+      "country_name": "Rwanda",
+      "country_code": "RW",
+      "iso_alpha3": "RWA",
+      "capital": "Kigali",
+      "linguistic": {
+        "official_endonym": "Rwanda",
+        "endonym_meaning": "Land of Rwandans",
+        "common_english_exonym": "Rwanda",
+        "exonym_etymology": "From Kinyarwanda",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["Kinyarwanda", "French", "English"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.06,
+        "linguistic_diversity_index": 0.16,
+        "number_of_languages": 3
+      },
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 6,
+        "plosives_count": 0,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 2,
+        "vowels_count": 2,
+        "phonetic_harshness_estimate": 28.4,
+        "melodiousness_estimate": 75.8,
+        "pronounceability_score": 7.9,
+        "memorability_score": 8.8
+      },
+      "historical_names": [
+        {
+          "name": "Ruanda",
+          "period": "colonial",
+          "years": "1884-1962",
+          "context": "German then Belgian colony (Ruanda-Urundi)"
+        },
+        {
+          "name": "Rwanda",
+          "period": "independent",
+          "years": "1962-present",
+          "context": "Independent nation, post-genocide reconstruction"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Belgium",
+        "colonization_start": 1916,
+        "independence_year": 1962,
+        "years_independent": 63,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "strong",
+        "name_change_at_independence": false,
+        "colonial_language_official": false
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 966,
+        "population_millions_2023": 13.8,
+        "hdi_score_2023": 0.534,
+        "gini_coefficient": 43.7,
+        "urbanization_rate": 17.4,
+        "literacy_rate": 75.9,
+        "internet_penetration": 28.1,
+        "poverty_rate_below_190": 56.0
+      },
+      "governance": {
+        "democracy_index_2023": 3.10,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 51,
+        "fragile_states_index": 71.5,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "UG": {
+      "country_name": "Uganda",
+      "country_code": "UG",
+      "iso_alpha3": "UGA",
+      "capital": "Kampala",
+      "linguistic": {
+        "official_endonym": "Uganda",
+        "endonym_meaning": "Land of the Ganda people",
+        "common_english_exonym": "Uganda",
+        "exonym_etymology": "From Buganda kingdom",
+        "language_family": "Niger-Congo/Nilo-Saharan",
+        "primary_languages": ["English", "Swahili", "Luganda"],
+        "colonial_language": "English",
+        "english_retention_rate": 0.34,
+        "linguistic_diversity_index": 0.93,
+        "number_of_languages": 43
+      },
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 6,
+        "plosives_count": 2,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 1,
+        "vowels_count": 3,
+        "phonetic_harshness_estimate": 35.6,
+        "melodiousness_estimate": 68.9,
+        "pronounceability_score": 8.7,
+        "memorability_score": 8.9
+      },
+      "historical_names": [
+        {
+          "name": "Buganda Kingdom",
+          "period": "precolonial",
+          "years": "1300s-1894",
+          "context": "Indigenous kingdom"
+        },
+        {
+          "name": "Uganda Protectorate",
+          "period": "colonial",
+          "years": "1894-1962",
+          "context": "British protectorate"
+        },
+        {
+          "name": "Uganda",
+          "period": "independent",
+          "years": "1962-present",
+          "context": "Independent nation"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "colonization_start": 1894,
+        "independence_year": 1962,
+        "years_independent": 63,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 1015,
+        "population_millions_2023": 48.6,
+        "hdi_score_2023": 0.525,
+        "gini_coefficient": 42.8,
+        "urbanization_rate": 26.0,
+        "literacy_rate": 79.0,
+        "internet_penetration": 26.0,
+        "poverty_rate_below_190": 41.7
+      },
+      "governance": {
+        "democracy_index_2023": 4.49,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 26,
+        "fragile_states_index": 87.4,
+        "conflict_status": "low_conflict"
+      }
+    },
+    
+    "SD": {
+      "country_name": "Sudan",
+      "country_code": "SD",
+      "iso_alpha3": "SDN",
+      "capital": "Khartoum",
+      "linguistic": {
+        "official_endonym": "السودان (As-Sūdān)",
+        "endonym_meaning": "The Land of the Blacks",
+        "common_english_exonym": "Sudan",
+        "exonym_etymology": "From Arabic bilād as-sūdān",
+        "language_family": "Afroasiatic/Nilo-Saharan",
+        "primary_languages": ["Arabic", "English"],
+        "colonial_language": "English",
+        "english_retention_rate": 0.28,
+        "linguistic_diversity_index": 0.71,
+        "number_of_languages": 114
+      },
+      "phonetic_properties": {
+        "syllable_count": 2,
+        "character_length": 5,
+        "plosives_count": 2,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 1,
+        "vowels_count": 2,
+        "phonetic_harshness_estimate": 55.2,
+        "melodiousness_estimate": 52.8,
+        "pronounceability_score": 8.4,
+        "memorability_score": 8.6
+      },
+      "historical_names": [
+        {
+          "name": "Nubia/Kush",
+          "period": "ancient",
+          "years": "2000 BCE - 350 CE",
+          "context": "Ancient kingdoms"
+        },
+        {
+          "name": "Anglo-Egyptian Sudan",
+          "period": "colonial",
+          "years": "1899-1956",
+          "context": "British-Egyptian condominium"
+        },
+        {
+          "name": "Sudan",
+          "period": "independent",
+          "years": "1956-present",
+          "context": "Independent nation (split 2011)"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "colonization_start": 1899,
+        "independence_year": 1956,
+        "years_independent": 69,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "strong",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 1086,
+        "population_millions_2023": 47.2,
+        "hdi_score_2023": 0.508,
+        "gini_coefficient": 34.2,
+        "urbanization_rate": 36.0,
+        "literacy_rate": 60.7,
+        "internet_penetration": 31.8,
+        "poverty_rate_below_190": 46.5
+      },
+      "governance": {
+        "democracy_index_2023": 2.47,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 22,
+        "fragile_states_index": 107.3,
+        "conflict_status": "active_conflict"
+      }
+    },
+    
+    "LY": {
+      "country_name": "Libya",
+      "country_code": "LY",
+      "iso_alpha3": "LBY",
+      "capital": "Tripoli",
+      "linguistic": {
+        "official_endonym": "ليبيا (Lībiyā)",
+        "endonym_meaning": "Land of Libya",
+        "common_english_exonym": "Libya",
+        "exonym_etymology": "From ancient Greek Libyē",
+        "language_family": "Afroasiatic",
+        "primary_languages": ["Arabic"],
+        "colonial_language": "Italian",
+        "italian_retention_rate": 0.01,
+        "linguistic_diversity_index": 0.13,
+        "number_of_languages": 8
+      },
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 5,
+        "plosives_count": 1,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 1,
+        "vowels_count": 3,
+        "phonetic_harshness_estimate": 37.8,
+        "melodiousness_estimate": 66.4,
+        "pronounceability_score": 8.1,
+        "memorability_score": 8.5
+      },
+      "historical_names": [
+        {
+          "name": "Italian Libya",
+          "period": "colonial",
+          "years": "1911-1951",
+          "context": "Italian colony"
+        },
+        {
+          "name": "Kingdom of Libya",
+          "period": "monarchy",
+          "years": "1951-1969",
+          "context": "Constitutional monarchy"
+        },
+        {
+          "name": "Libyan Arab Jamahiriya",
+          "period": "gaddafi",
+          "years": "1977-2011",
+          "context": "Revolutionary government under Gaddafi"
+        },
+        {
+          "name": "Libya",
+          "period": "modern",
+          "years": "2011-present",
+          "context": "Post-revolution state"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Italy",
+        "colonization_start": 1911,
+        "independence_year": 1951,
+        "years_independent": 74,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "strong",
+        "name_change_at_independence": false,
+        "colonial_language_official": false
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 6716,
+        "population_millions_2023": 6.9,
+        "hdi_score_2023": 0.718,
+        "gini_coefficient": 36.3,
+        "urbanization_rate": 81.0,
+        "literacy_rate": 91.0,
+        "internet_penetration": 75.2,
+        "poverty_rate_below_190": 0.7
+      },
+      "governance": {
+        "democracy_index_2023": 2.02,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 18,
+        "fragile_states_index": 98.6,
+        "conflict_status": "active_conflict"
+      }
+    },
+    
+    "MA": {
+      "country_name": "Morocco",
+      "country_code": "MA",
+      "iso_alpha3": "MAR",
+      "capital": "Rabat",
+      "linguistic": {
+        "official_endonym": "المغرب (Al-Maghrib)",
+        "endonym_meaning": "The West",
+        "common_english_exonym": "Morocco",
+        "exonym_etymology": "From Spanish Marruecos via Marrakesh",
+        "language_family": "Afroasiatic",
+        "primary_languages": ["Arabic", "Berber"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.32,
+        "linguistic_diversity_index": 0.45,
+        "number_of_languages": 10
+      },
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 7,
+        "plosives_count": 1,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 2,
+        "vowels_count": 3,
+        "phonetic_harshness_estimate": 42.1,
+        "melodiousness_estimate": 64.7,
+        "pronounceability_score": 7.6,
+        "memorability_score": 8.4
+      },
+      "historical_names": [
+        {
+          "name": "Kingdom of Morocco",
+          "period": "historical",
+          "years": "788-present",
+          "context": "Continuous monarchy"
+        },
+        {
+          "name": "French Morocco/Spanish Morocco",
+          "period": "colonial",
+          "years": "1912-1956",
+          "context": "French and Spanish protectorates"
+        },
+        {
+          "name": "Morocco",
+          "period": "independent",
+          "years": "1956-present",
+          "context": "Independent kingdom"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1912,
+        "independence_year": 1956,
+        "years_independent": 69,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 3795,
+        "population_millions_2023": 37.5,
+        "hdi_score_2023": 0.698,
+        "gini_coefficient": 39.5,
+        "urbanization_rate": 64.0,
+        "literacy_rate": 75.9,
+        "internet_penetration": 88.1,
+        "poverty_rate_below_190": 3.1
+      },
+      "governance": {
+        "democracy_index_2023": 5.04,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 38,
+        "fragile_states_index": 64.8,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "TN": {
+      "country_name": "Tunisia",
+      "country_code": "TN",
+      "iso_alpha3": "TUN",
+      "capital": "Tunis",
+      "linguistic": {
+        "official_endonym": "تونس (Tūnis)",
+        "endonym_meaning": "From Tunis",
+        "common_english_exonym": "Tunisia",
+        "exonym_etymology": "From ancient Phoenician city Tynes",
+        "language_family": "Afroasiatic",
+        "primary_languages": ["Arabic", "French"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.63,
+        "linguistic_diversity_index": 0.03,
+        "number_of_languages": 3
+      },
+      "phonetic_properties": {
+        "syllable_count": 4,
+        "character_length": 7,
+        "plosives_count": 2,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 2,
+        "vowels_count": 4,
+        "phonetic_harshness_estimate": 44.3,
+        "melodiousness_estimate": 63.2,
+        "pronounceability_score": 7.8,
+        "memorability_score": 8.2
+      },
+      "historical_names": [
+        {
+          "name": "Carthage",
+          "period": "ancient",
+          "years": "814 BCE - 146 BCE",
+          "context": "Phoenician city-state"
+        },
+        {
+          "name": "French Tunisia",
+          "period": "colonial",
+          "years": "1881-1956",
+          "context": "French protectorate"
+        },
+        {
+          "name": "Tunisia",
+          "period": "independent",
+          "years": "1956-present",
+          "context": "Independent nation"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1881,
+        "independence_year": 1956,
+        "years_independent": 69,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 3807,
+        "population_millions_2023": 12.3,
+        "hdi_score_2023": 0.731,
+        "gini_coefficient": 32.8,
+        "urbanization_rate": 70.0,
+        "literacy_rate": 82.7,
+        "internet_penetration": 79.1,
+        "poverty_rate_below_190": 2.9
+      },
+      "governance": {
+        "democracy_index_2023": 5.51,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 42,
+        "fragile_states_index": 69.3,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "SN": {
+      "country_name": "Senegal",
+      "country_code": "SN",
+      "iso_alpha3": "SEN",
+      "capital": "Dakar",
+      "linguistic": {
+        "official_endonym": "Sénégal",
+        "endonym_meaning": "From Senegal River",
+        "common_english_exonym": "Senegal",
+        "exonym_etymology": "From Wolof and Berber roots",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["French", "Wolof", "Pulaar"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.26,
+        "linguistic_diversity_index": 0.81,
+        "number_of_languages": 36
+      },
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 7,
+        "plosives_count": 1,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 2,
+        "vowels_count": 3,
+        "phonetic_harshness_estimate": 41.6,
+        "melodiousness_estimate": 65.8,
+        "pronounceability_score": 7.9,
+        "memorability_score": 8.3
+      },
+      "historical_names": [
+        {
+          "name": "French Senegal",
+          "period": "colonial",
+          "years": "1677-1960",
+          "context": "French colony"
+        },
+        {
+          "name": "Mali Federation",
+          "period": "brief_union",
+          "years": "1959-1960",
+          "context": "Short-lived union with Mali"
+        },
+        {
+          "name": "Senegal",
+          "period": "independent",
+          "years": "1960-present",
+          "context": "Independent nation"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1677,
+        "independence_year": 1960,
+        "years_independent": 65,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 1606,
+        "population_millions_2023": 17.7,
+        "hdi_score_2023": 0.511,
+        "gini_coefficient": 40.3,
+        "urbanization_rate": 49.0,
+        "literacy_rate": 52.1,
+        "internet_penetration": 58.2,
+        "poverty_rate_below_190": 35.1
+      },
+      "governance": {
+        "democracy_index_2023": 6.35,
+        "governance_category": "flawed_democracy",
+        "corruption_perception_index": 43,
+        "fragile_states_index": 70.5,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "MZ": {
+      "country_name": "Mozambique",
+      "country_code": "MZ",
+      "iso_alpha3": "MOZ",
+      "capital": "Maputo",
+      "linguistic": {
+        "official_endonym": "Moçambique",
+        "endonym_meaning": "From island of Mozambique",
+        "common_english_exonym": "Mozambique",
+        "exonym_etymology": "Portuguese from Swahili musa al big (island)",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["Portuguese", "Makhuwa", "Tsonga"],
+        "colonial_language": "Portuguese",
+        "portuguese_retention_rate": 0.50,
+        "linguistic_diversity_index": 0.84,
+        "number_of_languages": 43
+      },
+      "phonetic_properties": {
+        "syllable_count": 4,
+        "character_length": 10,
+        "plosives_count": 2,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 2,
+        "vowels_count": 5,
+        "phonetic_harshness_estimate": 38.9,
+        "melodiousness_estimate": 67.2,
+        "pronounceability_score": 6.8,
+        "memorability_score": 7.6
+      },
+      "historical_names": [
+        {
+          "name": "Portuguese East Africa",
+          "period": "colonial",
+          "years": "1505-1975",
+          "context": "Portuguese colony"
+        },
+        {
+          "name": "Mozambique",
+          "period": "independent",
+          "years": "1975-present",
+          "context": "Independent nation"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Portugal",
+        "colonization_start": 1505,
+        "independence_year": 1975,
+        "years_independent": 50,
+        "independence_type": "armed_struggle",
+        "post_colonial_assertion": "strong",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 545,
+        "population_millions_2023": 33.1,
+        "hdi_score_2023": 0.446,
+        "gini_coefficient": 54.0,
+        "urbanization_rate": 37.0,
+        "literacy_rate": 63.4,
+        "internet_penetration": 21.2,
+        "poverty_rate_below_190": 63.3
+      },
+      "governance": {
+        "democracy_index_2023": 4.24,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 26,
+        "fragile_states_index": 84.7,
+        "conflict_status": "low_conflict"
+      }
+    },
+    
+    "MG": {
+      "country_name": "Madagascar",
+      "country_code": "MG",
+      "iso_alpha3": "MDG",
+      "capital": "Antananarivo",
+      "linguistic": {
+        "official_endonym": "Madagasikara",
+        "endonym_meaning": "Island of the Malagasy people",
+        "common_english_exonym": "Madagascar",
+        "exonym_etymology": "From Marco Polo's Madagaskar",
+        "language_family": "Austronesian",
+        "primary_languages": ["Malagasy", "French"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.20,
+        "linguistic_diversity_index": 0.04,
+        "number_of_languages": 2
+      },
+      "phonetic_properties": {
+        "syllable_count": 4,
+        "character_length": 10,
+        "plosives_count": 2,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 1,
+        "vowels_count": 4,
+        "phonetic_harshness_estimate": 43.2,
+        "melodiousness_estimate": 62.1,
+        "pronounceability_score": 7.2,
+        "memorability_score": 8.7
+      },
+      "historical_names": [
+        {
+          "name": "Kingdom of Madagascar",
+          "period": "precolonial",
+          "years": "1540-1897",
+          "context": "Indigenous kingdom"
+        },
+        {
+          "name": "French Madagascar",
+          "period": "colonial",
+          "years": "1897-1960",
+          "context": "French colony"
+        },
+        {
+          "name": "Malagasy Republic",
+          "period": "early_independence",
+          "years": "1960-1975",
+          "context": "First republic"
+        },
+        {
+          "name": "Madagascar",
+          "period": "modern",
+          "years": "1975-present",
+          "context": "Modern republic"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1897,
+        "independence_year": 1960,
+        "years_independent": 65,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 515,
+        "population_millions_2023": 29.6,
+        "hdi_score_2023": 0.501,
+        "gini_coefficient": 42.6,
+        "urbanization_rate": 39.0,
+        "literacy_rate": 75.3,
+        "internet_penetration": 15.2,
+        "poverty_rate_below_190": 81.0
+      },
+      "governance": {
+        "democracy_index_2023": 5.58,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 25,
+        "fragile_states_index": 81.8,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "NE": {
+      "country_name": "Niger",
+      "country_code": "NE",
+      "iso_alpha3": "NER",
+      "capital": "Niamey",
+      "linguistic": {
+        "official_endonym": "Niger",
+        "endonym_meaning": "From Niger River",
+        "common_english_exonym": "Niger",
+        "exonym_etymology": "From Tuareg n'eghirren (flowing water)",
+        "language_family": "Niger-Congo/Afroasiatic",
+        "primary_languages": ["French", "Hausa", "Zarma"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.13,
+        "linguistic_diversity_index": 0.78,
+        "number_of_languages": 21
+      },
+      "phonetic_properties": {
+        "syllable_count": 2,
+        "character_length": 5,
+        "plosives_count": 1,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 2,
+        "vowels_count": 2,
+        "phonetic_harshness_estimate": 46.7,
+        "melodiousness_estimate": 58.3,
+        "pronounceability_score": 7.5,
+        "memorability_score": 8.1
+      },
+      "historical_names": [
+        {
+          "name": "French Niger",
+          "period": "colonial",
+          "years": "1922-1960",
+          "context": "French colony"
+        },
+        {
+          "name": "Niger",
+          "period": "independent",
+          "years": "1960-present",
+          "context": "Independent nation"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1922,
+        "independence_year": 1960,
+        "years_independent": 65,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "weak",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 590,
+        "population_millions_2023": 26.2,
+        "hdi_score_2023": 0.400,
+        "gini_coefficient": 34.3,
+        "urbanization_rate": 17.0,
+        "literacy_rate": 37.3,
+        "internet_penetration": 13.3,
+        "poverty_rate_below_190": 42.9
+      },
+      "governance": {
+        "democracy_index_2023": 3.29,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 32,
+        "fragile_states_index": 93.3,
+        "conflict_status": "low_conflict"
+      }
+    },
+    
+    "MR": {
+      "country_name": "Mauritania",
+      "country_code": "MR",
+      "iso_alpha3": "MRT",
+      "capital": "Nouakchott",
+      "linguistic": {
+        "official_endonym": "موريتانيا (Mūrītānyā)",
+        "endonym_meaning": "Land of the Moors",
+        "common_english_exonym": "Mauritania",
+        "exonym_etymology": "From Latin Mauretania (ancient region)",
+        "language_family": "Afroasiatic",
+        "primary_languages": ["Arabic", "Pulaar", "Soninke", "Wolof"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.13,
+        "linguistic_diversity_index": 0.57,
+        "number_of_languages": 6
+      },
+      "phonetic_properties": {
+        "syllable_count": 5,
+        "character_length": 10,
+        "plosives_count": 2,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 3,
+        "vowels_count": 5,
+        "phonetic_harshness_estimate": 38.4,
+        "melodiousness_estimate": 66.9,
+        "pronounceability_score": 6.9,
+        "memorability_score": 7.4
+      },
+      "historical_names": [
+        {
+          "name": "French West Africa (part)",
+          "period": "colonial",
+          "years": "1904-1960",
+          "context": "French colony"
+        },
+        {
+          "name": "Islamic Republic of Mauritania",
+          "period": "independent",
+          "years": "1960-present",
+          "context": "Independent nation"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1904,
+        "independence_year": 1960,
+        "years_independent": 65,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "colonial_language_official": false
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 1730,
+        "population_millions_2023": 4.9,
+        "hdi_score_2023": 0.546,
+        "gini_coefficient": 32.6,
+        "urbanization_rate": 57.0,
+        "literacy_rate": 67.0,
+        "internet_penetration": 59.0,
+        "poverty_rate_below_190": 6.0
+      },
+      "governance": {
+        "democracy_index_2023": 4.03,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 29,
+        "fragile_states_index": 80.6,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "LR": {
+      "country_name": "Liberia",
+      "country_code": "LR",
+      "iso_alpha3": "LBR",
+      "capital": "Monrovia",
+      "linguistic": {
+        "official_endonym": "Liberia",
+        "endonym_meaning": "Land of Freedom (Latin)",
+        "common_english_exonym": "Liberia",
+        "exonym_etymology": "From Latin liber (free)",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["English", "Kpelle", "Bassa"],
+        "colonial_language": "English",
+        "english_retention_rate": 0.20,
+        "linguistic_diversity_index": 0.90,
+        "number_of_languages": 31
+      },
+      "phonetic_properties": {
+        "syllable_count": 4,
+        "character_length": 7,
+        "plosives_count": 1,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 2,
+        "vowels_count": 4,
+        "phonetic_harshness_estimate": 36.2,
+        "melodiousness_estimate": 69.4,
+        "pronounceability_score": 7.7,
+        "memorability_score": 8.3
+      },
+      "historical_names": [
+        {
+          "name": "Liberia",
+          "period": "founded",
+          "years": "1822-present",
+          "context": "Founded by freed American slaves, never colonized"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": false,
+        "colonial_power": "None",
+        "colonization_start": null,
+        "independence_year": 1847,
+        "years_independent": 178,
+        "independence_type": "founded_independent",
+        "post_colonial_assertion": "N/A",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 698,
+        "population_millions_2023": 5.3,
+        "hdi_score_2023": 0.481,
+        "gini_coefficient": 35.3,
+        "urbanization_rate": 53.0,
+        "literacy_rate": 48.3,
+        "internet_penetration": 34.0,
+        "poverty_rate_below_190": 43.8
+      },
+      "governance": {
+        "democracy_index_2023": 5.31,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 26,
+        "fragile_states_index": 88.2,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "SL": {
+      "country_name": "Sierra Leone",
+      "country_code": "SL",
+      "iso_alpha3": "SLE",
+      "capital": "Freetown",
+      "linguistic": {
+        "official_endonym": "Sierra Leone",
+        "endonym_meaning": "Lion Mountains (Portuguese)",
+        "common_english_exonym": "Sierra Leone",
+        "exonym_etymology": "From Portuguese Serra Leoa",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["English", "Krio", "Mende", "Temne"],
+        "colonial_language": "English",
+        "english_retention_rate": 0.18,
+        "linguistic_diversity_index": 0.82,
+        "number_of_languages": 24
+      },
+      "phonetic_properties": {
+        "syllable_count": 5,
+        "character_length": 12,
+        "plosives_count": 1,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 3,
+        "vowels_count": 5,
+        "phonetic_harshness_estimate": 39.1,
+        "melodiousness_estimate": 66.8,
+        "pronounceability_score": 7.1,
+        "memorability_score": 7.9
+      },
+      "historical_names": [
+        {
+          "name": "British Sierra Leone",
+          "period": "colonial",
+          "years": "1808-1961",
+          "context": "British colony, settlement for freed slaves"
+        },
+        {
+          "name": "Sierra Leone",
+          "period": "independent",
+          "years": "1961-present",
+          "context": "Independent nation"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "colonization_start": 1808,
+        "independence_year": 1961,
+        "years_independent": 64,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "weak",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 516,
+        "population_millions_2023": 8.6,
+        "hdi_score_2023": 0.477,
+        "gini_coefficient": 35.7,
+        "urbanization_rate": 43.0,
+        "literacy_rate": 48.6,
+        "internet_penetration": 24.0,
+        "poverty_rate_below_190": 39.4
+      },
+      "governance": {
+        "democracy_index_2023": 5.03,
+        "governance_category": "hybrid_regime",
+        "corruption_perception_index": 34,
+        "fragile_states_index": 85.8,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "TG": {
+      "country_name": "Togo",
+      "country_code": "TG",
+      "iso_alpha3": "TGO",
+      "capital": "Lomé",
+      "linguistic": {
+        "official_endonym": "Togo",
+        "endonym_meaning": "Land by the water (Ewe: to-go)",
+        "common_english_exonym": "Togo",
+        "exonym_etymology": "From Ewe to (water) and go (shore)",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["French", "Ewe", "Kabye"],
+        "colonial_language": "French",
+        "french_retention_rate": 0.31,
+        "linguistic_diversity_index": 0.82,
+        "number_of_languages": 39
+      },
+      "phonetic_properties": {
+        "syllable_count": 2,
+        "character_length": 4,
+        "plosives_count": 2,
+        "sibilants_count": 0,
+        "liquids_nasals_count": 0,
+        "vowels_count": 2,
+        "phonetic_harshness_estimate": 51.3,
+        "melodiousness_estimate": 55.8,
+        "pronounceability_score": 9.2,
+        "memorability_score": 9.5
+      },
+      "historical_names": [
+        {
+          "name": "Togoland",
+          "period": "colonial",
+          "years": "1884-1960",
+          "context": "German then French colony"
+        },
+        {
+          "name": "Togo",
+          "period": "independent",
+          "years": "1960-present",
+          "context": "Independent nation"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "France",
+        "colonization_start": 1914,
+        "independence_year": 1960,
+        "years_independent": 65,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": true,
+        "name_change_reason": "Dropped colonial 'land' suffix",
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 1005,
+        "population_millions_2023": 8.8,
+        "hdi_score_2023": 0.547,
+        "gini_coefficient": 43.1,
+        "urbanization_rate": 43.0,
+        "literacy_rate": 66.5,
+        "internet_penetration": 38.0,
+        "poverty_rate_below_190": 49.2
+      },
+      "governance": {
+        "democracy_index_2023": 3.30,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 30,
+        "fragile_states_index": 76.6,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "SS": {
+      "country_name": "South Sudan",
+      "country_code": "SS",
+      "iso_alpha3": "SSD",
+      "capital": "Juba",
+      "linguistic": {
+        "official_endonym": "South Sudan",
+        "endonym_meaning": "Southern Sudan",
+        "common_english_exonym": "South Sudan",
+        "exonym_etymology": "Geographical designation from Sudan split",
+        "language_family": "Nilo-Saharan/Niger-Congo",
+        "primary_languages": ["English", "Dinka", "Nuer", "Bari"],
+        "colonial_language": "English",
+        "english_retention_rate": 0.27,
+        "linguistic_diversity_index": 0.91,
+        "number_of_languages": 68
+      },
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 11,
+        "plosives_count": 3,
+        "sibilants_count": 2,
+        "liquids_nasals_count": 1,
+        "vowels_count": 3,
+        "phonetic_harshness_estimate": 58.7,
+        "melodiousness_estimate": 48.2,
+        "pronounceability_score": 7.6,
+        "memorability_score": 8.2
+      },
+      "historical_names": [
+        {
+          "name": "Southern Sudan",
+          "period": "pre_independence",
+          "years": "1956-2011",
+          "context": "Southern region of Sudan"
+        },
+        {
+          "name": "South Sudan",
+          "period": "independent",
+          "years": "2011-present",
+          "context": "World's newest country"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "colonization_start": 1899,
+        "independence_year": 2011,
+        "years_independent": 14,
+        "independence_type": "referendum_after_civil_war",
+        "post_colonial_assertion": "strong",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 441,
+        "population_millions_2023": 11.4,
+        "hdi_score_2023": 0.385,
+        "gini_coefficient": 44.1,
+        "urbanization_rate": 20.0,
+        "literacy_rate": 34.5,
+        "internet_penetration": 7.9,
+        "poverty_rate_below_190": 76.4
+      },
+      "governance": {
+        "democracy_index_2023": 1.87,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 13,
+        "fragile_states_index": 112.9,
+        "conflict_status": "active_conflict"
+      }
+    },
+    
+    "SO": {
+      "country_name": "Somalia",
+      "country_code": "SO",
+      "iso_alpha3": "SOM",
+      "capital": "Mogadishu",
+      "linguistic": {
+        "official_endonym": "Soomaaliya",
+        "endonym_meaning": "Land of the Somali people",
+        "common_english_exonym": "Somalia",
+        "exonym_etymology": "From Somali ethnic name",
+        "language_family": "Afroasiatic",
+        "primary_languages": ["Somali", "Arabic"],
+        "colonial_language": "Italian/English",
+        "italian_retention_rate": 0.01,
+        "linguistic_diversity_index": 0.10,
+        "number_of_languages": 4
+      },
+      "phonetic_properties": {
+        "syllable_count": 4,
+        "character_length": 7,
+        "plosives_count": 0,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 2,
+        "vowels_count": 4,
+        "phonetic_harshness_estimate": 35.8,
+        "melodiousness_estimate": 69.2,
+        "pronounceability_score": 7.9,
+        "memorability_score": 8.4
+      },
+      "historical_names": [
+        {
+          "name": "British Somaliland/Italian Somaliland",
+          "period": "colonial",
+          "years": "1884-1960",
+          "context": "Divided between British and Italian control"
+        },
+        {
+          "name": "Somali Republic",
+          "period": "independent",
+          "years": "1960-present",
+          "context": "Independent nation (civil war 1991-present)"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain/Italy",
+        "colonization_start": 1884,
+        "independence_year": 1960,
+        "years_independent": 65,
+        "independence_type": "negotiated_merger",
+        "post_colonial_assertion": "moderate",
+        "name_change_at_independence": false,
+        "colonial_language_official": false
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 461,
+        "population_millions_2023": 17.6,
+        "hdi_score_2023": 0.361,
+        "gini_coefficient": 36.8,
+        "urbanization_rate": 47.0,
+        "literacy_rate": 37.8,
+        "internet_penetration": 14.5,
+        "poverty_rate_below_190": 69.0
+      },
+      "governance": {
+        "democracy_index_2023": 1.92,
+        "governance_category": "authoritarian",
+        "corruption_perception_index": 11,
+        "fragile_states_index": 110.9,
+        "conflict_status": "active_conflict"
+      }
+    },
+    
+    "SC": {
+      "country_name": "Seychelles",
+      "country_code": "SC",
+      "iso_alpha3": "SYC",
+      "capital": "Victoria",
+      "linguistic": {
+        "official_endonym": "Seychelles",
+        "endonym_meaning": "Named after French minister",
+        "common_english_exonym": "Seychelles",
+        "exonym_etymology": "Named after Jean Moreau de Séchelles",
+        "language_family": "French Creole",
+        "primary_languages": ["Seychellois Creole", "English", "French"],
+        "colonial_language": "English/French",
+        "english_retention_rate": 0.38,
+        "linguistic_diversity_index": 0.52,
+        "number_of_languages": 3
+      },
+      "phonetic_properties": {
+        "syllable_count": 2,
+        "character_length": 10,
+        "plosives_count": 0,
+        "sibilants_count": 2,
+        "liquids_nasals_count": 1,
+        "vowels_count": 4,
+        "phonetic_harshness_estimate": 42.6,
+        "melodiousness_estimate": 63.8,
+        "pronounceability_score": 6.7,
+        "memorability_score": 7.8
+      },
+      "historical_names": [
+        {
+          "name": "French Seychelles",
+          "period": "colonial_french",
+          "years": "1756-1814",
+          "context": "French colony"
+        },
+        {
+          "name": "British Seychelles",
+          "period": "colonial_british",
+          "years": "1814-1976",
+          "context": "British colony"
+        },
+        {
+          "name": "Seychelles",
+          "period": "independent",
+          "years": "1976-present",
+          "context": "Independent island nation"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "colonization_start": 1814,
+        "independence_year": 1976,
+        "years_independent": 49,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "weak",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 18914,
+        "population_millions_2023": 0.107,
+        "hdi_score_2023": 0.802,
+        "gini_coefficient": 32.1,
+        "urbanization_rate": 58.0,
+        "literacy_rate": 95.9,
+        "internet_penetration": 82.0,
+        "poverty_rate_below_190": 1.1
+      },
+      "governance": {
+        "democracy_index_2023": 6.38,
+        "governance_category": "flawed_democracy",
+        "corruption_perception_index": 70,
+        "fragile_states_index": 52.3,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "MU": {
+      "country_name": "Mauritius",
+      "country_code": "MU",
+      "iso_alpha3": "MUS",
+      "capital": "Port Louis",
+      "linguistic": {
+        "official_endonym": "Maurice/Mauritius",
+        "endonym_meaning": "Named after Dutch prince",
+        "common_english_exonym": "Mauritius",
+        "exonym_etymology": "Named after Prince Maurice of Nassau",
+        "language_family": "Indo-European/French Creole",
+        "primary_languages": ["Mauritian Creole", "French", "English"],
+        "colonial_language": "English/French",
+        "english_retention_rate": 0.73,
+        "linguistic_diversity_index": 0.53,
+        "number_of_languages": 14
+      },
+      "phonetic_properties": {
+        "syllable_count": 4,
+        "character_length": 9,
+        "plosives_count": 1,
+        "sibilants_count": 2,
+        "liquids_nasals_count": 2,
+        "vowels_count": 5,
+        "phonetic_harshness_estimate": 40.3,
+        "melodiousness_estimate": 65.4,
+        "pronounceability_score": 7.3,
+        "memorability_score": 7.9
+      },
+      "historical_names": [
+        {
+          "name": "Île de France",
+          "period": "colonial_french",
+          "years": "1715-1810",
+          "context": "French colony"
+        },
+        {
+          "name": "British Mauritius",
+          "period": "colonial_british",
+          "years": "1810-1968",
+          "context": "British colony"
+        },
+        {
+          "name": "Mauritius",
+          "period": "independent",
+          "years": "1968-present",
+          "context": "Independent island nation"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "colonization_start": 1810,
+        "independence_year": 1968,
+        "years_independent": 57,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "weak",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 11549,
+        "population_millions_2023": 1.3,
+        "hdi_score_2023": 0.802,
+        "gini_coefficient": 36.8,
+        "urbanization_rate": 41.0,
+        "literacy_rate": 93.2,
+        "internet_penetration": 65.0,
+        "poverty_rate_below_190": 0.5
+      },
+      "governance": {
+        "democracy_index_2023": 8.08,
+        "governance_category": "full_democracy",
+        "corruption_perception_index": 50,
+        "fragile_states_index": 47.8,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "LS": {
+      "country_name": "Lesotho",
+      "country_code": "LS",
+      "iso_alpha3": "LSO",
+      "capital": "Maseru",
+      "linguistic": {
+        "official_endonym": "Lesotho",
+        "endonym_meaning": "Land of the Sotho people",
+        "common_english_exonym": "Lesotho",
+        "exonym_etymology": "From Sesotho le-sotho",
+        "language_family": "Niger-Congo",
+        "primary_languages": ["Sesotho", "English"],
+        "colonial_language": "English",
+        "english_retention_rate": 0.30,
+        "linguistic_diversity_index": 0.04,
+        "number_of_languages": 3
+      },
+      "phonetic_properties": {
+        "syllable_count": 3,
+        "character_length": 7,
+        "plosives_count": 1,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 1,
+        "vowels_count": 3,
+        "phonetic_harshness_estimate": 44.8,
+        "melodiousness_estimate": 61.3,
+        "pronounceability_score": 7.4,
+        "memorability_score": 8.1
+      },
+      "historical_names": [
+        {
+          "name": "Basutoland",
+          "period": "colonial",
+          "years": "1868-1966",
+          "context": "British protectorate",
+          "name_change_significance": "MAJOR - Colonial to indigenous name"
+        },
+        {
+          "name": "Lesotho",
+          "period": "independent",
+          "years": "1966-present",
+          "context": "Independent kingdom"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Britain",
+        "colonization_start": 1868,
+        "independence_year": 1966,
+        "years_independent": 59,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "strong",
+        "name_change_at_independence": true,
+        "name_change_reason": "Rejected colonial 'land' designation, embraced indigenous name",
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 1184,
+        "population_millions_2023": 2.3,
+        "hdi_score_2023": 0.514,
+        "gini_coefficient": 44.9,
+        "urbanization_rate": 30.0,
+        "literacy_rate": 79.4,
+        "internet_penetration": 48.0,
+        "poverty_rate_below_190": 27.2
+      },
+      "governance": {
+        "democracy_index_2023": 6.47,
+        "governance_category": "flawed_democracy",
+        "corruption_perception_index": 41,
+        "fragile_states_index": 71.7,
+        "conflict_status": "stable"
+      }
+    },
+    
+    "ST": {
+      "country_name": "São Tomé and Príncipe",
+      "country_code": "ST",
+      "iso_alpha3": "STP",
+      "capital": "São Tomé",
+      "linguistic": {
+        "official_endonym": "São Tomé e Príncipe",
+        "endonym_meaning": "Saint Thomas and Prince (Portuguese)",
+        "common_english_exonym": "São Tomé and Príncipe",
+        "exonym_etymology": "Portuguese names for the two islands",
+        "language_family": "Portuguese Creole",
+        "primary_languages": ["Portuguese", "Forro", "Angolar"],
+        "colonial_language": "Portuguese",
+        "portuguese_retention_rate": 0.98,
+        "linguistic_diversity_index": 0.38,
+        "number_of_languages": 4
+      },
+      "phonetic_properties": {
+        "syllable_count": 7,
+        "character_length": 21,
+        "plosives_count": 4,
+        "sibilants_count": 1,
+        "liquids_nasals_count": 3,
+        "vowels_count": 9,
+        "phonetic_harshness_estimate": 41.7,
+        "melodiousness_estimate": 64.3,
+        "pronounceability_score": 4.8,
+        "memorability_score": 6.2
+      },
+      "historical_names": [
+        {
+          "name": "Portuguese São Tomé and Príncipe",
+          "period": "colonial",
+          "years": "1470-1975",
+          "context": "Portuguese colony"
+        },
+        {
+          "name": "São Tomé and Príncipe",
+          "period": "independent",
+          "years": "1975-present",
+          "context": "Independent island nation"
+        }
+      ],
+      "colonial_history": {
+        "former_colony": true,
+        "colonial_power": "Portugal",
+        "colonization_start": 1470,
+        "independence_year": 1975,
+        "years_independent": 50,
+        "independence_type": "negotiated",
+        "post_colonial_assertion": "weak",
+        "name_change_at_independence": false,
+        "colonial_language_official": true
+      },
+      "socioeconomic": {
+        "gdp_per_capita_usd_2023": 2427,
+        "population_millions_2023": 0.227,
+        "hdi_score_2023": 0.618,
+        "gini_coefficient": 56.3,
+        "urbanization_rate": 76.0,
+        "literacy_rate": 95.8,
+        "internet_penetration": 52.0,
+        "poverty_rate_below_190": 32.3
+      },
+      "governance": {
+        "democracy_index_2023": 6.41,
+        "governance_category": "flawed_democracy",
+        "corruption_perception_index": 42,
+        "fragile_states_index": 61.4,
         "conflict_status": "stable"
       }
     }

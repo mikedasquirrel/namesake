@@ -114,6 +114,12 @@ class ElectionAnalyzer:
         logger.info("="*70)
         results['temporal_analysis'] = self.analyze_temporal_trends(candidates_df)
         
+        # TITLE-OFFICE INTERACTION ANALYSIS
+        logger.info("\n" + "="*70)
+        logger.info("Title-Office Interaction: How Name Effects Vary by Position Type")
+        logger.info("="*70)
+        results['title_office_interactions'] = self.analyze_title_office_interactions(candidates_df)
+        
         logger.info("\n" + "="*70)
         logger.info("ANALYSIS COMPLETE")
         logger.info("="*70)
@@ -640,6 +646,117 @@ class ElectionAnalyzer:
         logger.info(f"Temporal analysis: Analyzed {len(result['decades'])} decades")
         
         return result
+    
+    def analyze_title_office_interactions(self, candidates_df: pd.DataFrame) -> Dict:
+        """
+        H6 (NEW): Analyze how name effects interact with office type.
+        
+        Does title euphony matter more for some offices than others?
+        Do formal titles (Senator, Representative) amplify name effects vs informal (Governor)?
+        """
+        result = {
+            'hypothesis': 'Name effects vary by office type - formal legislative titles (Senator, Representative) amplify euphony effects compared to executive titles (President, Governor)',
+            'sample_size': len(candidates_df),
+            'office_comparisons': {},
+            'title_formality_analysis': {}
+        }
+        
+        if 'title_euphony' not in candidates_df.columns or 'position' not in candidates_df.columns:
+            result['error'] = 'Required columns not available'
+            return result
+        
+        # Group offices by formality/type
+        formal_legislative = ['Senate', 'House']  # "Senator Smith", "Representative Jones"
+        executive = ['President', 'Governor']  # "President Biden", "Governor DeSantis"
+        
+        # Test: Does title euphony predict outcomes more strongly for legislative vs executive?
+        for office_group_name, positions in [
+            ('Formal Legislative', formal_legislative),
+            ('Executive', executive)
+        ]:
+            office_data = candidates_df[candidates_df['position'].isin(positions)].copy()
+            
+            if len(office_data) < 20:
+                continue
+            
+            # Split by outcome
+            winners = office_data[office_data['won_election'] == True]
+            losers = office_data[office_data['won_election'] == False]
+            
+            if len(winners) >= 5 and len(losers) >= 5:
+                winners_euphony = winners['title_euphony'].dropna()
+                losers_euphony = losers['title_euphony'].dropna()
+                
+                if len(winners_euphony) >= 5 and len(losers_euphony) >= 5:
+                    t_stat, p_value = stats.ttest_ind(winners_euphony, losers_euphony)
+                    cohens_d = self._calculate_cohens_d(winners_euphony, losers_euphony)
+                    
+                    result['office_comparisons'][office_group_name] = {
+                        'n': len(office_data),
+                        'winners_mean_euphony': float(winners_euphony.mean()),
+                        'losers_mean_euphony': float(losers_euphony.mean()),
+                        'difference': float(winners_euphony.mean() - losers_euphony.mean()),
+                        'p_value': float(p_value),
+                        'cohens_d': float(cohens_d),
+                        'significant': p_value < self.alpha,
+                        'positions_included': positions
+                    }
+                    
+                    logger.info(f"{office_group_name}: Winners={winners_euphony.mean():.2f}, Losers={losers_euphony.mean():.2f}, p={p_value:.4f}, d={cohens_d:.3f}")
+        
+        # Compare effect sizes across office types
+        if len(result['office_comparisons']) >= 2:
+            formal_leg = result['office_comparisons'].get('Formal Legislative', {})
+            executive = result['office_comparisons'].get('Executive', {})
+            
+            if formal_leg and executive:
+                formal_d = formal_leg.get('cohens_d', 0)
+                exec_d = executive.get('cohens_d', 0)
+                
+                result['title_formality_analysis'] = {
+                    'formal_legislative_effect': formal_d,
+                    'executive_effect': exec_d,
+                    'difference': abs(formal_d - exec_d),
+                    'interpretation': self._interpret_title_interaction(formal_d, exec_d)
+                }
+        
+        # Position-by-position breakdown
+        result['by_position'] = {}
+        for position in candidates_df['position'].unique():
+            pos_data = candidates_df[candidates_df['position'] == position].copy()
+            
+            if len(pos_data) < 15:
+                continue
+            
+            winners = pos_data[pos_data['won_election'] == True]
+            losers = pos_data[pos_data['won_election'] == False]
+            
+            if len(winners) >= 3 and len(losers) >= 3:
+                winners_euphony = winners['title_euphony'].dropna()
+                losers_euphony = losers['title_euphony'].dropna()
+                
+                if len(winners_euphony) >= 3 and len(losers_euphony) >= 3:
+                    result['by_position'][position] = {
+                        'n': len(pos_data),
+                        'winners_mean': float(winners_euphony.mean()),
+                        'losers_mean': float(losers_euphony.mean()),
+                        'difference': float(winners_euphony.mean() - losers_euphony.mean()),
+                        'winner_advantage': winners_euphony.mean() > losers_euphony.mean()
+                    }
+        
+        return result
+    
+    def _interpret_title_interaction(self, formal_d: float, exec_d: float) -> str:
+        """Interpret the difference in title euphony effects between office types."""
+        diff = abs(formal_d - exec_d)
+        
+        if diff < 0.1:
+            return "Title euphony effects are similar across office types - name phonetics matter equally for legislative and executive positions."
+        elif diff < 0.3:
+            return "Title euphony effects show modest variation by office type - name phonetics may matter slightly more for one type."
+        else:
+            stronger = "formal legislative" if formal_d > exec_d else "executive"
+            return f"Title euphony effects are notably stronger for {stronger} positions - the formality/structure of the title amplifies or diminishes name effects."
     
     def _calculate_cohens_d(self, group1, group2) -> float:
         """Calculate Cohen's d effect size."""

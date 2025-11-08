@@ -79,9 +79,25 @@ def main():
         logger.info("="*70)
         logger.info("COLLECTION COMPLETE")
         logger.info("="*70)
-        logger.info(f"Presidential candidates collected: {results['presidential']}")
-        logger.info(f"Senate candidates collected: {results['senate']}")
-        logger.info(f"Total candidates collected: {results['total']}")
+        logger.info("FEDERAL LEVEL:")
+        logger.info(f"  Presidential: {results['presidential']}")
+        logger.info(f"  Senate: {results['senate']}")
+        logger.info(f"  House: {results.get('house', 0)}")
+        logger.info("")
+        logger.info("STATE LEVEL:")
+        logger.info(f"  Gubernatorial: {results.get('gubernatorial', 0)}")
+        logger.info(f"  State Administrative (AG, Controller, etc.): {results.get('state_administrative', 0)}")
+        logger.info("")
+        logger.info("LOCAL LEVEL - LAW ENFORCEMENT:")
+        logger.info(f"  Sheriff: {results.get('sheriff', 0)}")
+        logger.info(f"  District Attorney: {results.get('district_attorney', 0)}")
+        logger.info("")
+        logger.info("LOCAL LEVEL - EXECUTIVE/ADMINISTRATIVE:")
+        logger.info(f"  Mayor: {results.get('mayor', 0)}")
+        logger.info(f"  County Supervisor: {results.get('county_supervisor', 0)}")
+        logger.info(f"  County Administrative (Clerk, Treasurer, Assessor, Coroner): {results.get('county_administrative', 0)}")
+        logger.info("")
+        logger.info(f"TOTAL CANDIDATES COLLECTED: {results['total']}")
         logger.info("")
         
         # Final database state
@@ -95,26 +111,91 @@ def main():
         logger.info(f"  - Analyses: {final_analyses} (added {final_analyses - current_analyses})")
         logger.info("")
         
-        # Summary statistics
-        presidential_count = ElectionCandidate.query.filter_by(position='President').count()
-        senate_count = ElectionCandidate.query.filter_by(position='Senate').count()
-        vp_count = ElectionCandidate.query.filter_by(position='Vice President').count()
+        # Summary statistics - ALL POSITIONS
+        logger.info("="*70)
+        logger.info("FINAL DATABASE STATE - ALL POSITION TYPES")
+        logger.info("="*70)
         
-        logger.info("Position breakdown:")
-        logger.info(f"  - Presidential: {presidential_count}")
-        logger.info(f"  - Vice Presidential: {vp_count}")
-        logger.info(f"  - Senate: {senate_count}")
+        position_counts = {}
+        all_positions = [
+            'President', 'Vice President', 'Senate', 'House', 'Governor',
+            'Sheriff', 'District Attorney', 'County Supervisor', 'Mayor',
+            'State Controller', 'State Treasurer', 'State Auditor', 
+            'Secretary of State', 'Attorney General',
+            'County Clerk', 'County Treasurer', 'County Assessor', 'County Coroner'
+        ]
+        
+        for pos in all_positions:
+            count = ElectionCandidate.query.filter_by(position=pos).count()
+            if count > 0:
+                position_counts[pos] = count
+        
+        # Group by level
+        federal_total = position_counts.get('President', 0) + position_counts.get('Vice President', 0) + \
+                       position_counts.get('Senate', 0) + position_counts.get('House', 0)
+        
+        state_total = position_counts.get('Governor', 0) + \
+                     position_counts.get('State Controller', 0) + position_counts.get('State Treasurer', 0) + \
+                     position_counts.get('State Auditor', 0) + position_counts.get('Secretary of State', 0) + \
+                     position_counts.get('Attorney General', 0)
+        
+        local_total = position_counts.get('Sheriff', 0) + position_counts.get('District Attorney', 0) + \
+                     position_counts.get('County Supervisor', 0) + position_counts.get('Mayor', 0) + \
+                     position_counts.get('County Clerk', 0) + position_counts.get('County Treasurer', 0) + \
+                     position_counts.get('County Assessor', 0) + position_counts.get('County Coroner', 0)
+        
+        logger.info("FEDERAL LEVEL:")
+        for pos in ['President', 'Vice President', 'Senate', 'House']:
+            if pos in position_counts:
+                logger.info(f"  - {pos}: {position_counts[pos]}")
+        logger.info(f"  Federal Subtotal: {federal_total}")
+        logger.info("")
+        
+        logger.info("STATE LEVEL:")
+        for pos in ['Governor', 'State Controller', 'State Treasurer', 'State Auditor', 
+                   'Secretary of State', 'Attorney General']:
+            if pos in position_counts:
+                logger.info(f"  - {pos}: {position_counts[pos]}")
+        logger.info(f"  State Subtotal: {state_total}")
+        logger.info("")
+        
+        logger.info("LOCAL LEVEL:")
+        for pos in ['Sheriff', 'District Attorney', 'Mayor', 'County Supervisor',
+                   'County Clerk', 'County Treasurer', 'County Assessor', 'County Coroner']:
+            if pos in position_counts:
+                logger.info(f"  - {pos}: {position_counts[pos]}")
+        logger.info(f"  Local Subtotal: {local_total}")
+        logger.info("")
+        
+        grand_total = federal_total + state_total + local_total
+        logger.info(f"GRAND TOTAL: {grand_total} candidates")
         logger.info("")
         
         # Coverage analysis
-        if presidential_count > 0:
+        pres_count = position_counts.get('President', 0)
+        if pres_count > 0:
             years = db.session.query(
                 db.func.min(ElectionCandidate.election_year),
                 db.func.max(ElectionCandidate.election_year)
             ).filter(ElectionCandidate.position == 'President').first()
             
             if years[0]:
-                logger.info(f"Presidential coverage: {years[0]}-{years[1]} ({years[1] - years[0] + 1} years)")
+                logger.info(f"Presidential coverage: {years[0]}-{years[1]} ({years[1] - years[0]} years)")
+        
+        # Position type breakdown
+        logger.info("="*70)
+        logger.info("POSITION TYPE ANALYSIS")
+        logger.info("="*70)
+        
+        type_counts = db.session.query(
+            ElectionCandidate.position_type,
+            db.func.count(ElectionCandidate.id)
+        ).filter(
+            ElectionCandidate.position_type.isnot(None)
+        ).group_by(ElectionCandidate.position_type).all()
+        
+        for pos_type, count in sorted(type_counts, key=lambda x: x[1], reverse=True):
+            logger.info(f"  {pos_type}: {count} candidates")
         
         logger.info("")
         logger.info("Next steps:")

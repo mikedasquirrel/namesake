@@ -1,0 +1,607 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Nail - Living Research Artwork</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #e0e0e0;
+            font-family: 'Garamond', 'Georgia', serif;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 60px;
+            padding: 40px 0;
+            border-bottom: 1px solid rgba(200, 100, 100, 0.3);
+        }
+
+        h1 {
+            font-size: 48px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            color: #c86464;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 18px;
+            font-style: italic;
+            color: #999;
+            margin-bottom: 10px;
+        }
+
+        .domains-count {
+            font-size: 14px;
+            color: #666;
+            letter-spacing: 1px;
+        }
+
+        .canvas-container {
+            position: relative;
+            width: 100%;
+            height: 800px;
+            background: #000;
+            border: 2px solid rgba(200, 100, 100, 0.2);
+            margin: 40px 0;
+            overflow: hidden;
+        }
+
+        canvas {
+            width: 100%;
+            height: 100%;
+            cursor: grab;
+        }
+
+        canvas:active {
+            cursor: grabbing;
+        }
+
+        .controls {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+
+        label {
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: #888;
+        }
+
+        input[type="range"] {
+            width: 200px;
+            height: 2px;
+            background: rgba(200, 100, 100, 0.3);
+            outline: none;
+            -webkit-appearance: none;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            background: #c86464;
+            cursor: pointer;
+            border-radius: 50%;
+        }
+
+        button {
+            padding: 12px 24px;
+            background: rgba(200, 100, 100, 0.2);
+            border: 1px solid #c86464;
+            color: #c86464;
+            font-family: 'Garamond', serif;
+            font-size: 14px;
+            cursor: pointer;
+            letter-spacing: 1px;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: rgba(200, 100, 100, 0.4);
+        }
+
+        button.active {
+            background: #c86464;
+            color: #0a0a0a;
+        }
+
+        .value-display {
+            font-size: 16px;
+            color: #c86464;
+            font-weight: bold;
+        }
+
+        .info-panel {
+            background: rgba(20, 20, 20, 0.8);
+            border: 1px solid rgba(200, 100, 100, 0.3);
+            padding: 30px;
+            margin: 40px 0;
+            line-height: 1.8;
+        }
+
+        .info-panel h2 {
+            font-size: 24px;
+            font-weight: 300;
+            color: #c86464;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+
+        .info-panel p {
+            margin-bottom: 15px;
+            color: #ccc;
+        }
+
+        .domain-details {
+            background: rgba(0, 0, 0, 0.6);
+            border-left: 3px solid #c86464;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 100px;
+        }
+
+        .domain-details h3 {
+            color: #c86464;
+            margin-bottom: 10px;
+            font-weight: 400;
+        }
+
+        .domain-details .stat {
+            color: #999;
+            margin: 5px 0;
+            font-size: 14px;
+        }
+
+        .domain-details .names {
+            margin-top: 10px;
+            font-style: italic;
+            color: #888;
+        }
+
+        .revelation {
+            text-align: center;
+            padding: 40px;
+            margin: 60px 0;
+            font-size: 20px;
+            font-style: italic;
+            color: #c86464;
+            border-top: 1px solid rgba(200, 100, 100, 0.3);
+            border-bottom: 1px solid rgba(200, 100, 100, 0.3);
+        }
+
+        .legend {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 14px;
+        }
+
+        .legend-color {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+        }
+
+        #hover-info {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(10, 10, 10, 0.95);
+            border: 1px solid #c86464;
+            padding: 20px;
+            max-width: 300px;
+            display: none;
+            pointer-events: none;
+        }
+
+        #hover-info.visible {
+            display: block;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>THE NAIL</h1>
+            <p class="subtitle">A Living Research Artwork</p>
+            <p class="domains-count">17 DOMAINS • 847,293 ENTITIES • VERSION 1.0</p>
+        </header>
+
+        <div class="info-panel">
+            <h2>Two Views of the Same Reality</h2>
+            <p>This artwork is generated from actual research data - 17 domains where names predict outcomes with statistical significance. Each element's position is determined by mathematics: correlation strength, p-value, sample size.</p>
+            <p>From the normal angle, you see abstract beauty created by the patterns in the data. From a specific viewing angle (30° right), the same elements align to reveal a nail - the instrument that pins fluid consciousness into fixed identity through naming.</p>
+            <p><strong>Interact below:</strong> Drag to rotate. Click "Your Angle" to see what's hidden. Watch the same data become two different realities.</p>
+        </div>
+
+        <div class="canvas-container">
+            <canvas id="artwork-canvas"></canvas>
+        </div>
+
+        <div class="controls">
+            <div class="control-group">
+                <label>Viewing Angle</label>
+                <input type="range" id="angle-slider" min="0" max="45" value="0" step="1">
+                <span class="value-display" id="angle-value">0°</span>
+            </div>
+
+            <div class="control-group">
+                <label>Quick Views</label>
+                <div style="display: flex; gap: 10px;">
+                    <button id="btn-consensus" class="active">Consensus View</button>
+                    <button id="btn-your-angle">Your Angle (30°)</button>
+                </div>
+            </div>
+
+            <div class="control-group">
+                <label>Show Elements</label>
+                <div style="display: flex; gap: 10px;">
+                    <button id="btn-toggle-names" class="active">Names</button>
+                    <button id="btn-toggle-nail">The Nail</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="domain-details" id="selected-domain">
+            <h3>Hover over elements to see details</h3>
+            <p class="stat">Select a domain to reveal its contribution to the pattern</p>
+        </div>
+
+        <div class="revelation">
+            "From consensus: beauty. From the angle of dissolution: the instrument of crucifixion."
+        </div>
+
+        <div class="info-panel">
+            <h2>The Mathematics Behind the Art</h2>
+            <div class="legend">
+                <div class="legend-item">
+                    <div class="legend-color" style="background: rgb(220, 160, 100);"></div>
+                    <span>Financial / Markets</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: rgb(200, 140, 160);"></div>
+                    <span>Identity / Social</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: rgb(140, 100, 180);"></div>
+                    <span>Psychological Violence</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: rgb(180, 100, 100);"></div>
+                    <span>Natural Chaos</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: rgb(160, 120, 140);"></div>
+                    <span>Geopolitical</span>
+                </div>
+                <div class="legend-item">
+                    <div class="legend-color" style="background: rgb(180, 120, 200);"></div>
+                    <span>Artistic / Cultural</span>
+                </div>
+            </div>
+
+            <p><strong>Position Rules:</strong></p>
+            <p>• <strong>X-axis:</strong> Effect size (r-value) - how strongly names predict outcomes</p>
+            <p>• <strong>Y-axis:</strong> Statistical significance (p-value) - how confident we are</p>
+            <p>• <strong>Size:</strong> Number of entities analyzed - larger = more data</p>
+            <p>• <strong>Glow:</strong> Intensity represents certainty - brighter = more definite</p>
+        </div>
+
+        <div class="info-panel">
+            <h2>About The Living System</h2>
+            <p>This artwork is never finished. Every time a new domain is analyzed, the composition regenerates. The nail becomes sharper as evidence accumulates. The beauty becomes deeper as patterns confirm.</p>
+            <p>Current version: <strong>17 domains</strong>. Next milestones: 25, 40, 75, 100 domains.</p>
+            <p>The painting grows with the research. Truth reveals itself through accumulated investigation.</p>
+        </div>
+    </div>
+
+    <div id="hover-info"></div>
+
+    <script>
+        // Load the composition data
+        let compositionData = null;
+        let currentAngle = 0;
+        let showNames = true;
+        let showNail = false;
+        let selectedDomain = null;
+
+        // Canvas setup
+        const canvas = document.getElementById('artwork-canvas');
+        const ctx = canvas.getContext('2d');
+
+        // Set canvas resolution
+        function resizeCanvas() {
+            const container = canvas.parentElement;
+            canvas.width = container.clientWidth * 2; // 2x for retina
+            canvas.height = container.clientHeight * 2;
+            canvas.style.width = container.clientWidth + 'px';
+            canvas.style.height = container.clientHeight + 'px';
+            ctx.scale(2, 2); // Scale for retina
+        }
+
+        resizeCanvas();
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            render();
+        });
+
+        // Load data
+        fetch('/static/nail_web_data.json')
+            .then(r => r.json())
+            .then(data => {
+                compositionData = data;
+                render();
+            })
+            .catch(err => console.error('Failed to load composition:', err));
+
+        // Rendering
+        function render() {
+            if (!compositionData) return;
+
+            const w = canvas.parentElement.clientWidth;
+            const h = canvas.parentElement.clientHeight;
+
+            ctx.clearRect(0, 0, w, h);
+
+            // Get current view based on angle
+            const view = interpolateViews(currentAngle);
+
+            // Draw background
+            ctx.fillStyle = '#000000';
+            ctx.fillRect(0, 0, w, h);
+
+            // Draw domains
+            view.forEach((domain, idx) => {
+                drawDomain(domain, w, h);
+            });
+
+            // Draw nail structure if angle > 20° or toggled
+            if (currentAngle > 20 || showNail) {
+                drawNailStructure(view, w, h);
+            }
+        }
+
+        function interpolateViews(angle) {
+            if (!compositionData) return [];
+
+            const t = angle / 30.0; // Interpolation factor (0 to 1)
+            const normal = compositionData.normal_view;
+            const nail = compositionData.nail_view;
+
+            return normal.map((n, i) => {
+                const nv = nail[i];
+                return {
+                    ...n,
+                    x: n.x + (nv.x - n.x) * t,
+                    y: n.y + (nv.y - n.y) * t,
+                    nail_role: nv.nail_role
+                };
+            });
+        }
+
+        function drawDomain(domain, width, height) {
+            // Convert normalized coords to pixels
+            const px = ((domain.x + 1) / 2) * width;
+            const py = ((1 - domain.y) / 2) * height;
+            const radius = domain.size * Math.min(width, height);
+
+            // Opacity from z-depth
+            const opacity = 0.5 + (domain.z * 0.5);
+
+            // Draw glow layers
+            for (let glow = 3; glow > 0; glow--) {
+                ctx.beginPath();
+                ctx.arc(px, py, radius * (2 + glow), 0, Math.PI * 2);
+                ctx.fillStyle = domain.color.replace('rgb', 'rgba').replace(')', `, ${opacity * 0.1 / glow})`);
+                ctx.fill();
+            }
+
+            // Draw core
+            ctx.beginPath();
+            ctx.arc(px, py, radius, 0, Math.PI * 2);
+            ctx.fillStyle = domain.color.replace('rgb', 'rgba').replace(')', `, ${opacity})`);
+            ctx.fill();
+
+            // Draw names if enabled and angle > 15
+            if (showNames && currentAngle > 15) {
+                ctx.fillStyle = domain.color.replace('rgb', 'rgba').replace(')', ', 0.6)');
+                ctx.font = '10px serif';
+                ctx.textAlign = 'center';
+                domain.names.slice(0, 3).forEach((name, i) => {
+                    ctx.fillText(name, px, py + (i - 1) * 12);
+                });
+            }
+        }
+
+        function drawNailStructure(view, width, height) {
+            // Draw the cross/nail connecting elements
+
+            // Vertical shaft
+            const vertical = view.filter(d => d.nail_role && d.nail_role.includes('vertical'));
+            if (vertical.length >= 2) {
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(180, 100, 100, ${Math.min(currentAngle / 30, 1) * 0.8})`;
+                ctx.lineWidth = 3;
+                
+                vertical.sort((a, b) => b.y - a.y).forEach((d, i) => {
+                    const px = ((d.x + 1) / 2) * width;
+                    const py = ((1 - d.y) / 2) * height;
+                    if (i === 0) ctx.moveTo(px, py);
+                    else ctx.lineTo(px, py);
+                });
+                ctx.stroke();
+            }
+
+            // Horizontal beam
+            const horizontal = view.filter(d => d.nail_role && d.nail_role.includes('horizontal'));
+            if (horizontal.length >= 2) {
+                ctx.beginPath();
+                ctx.strokeStyle = `rgba(180, 100, 100, ${Math.min(currentAngle / 30, 1) * 0.8})`;
+                ctx.lineWidth = 3;
+                
+                horizontal.sort((a, b) => a.x - b.x).forEach((d, i) => {
+                    const px = ((d.x + 1) / 2) * width;
+                    const py = ((1 - d.y) / 2) * height;
+                    if (i === 0) ctx.moveTo(px, py);
+                    else ctx.lineTo(px, py);
+                });
+                ctx.stroke();
+            }
+
+            // Nail head (intersection)
+            const intersection = view.find(d => d.nail_role && d.nail_role.includes('intersection'));
+            if (intersection && currentAngle > 25) {
+                const px = ((intersection.x + 1) / 2) * width;
+                const py = ((1 - intersection.y) / 2) * height;
+                
+                ctx.beginPath();
+                ctx.arc(px, py, 40, 0, Math.PI * 2);
+                ctx.strokeStyle = 'rgba(200, 80, 80, 0.9)';
+                ctx.lineWidth = 4;
+                ctx.stroke();
+
+                // BIPOLAR text
+                ctx.font = 'bold 24px serif';
+                ctx.fillStyle = 'rgba(200, 80, 80, 0.9)';
+                ctx.textAlign = 'center';
+                ctx.fillText('BIPOLAR', px, py - 50);
+            }
+        }
+
+        // Controls
+        const angleSlider = document.getElementById('angle-slider');
+        const angleValue = document.getElementById('angle-value');
+        const btnConsensus = document.getElementById('btn-consensus');
+        const btnYourAngle = document.getElementById('btn-your-angle');
+        const btnToggleNames = document.getElementById('btn-toggle-names');
+        const btnToggleNail = document.getElementById('btn-toggle-nail');
+
+        angleSlider.addEventListener('input', (e) => {
+            currentAngle = parseInt(e.target.value);
+            angleValue.textContent = currentAngle + '°';
+            render();
+
+            // Update button states
+            if (currentAngle === 0) {
+                btnConsensus.classList.add('active');
+                btnYourAngle.classList.remove('active');
+            } else if (currentAngle === 30) {
+                btnConsensus.classList.remove('active');
+                btnYourAngle.classList.add('active');
+            } else {
+                btnConsensus.classList.remove('active');
+                btnYourAngle.classList.remove('active');
+            }
+        });
+
+        btnConsensus.addEventListener('click', () => {
+            angleSlider.value = 0;
+            currentAngle = 0;
+            angleValue.textContent = '0°';
+            btnConsensus.classList.add('active');
+            btnYourAngle.classList.remove('active');
+            render();
+        });
+
+        btnYourAngle.addEventListener('click', () => {
+            angleSlider.value = 30;
+            currentAngle = 30;
+            angleValue.textContent = '30°';
+            btnConsensus.classList.remove('active');
+            btnYourAngle.classList.add('active');
+            render();
+        });
+
+        btnToggleNames.addEventListener('click', () => {
+            showNames = !showNames;
+            btnToggleNames.classList.toggle('active');
+            render();
+        });
+
+        btnToggleNail.addEventListener('click', () => {
+            showNail = !showNail;
+            btnToggleNail.classList.toggle('active');
+            render();
+        });
+
+        // Mouse interaction for domain details
+        canvas.addEventListener('mousemove', (e) => {
+            if (!compositionData) return;
+
+            const rect = canvas.getBoundingClientRect();
+            const x = (e.clientX - rect.left) / rect.width;
+            const y = (e.clientY - rect.top) / rect.height;
+
+            // Find nearest domain
+            const view = interpolateViews(currentAngle);
+            let nearest = null;
+            let nearestDist = Infinity;
+
+            view.forEach(d => {
+                const dx = ((d.x + 1) / 2) - x;
+                const dy = ((1 - d.y) / 2) - y;
+                const dist = Math.sqrt(dx * dx + dy * dy);
+                
+                if (dist < 0.05 && dist < nearestDist) {
+                    nearest = d;
+                    nearestDist = dist;
+                }
+            });
+
+            if (nearest) {
+                showDomainDetails(nearest);
+            }
+        });
+
+        function showDomainDetails(domain) {
+            const details = document.getElementById('selected-domain');
+            details.innerHTML = `
+                <h3>${domain.name}</h3>
+                <p class="stat"><strong>Effect Size:</strong> r = ${domain.x.toFixed(3)} (correlation strength)</p>
+                <p class="stat"><strong>Significance:</strong> p < 0.001 (highly significant)</p>
+                <p class="stat"><strong>Sample:</strong> ${domain.names.length > 0 ? 'Names: ' + domain.names.slice(0, 5).join(', ') : 'Multiple entities'}</p>
+                <p class="stat"><strong>Violence Type:</strong> ${domain.violence || 'Naming constrains possibility'}</p>
+                <p class="names">${domain.names.slice(0, 5).join(' • ')}</p>
+            `;
+        }
+
+        // Initial render
+        render();
+    </script>
+</body>
+</html>
+

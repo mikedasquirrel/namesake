@@ -1,0 +1,109 @@
+# MLB Player Analysis Domain Configuration
+# Phonetic features and position/performance prediction in professional baseball
+
+domain: mlb
+display_name: "MLB Player Position & Performance Analysis"
+
+research_questions:
+  - "Do name phonetics predict baseball positions (P/C/IF/OF)?"
+  - "Do pitchers have distinct naming patterns?"
+  - "Do power hitters have harsher names than contact hitters?"
+  - "How has internationalization changed name patterns?"
+  - "Do closers have shorter names than starters?"
+
+collector_class: "collectors.mlb_collector.MLBCollector"
+collector_params:
+  source: "baseball_reference"
+  rate_limit_seconds: 2.0
+  min_career_games: 100
+
+analyzer_class: "analyzers.mlb_statistical_analyzer.MLBStatisticalAnalyzer"
+analyzer_params:
+  position_prediction: true
+  pitcher_analysis: true
+  power_analysis: true
+  internationalization: true
+
+models:
+  - MLBPlayer
+  - MLBPlayerAnalysis
+
+target_sample_size: 3000
+min_sample_size: 2000
+
+stratification:
+  enabled: true
+  field: position_group
+  targets:
+    "Pitcher": 800
+    "Catcher": 200
+    "Infield": 800
+    "Outfield": 600
+    "DH": 100
+
+primary_outcome_variable: "position_group"
+secondary_outcome_variables:
+  - "home_runs"
+  - "batting_average"
+  - "era"  # for pitchers
+  - "strikeouts"  # for pitchers
+
+key_predictors:
+  - "syllable_count"
+  - "name_harshness"
+  - "memorability"
+  - "name_origin"
+  - "first_name_vs_last_name_balance"
+
+control_variables:
+  - "debut_year"
+  - "birth_country"
+  - "draft_round"
+
+temporal_component: true
+temporal_field: "debut_year"
+temporal_periods:
+  classic: [1950, 1979]
+  modern: [1980, 1999]
+  contemporary: [2000, 2024]
+  
+temporal_inflection_points:
+  - 1990  # Latin American influx
+  - 2000  # Asian player expansion
+
+geographic_component: true
+geographic_field: "birth_country"
+
+page_template: "mlb.html"
+findings_cache_key: "mlb_findings"
+api_endpoints:
+  - "/api/mlb/stats"
+  - "/api/mlb/position-analysis"
+  - "/api/mlb/pitcher-analysis"
+  - "/api/mlb/power-analysis"
+  - "/api/mlb/temporal"
+
+effect_strength_expected: "moderate"
+expected_correlations:
+  syllables_internationalization: 0.40
+  harshness_power: 0.25
+  pitcher_complexity: 0.18
+
+quality_checks:
+  min_data_completeness: 0.90
+  position_prediction_accuracy_threshold: 0.60
+  require_out_of_sample_validation: true
+  require_temporal_validation: true
+
+status: "planned"
+innovation_rating: 2
+priority: "high"
+
+notes: |
+  Baseball-specific analyses:
+  - Pitcher mystique hypothesis (professional distance)
+  - Power name hypothesis (sound symbolism for HR hitters)
+  - Closer effect (9th inning pressure demands memorability)
+  - Latino inflection point (1990s expansion)
+  - Position prediction analogous to NBA (68%) and NFL success
+

@@ -1,0 +1,290 @@
+{% extends "base.html" %}
+
+{% block title %}Board Games - Nomenclature Analysis{% endblock %}
+
+{% block content %}
+
+<style>
+/* Board Games Page Specific Styles */
+.board-games-hero {
+    position: relative;
+    padding: 3rem 0;
+    margin-bottom: 3rem;
+    overflow: hidden;
+}
+
+.board-games-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(139, 92, 246, 0.1) 0%, transparent 70%);
+    z-index: -1;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(255, 255, 255, 0.2);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+}
+
+.stat-number {
+    font-size: 3.5rem;
+    font-weight: 800;
+    line-height: 1;
+    background: linear-gradient(135deg, #8b5cf6, #a78bfa);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-muted);
+    font-weight: 600;
+}
+</style>
+
+<div style="max-width: 1400px; margin: 0 auto;">
+
+<!-- Hero Section -->
+<div class="board-games-hero">
+    <div style="text-align: center;">
+        <div style="font-size: 4rem; margin-bottom: 1rem;">🎲</div>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">Board Game Nomenclature Analysis</h1>
+        <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 2rem;">
+            From Monopoly to Wingspan: 75 Years of Gaming Name Evolution
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="{{ url_for('board_games_findings') }}" class="btn-primary">View Research Findings →</a>
+            <a href="/api/board-games/stats" class="btn-secondary" target="_blank">View API Data →</a>
+        </div>
+    </div>
+</div>
+
+<!-- Overview Stats -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 4rem;" id="overview-stats">
+    <div class="stat-card">
+        <div class="stat-number" id="total-games">...</div>
+        <div class="stat-label">Total Games Analyzed</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number" id="mean-rating">...</div>
+        <div class="stat-label">Average BGG Rating</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number" id="mean-syllables">...</div>
+        <div class="stat-label">Mean Syllables</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-number" id="num-clusters">...</div>
+        <div class="stat-label">Name Clusters</div>
+    </div>
+</div>
+
+<!-- Era Comparison -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">Evolution Across Gaming Eras</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;" id="era-stats">
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #8b5cf6;">Classic Era (1950-1979)</h3>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;">
+                <div><strong>Count:</strong> <span id="classic-count">...</span></div>
+                <div><strong>Avg Syllables:</strong> <span id="classic-syllables">...</span></div>
+                <div><strong>Avg Rating:</strong> <span id="classic-rating">...</span></div>
+            </div>
+        </div>
+        
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #10b981;">Golden Age (1980-1999)</h3>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;">
+                <div><strong>Count:</strong> <span id="golden-count">...</span></div>
+                <div><strong>Avg Syllables:</strong> <span id="golden-syllables">...</span></div>
+                <div><strong>Avg Rating:</strong> <span id="golden-rating">...</span></div>
+            </div>
+        </div>
+        
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #3b82f6;">Modern Era (2000-2009)</h3>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;">
+                <div><strong>Count:</strong> <span id="modern-count">...</span></div>
+                <div><strong>Avg Syllables:</strong> <span id="modern-syllables">...</span></div>
+                <div><strong>Avg Rating:</strong> <span id="modern-rating">...</span></div>
+            </div>
+        </div>
+        
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #f59e0b;">Contemporary (2010-2024)</h3>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;">
+                <div><strong>Count:</strong> <span id="contemporary-count">...</span></div>
+                <div><strong>Avg Syllables:</strong> <span id="contemporary-syllables">...</span></div>
+                <div><strong>Avg Rating:</strong> <span id="contemporary-rating">...</span></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Name Clusters -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">Name Archetypes: 5 Distinct Clusters</h2>
+    <div id="clusters-container">
+        <p style="color: var(--text-secondary);">Loading cluster analysis...</p>
+    </div>
+</div>
+
+<!-- Cultural Traditions -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">Cultural Naming Traditions</h2>
+    <div id="cultural-comparison">
+        <p style="color: var(--text-secondary);">Loading cultural analysis...</p>
+    </div>
+</div>
+
+<!-- Interactive Search -->
+<div class="glass card" style="padding: 2.5rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">Search & Explore</h2>
+    
+    <div style="margin-bottom: 2rem;">
+        <input type="text" id="game-search" placeholder="Search board games..."
+               style="width: 100%; padding: 1rem; background: var(--background-secondary); border: 1px solid var(--border); border-radius: 8px; color: white; font-size: 1rem;">
+    </div>
+    
+    <div id="search-results" style="display: grid; gap: 1rem;">
+        <!-- Results will load here -->
+    </div>
+</div>
+
+</div>
+
+<script>
+// Load overview statistics
+async function loadOverviewStats() {
+    try {
+        const response = await fetch('/api/board-games/stats');
+        if (response.ok) {
+            const data = await response.json();
+            
+            document.getElementById('total-games').textContent = data.total_games || '0';
+            document.getElementById('mean-rating').textContent = data.mean_rating?.toFixed(2) || '0.00';
+            document.getElementById('mean-syllables').textContent = data.mean_syllables?.toFixed(1) || '0.0';
+            document.getElementById('num-clusters').textContent = data.num_clusters || '5';
+            
+            // Era stats
+            if (data.by_era) {
+                for (const [era, stats] of Object.entries(data.by_era)) {
+                    const prefix = era.split('_')[0]; // classic, golden, modern, contemporary
+                    if (document.getElementById(`${prefix}-count`)) {
+                        document.getElementById(`${prefix}-count`).textContent = stats.count || '0';
+                        document.getElementById(`${prefix}-syllables`).textContent = stats.mean_syllables?.toFixed(1) || '0.0';
+                        document.getElementById(`${prefix}-rating`).textContent = stats.mean_rating?.toFixed(2) || '0.00';
+                    }
+                }
+            }
+        }
+    } catch (error) {
+        console.error('Error loading stats:', error);
+    }
+}
+
+// Load clusters
+async function loadClusters() {
+    try {
+        const response = await fetch('/api/board-games/clusters');
+        if (response.ok) {
+            const data = await response.json();
+            const container = document.getElementById('clusters-container');
+            
+            if (data.cluster_profiles) {
+                let html = '<div style="display: grid; gap: 1.5rem;">';
+                
+                for (const [clusterId, profile] of Object.entries(data.cluster_profiles)) {
+                    html += `
+                        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; border-left: 4px solid #8b5cf6;">
+                            <div style="font-weight: 700; margin-bottom: 0.75rem; font-size: 1.1rem;">${clusterId.replace('_', ' ').toUpperCase()}</div>
+                            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 1rem; font-size: 0.9rem; color: var(--text-secondary);">
+                                <div><strong>Size:</strong> ${profile.size} games (${profile.percentage.toFixed(1)}%)</div>
+                                <div><strong>Avg Rating:</strong> ${profile.mean_rating.toFixed(2)}</div>
+                                <div><strong>Avg Syllables:</strong> ${profile.mean_syllables.toFixed(1)}</div>
+                            </div>
+                            <div style="font-size: 0.85rem; color: var(--text-muted);">
+                                <strong>Examples:</strong> ${profile.example_games.join(', ')}
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                html += '</div>';
+                container.innerHTML = html;
+            }
+        }
+    } catch (error) {
+        console.error('Error loading clusters:', error);
+    }
+}
+
+// Load cultural comparison
+async function loadCultural() {
+    try {
+        const response = await fetch('/api/board-games/cultural');
+        if (response.ok) {
+            const data = await response.json();
+            const container = document.getElementById('cultural-comparison');
+            
+            if (data.by_nationality) {
+                let html = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1.5rem;">';
+                
+                for (const [nationality, stats] of Object.entries(data.by_nationality)) {
+                    const countryNames = {
+                        'US': 'United States',
+                        'DE': 'Germany (Euro)',
+                        'GB': 'United Kingdom',
+                        'JP': 'Japan',
+                        'FR': 'France'
+                    };
+                    
+                    html += `
+                        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+                            <h3 style="font-size: 1.1rem; margin-bottom: 1rem; color: #8b5cf6;">${countryNames[nationality] || nationality}</h3>
+                            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.7;">
+                                <div><strong>Games:</strong> ${stats.count}</div>
+                                <div><strong>Syllables:</strong> ${stats.mean_syllables.toFixed(1)}</div>
+                                <div><strong>Rating:</strong> ${stats.mean_rating.toFixed(2)}</div>
+                                <div><strong>Fantasy Names:</strong> ${stats.fantasy_names_pct.toFixed(0)}%</div>
+                            </div>
+                        </div>
+                    `;
+                }
+                
+                html += '</div>';
+                container.innerHTML = html;
+            }
+        }
+    } catch (error) {
+        console.error('Error loading cultural data:', error);
+    }
+}
+
+// Initialize
+document.addEventListener('DOMContentLoaded', () => {
+    loadOverviewStats();
+    loadClusters();
+    loadCultural();
+});
+</script>
+
+{% endblock %}
+

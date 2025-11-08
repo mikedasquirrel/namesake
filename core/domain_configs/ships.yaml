@@ -1,0 +1,102 @@
+# Naval Vessel Nomenclature Domain Configuration
+# Ship naming conventions and vessel characteristics analysis
+
+domain: ships
+display_name: "Naval Vessel Nomenclature Analysis"
+
+research_questions:
+  - "Do name features predict vessel longevity?"
+  - "Are there naming convention patterns by vessel type?"
+  - "Do historical name patterns shift over time?"
+  - "Does semantic meaning correlate with service duration?"
+
+collector_class: "collectors.ship_collector.ShipCollector"
+collector_params:
+  sources:
+    - wikipedia
+    - naval_registers
+  vessel_types:
+    - battleship
+    - carrier
+    - cruiser
+    - destroyer
+    - submarine
+  temporal_range: [1900, 2024]
+
+analyzer_class: "analyzers.ship_semantic_analyzer.ShipSemanticAnalyzer"
+analyzer_params:
+  semantic_analysis: true
+  temporal_analysis: true
+  type_comparison: true
+
+models:
+  - Ship
+  - ShipAnalysis
+
+target_sample_size: 1000
+min_sample_size: 500
+
+stratification:
+  enabled: true
+  field: vessel_type
+  targets:
+    battleship: 150
+    carrier: 150
+    cruiser: 200
+    destroyer: 300
+    submarine: 200
+
+primary_outcome_variable: "service_years"
+secondary_outcome_variables:
+  - "combat_engagements"
+  - "refit_count"
+  - "decommission_reason"
+
+key_predictors:
+  - "syllable_count"
+  - "semantic_category"
+  - "name_prestige"
+  - "memorability"
+
+control_variables:
+  - "vessel_type"
+  - "commission_year"
+  - "displacement"
+  - "construction_quality"
+
+temporal_component: true
+temporal_field: "commission_year"
+temporal_periods:
+  pre_wwi: [1900, 1914]
+  interwar: [1919, 1939]
+  wwii: [1939, 1945]
+  cold_war: [1946, 1991]
+  modern: [1992, 2024]
+
+page_template: "ships.html"
+findings_cache_key: "ship_findings"
+api_endpoints:
+  - "/api/ships/stats"
+  - "/api/ships/semantic-analysis"
+  - "/api/ships/temporal-patterns"
+
+effect_strength_expected: "weak"
+expected_correlations:
+  syllables_longevity: 0.15
+  prestige_service_years: 0.20
+
+quality_checks:
+  min_data_completeness: 0.90
+  min_ships_per_type: 100
+  require_temporal_analysis: true
+
+status: "complete"
+innovation_rating: 1
+priority: "medium"
+
+notes: |
+  Standard analysis complete.
+  Moderate effects identified.
+  Naming conventions strongly determined by naval tradition.
+  Semantic meaning shows weak but consistent correlations.
+

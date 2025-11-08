@@ -1,0 +1,94 @@
+# Earthquake Geographic Names Domain Configuration
+# Boundary condition validation for geographic nomenclature
+
+domain: earthquakes
+display_name: "Earthquake Geographic Nomenclature"
+
+research_questions:
+  - "Do place name features predict impact perception?"
+  - "Is semantic overload a boundary condition for nominative effects?"
+  - "Does familiarity moderate name-outcome relationships?"
+
+collector_class: "collectors.earthquake_collector.EarthquakeCollector"
+collector_params:
+  source: "usgs"
+  min_magnitude: 6.0
+  include_populated_areas: true
+  temporal_range: [1900, 2024]
+
+analyzer_class: "analyzers.earthquake_analyzer.EarthquakeAnalyzer"
+analyzer_params:
+  boundary_condition_test: true
+  semantic_overload_analysis: true
+
+models:
+  - Earthquake
+  - EarthquakeAnalysis
+
+target_sample_size: 100
+min_sample_size: 50
+
+stratification:
+  enabled: true
+  field: place_familiarity
+  targets:
+    high_familiarity: 35
+    medium_familiarity: 35
+    low_familiarity: 30
+
+primary_outcome_variable: "impact_perception"
+secondary_outcome_variables:
+  - "media_coverage"
+  - "aid_response_speed"
+  - "donation_amount"
+
+key_predictors:
+  - "place_syllables"
+  - "place_familiarity"
+  - "phonetic_features"
+  - "semantic_associations"
+
+control_variables:
+  - "magnitude"
+  - "depth"
+  - "population_affected"
+  - "gdp_per_capita"
+  - "infrastructure_quality"
+
+temporal_component: true
+temporal_field: "date"
+
+geographic_component: true
+geographic_field: "location"
+
+page_template: "earthquakes.html"
+findings_cache_key: "earthquake_findings"
+api_endpoints:
+  - "/api/earthquakes/stats"
+  - "/api/earthquakes/boundary-analysis"
+
+effect_strength_expected: "weak"
+expected_correlations:
+  syllables_impact: -0.497  # Confounded by development
+  familiarity_coverage: 0.35
+
+quality_checks:
+  min_data_completeness: 0.85
+  require_boundary_condition_test: true
+  expect_weak_or_null_effects: true
+
+status: "active"
+innovation_rating: 1
+priority: "medium"
+
+notes: |
+  Boundary condition validation study.
+  Geographic names have semantic overload—development,
+  culture, and history dominate phonetic features.
+  
+  Weak effects expected and found (r=-0.497 syllables).
+  Validates theory through predicted null results.
+  
+  Expansion to 100+ earthquakes required for publication.
+  Currently preliminary with ~20 major events.
+
