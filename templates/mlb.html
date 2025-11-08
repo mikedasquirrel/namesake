@@ -92,10 +92,107 @@
 </div>
 
 <!-- Power Analysis -->
-<div class="glass card" style="padding: 2.5rem;">
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
     <h2 style="margin-top: 0; margin-bottom: 2rem;">Power Hitters: The Harsh Name Hypothesis</h2>
     <div id="power-analysis">
         <p style="color: var(--text-secondary);">Loading power analysis...</p>
+    </div>
+</div>
+
+<!-- Framework Status -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem; background: linear-gradient(135deg, rgba(220, 38, 38, 0.05), rgba(220, 38, 38, 0.02));">
+    <h2 style="margin-top: 0; margin-bottom: 2rem; color: #dc2626;">📋 Analysis Framework Status</h2>
+    
+    <div style="color: var(--text-secondary); line-height: 1.8;">
+        <p><strong>Current Status:</strong> Framework complete, awaiting comprehensive data collection</p>
+        
+        <p><strong>Framework Components Ready:</strong></p>
+        <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+            <li>Database models (MLBPlayer, MLBPlayerAnalysis, MLBTeam, MLBTeamAnalysis)</li>
+            <li>Data collectors with multi-source architecture</li>
+            <li>Statistical analyzers (position prediction, power analysis, pitching patterns)</li>
+            <li>Temporal analyzers (era-specific evolution)</li>
+            <li>Performance analyzers (batting, pitching metrics)</li>
+            <li>API endpoints (13 endpoints ready)</li>
+            <li>Web templates (dashboard and findings pages)</li>
+        </ul>
+        
+        <p><strong>Expected Findings (Once Data Collected):</strong></p>
+        <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+            <li><strong>Position Prediction:</strong> Name phonetics should predict player position with 60-70% accuracy (similar to NBA)</li>
+            <li><strong>Pitcher Mystique:</strong> Pitchers likely have distinct phonetic patterns (longer, more complex names creating psychological advantage)</li>
+            <li><strong>Power Names:</strong> Power hitters expected to have harsh, short names (plosives, stops)</li>
+            <li><strong>Contact Hitters:</strong> Contact hitters expected to have softer, flowing names (liquids, vowels)</li>
+            <li><strong>Closer Effect:</strong> Relief pitchers may show different patterns than starters</li>
+            <li><strong>International Players:</strong> Name complexity penalty for Latin American and Asian players</li>
+            <li><strong>Temporal Evolution:</strong> Name patterns changing with baseball's internationalization (1995+ inflection point)</li>
+        </ul>
+        
+        <p><strong>Target Sample:</strong> 2,500-3,000 players across all eras (1950-2024)</p>
+        
+        <p><strong>Data Sources Configured:</strong></p>
+        <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+            <li>Baseball-Reference.com (primary statistics)</li>
+            <li>MLB.com Official Stats API (modern players)</li>
+            <li>Retrosheet (historical data)</li>
+        </ul>
+        
+        <p><strong>Statistical Methods Ready:</strong></p>
+        <ul style="margin-left: 2rem;">
+            <li>Random Forest classification (position prediction)</li>
+            <li>Multiple regression (performance metrics)</li>
+            <li>Correlation analysis (name features × outcomes)</li>
+            <li>Temporal trend analysis (decade-by-decade evolution)</li>
+            <li>Cross-validation (5-fold for generalization)</li>
+            <li>Feature importance ranking</li>
+        </ul>
+        
+        <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border-left: 3px solid #dc2626;">
+            <p style="margin: 0;"><strong>Next Steps:</strong> Run <code style="background: rgba(255,255,255,0.1); padding: 2px 6px; border-radius: 4px;">python scripts/collect_mlb_comprehensive.py</code> to begin data collection. Analysis will populate automatically upon completion.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Research Questions -->
+<div class="glass card" style="padding: 2.5rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">Research Questions</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <div>
+            <h3 style="color: #dc2626; margin-bottom: 1rem;">Q1: Position Prediction</h3>
+            <p style="color: var(--text-secondary);">Can name phonetics predict whether someone becomes a pitcher, infielder, or outfielder?</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;"><em>Hypothesis: Yes, with 60-70% accuracy (NBA showed 68%)</em></p>
+        </div>
+        
+        <div>
+            <h3 style="color: #dc2626; margin-bottom: 1rem;">Q2: Pitcher Mystique</h3>
+            <p style="color: var(--text-secondary);">Do pitchers have more complex, intimidating names than position players?</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;"><em>Hypothesis: Yes, creating psychological advantage</em></p>
+        </div>
+        
+        <div>
+            <h3 style="color: #dc2626; margin-bottom: 1rem;">Q3: Power vs Contact</h3>
+            <p style="color: var(--text-secondary);">Do power hitters have harsher names than contact hitters?</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;"><em>Hypothesis: Yes, similar to NBA scoring</em></p>
+        </div>
+        
+        <div>
+            <h3 style="color: #dc2626; margin-bottom: 1rem;">Q4: International Impact</h3>
+            <p style="color: var(--text-secondary);">Do international players face name-based discrimination?</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;"><em>Hypothesis: Yes, measurable contract penalty</em></p>
+        </div>
+        
+        <div>
+            <h3 style="color: #dc2626; margin-bottom: 1rem;">Q5: Closer Effect</h3>
+            <p style="color: var(--text-secondary);">Do closers have distinct name patterns suggesting finality?</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;"><em>Hypothesis: Yes, sharp, definitive phonetics</em></p>
+        </div>
+        
+        <div>
+            <h3 style="color: #dc2626; margin-bottom: 1rem;">Q6: Era Evolution</h3>
+            <p style="color: var(--text-secondary);">How have name patterns changed with baseball's internationalization?</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;"><em>Hypothesis: Post-1995 inflection as Latin players increased</em></p>
+        </div>
     </div>
 </div>
 
