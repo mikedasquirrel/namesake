@@ -37,7 +37,10 @@ from analyzers.novel_pattern_discovery import NovelPatternDiscovery
 from analyzers.emergent_dimension_detector import EmergentDimensionDetector
 from analyzers.visual_emergent_properties import VisualEmergentPropertiesAnalyzer
 from analyzers.planetary_scale_analyzer import PlanetaryScaleAnalyzer
-from core.unified_domain_model_extended import ExtendedDomainInterface, ExtendedDomainType
+try:
+    from core.unified_domain_model_extended import ExtendedDomainInterface, ExtendedDomainType as DomainType
+except:
+    from core.unified_domain_model import UnifiedDomainInterface as ExtendedDomainInterface, DomainType
 from utils.formula_cache import cache
 from utils.error_handler import handle_formula_errors, error_context
 from utils.progress_reporter import ProgressReporter
@@ -68,19 +71,9 @@ class AutoFormulaAnalyzer:
     
     FORMULA_TYPES = ['phonetic', 'semantic', 'structural', 'frequency', 'numerological', 'hybrid']
     
-    # ALL AVAILABLE DOMAINS (10 with data)
-    DOMAINS = [
-        ExtendedDomainType.CRYPTO,        # 65,087 entities
-        ExtendedDomainType.MTG_CARD,      # 4,144 entities
-        ExtendedDomainType.NFL_PLAYER,    # 949 entities
-        ExtendedDomainType.ELECTION,      # 870 entities
-        ExtendedDomainType.SHIP,          # 853 entities
-        ExtendedDomainType.HURRICANE,     # 236 entities
-        ExtendedDomainType.FILM,          # 46 entities
-        ExtendedDomainType.MLB_PLAYER,    # 44 entities
-        ExtendedDomainType.BOARD_GAME,    # 37 entities
-        ExtendedDomainType.BOOK,          # 34 entities
-    ]
+    # ALL AVAILABLE DOMAINS (10 with data) - use string values to avoid enum issues
+    DOMAINS = ['crypto', 'mtg_card', 'nfl_player', 'election', 'ship', 
+               'hurricane', 'film', 'mlb_player', 'board_game', 'book']
     
     def __init__(self, output_dir: str = 'analysis_outputs/auto_analysis'):
         self.output_dir = Path(output_dir)
