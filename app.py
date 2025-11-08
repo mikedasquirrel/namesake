@@ -7029,6 +7029,12 @@ def api_formula_extract_secret():
 # THE DISCOVERER - Statistical Validation Page
 # =============================================================================
 
+@app.route('/formula-overview')
+def formula_overview():
+    """Formula system overview dashboard"""
+    return render_template('overview.html')
+
+
 @app.route('/the-discoverer')
 def the_discoverer():
     """The Discoverer - Statistical proof that discoverer's name predicted discovery"""
