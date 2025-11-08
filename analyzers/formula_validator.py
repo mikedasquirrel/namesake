@@ -22,11 +22,11 @@ from datetime import datetime
 
 from utils.formula_engine import FormulaEngine, VisualEncoding, FormulaBase
 try:
-    from core.unified_domain_model_extended import ExtendedDomainInterface, ExtendedDomainType
+    from core.unified_domain_model_extended import ExtendedDomainInterface, ExtendedDomainType, UnifiedDomainEntity
     DomainInterface = ExtendedDomainInterface
     DomainType = ExtendedDomainType
 except ImportError:
-    from core.unified_domain_model import UnifiedDomainInterface, DomainType
+    from core.unified_domain_model import UnifiedDomainInterface, DomainType, UnifiedDomainEntity
     DomainInterface = UnifiedDomainInterface
 
 logger = logging.getLogger(__name__)
@@ -125,7 +125,7 @@ class FormulaValidator:
         ]
     
     def validate_formula(self, formula_id: str, 
-                        domains: Optional[List[DomainType]] = None,
+                        domains: Optional[List] = None,
                         limit_per_domain: Optional[int] = None) -> CrossDomainReport:
         """
         Validate a formula across domains
@@ -139,7 +139,22 @@ class FormulaValidator:
             CrossDomainReport with full analysis
         """
         if domains is None:
-            domains = list(DomainType)
+            try:
+                domains = list(DomainType)
+            except:
+                domains = ['crypto', 'election', 'ship', 'board_game', 'mlb_player']
+        
+        # Convert strings to enum if needed
+        domain_enums = []
+        for d in domains:
+            if isinstance(d, str):
+                try:
+                    domain_enums.append(DomainType(d))
+                except:
+                    logger.warning(f"Unknown domain string: {d}")
+            else:
+                domain_enums.append(d)
+        domains = domain_enums
         
         logger.info(f"Validating formula '{formula_id}' across {len(domains)} domains")
         
