@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+
+{% block title %}Adult Film - Stage Name Analysis{% endblock %}
+
+{% block content %}
+
+<style>
+.af-hero {
+    position: relative;
+    padding: 3rem 0;
+    margin-bottom: 3rem;
+    overflow: hidden;
+}
+
+.af-hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: radial-gradient(circle at 50% 0%, rgba(168, 85, 247, 0.1) 0%, transparent 70%);
+    z-index: -1;
+}
+
+.stat-card {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 16px;
+    padding: 2rem;
+    transition: all 0.3s ease;
+}
+
+.stat-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(168, 85, 247, 0.3);
+    box-shadow: 0 20px 40px rgba(168, 85, 247, 0.1);
+}
+</style>
+
+<div style="max-width: 1400px; margin: 0 auto;">
+
+<!-- Hero Section -->
+<div class="af-hero">
+    <div style="text-align: center;">
+        <div style="font-size: 4rem; margin-bottom: 1rem;">🎭</div>
+        <h1 style="font-size: 3rem; margin-bottom: 1rem;">Adult Film Performer Stage Names</h1>
+        <p style="font-size: 1.25rem; color: var(--text-secondary); margin-bottom: 2rem;">
+            Strategic Naming in Entertainment - Linguistics Research
+        </p>
+        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;">
+            <a href="{{ url_for('adult_film_findings') }}" class="btn-primary">View Research Framework →</a>
+            <a href="/api/adult-film/stats" class="btn-secondary" target="_blank">View API Data →</a>
+        </div>
+    </div>
+</div>
+
+<!-- Research Context -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem; background: linear-gradient(135deg, rgba(168, 85, 247, 0.05), rgba(168, 85, 247, 0.02));">
+    <h2 style="margin-top: 0; margin-bottom: 1.5rem; color: #a855f7;">📚 Research Context</h2>
+    
+    <div style="color: var(--text-secondary); line-height: 1.8;">
+        <p><strong>Research Question:</strong> How do strategically chosen stage names predict career outcomes in professional entertainment?</p>
+        
+        <p>This domain is uniquely valuable for nominative determinism research because:</p>
+        <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+            <li><strong>Deliberate Selection:</strong> Performers consciously choose stage names for career optimization</li>
+            <li><strong>Natural Experiment:</strong> Can compare stage names vs real names (when known)</li>
+            <li><strong>Quantifiable Outcomes:</strong> View counts, career length, awards provide objective metrics</li>
+            <li><strong>Large Sample:</strong> Thousands of performers across 50+ years</li>
+            <li><strong>Test Environment:</strong> High competition where small advantages matter</li>
+        </ul>
+        
+        <p><strong>Academic Framing:</strong> This research treats adult film as a legitimate entertainment industry where professionals make strategic business decisions about personal branding. Stage name selection is analyzed with the same rigor as band names, actor names, or athlete nicknames.</p>
+        
+        <p><strong>Comparison Domains:</strong> Similar to bands (r=0.19), NBA players (r=0.24), and film titles (r=0.14) where names predict career outcomes.</p>
+    </div>
+</div>
+
+<!-- Overview Stats -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 4rem;" id="overview-stats">
+    <div class="stat-card">
+        <div style="font-size: 3rem; font-weight: 700; color: #a855f7; margin-bottom: 0.5rem;" id="total-performers">...</div>
+        <div style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted);">Total Performers</div>
+    </div>
+    <div class="stat-card">
+        <div style="font-size: 3rem; font-weight: 700; color: #ec4899; margin-bottom: 0.5rem;" id="mean-syllables">...</div>
+        <div style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted);">Mean Syllables</div>
+    </div>
+    <div class="stat-card">
+        <div style="font-size: 3rem; font-weight: 700; color: #8b5cf6; margin-bottom: 0.5rem;" id="mean-memorability">...</div>
+        <div style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted);">Memorability Score</div>
+    </div>
+    <div class="stat-card">
+        <div style="font-size: 3rem; font-weight: 700; color: #6366f1; margin-bottom: 0.5rem;" id="with-awards">...</div>
+        <div style="font-size: 0.9rem; text-transform: uppercase; color: var(--text-muted);">Award Winners</div>
+    </div>
+</div>
+
+<!-- Framework Status -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 3rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">📋 Analysis Framework Status</h2>
+    
+    <div style="color: var(--text-secondary); line-height: 1.8;">
+        <p><strong>Current Status:</strong> Framework complete, awaiting data collection</p>
+        
+        <p><strong>Framework Components Ready:</strong></p>
+        <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+            <li>Database models (AdultPerformer, AdultPerformerAnalysis)</li>
+            <li>Multi-source data collector (IAFD, public platforms, awards databases)</li>
+            <li>Statistical analyzer (success prediction, genre patterns)</li>
+            <li>Temporal analyzer (era evolution tracking)</li>
+            <li>API endpoints (7 endpoints ready)</li>
+            <li>Web dashboard and findings pages</li>
+        </ul>
+        
+        <p><strong>Expected Findings (Once Data Collected):</strong></p>
+        <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+            <li><strong>Strong Effects Expected:</strong> r = 0.30-0.40 (highest yet) because names are strategically chosen</li>
+            <li><strong>Syllable Effect:</strong> 1-2 syllable names should predict longer, more successful careers</li>
+            <li><strong>Memorability Premium:</strong> Memorable names critical in highly competitive industry</li>
+            <li><strong>Genre Specialization:</strong> Phonetics should predict genre (innocent vs aggressive sounds)</li>
+            <li><strong>Alliteration Advantage:</strong> Like bands, alliterative names likely more successful</li>
+            <li><strong>Stage vs Real:</strong> Stage names should systematically outperform real names</li>
+            <li><strong>Era Evolution:</strong> Names simplifying over time (golden age → streaming era)</li>
+            <li><strong>Platform Differences:</strong> OnlyFans era may show different patterns than traditional</li>
+        </ul>
+        
+        <p><strong>Target Sample:</strong> 2,000-3,000 performers across eras (1970s-2024)</p>
+        
+        <p><strong>Data Sources Configured:</strong></p>
+        <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+            <li>IAFD (Internet Adult Film Database) - filmography and career data</li>
+            <li>Public platform metrics (Pornhub verified performer data, view counts)</li>
+            <li>AVN/XBIZ Awards databases - industry recognition</li>
+            <li>Public performer profiles - career timelines</li>
+        </ul>
+        
+        <p><strong>Why This Domain Matters:</strong></p>
+        <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+            <li>Tests nominative determinism where names are <em>explicitly optimized</em> for outcomes</li>
+            <li>Natural experiment: stage names chosen for success vs assigned birth names</li>
+            <li>Completes entertainment domain coverage (bands, films, now adult)</li>
+            <li>May show strongest correlation yet due to intentional selection</li>
+            <li>Adds to pattern: naming effects strongest when names are chosen (popes, revolutionaries, performers)</li>
+        </ul>
+        
+        <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(0, 0, 0, 0.3); border-radius: 8px; border-left: 3px solid #a855f7;">
+            <p style="margin: 0;"><strong>Ethical Note:</strong> This research treats adult film as a legitimate entertainment industry. Performers are professionals making strategic business decisions. Analysis focuses purely on linguistic patterns and measurable career outcomes with respectful, academic framing throughout.</p>
+        </div>
+    </div>
+</div>
+
+<!-- Research Questions -->
+<div class="glass card" style="padding: 2.5rem;">
+    <h2 style="margin-top: 0; margin-bottom: 2rem;">Research Questions</h2>
+    
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
+        <div>
+            <h3 style="color: #a855f7; margin-bottom: 1rem;">Q1: Name Length & Success</h3>
+            <p style="color: var(--text-secondary);">Do shorter, more memorable stage names predict longer, more successful careers?</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;"><em>Hypothesis: Yes, r = 0.30+ (strongest effect due to strategic selection)</em></p>
+        </div>
+        
+        <div>
+            <h3 style="color: #a855f7; margin-bottom: 1rem;">Q2: Genre Prediction</h3>
+            <p style="color: var(--text-secondary);">Can name phonetics predict genre specialization?</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;"><em>Hypothesis: Yes, innocent vs aggressive phonetics align with genres</em></p>
+        </div>
+        
+        <div>
+            <h3 style="color: #a855f7; margin-bottom: 1rem;">Q3: Stage vs Real Names</h3>
+            <p style="color: var(--text-secondary);">Do performers using real names have different career trajectories?</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;"><em>Hypothesis: Stage names significantly outperform real names</em></p>
+        </div>
+        
+        <div>
+            <h3 style="color: #a855f7; margin-bottom: 1rem;">Q4: Alliteration Effect</h3>
+            <p style="color: var(--text-secondary);">Do alliterative names have advantage like in music industry?</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;"><em>Hypothesis: Yes, 20-30% success premium for alliteration</em></p>
+        </div>
+        
+        <div>
+            <h3 style="color: #a855f7; margin-bottom: 1rem;">Q5: Era Evolution</h3>
+            <p style="color: var(--text-secondary);">How have naming strategies changed from 1970s to streaming era?</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;"><em>Hypothesis: Names simplifying, optimizing for search/algorithms</em></p>
+        </div>
+        
+        <div>
+            <h3 style="color: #a855f7; margin-bottom: 1rem;">Q6: Awards Prediction</h3>
+            <p style="color: var(--text-secondary);">Do certain name patterns predict industry recognition (AVN/XBIZ)?</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;"><em>Hypothesis: Sophisticated names correlate with awards</em></p>
+        </div>
+
+        <div>
+            <h3 style="color: #a855f7; margin-bottom: 1rem;">Q7: Platform Era Differences</h3>
+            <p style="color: var(--text-secondary);">Do OnlyFans/modern platforms show different naming patterns than traditional?</p>
+            <p style="color: var(--text-muted); font-size: 0.9rem;"><em>Hypothesis: Personal branding more important, unique names favored</em></p>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+async function loadStats() {
+    try {
+        const response = await fetch('/api/adult-film/stats');
+        if (response.ok) {
+            const data = await response.json();
+            document.getElementById('total-performers').textContent = data.total_performers || '0';
+            document.getElementById('mean-syllables').textContent = data.mean_syllables?.toFixed(1) || '0.0';
+            document.getElementById('mean-memorability').textContent = data.mean_memorability?.toFixed(0) || '0';
+            document.getElementById('with-awards').textContent = data.with_awards || '0';
+        }
+    } catch (error) {
+        console.error('Error loading stats:', error);
+        document.getElementById('total-performers').textContent = '0';
+        document.getElementById('mean-syllables').textContent = 'N/A';
+        document.getElementById('mean-memorability').textContent = 'N/A';
+        document.getElementById('with-awards').textContent = 'N/A';
+    }
+}
+
+document.addEventListener('DOMContentLoaded', loadStats);
+</script>
+
+{% endblock %}
+

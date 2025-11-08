@@ -3860,3 +3860,163 @@ class MLBMatchup(db.Model):
         }
 
 
+# =============================================================================
+# ADULT FILM PERFORMER MODELS
+# =============================================================================
+
+class AdultPerformer(db.Model):
+    """Adult film performer data - stage names and career metrics"""
+    __tablename__ = 'adult_performers'
+    __table_args__ = (
+        db.Index('idx_performer_debut_year', 'debut_year'),
+        db.Index('idx_performer_primary_genre', 'primary_genre'),
+        db.Index('idx_performer_era_group', 'era_group'),
+        db.Index('idx_performer_success_score', 'overall_success_score'),
+    )
+    
+    id = db.Column(db.String(100), primary_key=True)  # Unique performer ID
+    stage_name = db.Column(db.String(200), nullable=False, index=True)
+    real_name = db.Column(db.String(200))  # If publicly known
+    uses_real_name = db.Column(db.Boolean, default=False)
+    
+    # Career
+    debut_year = db.Column(db.Integer, index=True)
+    final_year = db.Column(db.Integer)
+    years_active = db.Column(db.Integer)
+    is_active = db.Column(db.Boolean, default=False)
+    
+    # Era classification
+    era_group = db.Column(db.String(30))  # golden_age (1970-1989), video_era (1990-2004), internet_era (2005-2014), streaming_era (2015-2024)
+    
+    # Career metrics
+    film_count = db.Column(db.Integer)
+    video_count = db.Column(db.Integer)  # Includes online content
+    total_views = db.Column(db.BigInteger)  # Aggregate across platforms
+    
+    # Platform-specific
+    pornhub_views = db.Column(db.BigInteger)
+    pornhub_subscribers = db.Column(db.Integer)
+    onlyfans_subscribers = db.Column(db.Integer)  # If publicly available
+    
+    # Recognition
+    award_nominations = db.Column(db.Integer)
+    awards_won = db.Column(db.Integer)
+    avn_awards = db.Column(db.Integer)  # AVN (Adult Video News) Awards
+    xbiz_awards = db.Column(db.Integer)
+    
+    # Genre/Specialization
+    primary_genre = db.Column(db.String(50))
+    genres = db.Column(db.Text)  # JSON list of all genres
+    
+    # Name history
+    previous_stage_names = db.Column(db.Text)  # JSON list if changed names
+    name_change_count = db.Column(db.Integer, default=0)
+    
+    # Success metrics (computed)
+    popularity_score = db.Column(db.Float, index=True)  # 0-100 based on views/subscribers
+    longevity_score = db.Column(db.Float)  # 0-100 based on career length and consistency
+    achievement_score = db.Column(db.Float)  # 0-100 based on awards and recognition
+    overall_success_score = db.Column(db.Float, index=True)  # Composite of above
+    
+    # Source metadata
+    source = db.Column(db.String(50))  # IAFD, Pornhub, etc.
+    data_quality = db.Column(db.String(20))  # high, medium, low
+    last_updated = db.Column(db.DateTime)
+    
+    # Relationship
+    analysis = db.relationship('AdultPerformerAnalysis', backref='performer', uselist=False, cascade='all, delete-orphan')
+    
+    def __repr__(self):
+        return f'<AdultPerformer {self.stage_name}>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'stage_name': self.stage_name,
+            'debut_year': self.debut_year,
+            'final_year': self.final_year,
+            'years_active': self.years_active,
+            'is_active': self.is_active,
+            'era_group': self.era_group,
+            'film_count': self.film_count,
+            'video_count': self.video_count,
+            'total_views': self.total_views,
+            'award_nominations': self.award_nominations,
+            'awards_won': self.awards_won,
+            'primary_genre': self.primary_genre,
+            'popularity_score': self.popularity_score,
+            'longevity_score': self.longevity_score,
+            'achievement_score': self.achievement_score,
+            'overall_success_score': self.overall_success_score
+        }
+
+
+class AdultPerformerAnalysis(db.Model):
+    """Phonetic and linguistic analysis of adult film performer stage names"""
+    __tablename__ = 'adult_performer_analyses'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    performer_id = db.Column(db.String(100), db.ForeignKey('adult_performers.id'), nullable=False, unique=True)
+    
+    # Name structure
+    syllable_count = db.Column(db.Integer)
+    word_count = db.Column(db.Integer)
+    character_length = db.Column(db.Integer)
+    first_name_syllables = db.Column(db.Integer)
+    last_name_syllables = db.Column(db.Integer)
+    first_name_length = db.Column(db.Integer)
+    last_name_length = db.Column(db.Integer)
+    
+    # Standard phonetic features
+    harshness_score = db.Column(db.Float)
+    smoothness_score = db.Column(db.Float)
+    softness_score = db.Column(db.Float)
+    memorability_score = db.Column(db.Float)
+    pronounceability_score = db.Column(db.Float)
+    phonetic_complexity = db.Column(db.Float)
+    uniqueness_score = db.Column(db.Float)
+    
+    # Advanced phonetic
+    plosive_ratio = db.Column(db.Float)
+    vowel_ratio = db.Column(db.Float)
+    fricative_ratio = db.Column(db.Float)
+    liquid_ratio = db.Column(db.Float)
+    consonant_cluster_density = db.Column(db.Float)
+    alliteration_score = db.Column(db.Float)
+    
+    # Stage name specific metrics
+    sexy_score = db.Column(db.Float)  # Phonetic appeal/sensuality
+    fantasy_score = db.Column(db.Float)  # Aspirational/fantasy elements
+    accessibility_score = db.Column(db.Float)  # Easy to say/remember/search
+    brand_strength_score = db.Column(db.Float)  # Overall branding power
+    
+    # Name composition analysis
+    uses_first_last_format = db.Column(db.Boolean)  # "Firstname Lastname" format
+    uses_single_name = db.Column(db.Boolean)  # Mononym
+    has_title = db.Column(db.Boolean)  # Miss, Ms, etc.
+    has_descriptor = db.Column(db.Boolean)  # "Little", "Big", etc.
+    
+    # Comparison to real name (if known)
+    real_name_syllables = db.Column(db.Integer)
+    syllable_delta = db.Column(db.Integer)  # Stage - real (positive = longer stage name)
+    simplified_from_real = db.Column(db.Boolean)  # Stage name simpler than real
+    
+    # Genre alignment
+    innocent_sounding_score = db.Column(db.Float)  # For certain genres
+    aggressive_sounding_score = db.Column(db.Float)  # For other genres
+    exotic_sounding_score = db.Column(db.Float)  # International appeal
+    girl_next_door_score = db.Column(db.Float)  # Relatable/accessible
+    
+    # Clusters
+    phonetic_cluster = db.Column(db.Integer)
+    success_cluster = db.Column(db.Integer)
+    era_cohort = db.Column(db.String(30))
+    
+    # Metadata
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def __repr__(self):
+        return f'<AdultPerformerAnalysis for performer_id={self.performer_id}>'
+
+
+

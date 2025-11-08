@@ -1,0 +1,181 @@
+{% extends "base.html" %}
+
+{% block title %}Adult Film Stage Names - Research Findings{% endblock %}
+
+{% block content %}
+
+<div style="max-width: 900px; margin: 0 auto; padding: 2rem 0;">
+
+<h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Adult Film Performer Stage Names</h1>
+<p style="font-size: 1.1rem; color: var(--text-secondary); margin-bottom: 3rem;">Strategic Naming Research in Professional Entertainment</p>
+
+<!-- Executive Summary -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 2rem;">
+    <h2 style="margin-top: 0; color: #a855f7;">Executive Summary</h2>
+    
+    <p style="line-height: 1.8; color: var(--text-secondary);">
+        This research domain examines stage name selection in adult film entertainment to understand how strategically chosen names predict career outcomes. Adult performers consciously select stage names for audience appeal and brand recognition, making this domain ideal for testing nominative determinism in contexts where names are explicitly optimized for success.
+    </p>
+    
+    <p style="line-height: 1.8; color: var(--text-secondary);">
+        <strong>Status:</strong> Framework complete, awaiting data collection. All infrastructure ready including database models, collectors, analyzers, and visualization tools.
+    </p>
+</div>
+
+<!-- Research Hypotheses -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 2rem;">
+    <h2 style="margin-top: 0;">Research Hypotheses</h2>
+    
+    <div style="line-height: 1.8; color: var(--text-secondary);">
+        <h3 style="color: #a855f7;">H1: Syllable Count Predicts Success</h3>
+        <p><strong>Prediction:</strong> Names with 1-2 syllables will show 25-35% higher success scores than names with 4+ syllables</p>
+        <p><strong>Mechanism:</strong> Memorability and ease of search/discovery in digital platforms</p>
+        <p><strong>Expected r:</strong> 0.30-0.35 (stronger than bands at 0.19 due to strategic selection)</p>
+        
+        <h3 style="color: #a855f7; margin-top: 2rem;">H2: Genre Specialization from Phonetics</h3>
+        <p><strong>Prediction:</strong> Soft, flowing phonetics predict certain genres while harsh phonetics predict others</p>
+        <p><strong>Mechanism:</strong> Performers choose names aligned with desired genre positioning</p>
+        <p><strong>Expected accuracy:</strong> 65-75% genre prediction from name alone</p>
+        
+        <h3 style="color: #a855f7; margin-top: 2rem;">H3: Stage Names Outperform Real Names</h3>
+        <p><strong>Prediction:</strong> Performers using stage names will show 40-60% higher success than those using real names</p>
+        <p><strong>Mechanism:</strong> Optimization for brand appeal vs arbitrary birth names</p>
+        <p><strong>Natural experiment:</strong> Within-industry comparison of naming strategies</p>
+        
+        <h3 style="color: #a855f7; margin-top: 2rem;">H4: Memorability Premium</h3>
+        <p><strong>Prediction:</strong> High memorability names (+20 points) predict +30% career longevity</p>
+        <p><strong>Mechanism:</strong> Repeat audience recognition and brand loyalty</p>
+        <p><strong>Expected r:</strong> 0.28-0.32</p>
+        
+        <h3 style="color: #a855f7; margin-top: 2rem;">H5: Alliteration Advantage</h3>
+        <p><strong>Prediction:</strong> Alliterative names show 25-35% premium like in music industry</p>
+        <p><strong>Mechanism:</strong> Enhanced memorability and phonetic pleasure</p>
+        <p><strong>Examples expected:</strong> Similar to band names (Beatles, Rolling Stones)</p>
+        
+        <h3 style="color: #a855f7; margin-top: 2rem;">H6: Era-Specific Evolution</h3>
+        <p><strong>Prediction:</strong> Names simplifying from Golden Age (1970s) to Streaming Era (2020s)</p>
+        <p><strong>Mechanism:</strong> Algorithm optimization, search-friendly names, platform discoverability</p>
+        <p><strong>Expected trend:</strong> -0.5 syllables per decade</p>
+        
+        <h3 style="color: #a855f7; margin-top: 2rem;">H7: Awards Correlation</h3>
+        <p><strong>Prediction:</strong> Industry awards (AVN/XBIZ) correlate with name sophistication</p>
+        <p><strong>Mechanism:</strong> Professional recognition favors established brands</p>
+        <p><strong>Expected r:</strong> 0.22-0.28</p>
+    </div>
+</div>
+
+<!-- Methodology -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 2rem;">
+    <h2 style="margin-top: 0;">Methodology</h2>
+    
+    <div style="line-height: 1.8; color: var(--text-secondary);">
+        <h3>Data Collection</h3>
+        <p><strong>Sample:</strong> Target 2,000-3,000 performers with verifiable career data</p>
+        <p><strong>Stratification:</strong> Balanced across eras, genders, and genres</p>
+        <p><strong>Sources:</strong></p>
+        <ul style="margin-left: 2rem;">
+            <li>IAFD (Internet Adult Film Database) - comprehensive filmography</li>
+            <li>Pornhub/xVideos - verified performer metrics (view counts, subscribers)</li>
+            <li>AVN/XBIZ Awards - industry recognition data</li>
+            <li>Public profiles - career timelines and genre information</li>
+        </ul>
+        
+        <h3 style="margin-top: 2rem;">Linguistic Analysis</h3>
+        <p><strong>Features Measured:</strong> 20+ phonetic and structural dimensions</p>
+        <ul style="margin-left: 2rem;">
+            <li>Basic: syllable count, word count, character length</li>
+            <li>Phonetic: harshness, softness, memorability, pronounceability</li>
+            <li>Advanced: plosive ratio, vowel ratio, liquid ratio, alliteration</li>
+            <li>Stage-specific: sexy score, fantasy score, accessibility, brand strength</li>
+            <li>Genre-alignment: innocent, aggressive, exotic, girl-next-door scores</li>
+        </ul>
+        
+        <h3 style="margin-top: 2rem;">Statistical Methods</h3>
+        <ul style="margin-left: 2rem;">
+            <li>Random Forest regression (success prediction)</li>
+            <li>Random Forest classification (genre prediction)</li>
+            <li>Pearson correlations (name features × outcomes)</li>
+            <li>T-tests (stage vs real names, format comparisons)</li>
+            <li>Temporal trend analysis (era evolution)</li>
+            <li>5-fold cross-validation (generalization testing)</li>
+        </ul>
+        
+        <h3 style="margin-top: 2rem;">Ethical Framework</h3>
+        <ul style="margin-left: 2rem;">
+            <li>Professional, academic tone throughout</li>
+            <li>Focus on linguistics and career outcomes only</li>
+            <li>Respectful treatment of performers as professionals</li>
+            <li>Public data sources only</li>
+            <li>Clear research purpose: nominative determinism</li>
+            <li>No explicit content or gratuitous details</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Expected Patterns -->
+<div class="glass card" style="padding: 2.5rem; margin-bottom: 2rem;">
+    <h2 style="margin-top: 0;">Expected Patterns (Based on Other Domains)</h2>
+    
+    <div style="line-height: 1.8; color: var(--text-secondary);">
+        <p><strong>Cross-Domain Comparison:</strong></p>
+        <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+            <li>Bands: r = 0.19 (3.1× sales for 1-word names)</li>
+            <li>NBA: r = 0.24 (+12.8% PPG for harsh names)</li>
+            <li>Films: r = 0.14 (+41% revenue for short titles)</li>
+            <li><strong>Adult Film Expected: r = 0.30-0.40 (highest yet due to strategic optimization)</strong></li>
+        </ul>
+        
+        <p><strong>Why Stronger Effects Expected:</strong></p>
+        <ul style="margin-left: 2rem;">
+            <li>Names explicitly chosen for career success (not assigned at birth)</li>
+            <li>High competition where small advantages matter</li>
+            <li>Visual medium where first impressions critical</li>
+            <li>Direct comparison possible (stage vs real names)</li>
+            <li>Measurable outcomes (views, subscribers, awards)</li>
+        </ul>
+        
+        <p><strong>Similar to Other "Chosen Name" Contexts:</strong></p>
+        <ul style="margin-left: 2rem;">
+            <li>Popes choosing names: 100% prediction accuracy</li>
+            <li>Revolutionaries: 89% strategic name-destiny alignment</li>
+            <li>Pen names: 67% genre-name matching</li>
+            <li>Stage names in this domain likely show similar strong effects</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Integration -->
+<div class="glass card" style="padding: 2.5rem;">
+    <h2 style="margin-top: 0;">Platform Integration</h2>
+    
+    <div style="line-height: 1.8; color: var(--text-secondary);">
+        <p>This domain will become #18 in the nominative determinism research platform, joining:</p>
+        <ul style="margin-left: 2rem; margin-bottom: 1.5rem;">
+            <li>Cryptocurrency (r=0.28)</li>
+            <li>Hurricanes (ROC 0.916)</li>
+            <li>Magic: The Gathering (r=0.22)</li>
+            <li>NBA Players (r=0.24)</li>
+            <li>NFL Players (framework ready)</li>
+            <li>Rock Bands (r=0.19)</li>
+            <li>Films (r=0.14)</li>
+            <li>Academic Citations (r=0.16)</li>
+            <li>Ships (r=0.18)</li>
+            <li>Mental Health (r=0.29)</li>
+            <li>And 7 more domains...</li>
+        </ul>
+        
+        <p><strong>Upon completion, will:</strong></p>
+        <ul style="margin-left: 2rem;">
+            <li>Add 18th data point to "Silence" living artwork</li>
+            <li>Test entertainment pattern in new context</li>
+            <li>Potentially show strongest effect yet</li>
+            <li>Complete "chosen names" category analysis</li>
+            <li>Strengthen overall theory or reveal boundaries</li>
+        </ul>
+    </div>
+</div>
+
+</div>
+
+{% endblock %}
+

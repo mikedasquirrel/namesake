@@ -1,0 +1,167 @@
+# Automated Formula Analysis Configuration
+
+# Schedule configuration (cron-like format)
+schedule:
+  # Daily analysis at 2:00 AM
+  daily_analysis:
+    enabled: true
+    time: "02:00"
+    timezone: "America/New_York"
+  
+  # Weekly deep dive on Sunday at 3:00 AM
+  weekly_deep_dive:
+    enabled: true
+    day: "Sunday"
+    time: "03:00"
+    timezone: "America/New_York"
+  
+  # Triggered on new data (event-based)
+  on_new_data:
+    enabled: true
+    trigger: "event"
+
+# Analysis settings
+analysis_settings:
+  # Validation configuration
+  validation:
+    daily_limit_per_domain: 200
+    weekly_limit_per_domain: 1000
+    cache_results: true
+    cache_ttl: 86400  # 24 hours
+  
+  # Evolution configuration
+  evolution:
+    daily:
+      population_size: 20
+      n_generations: 15
+      limit_per_domain: 100
+    weekly:
+      population_size: 50
+      n_generations: 50
+      limit_per_domain: 500
+    convergence_patience: 10
+  
+  # Convergence analysis
+  convergence:
+    min_invariants_to_report: 3
+    occurrence_threshold: 0.5  # 50%
+    test_mathematical_constants: true
+  
+  # Encryption testing
+  encryption:
+    test_sample_size: 500
+    test_all_formulas: true
+  
+  # Report generation
+  reporting:
+    generate_pdf: false  # Set to true when PDF library available
+    generate_json: true
+    generate_csv: true
+    update_dashboard: true
+    create_symlinks: true
+
+# Output configuration
+output:
+  base_directory: "analysis_outputs/auto_analysis"
+  subdirectories:
+    validations: "validations"
+    evolutions: "evolutions"
+    convergence: "convergence"
+    encryption: "encryption"
+    comparisons: "comparisons"
+  retention_days: 90  # Keep results for 90 days
+  archive_after_days: 30  # Archive after 30 days
+
+# Notification configuration
+notifications:
+  enabled: true
+  
+  # Email notifications (requires SendGrid API key)
+  email:
+    enabled: false  # Enable when SendGrid configured
+    from_email: "formula-engine@example.com"
+    to_emails:
+      - "your-email@example.com"
+    send_on_complete: true
+    send_on_error: true
+    send_on_discovery: true  # New invariant discovered
+    include_summary: true
+    attach_reports: false
+  
+  # Slack notifications (requires webhook URL)
+  slack:
+    enabled: false  # Enable when webhook configured
+    webhook_url: ""
+    channel: "#formula-analysis"
+    send_on_complete: true
+    send_on_error: true
+    send_on_discovery: true
+  
+  # Log-based notifications
+  logging:
+    enabled: true
+    log_file: "logs/auto_analysis.log"
+    log_level: "INFO"
+
+# Performance settings
+performance:
+  max_concurrent_validations: 3
+  max_concurrent_evolutions: 2
+  timeout_minutes: 120  # 2 hours max per analysis
+  memory_limit_mb: 4096  # 4GB max
+  use_multiprocessing: false  # Enable for parallel processing
+
+# Cache settings
+cache:
+  enabled: true
+  redis_host: "localhost"
+  redis_port: 6379
+  redis_db: 0
+  cache_transformations: true
+  cache_validations: true
+  cache_evolution_results: true
+  warm_cache_on_start: false
+
+# Error handling
+error_handling:
+  retry_on_failure: true
+  max_retries: 3
+  retry_delay_seconds: 60
+  continue_on_error: true  # Continue with next formula if one fails
+  save_partial_results: true
+
+# Domains to analyze
+domains:
+  - crypto
+  - election
+  - ship
+  - board_game
+  - mlb_player
+
+# Formulas to analyze
+formulas:
+  - phonetic
+  - semantic
+  - structural
+  - frequency
+  - numerological
+  - hybrid
+
+# Advanced features
+advanced:
+  # Historical trend analysis
+  track_trends: true
+  trend_window_days: 30
+  
+  # Cross-domain meta-analysis
+  run_meta_analysis: true
+  meta_analysis_frequency: "weekly"
+  
+  # Automatic cache warming
+  warm_cache: false
+  cache_warming_samples: 100
+  
+  # Result versioning
+  version_results: true
+  keep_versions: 10
+

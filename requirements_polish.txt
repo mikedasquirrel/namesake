@@ -1,0 +1,59 @@
+# Formula Engine Polish & Automation - Additional Dependencies
+# Add these to your main requirements.txt
+
+# Caching System
+redis==4.5.1                # Redis client for caching
+flask-caching==2.0.2        # Flask caching extensions
+
+# Scheduling & Background Jobs
+apscheduler==3.10.1         # Advanced Python Scheduler
+
+# Configuration
+pyyaml==6.0                 # YAML configuration files
+
+# CLI Enhancement  
+tabulate==0.9.0             # Pretty table formatting
+
+# Optional but Recommended
+# ------------------------
+
+# Async Task Queue (for future expansion)
+# celery==5.2.7
+# celery[redis]
+
+# Monitoring
+# psutil==5.9.5             # System resource monitoring
+# structlog==23.1.0         # Structured logging
+
+# Websockets (for progress tracking)
+# flask-socketio==5.3.2
+# python-socketio==5.8.0
+
+# Rate Limiting
+# flask-limiter==3.3.1
+
+# Email Notifications
+# sendgrid==6.10.0
+
+# PDF Generation
+# reportlab==4.0.0
+# weasyprint==59.0
+
+# Installation Instructions:
+# -------------------------
+# 
+# Minimal (Core Functionality):
+#   pip install redis flask-caching apscheduler pyyaml tabulate
+#
+# With Redis server:
+#   macOS: brew install redis && brew services start redis
+#   Ubuntu: sudo apt install redis-server && sudo systemctl start redis
+#
+# Optional Advanced Features:
+#   pip install celery[redis] psutil structlog
+#
+# Full Production Stack:
+#   pip install -r requirements_polish.txt
+#
+# Note: System works without Redis (caching auto-disabled)
+

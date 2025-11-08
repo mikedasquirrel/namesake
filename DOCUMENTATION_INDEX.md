@@ -130,13 +130,23 @@
 - Key Hypotheses: Euro abstraction, temporal expansion, complexity correlation
 - Status: ✅ Framework complete, 37 games collected
 
-### 19. MLB Baseball (NEW)
+### 19. MLB Baseball Players (NEW)
 - `docs/19_MLB_ANALYSIS/README.md`
 - `docs/19_MLB_ANALYSIS/MLB_METHODOLOGY.md`
 - `docs/19_MLB_ANALYSIS/QUICKSTART.md`
 - Sample: 44 legendary players (target 2,500+)
 - Key Hypotheses: Pitcher mystique, power names, closer effect, Latino inflection
 - Status: ✅ Framework complete, 44 players collected
+
+### 20. MLB Teams - 3-Layer Analysis (NEW)
+- `docs/20_MLB_TEAMS_ANALYSIS/README.md`
+- `docs/20_MLB_TEAMS_ANALYSIS/MLB_TEAMS_METHODOLOGY.md`
+- `docs/20_MLB_TEAMS_ANALYSIS/ROSTER_AMALGAMATION_GUIDE.md`
+- `docs/20_MLB_TEAMS_ANALYSIS/MLB_TEAMS_FINDINGS.md`
+- Sample: 30 MLB teams with complete 3-layer profiles
+- Innovation: Team + City + Roster amalgamation framework
+- Key Findings: Yankees composite 73.8, city prestige NYC 95 vs TB 50
+- Status: ✅ Complete, revolutionary collective analysis
 
 ---
 

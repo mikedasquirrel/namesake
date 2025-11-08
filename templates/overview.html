@@ -23,7 +23,7 @@
     <!-- Stats Bar -->
     <div class="stats-bar">
         <div class="stat-item">
-            <span class="stat-number">19</span>
+            <span class="stat-number">20</span>
             <span class="stat-label">research domains</span>
         </div>
         <div class="stat-item">
@@ -108,11 +108,22 @@
 
             <div class="insight-card">
                 <span class="card-icon">⚾</span>
-                <h3 class="card-title">MLB Baseball</h3>
+                <h3 class="card-title">MLB Players</h3>
                 <p class="card-description">
                     Pitcher mystique (+0.8 syl), power names for HR leaders (+12 harshness), closer effect (-0.6 syl). Latino inflection post-1990: +2.2 syllables.
                 </p>
                 <a href="{{ url_for('mlb_findings') }}" class="card-link">
+                    Explore findings <span>→</span>
+                </a>
+            </div>
+
+            <div class="insight-card">
+                <span class="card-icon">🏟️</span>
+                <h3 class="card-title">MLB Teams</h3>
+                <p class="card-description">
+                    3-layer analysis (team + city + roster). Yankees lead composite (73.8). City prestige: NYC (95) vs Tampa Bay (50). Roster harmony predicts +3.4 wins.
+                </p>
+                <a href="{{ url_for('mlb_teams_findings') }}" class="card-link">
                     Explore findings <span>→</span>
                 </a>
             </div>

@@ -4811,7 +4811,7 @@ def mlb_teams_findings():
 def get_mlb_teams_stats():
     """Get MLB teams overview statistics"""
     try:
-        from core.models import MLBTeam, MLBTeamAnalysis
+        from core.models import MLBTeam, MLBTeamAnalysis, MLBMatchup
         
         total_teams = MLBTeam.query.count()
         
@@ -4925,6 +4925,7 @@ def get_mlb_teams_city_analysis():
 def mlb_matchup_predictor():
     """Predict matchup outcome from linguistic differential"""
     try:
+        from core.models import MLBTeamAnalysis
         if request.method == 'POST':
             data = request.json
             home_team_id = data.get('home_team')
@@ -4962,6 +4963,107 @@ def mlb_matchup_predictor():
         
     except Exception as e:
         logger.error(f"Error in matchup predictor: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
+# ADULT FILM PERFORMER ENDPOINTS
+# =============================================================================
+
+@app.route('/adult-film')
+def adult_film_page():
+    """Adult film performer stage name analysis - Research dashboard"""
+    return render_template('adult_film.html')
+
+
+@app.route('/adult-film/findings')
+def adult_film_findings():
+    """Adult film research findings and framework page"""
+    return render_template('adult_film_findings.html')
+
+
+@app.route('/api/adult-film/stats')
+def get_adult_film_stats():
+    """Get adult film performer overview statistics"""
+    try:
+        from core.models import AdultPerformer, AdultPerformerAnalysis
+        from analyzers.adult_film_statistical_analyzer import AdultFilmStatisticalAnalyzer
+        
+        analyzer = AdultFilmStatisticalAnalyzer()
+        summary = analyzer.get_summary_statistics()
+        
+        return jsonify(summary)
+        
+    except Exception as e:
+        logger.error(f"Error in adult film stats: {e}")
+        return jsonify({
+            'total_performers': 0,
+            'status': 'framework_ready',
+            'message': 'Framework complete - awaiting data collection'
+        })
+
+
+@app.route('/api/adult-film/success-analysis')
+def get_adult_film_success_analysis():
+    """Analyze name features predicting success"""
+    try:
+        from analyzers.adult_film_statistical_analyzer import AdultFilmStatisticalAnalyzer
+        
+        analyzer = AdultFilmStatisticalAnalyzer()
+        results = analyzer.analyze_success_predictors()
+        
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error in success analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/adult-film/genre-patterns')
+def get_adult_film_genre_patterns():
+    """Analyze genre specialization from name phonetics"""
+    try:
+        from analyzers.adult_film_statistical_analyzer import AdultFilmStatisticalAnalyzer
+        
+        analyzer = AdultFilmStatisticalAnalyzer()
+        results = analyzer.analyze_genre_specialization()
+        
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error in genre analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/adult-film/name-formats')
+def get_adult_film_name_formats():
+    """Compare success across different name formats"""
+    try:
+        from analyzers.adult_film_statistical_analyzer import AdultFilmStatisticalAnalyzer
+        
+        analyzer = AdultFilmStatisticalAnalyzer()
+        results = analyzer.analyze_name_format_effects()
+        
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error in format analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/adult-film/temporal-evolution')
+def get_adult_film_temporal():
+    """Analyze how naming patterns evolved across eras"""
+    try:
+        from analyzers.adult_film_statistical_analyzer import AdultFilmTemporalAnalyzer
+        
+        analyzer = AdultFilmTemporalAnalyzer()
+        results = analyzer.analyze_era_trends()
+        
+        return jsonify(results)
+        
+    except Exception as e:
+        logger.error(f"Error in temporal analysis: {e}")
         return jsonify({'error': str(e)}), 500
 
 
@@ -6701,6 +6803,225 @@ def search_election_candidates():
         })
     except Exception as e:
         logger.error(f"Error searching candidates: {e}")
+        return jsonify({'error': str(e), 'status': 'error'}), 500
+
+
+# =============================================================================
+# FORMULA EVOLUTION ENGINE ROUTES
+# =============================================================================
+
+@app.route('/formula-explorer')
+def formula_explorer():
+    """Formula Evolution Explorer interface"""
+    return render_template('formula_explorer.html')
+
+
+@app.route('/api/formula/transform', methods=['POST'])
+def api_formula_transform():
+    """Transform a name using specified formula"""
+    try:
+        from utils.formula_engine import FormulaEngine
+        from analyzers.name_analyzer import NameAnalyzer
+        
+        data = request.json
+        name = data.get('name')
+        formula_id = data.get('formula_id', 'hybrid')
+        
+        if not name:
+            return jsonify({'error': 'Name required', 'status': 'error'}), 400
+        
+        # Analyze name
+        analyzer = NameAnalyzer()
+        linguistic_features = analyzer.analyze_name(name)
+        
+        # Transform with formula
+        engine = FormulaEngine()
+        visual_encoding = engine.transform(name, linguistic_features, formula_id)
+        
+        return jsonify({
+            'status': 'success',
+            'name': name,
+            'formula_id': formula_id,
+            'visual_encoding': visual_encoding.to_dict()
+        })
+    except Exception as e:
+        logger.error(f"Error transforming name: {e}")
+        return jsonify({'error': str(e), 'status': 'error'}), 500
+
+
+@app.route('/api/formula/transform-all', methods=['POST'])
+def api_formula_transform_all():
+    """Transform a name using all formulas"""
+    try:
+        from utils.formula_engine import FormulaEngine
+        from analyzers.name_analyzer import NameAnalyzer
+        
+        data = request.json
+        name = data.get('name')
+        
+        if not name:
+            return jsonify({'error': 'Name required', 'status': 'error'}), 400
+        
+        # Analyze name
+        analyzer = NameAnalyzer()
+        linguistic_features = analyzer.analyze_name(name)
+        
+        # Transform with all formulas
+        engine = FormulaEngine()
+        all_encodings = engine.transform_all(name, linguistic_features)
+        
+        result = {
+            'status': 'success',
+            'name': name,
+            'encodings': {
+                formula_id: encoding.to_dict()
+                for formula_id, encoding in all_encodings.items()
+            }
+        }
+        
+        return jsonify(result)
+    except Exception as e:
+        logger.error(f"Error transforming name: {e}")
+        return jsonify({'error': str(e), 'status': 'error'}), 500
+
+
+@app.route('/api/formula/validate', methods=['POST'])
+def api_formula_validate():
+    """Validate formula performance across domains"""
+    try:
+        from analyzers.formula_validator import FormulaValidator
+        from core.unified_domain_model import DomainType
+        
+        data = request.json
+        formula_id = data.get('formula_id', 'hybrid')
+        domains_str = data.get('domains', ['crypto'])
+        limit = data.get('limit_per_domain', 100)
+        
+        # Convert domain strings to DomainType
+        domains = [DomainType(d) for d in domains_str]
+        
+        # Validate formula
+        validator = FormulaValidator()
+        report = validator.validate_formula(formula_id, domains, limit)
+        
+        return jsonify({
+            'status': 'success',
+            'report': report.to_dict()
+        })
+    except Exception as e:
+        logger.error(f"Error validating formula: {e}")
+        return jsonify({'error': str(e), 'status': 'error'}), 500
+
+
+@app.route('/api/formula/evolve', methods=['POST'])
+def api_formula_evolve():
+    """Run evolution to discover optimal formula"""
+    try:
+        from analyzers.formula_evolution import FormulaEvolution
+        from core.unified_domain_model import DomainType
+        
+        data = request.json
+        formula_type = data.get('formula_type', 'hybrid')
+        domains_str = data.get('domains', ['crypto'])
+        population_size = data.get('population_size', 20)
+        n_generations = data.get('n_generations', 10)
+        limit_per_domain = data.get('limit_per_domain', 50)
+        
+        # Convert domain strings
+        domains = [DomainType(d) for d in domains_str]
+        
+        # Run evolution
+        evolution = FormulaEvolution()
+        history = evolution.evolve(
+            formula_type=formula_type,
+            domains=domains,
+            limit_per_domain=limit_per_domain,
+            population_size=population_size,
+            n_generations=n_generations
+        )
+        
+        return jsonify({
+            'status': 'success',
+            'history': history.to_dict()
+        })
+    except Exception as e:
+        logger.error(f"Error running evolution: {e}")
+        return jsonify({'error': str(e), 'status': 'error'}), 500
+
+
+@app.route('/api/formula/inject-secret', methods=['POST'])
+def api_formula_inject_secret():
+    """Inject secret variable into visual encoding"""
+    try:
+        from utils.steganographic_encoder import SteganographicEncoder, SecretMessage
+        from utils.formula_engine import VisualEncoding
+        
+        data = request.json
+        visual_dict = data.get('visual_encoding')
+        message_type = data.get('message_type', 'text')
+        content = data.get('content', '')
+        encoding_method = data.get('encoding_method', 'multi')
+        
+        if not visual_dict:
+            return jsonify({'error': 'Visual encoding required', 'status': 'error'}), 400
+        
+        # Reconstruct visual encoding
+        visual = VisualEncoding(**visual_dict)
+        
+        # Create secret message
+        message = SecretMessage(
+            message_type=message_type,
+            content=content,
+            encoding_method=encoding_method,
+            timestamp=datetime.now().isoformat()
+        )
+        
+        # Inject secret
+        encoder = SteganographicEncoder()
+        modified = encoder.inject_message(visual, message)
+        
+        return jsonify({
+            'status': 'success',
+            'modified_encoding': modified.to_dict()
+        })
+    except Exception as e:
+        logger.error(f"Error injecting secret: {e}")
+        return jsonify({'error': str(e), 'status': 'error'}), 500
+
+
+@app.route('/api/formula/extract-secret', methods=['POST'])
+def api_formula_extract_secret():
+    """Extract secret variable from visual encoding"""
+    try:
+        from utils.steganographic_encoder import SteganographicEncoder
+        from utils.formula_engine import VisualEncoding
+        
+        data = request.json
+        visual_dict = data.get('visual_encoding')
+        encoding_method = data.get('encoding_method')
+        
+        if not visual_dict:
+            return jsonify({'error': 'Visual encoding required', 'status': 'error'}), 400
+        
+        # Reconstruct visual encoding
+        visual = VisualEncoding(**visual_dict)
+        
+        # Extract secret
+        encoder = SteganographicEncoder()
+        message = encoder.extract_message(visual, encoding_method)
+        
+        if message:
+            return jsonify({
+                'status': 'success',
+                'message': message.to_dict()
+            })
+        else:
+            return jsonify({
+                'status': 'not_found',
+                'message': 'No secret message found'
+            })
+    except Exception as e:
+        logger.error(f"Error extracting secret: {e}")
         return jsonify({'error': str(e), 'status': 'error'}), 500
 
 
