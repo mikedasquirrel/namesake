@@ -1,0 +1,92 @@
+{
+  "dimensionality": 3,
+  "golden_ratio_pairs": [],
+  "simple_ratio_pairs": [
+    [
+      "phonetic",
+      "semantic",
+      1.0
+    ],
+    [
+      "phonetic",
+      "structural",
+      1.0
+    ],
+    [
+      "phonetic",
+      "frequency",
+      1.0
+    ],
+    [
+      "phonetic",
+      "numerological",
+      1.0
+    ],
+    [
+      "phonetic",
+      "hybrid",
+      1.0
+    ],
+    [
+      "semantic",
+      "structural",
+      1.0
+    ],
+    [
+      "semantic",
+      "frequency",
+      1.0
+    ],
+    [
+      "semantic",
+      "numerological",
+      1.0
+    ],
+    [
+      "semantic",
+      "hybrid",
+      1.0
+    ],
+    [
+      "structural",
+      "frequency",
+      1.0
+    ],
+    [
+      "structural",
+      "numerological",
+      1.0
+    ],
+    [
+      "structural",
+      "hybrid",
+      1.0
+    ],
+    [
+      "frequency",
+      "numerological",
+      1.0
+    ],
+    [
+      "frequency",
+      "hybrid",
+      1.0
+    ],
+    [
+      "numerological",
+      "hybrid",
+      1.0
+    ]
+  ],
+  "harmonic_triads": [],
+  "optimal_combination": {
+    "phonetic": 0.16666666666666666,
+    "semantic": 0.16666666666666666,
+    "structural": 0.16666666666666666,
+    "frequency": 0.16666666666666666,
+    "numerological": 0.16666666666666666,
+    "hybrid": 0.16666666666666666
+  },
+  "domain_specific_combinations": {},
+  "universal_meta_pattern": "Simple ratios dominate formula relationships | Formula weights decay with consistent ratio 1.00"
+}

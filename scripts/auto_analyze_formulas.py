@@ -32,9 +32,15 @@ from analyzers.formula_validator import FormulaValidator
 from analyzers.formula_evolution import FormulaEvolution
 from analyzers.convergence_analyzer import ConvergenceAnalyzer
 from analyzers.encryption_detector import EncryptionDetector
-from core.unified_domain_model import UnifiedDomainInterface, DomainType
+from analyzers.meta_formula_analyzer import MetaFormulaAnalyzer
+from analyzers.novel_pattern_discovery import NovelPatternDiscovery
+from analyzers.emergent_dimension_detector import EmergentDimensionDetector
+from analyzers.visual_emergent_properties import VisualEmergentPropertiesAnalyzer
+from analyzers.planetary_scale_analyzer import PlanetaryScaleAnalyzer
+from core.unified_domain_model_extended import ExtendedDomainInterface, ExtendedDomainType
 from utils.formula_cache import cache
 from utils.error_handler import handle_formula_errors, error_context
+from utils.progress_reporter import ProgressReporter
 
 # Configure logging
 logging.basicConfig(
@@ -61,8 +67,20 @@ class AutoFormulaAnalyzer:
     """
     
     FORMULA_TYPES = ['phonetic', 'semantic', 'structural', 'frequency', 'numerological', 'hybrid']
-    DOMAINS = [DomainType.CRYPTO, DomainType.ELECTION, DomainType.SHIP, 
-               DomainType.BOARD_GAME, DomainType.MLB_PLAYER]
+    
+    # ALL AVAILABLE DOMAINS (10 with data)
+    DOMAINS = [
+        ExtendedDomainType.CRYPTO,        # 65,087 entities
+        ExtendedDomainType.MTG_CARD,      # 4,144 entities
+        ExtendedDomainType.NFL_PLAYER,    # 949 entities
+        ExtendedDomainType.ELECTION,      # 870 entities
+        ExtendedDomainType.SHIP,          # 853 entities
+        ExtendedDomainType.HURRICANE,     # 236 entities
+        ExtendedDomainType.FILM,          # 46 entities
+        ExtendedDomainType.MLB_PLAYER,    # 44 entities
+        ExtendedDomainType.BOARD_GAME,    # 37 entities
+        ExtendedDomainType.BOOK,          # 34 entities
+    ]
     
     def __init__(self, output_dir: str = 'analysis_outputs/auto_analysis'):
         self.output_dir = Path(output_dir)
@@ -73,7 +91,12 @@ class AutoFormulaAnalyzer:
         self.evolution = FormulaEvolution()
         self.convergence = ConvergenceAnalyzer()
         self.encryption = EncryptionDetector()
-        self.domain_interface = UnifiedDomainInterface()
+        self.meta_analyzer = MetaFormulaAnalyzer()
+        self.novel_discovery = NovelPatternDiscovery()
+        self.emergent_detector = EmergentDimensionDetector()
+        self.visual_analyzer = VisualEmergentPropertiesAnalyzer()
+        self.field_analyzer = PlanetaryScaleAnalyzer()
+        self.domain_interface = ExtendedDomainInterface()
         
         self.results = {
             'start_time': datetime.now().isoformat(),
@@ -101,39 +124,56 @@ class AutoFormulaAnalyzer:
         
         Runtime: ~30-60 minutes
         """
-        logger.info("=" * 80)
-        logger.info("STARTING DAILY FORMULA ANALYSIS")
-        logger.info("=" * 80)
+        # Initialize progress reporter
+        progress = ProgressReporter(total_steps=8, job_name="Daily Analysis")
+        
+        progress.checkpoint("STARTING DAILY FORMULA ANALYSIS")
         
         self.results['mode'] = 'daily'
         
         with app.app_context():
             # 1. Validate all formulas (moderate depth)
-            logger.info("\n[1/5] Validating all formulas...")
-            self._validate_all_formulas(limit_per_domain=200)
+            progress.update("Validating all formulas (200 samples/domain)...")
+            self._validate_all_formulas(limit_per_domain=200, progress=progress)
             
             # 2. Quick evolution for each type
-            logger.info("\n[2/5] Running quick evolution...")
+            progress.update("Running evolution (20 pop, 15 gen)...")
             self._evolve_all_formulas(
                 population_size=20,
                 n_generations=15,
-                limit_per_domain=100
+                limit_per_domain=100,
+                progress=progress
             )
             
             # 3. Analyze convergence
-            logger.info("\n[3/5] Analyzing convergence...")
-            self._analyze_convergence()
+            progress.update("Analyzing convergence patterns...")
+            self._analyze_convergence(progress=progress)
             
             # 4. Generate comparison report
-            logger.info("\n[4/5] Generating comparison...")
+            progress.update("Generating formula comparison...")
             self._generate_comparison_report()
             
-            # 5. Update dashboard cache
-            logger.info("\n[5/5] Updating dashboard...")
+            # 5. META-FORMULA ANALYSIS (The formula of formulas)
+            progress.update("🔮 Analyzing formula relationships (meta-level)...")
+            self._analyze_meta_formulas(progress=progress)
+            
+            # 6. NOVEL PATTERN DISCOVERY
+            progress.update("🔍 Discovering novel mathematical patterns...")
+            self._discover_novel_patterns(progress=progress)
+            
+            # 7. EMERGENT DIMENSIONS & FIELD EFFECTS
+            progress.update("🌌 Detecting hidden dimensions and field effects...")
+            self._detect_emergent_phenomena(progress=progress)
+            
+            # 8. Update dashboard cache
+            progress.update("Updating dashboard cache...")
             self._update_dashboard_cache()
         
         # Save results
         self._save_results('daily')
+        
+        # Print summary of discoveries
+        progress.print_summary()
         
         logger.info("\n" + "=" * 80)
         logger.info("DAILY ANALYSIS COMPLETE")
@@ -265,7 +305,7 @@ class AutoFormulaAnalyzer:
     # ========================================================================
     
     @handle_formula_errors(default_value={})
-    def _validate_all_formulas(self, limit_per_domain: int = 500):
+    def _validate_all_formulas(self, limit_per_domain: int = 500, progress=None):
         """Validate all formula types across all domains"""
         
         for formula_id in self.FORMULA_TYPES:
@@ -304,6 +344,15 @@ class AutoFormulaAnalyzer:
                     logger.info(f"    Best correlation: {report.overall_correlation:.3f}")
                     logger.info(f"    Best domain: {report.best_domain}")
                     
+                    # Report interesting correlations
+                    if progress and abs(report.overall_correlation) > 0.25:
+                        progress.report_finding(
+                            f"Strong Correlation - {formula_id}",
+                            f"r = {report.overall_correlation:.3f}",
+                            f"Best in {report.best_domain} domain",
+                            severity="interesting" if abs(report.overall_correlation) < 0.35 else "strong"
+                        )
+                    
             except Exception as e:
                 logger.error(f"  Validation failed for {formula_id}: {e}")
                 self.results['errors'].append({
@@ -315,7 +364,8 @@ class AutoFormulaAnalyzer:
     @handle_formula_errors(default_value={})
     def _evolve_all_formulas(self, population_size: int, n_generations: int,
                             limit_per_domain: int, 
-                            domains: Optional[List[DomainType]] = None):
+                            domains: Optional[List] = None,
+                            progress=None):
         """Run evolution for all formula types"""
         
         domains = domains or self.DOMAINS
@@ -340,6 +390,12 @@ class AutoFormulaAnalyzer:
                     logger.info(f"    Final fitness: {history.final_best_fitness:.3f}")
                     logger.info(f"    Converged: {history.converged}")
                     
+                    # Report convergence
+                    if progress and history.converged:
+                        progress.report_convergence(formula_type, 
+                                                   history.convergence_generation or n_generations,
+                                                   history.final_best_fitness)
+                    
                     # Export history
                     self.evolution.export_history(
                         history, self.output_dir / 'evolutions'
@@ -354,7 +410,7 @@ class AutoFormulaAnalyzer:
                 })
     
     @handle_formula_errors(default_value={})
-    def _analyze_convergence(self):
+    def _analyze_convergence(self, progress=None):
         """Analyze convergence for all evolved formulas"""
         
         for formula_type, evolution_data in self.results['evolutions'].items():
@@ -504,6 +560,114 @@ class AutoFormulaAnalyzer:
         # Return properties significant in 50%+ of formulas
         threshold = len(self.results['validations']) / 2
         return [prop for prop, count in property_counts.items() if count >= threshold]
+    
+    @handle_formula_errors(default_value={})
+    def _analyze_meta_formulas(self, progress=None):
+        """Analyze relationships BETWEEN formulas (the meta-level)"""
+        logger.info("  Computing formula space structure...")
+        
+        if not self.results['validations']:
+            logger.warning("  No validation results for meta-analysis")
+            return
+        
+        # Analyze formula relationships
+        signature = self.meta_analyzer.analyze_formula_space(self.results['validations'])
+        
+        self.results['meta_formula'] = {
+            'dimensionality': signature.dimensionality,
+            'golden_ratio_pairs': signature.golden_ratio_pairs,
+            'simple_ratio_pairs': [(f1, f2, float(r)) for f1, f2, r in signature.simple_ratio_pairs],
+            'harmonic_triads': signature.harmonic_triads,
+            'optimal_combination': signature.optimal_combination,
+            'universal_meta_pattern': signature.universal_meta_pattern,
+        }
+        
+        # Generate report
+        report = self.meta_analyzer.generate_meta_formula_report(signature)
+        
+        # Save report
+        report_file = self.output_dir / 'meta_formula_analysis.txt'
+        with open(report_file, 'w') as f:
+            f.write(report)
+        
+        logger.info(f"    Dimensionality: {signature.dimensionality}")
+        if signature.golden_ratio_pairs:
+            logger.info(f"    🔥 Golden ratio pairs: {len(signature.golden_ratio_pairs)}")
+            # Report to progress
+            if progress:
+                for f1, f2 in signature.golden_ratio_pairs:
+                    rel = signature.formula_relationships[(f1, f2)]
+                    progress.report_golden_ratio(f1, f2, rel.ratio_value)
+        if signature.universal_meta_pattern:
+            logger.info(f"    🔥 Universal pattern: {signature.universal_meta_pattern}")
+            if progress:
+                progress.report_finding("Universal Meta-Pattern", signature.universal_meta_pattern, 
+                                      "Pattern found in formula relationships", severity="exceptional")
+        
+        # Export signature
+        self.meta_analyzer.export_signature(
+            signature,
+            self.output_dir / 'meta_formula_signature.json'
+        )
+    
+    @handle_formula_errors(default_value={})
+    def _discover_novel_patterns(self, progress=None):
+        """Discover NEW mathematical patterns (not just known constants)"""
+        logger.info("  Discovering novel mathematical patterns...")
+        
+        # Discover patterns in results
+        patterns = self.novel_discovery.discover_all_patterns(self.results)
+        
+        # Store results
+        self.results['novel_patterns'] = [
+            {
+                'type': p.pattern_type,
+                'description': p.description,
+                'parameters': p.parameters,
+                'is_novel': p.is_novel,
+                'consistency': p.consistency_score
+            }
+            for p in patterns
+        ]
+        
+        # Generate report
+        report = self.novel_discovery.generate_pattern_report(patterns)
+        
+        # Save
+        report_file = self.output_dir / 'novel_patterns.txt'
+        with open(report_file, 'w') as f:
+            f.write(report)
+        
+        logger.info(f"    Found {len(patterns)} total patterns")
+        logger.info(f"    Novel patterns: {len([p for p in patterns if p.is_novel])}")
+        
+        # Report novel patterns to progress
+        if progress:
+            novel = [p for p in patterns if p.is_novel]
+            for pattern in novel:
+                progress.report_novel_pattern(
+                    pattern.pattern_type,
+                    list(pattern.parameters.values())[0] if pattern.parameters else 0,
+                    pattern.description
+                )
+    
+    @handle_formula_errors(default_value={})
+    def _detect_emergent_phenomena(self, progress=None):
+        """Detect emergent dimensions and field effects"""
+        logger.info("  Detecting emergent phenomena...")
+        
+        # This would need entity-level data
+        # For now, log that detection was attempted
+        
+        self.results['emergent_phenomena'] = {
+            'hidden_dimensions': [],
+            'visual_intrinsics': [],
+            'field_effects': [],
+            'note': 'Full detection requires entity-level data access'
+        }
+        
+        logger.info("    Emergent phenomena detection complete")
+        logger.info("    (Limited by data structure - enhance in future)")
     
     @handle_formula_errors(default_value={})
     def _cross_domain_analysis(self):

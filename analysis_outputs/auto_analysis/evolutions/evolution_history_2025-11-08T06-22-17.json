@@ -1,0 +1,220 @@
+{
+  "formula_type": "structural",
+  "population_size": 50,
+  "n_generations": 50,
+  "mutation_rate": 0.1,
+  "generations": [
+    {
+      "generation_number": 0,
+      "population_size": 50,
+      "best_fitness": 0.08747021727770016,
+      "mean_fitness": 0.07748181354619417,
+      "fitness_std": 0.005659461706166707,
+      "best_individual": {
+        "formula_id": "structural_random_4479",
+        "weights": {
+          "syllables_to_symmetry": 1.522108037313151,
+          "length_to_complexity": 1.139155482057381,
+          "structure_to_rotation": 1.1493567616740106,
+          "balance_to_position": 1.191762336739445
+        },
+        "fitness": 0.08747021727770016,
+        "generation": 0,
+        "parent_ids": []
+      }
+    },
+    {
+      "generation_number": 1,
+      "population_size": 50,
+      "best_fitness": 0.09137441549593567,
+      "mean_fitness": 0.08262502418109324,
+      "fitness_std": 0.004992806142697645,
+      "best_individual": {
+        "formula_id": "structural_random_4479_x_structural_random_8280_mutated",
+        "weights": {
+          "syllables_to_symmetry": 0.7816546584841135,
+          "length_to_complexity": 1.139155482057381,
+          "structure_to_rotation": 1.1407836000124352,
+          "balance_to_position": 1.191762336739445
+        },
+        "fitness": 0.09137441549593567,
+        "generation": 1,
+        "parent_ids": [
+          "structural_random_4479",
+          "structural_random_8280"
+        ]
+      }
+    },
+    {
+      "generation_number": 2,
+      "population_size": 50,
+      "best_fitness": 0.092832128664674,
+      "mean_fitness": 0.08679823591984143,
+      "fitness_std": 0.0035338874507510752,
+      "best_individual": {
+        "formula_id": "structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148",
+        "weights": {
+          "syllables_to_symmetry": 1.1630930935174533,
+          "length_to_complexity": 1.139155482057381,
+          "structure_to_rotation": 0.9205812054881992,
+          "balance_to_position": 1.191762336739445
+        },
+        "fitness": 0.092832128664674,
+        "generation": 2,
+        "parent_ids": [
+          "structural_random_9633_x_structural_random_4479_mutated",
+          "structural_random_2148"
+        ]
+      }
+    },
+    {
+      "generation_number": 3,
+      "population_size": 50,
+      "best_fitness": 0.09420753193539783,
+      "mean_fitness": 0.08988605925484011,
+      "fitness_std": 0.0021424073771581778,
+      "best_individual": {
+        "formula_id": "structural_random_7231_x_structural_random_741_x_structural_random_4479_x_structural_random_2148_mutated_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148",
+        "weights": {
+          "syllables_to_symmetry": 1.1630930935174533,
+          "length_to_complexity": 0.9708767796005242,
+          "structure_to_rotation": 0.9205812054881992,
+          "balance_to_position": 1.191762336739445
+        },
+        "fitness": 0.09420753193539783,
+        "generation": 3,
+        "parent_ids": [
+          "structural_random_7231_x_structural_random_741_x_structural_random_4479_x_structural_random_2148_mutated",
+          "structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148"
+        ]
+      }
+    },
+    {
+      "generation_number": 4,
+      "population_size": 50,
+      "best_fitness": 0.0948025648580974,
+      "mean_fitness": 0.09208037271029798,
+      "fitness_std": 0.0015845924900604192,
+      "best_individual": {
+        "formula_id": "structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_6078_x_structural_random_8280_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_7231_x_structural_random_741_x_structural_random_4479_x_structural_random_2148_mutated_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148",
+        "weights": {
+          "syllables_to_symmetry": 1.1630930935174533,
+          "length_to_complexity": 0.9708767796005242,
+          "structure_to_rotation": 0.9205812054881992,
+          "balance_to_position": 1.1441597029234791
+        },
+        "fitness": 0.0948025648580974,
+        "generation": 4,
+        "parent_ids": [
+          "structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_6078_x_structural_random_8280_x_structural_random_4479_x_structural_random_8280_mutated",
+          "structural_random_7231_x_structural_random_741_x_structural_random_4479_x_structural_random_2148_mutated_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148"
+        ]
+      }
+    },
+    {
+      "generation_number": 5,
+      "population_size": 50,
+      "best_fitness": 0.0952417418999607,
+      "mean_fitness": 0.09364317170117807,
+      "fitness_std": 0.0008877805726816871,
+      "best_individual": {
+        "formula_id": "structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_2148_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6078_x_structural_random_8280_x_structural_random_2148_mutated_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_2970_x_structural_random_3489_x_structural_random_9633_x_structural_random_7936_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148",
+        "weights": {
+          "syllables_to_symmetry": 1.1630930935174533,
+          "length_to_complexity": 1.0809535394069765,
+          "structure_to_rotation": 0.9205812054881992,
+          "balance_to_position": 1.057195220566915
+        },
+        "fitness": 0.0952417418999607,
+        "generation": 5,
+        "parent_ids": [
+          "structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_2148_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6078_x_structural_random_8280_x_structural_random_2148_mutated",
+          "structural_random_8280_x_structural_random_6671_mutated_x_structural_random_2970_x_structural_random_3489_x_structural_random_9633_x_structural_random_7936_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148"
+        ]
+      }
+    },
+    {
+      "generation_number": 6,
+      "population_size": 50,
+      "best_fitness": 0.09603743414275306,
+      "mean_fitness": 0.09427800603114905,
+      "fitness_std": 0.0009123904495808256,
+      "best_individual": {
+        "formula_id": "structural_random_8280_x_structural_random_6671_mutated_x_structural_random_2970_x_structural_random_3489_x_structural_random_9633_x_structural_random_7936_x_structural_random_6078_x_structural_random_8280_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_6078_x_structural_random_8280_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_7231_x_structural_random_741_x_structural_random_4479_x_structural_random_2148_mutated_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_mutated_x_structural_random_5537_x_structural_random_1866_x_structural_random_2148_x_structural_random_2148_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6078_x_structural_random_8280_x_structural_random_2148_mutated_x_structural_random_4479_x_structural_random_2148_x_structural_random_6078_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_3009_x_structural_random_2148_x_structural_random_2148_x_structural_random_2970_x_structural_random_3489_x_structural_random_7936_x_structural_random_1895_x_structural_random_5537_x_structural_random_2148",
+        "weights": {
+          "syllables_to_symmetry": 0.9005622859059362,
+          "length_to_complexity": 1.0809535394069765,
+          "structure_to_rotation": 0.9205812054881992,
+          "balance_to_position": 1.057195220566915
+        },
+        "fitness": 0.09603743414275306,
+        "generation": 6,
+        "parent_ids": [
+          "structural_random_8280_x_structural_random_6671_mutated_x_structural_random_2970_x_structural_random_3489_x_structural_random_9633_x_structural_random_7936_x_structural_random_6078_x_structural_random_8280_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_6078_x_structural_random_8280_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_7231_x_structural_random_741_x_structural_random_4479_x_structural_random_2148_mutated_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_mutated",
+          "structural_random_5537_x_structural_random_1866_x_structural_random_2148_x_structural_random_2148_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6078_x_structural_random_8280_x_structural_random_2148_mutated_x_structural_random_4479_x_structural_random_2148_x_structural_random_6078_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_3009_x_structural_random_2148_x_structural_random_2148_x_structural_random_2970_x_structural_random_3489_x_structural_random_7936_x_structural_random_1895_x_structural_random_5537_x_structural_random_2148"
+        ]
+      }
+    },
+    {
+      "generation_number": 7,
+      "population_size": 50,
+      "best_fitness": 0.09678366142527783,
+      "mean_fitness": 0.0953644836627117,
+      "fitness_std": 0.0008778875144603726,
+      "best_individual": {
+        "formula_id": "structural_random_5537_x_structural_random_1866_x_structural_random_2148_x_structural_random_2148_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6078_x_structural_random_8280_x_structural_random_2148_mutated_x_structural_random_4479_x_structural_random_2148_x_structural_random_6078_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_3009_x_structural_random_2148_x_structural_random_2148_x_structural_random_2970_x_structural_random_3489_x_structural_random_7936_x_structural_random_1895_x_structural_random_5537_x_structural_random_2148_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_2970_x_structural_random_3489_x_structural_random_9633_x_structural_random_7936_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_x_structural_random_4479_x_structural_random_2148_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_5537_x_structural_random_2148_mutated_x_structural_random_5537_x_structural_random_1866_x_structural_random_2148_x_structural_random_2148_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_2970_x_structural_random_3489_x_structural_random_9633_x_structural_random_7936_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_mutated",
+        "weights": {
+          "syllables_to_symmetry": 0.9005622859059362,
+          "length_to_complexity": 1.0212553568049934,
+          "structure_to_rotation": 0.9205812054881992,
+          "balance_to_position": 1.057195220566915
+        },
+        "fitness": 0.09678366142527783,
+        "generation": 7,
+        "parent_ids": [
+          "structural_random_5537_x_structural_random_1866_x_structural_random_2148_x_structural_random_2148_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6078_x_structural_random_8280_x_structural_random_2148_mutated_x_structural_random_4479_x_structural_random_2148_x_structural_random_6078_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_3009_x_structural_random_2148_x_structural_random_2148_x_structural_random_2970_x_structural_random_3489_x_structural_random_7936_x_structural_random_1895_x_structural_random_5537_x_structural_random_2148",
+          "structural_random_8280_x_structural_random_6671_mutated_x_structural_random_2970_x_structural_random_3489_x_structural_random_9633_x_structural_random_7936_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_x_structural_random_4479_x_structural_random_2148_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_5537_x_structural_random_2148_mutated_x_structural_random_5537_x_structural_random_1866_x_structural_random_2148_x_structural_random_2148_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_2970_x_structural_random_3489_x_structural_random_9633_x_structural_random_7936_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148"
+        ]
+      }
+    },
+    {
+      "generation_number": 8,
+      "population_size": 50,
+      "best_fitness": 0.09678366142527783,
+      "mean_fitness": 0.09625065144098109,
+      "fitness_std": 0.0005273526380682456,
+      "best_individual": {
+        "formula_id": "structural_random_5537_x_structural_random_1866_x_structural_random_2148_x_structural_random_2148_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6078_x_structural_random_8280_x_structural_random_2148_mutated_x_structural_random_4479_x_structural_random_2148_x_structural_random_6078_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_3009_x_structural_random_2148_x_structural_random_2148_x_structural_random_2970_x_structural_random_3489_x_structural_random_7936_x_structural_random_1895_x_structural_random_5537_x_structural_random_2148_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_2970_x_structural_random_3489_x_structural_random_9633_x_structural_random_7936_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_x_structural_random_4479_x_structural_random_2148_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_5537_x_structural_random_2148_mutated_x_structural_random_5537_x_structural_random_1866_x_structural_random_2148_x_structural_random_2148_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_2970_x_structural_random_3489_x_structural_random_9633_x_structural_random_7936_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_mutated",
+        "weights": {
+          "syllables_to_symmetry": 0.9005622859059362,
+          "length_to_complexity": 1.0212553568049934,
+          "structure_to_rotation": 0.9205812054881992,
+          "balance_to_position": 1.057195220566915
+        },
+        "fitness": 0.09678366142527783,
+        "generation": 8,
+        "parent_ids": [
+          "structural_random_5537_x_structural_random_1866_x_structural_random_2148_x_structural_random_2148_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6078_x_structural_random_8280_x_structural_random_2148_mutated_x_structural_random_4479_x_structural_random_2148_x_structural_random_6078_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_3009_x_structural_random_2148_x_structural_random_2148_x_structural_random_2970_x_structural_random_3489_x_structural_random_7936_x_structural_random_1895_x_structural_random_5537_x_structural_random_2148_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_2970_x_structural_random_3489_x_structural_random_9633_x_structural_random_7936_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_x_structural_random_4479_x_structural_random_2148_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_5537_x_structural_random_2148_mutated_x_structural_random_5537_x_structural_random_1866_x_structural_random_2148_x_structural_random_2148_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_2970_x_structural_random_3489_x_structural_random_9633_x_structural_random_7936_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_mutated"
+        ]
+      }
+    }
+  ],
+  "converged": true,
+  "convergence_generation": 9,
+  "final_best_fitness": 0.09678366142527783,
+  "best_formula": {
+    "formula_id": "structural_random_5537_x_structural_random_1866_x_structural_random_2148_x_structural_random_2148_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6078_x_structural_random_8280_x_structural_random_2148_mutated_x_structural_random_4479_x_structural_random_2148_x_structural_random_6078_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_3009_x_structural_random_2148_x_structural_random_2148_x_structural_random_2970_x_structural_random_3489_x_structural_random_7936_x_structural_random_1895_x_structural_random_5537_x_structural_random_2148_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_2970_x_structural_random_3489_x_structural_random_9633_x_structural_random_7936_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_x_structural_random_4479_x_structural_random_2148_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_5537_x_structural_random_2148_mutated_x_structural_random_5537_x_structural_random_1866_x_structural_random_2148_x_structural_random_2148_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_2970_x_structural_random_3489_x_structural_random_9633_x_structural_random_7936_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_mutated",
+    "weights": {
+      "syllables_to_symmetry": 0.9005622859059362,
+      "length_to_complexity": 1.0212553568049934,
+      "structure_to_rotation": 0.9205812054881992,
+      "balance_to_position": 1.057195220566915
+    },
+    "fitness": 0.09678366142527783,
+    "generation": 8,
+    "parent_ids": [
+      "structural_random_5537_x_structural_random_1866_x_structural_random_2148_x_structural_random_2148_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_6078_x_structural_random_8280_x_structural_random_2148_mutated_x_structural_random_4479_x_structural_random_2148_x_structural_random_6078_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_3009_x_structural_random_2148_x_structural_random_2148_x_structural_random_2970_x_structural_random_3489_x_structural_random_7936_x_structural_random_1895_x_structural_random_5537_x_structural_random_2148_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_2970_x_structural_random_3489_x_structural_random_9633_x_structural_random_7936_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_x_structural_random_4479_x_structural_random_2148_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_4479_x_structural_random_8280_mutated_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_5537_x_structural_random_2148_mutated_x_structural_random_5537_x_structural_random_1866_x_structural_random_2148_x_structural_random_2148_x_structural_random_6671_x_structural_random_5537_x_structural_random_4479_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_x_structural_random_8280_x_structural_random_6671_mutated_x_structural_random_2970_x_structural_random_3489_x_structural_random_9633_x_structural_random_7936_x_structural_random_9633_x_structural_random_4479_mutated_x_structural_random_2148_mutated"
+    ]
+  },
+  "timestamp": "2025-11-08T06:22:17.929854"
+}

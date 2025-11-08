@@ -130,13 +130,31 @@ error_handling:
   continue_on_error: true  # Continue with next formula if one fails
   save_partial_results: true
 
-# Domains to analyze
+# Domains to analyze (ALL AVAILABLE - 72,300+ entities!)
 domains:
-  - crypto
-  - election
-  - ship
-  - board_game
-  - mlb_player
+  # High-volume domains (excellent statistical power)
+  - crypto          # 65,087 entities - cryptocurrency market cap
+  - mtg_card        # 4,144 entities - Magic: The Gathering card rankings
+  
+  # Medium-volume domains (good statistical power)
+  - nfl_player      # 949 entities - NFL Pro Bowl selections
+  - election        # 870 entities - election wins/losses
+  - ship            # 853 entities - naval historical significance
+  
+  # Small-volume domains (exploratory)
+  - hurricane       # 236 entities - hurricane intensity
+  - film            # 46 entities - box office success
+  - mlb_player      # 44 entities - baseball performance
+  - board_game      # 37 entities - game ratings
+  - book            # 34 entities - book sales/ratings
+  
+  # Disabled (no data yet)
+  # - academic      # 0 entities
+  # - nba_player    # 0 entities
+  # - band          # Schema issue
+  # - stock         # Schema issue
+  # - web_domain    # Schema issue
+  # - mental_health # Schema issue
 
 # Formulas to analyze
 formulas:

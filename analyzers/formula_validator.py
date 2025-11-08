@@ -21,7 +21,13 @@ import json
 from datetime import datetime
 
 from utils.formula_engine import FormulaEngine, VisualEncoding, FormulaBase
-from core.unified_domain_model import UnifiedDomainInterface, DomainType, UnifiedDomainEntity
+try:
+    from core.unified_domain_model_extended import ExtendedDomainInterface, ExtendedDomainType
+    DomainInterface = ExtendedDomainInterface
+    DomainType = ExtendedDomainType
+except ImportError:
+    from core.unified_domain_model import UnifiedDomainInterface, DomainType
+    DomainInterface = UnifiedDomainInterface
 
 logger = logging.getLogger(__name__)
 
@@ -108,7 +114,7 @@ class FormulaValidator:
     
     def __init__(self):
         self.formula_engine = FormulaEngine()
-        self.domain_interface = UnifiedDomainInterface()
+        self.domain_interface = DomainInterface()
         
         # Visual properties to test for correlation
         self.visual_properties = [

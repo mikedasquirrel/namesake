@@ -1,0 +1,293 @@
+{
+  "formula_type": "semantic",
+  "population_size": 20,
+  "n_generations": 15,
+  "mutation_rate": 0.1,
+  "generations": [
+    {
+      "generation_number": 0,
+      "population_size": 20,
+      "best_fitness": 0.08420585786559664,
+      "mean_fitness": 0.07712380293374069,
+      "fitness_std": 0.004228955352045889,
+      "best_individual": {
+        "formula_id": "semantic_random_2363",
+        "weights": {
+          "category_to_shape": 0.7349090894690887,
+          "meaning_to_hue": 1.246461599010196,
+          "power_to_size": 1.938305251857806,
+          "prestige_to_brightness": 1.0815679675509167,
+          "semantic_density": 1.0479884844905056
+        },
+        "fitness": 0.08420585786559664,
+        "generation": 0,
+        "parent_ids": []
+      }
+    },
+    {
+      "generation_number": 1,
+      "population_size": 20,
+      "best_fitness": 0.08942984454199548,
+      "mean_fitness": 0.08191870753990364,
+      "fitness_std": 0.003029018681367952,
+      "best_individual": {
+        "formula_id": "semantic_random_6384_x_semantic_random_2363",
+        "weights": {
+          "category_to_shape": 0.7349090894690887,
+          "meaning_to_hue": 0.996547445151861,
+          "power_to_size": 0.3410843716200196,
+          "prestige_to_brightness": 1.0815679675509167,
+          "semantic_density": 1.0479884844905056
+        },
+        "fitness": 0.08942984454199548,
+        "generation": 1,
+        "parent_ids": [
+          "semantic_random_6384",
+          "semantic_random_2363"
+        ]
+      }
+    },
+    {
+      "generation_number": 2,
+      "population_size": 20,
+      "best_fitness": 0.08942984454199548,
+      "mean_fitness": 0.08432421191064102,
+      "fitness_std": 0.0033341295088930895,
+      "best_individual": {
+        "formula_id": "semantic_random_6384_x_semantic_random_2363",
+        "weights": {
+          "category_to_shape": 0.7349090894690887,
+          "meaning_to_hue": 0.996547445151861,
+          "power_to_size": 0.3410843716200196,
+          "prestige_to_brightness": 1.0815679675509167,
+          "semantic_density": 1.0479884844905056
+        },
+        "fitness": 0.08942984454199548,
+        "generation": 2,
+        "parent_ids": [
+          "semantic_random_6384_x_semantic_random_2363"
+        ]
+      }
+    },
+    {
+      "generation_number": 3,
+      "population_size": 20,
+      "best_fitness": 0.08974912444314054,
+      "mean_fitness": 0.08816154537633925,
+      "fitness_std": 0.0021037417167753007,
+      "best_individual": {
+        "formula_id": "semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363",
+        "weights": {
+          "category_to_shape": 0.7349090894690887,
+          "meaning_to_hue": 0.996547445151861,
+          "power_to_size": 1.2369612655929982,
+          "prestige_to_brightness": 1.4715943402233926,
+          "semantic_density": 1.0479884844905056
+        },
+        "fitness": 0.08974912444314054,
+        "generation": 3,
+        "parent_ids": [
+          "semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363",
+          "semantic_random_6384_x_semantic_random_2363"
+        ]
+      }
+    },
+    {
+      "generation_number": 4,
+      "population_size": 20,
+      "best_fitness": 0.09364938816986529,
+      "mean_fitness": 0.08964910917191084,
+      "fitness_std": 0.001741141506553479,
+      "best_individual": {
+        "formula_id": "semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363",
+        "weights": {
+          "category_to_shape": 0.7349090894690887,
+          "meaning_to_hue": 0.996547445151861,
+          "power_to_size": 1.2369612655929982,
+          "prestige_to_brightness": 1.0815679675509167,
+          "semantic_density": 1.0479884844905056
+        },
+        "fitness": 0.09364938816986529,
+        "generation": 4,
+        "parent_ids": [
+          "semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363",
+          "semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363"
+        ]
+      }
+    },
+    {
+      "generation_number": 5,
+      "population_size": 20,
+      "best_fitness": 0.09364938816986529,
+      "mean_fitness": 0.09113434076284119,
+      "fitness_std": 0.0020054781632424727,
+      "best_individual": {
+        "formula_id": "semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363",
+        "weights": {
+          "category_to_shape": 0.7349090894690887,
+          "meaning_to_hue": 0.996547445151861,
+          "power_to_size": 1.2369612655929982,
+          "prestige_to_brightness": 1.0815679675509167,
+          "semantic_density": 1.0479884844905056
+        },
+        "fitness": 0.09364938816986529,
+        "generation": 5,
+        "parent_ids": [
+          "semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363"
+        ]
+      }
+    },
+    {
+      "generation_number": 6,
+      "population_size": 20,
+      "best_fitness": 0.09581544836715328,
+      "mean_fitness": 0.09369731245698185,
+      "fitness_std": 0.0008337581441858224,
+      "best_individual": {
+        "formula_id": "semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363",
+        "weights": {
+          "category_to_shape": 0.9515151091978858,
+          "meaning_to_hue": 0.996547445151861,
+          "power_to_size": 1.2369612655929982,
+          "prestige_to_brightness": 1.0815679675509167,
+          "semantic_density": 1.0479884844905056
+        },
+        "fitness": 0.09581544836715328,
+        "generation": 6,
+        "parent_ids": [
+          "semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363",
+          "semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363"
+        ]
+      }
+    },
+    {
+      "generation_number": 7,
+      "population_size": 20,
+      "best_fitness": 0.09581544836715328,
+      "mean_fitness": 0.09439416395459002,
+      "fitness_std": 0.0010164612421329831,
+      "best_individual": {
+        "formula_id": "semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363",
+        "weights": {
+          "category_to_shape": 0.9515151091978858,
+          "meaning_to_hue": 0.996547445151861,
+          "power_to_size": 1.2369612655929982,
+          "prestige_to_brightness": 1.0815679675509167,
+          "semantic_density": 1.0479884844905056
+        },
+        "fitness": 0.09581544836715328,
+        "generation": 7,
+        "parent_ids": [
+          "semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363"
+        ]
+      }
+    },
+    {
+      "generation_number": 8,
+      "population_size": 20,
+      "best_fitness": 0.09581544836715328,
+      "mean_fitness": 0.09516563030796688,
+      "fitness_std": 0.000992613481390319,
+      "best_individual": {
+        "formula_id": "semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363",
+        "weights": {
+          "category_to_shape": 0.9515151091978858,
+          "meaning_to_hue": 0.996547445151861,
+          "power_to_size": 1.2369612655929982,
+          "prestige_to_brightness": 1.0815679675509167,
+          "semantic_density": 1.0479884844905056
+        },
+        "fitness": 0.09581544836715328,
+        "generation": 8,
+        "parent_ids": [
+          "semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363"
+        ]
+      }
+    },
+    {
+      "generation_number": 9,
+      "population_size": 20,
+      "best_fitness": 0.09581544836715328,
+      "mean_fitness": 0.09581544836715325,
+      "fitness_std": 2.7755575615628914e-17,
+      "best_individual": {
+        "formula_id": "semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363",
+        "weights": {
+          "category_to_shape": 0.9515151091978858,
+          "meaning_to_hue": 0.996547445151861,
+          "power_to_size": 1.2369612655929982,
+          "prestige_to_brightness": 1.0815679675509167,
+          "semantic_density": 1.0479884844905056
+        },
+        "fitness": 0.09581544836715328,
+        "generation": 9,
+        "parent_ids": [
+          "semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363"
+        ]
+      }
+    },
+    {
+      "generation_number": 10,
+      "population_size": 20,
+      "best_fitness": 0.09581544836715328,
+      "mean_fitness": 0.09580667212829812,
+      "fitness_std": 3.825473827392022e-05,
+      "best_individual": {
+        "formula_id": "semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363",
+        "weights": {
+          "category_to_shape": 0.9515151091978858,
+          "meaning_to_hue": 0.996547445151861,
+          "power_to_size": 1.2369612655929982,
+          "prestige_to_brightness": 1.0815679675509167,
+          "semantic_density": 1.0479884844905056
+        },
+        "fitness": 0.09581544836715328,
+        "generation": 10,
+        "parent_ids": [
+          "semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363"
+        ]
+      }
+    },
+    {
+      "generation_number": 11,
+      "population_size": 20,
+      "best_fitness": 0.09581544836715328,
+      "mean_fitness": 0.09575307857132147,
+      "fitness_std": 0.00027186363716003855,
+      "best_individual": {
+        "formula_id": "semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363",
+        "weights": {
+          "category_to_shape": 0.9515151091978858,
+          "meaning_to_hue": 0.996547445151861,
+          "power_to_size": 1.2369612655929982,
+          "prestige_to_brightness": 1.0815679675509167,
+          "semantic_density": 1.0479884844905056
+        },
+        "fitness": 0.09581544836715328,
+        "generation": 11,
+        "parent_ids": [
+          "semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363"
+        ]
+      }
+    }
+  ],
+  "converged": true,
+  "convergence_generation": 12,
+  "final_best_fitness": 0.09581544836715328,
+  "best_formula": {
+    "formula_id": "semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363",
+    "weights": {
+      "category_to_shape": 0.9515151091978858,
+      "meaning_to_hue": 0.996547445151861,
+      "power_to_size": 1.2369612655929982,
+      "prestige_to_brightness": 1.0815679675509167,
+      "semantic_density": 1.0479884844905056
+    },
+    "fitness": 0.09581544836715328,
+    "generation": 11,
+    "parent_ids": [
+      "semantic_random_2484_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_2363_x_semantic_random_6384_x_semantic_random_3284_x_semantic_random_2363_x_semantic_random_2354_x_semantic_random_6384_x_semantic_random_2363"
+    ]
+  },
+  "timestamp": "2025-11-08T05:37:26.957973"
+}

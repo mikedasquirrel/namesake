@@ -1,0 +1,91 @@
+{
+  "timestamp": "2025-11-08T07:07:38.010398",
+  "total_analyzed": 3501,
+  "discoverer": "Michael Andrew Smerconish Jr",
+  "rank": 1,
+  "percentile": 0.028563267637817767,
+  "score": 0.8674951875761279,
+  "p_value": 0.00028563267637817766,
+  "top_20": [
+    [
+      "Michael Andrew Smerconish Jr",
+      0.8674951875761279
+    ],
+    [
+      "Kamino",
+      0.8
+    ],
+    [
+      "Velo",
+      0.8
+    ],
+    [
+      "Galeon",
+      0.8
+    ],
+    [
+      "Kora",
+      0.8
+    ],
+    [
+      "sEUR",
+      0.8
+    ],
+    [
+      "Ternio",
+      0.8
+    ],
+    [
+      "Verida Token",
+      0.7997132321977444
+    ],
+    [
+      "RAMP [OLD]",
+      0.7995066666666667
+    ],
+    [
+      "Andyman",
+      0.7993728178437037
+    ],
+    [
+      "Sologenic",
+      0.799153801642857
+    ],
+    [
+      "Rusk Token",
+      0.7988801034670693
+    ],
+    [
+      "Niza Global",
+      0.7987752801040645
+    ],
+    [
+      "OG Fan Token",
+      0.7987752801040645
+    ],
+    [
+      "NetMind Token",
+      0.7978094294565113
+    ],
+    [
+      "Midas mF-ONE",
+      0.7973436730792809
+    ],
+    [
+      "Advertise Coin",
+      0.7972909879182649
+    ],
+    [
+      "Unmarshal",
+      0.7967929086002817
+    ],
+    [
+      "Ondo U.S. Dollar Token",
+      0.7967247183110211
+    ],
+    [
+      "ORIGYN",
+      0.7966866666666668
+    ]
+  ]
+}

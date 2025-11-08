@@ -1,0 +1,251 @@
+{
+  "formula_type": "hybrid",
+  "population_size": 50,
+  "n_generations": 50,
+  "mutation_rate": 0.1,
+  "generations": [
+    {
+      "generation_number": 0,
+      "population_size": 50,
+      "best_fitness": 0.0906573629377259,
+      "mean_fitness": 0.0750348201374765,
+      "fitness_std": 0.006227559402735329,
+      "best_individual": {
+        "formula_id": "hybrid_random_9923",
+        "weights": {
+          "phonetic_weight": 0.9556150909612537,
+          "semantic_weight": 1.1476646054275477,
+          "structural_weight": 0.9789937445434699,
+          "frequency_weight": 0.9659238203971294,
+          "numerological_weight": 1.6871317567017161
+        },
+        "fitness": 0.0906573629377259,
+        "generation": 0,
+        "parent_ids": []
+      }
+    },
+    {
+      "generation_number": 1,
+      "population_size": 50,
+      "best_fitness": 0.09105320368558767,
+      "mean_fitness": 0.08049580254700812,
+      "fitness_std": 0.0068017870765592165,
+      "best_individual": {
+        "formula_id": "hybrid_random_5855_x_hybrid_random_5979",
+        "weights": {
+          "phonetic_weight": 0.9632091231543763,
+          "semantic_weight": 0.8147790734248442,
+          "structural_weight": 0.5273994465375961,
+          "frequency_weight": 1.191083510877761,
+          "numerological_weight": 0.9910162363197099
+        },
+        "fitness": 0.09105320368558767,
+        "generation": 1,
+        "parent_ids": [
+          "hybrid_random_5855",
+          "hybrid_random_5979"
+        ]
+      }
+    },
+    {
+      "generation_number": 2,
+      "population_size": 50,
+      "best_fitness": 0.09336832762774852,
+      "mean_fitness": 0.08603420684857287,
+      "fitness_std": 0.004311038235756602,
+      "best_individual": {
+        "formula_id": "hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979",
+        "weights": {
+          "phonetic_weight": 1.2017723120981896,
+          "semantic_weight": 1.1141928252847404,
+          "structural_weight": 0.8528651747158328,
+          "frequency_weight": 1.191083510877761,
+          "numerological_weight": 0.9910162363197099
+        },
+        "fitness": 0.09336832762774852,
+        "generation": 2,
+        "parent_ids": [
+          "hybrid_random_5855_x_hybrid_random_8399",
+          "hybrid_random_5979"
+        ]
+      }
+    },
+    {
+      "generation_number": 3,
+      "population_size": 50,
+      "best_fitness": 0.09684149881756152,
+      "mean_fitness": 0.09101987056790976,
+      "fitness_std": 0.002657419546989334,
+      "best_individual": {
+        "formula_id": "hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766",
+        "weights": {
+          "phonetic_weight": 0.9556150909612537,
+          "semantic_weight": 1.037238503887257,
+          "structural_weight": 0.9789937445434699,
+          "frequency_weight": 1.191083510877761,
+          "numerological_weight": 0.9778630610164454
+        },
+        "fitness": 0.09684149881756152,
+        "generation": 3,
+        "parent_ids": [
+          "hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923",
+          "hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766"
+        ]
+      }
+    },
+    {
+      "generation_number": 4,
+      "population_size": 50,
+      "best_fitness": 0.09811433895850985,
+      "mean_fitness": 0.09340921618629906,
+      "fitness_std": 0.0024909579007615368,
+      "best_individual": {
+        "formula_id": "hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979",
+        "weights": {
+          "phonetic_weight": 0.9632091231543763,
+          "semantic_weight": 0.9726060534972162,
+          "structural_weight": 0.9789937445434699,
+          "frequency_weight": 0.9056087383362121,
+          "numerological_weight": 0.9910162363197099
+        },
+        "fitness": 0.09811433895850985,
+        "generation": 4,
+        "parent_ids": [
+          "hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766",
+          "hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979"
+        ]
+      }
+    },
+    {
+      "generation_number": 5,
+      "population_size": 50,
+      "best_fitness": 0.09870521957206009,
+      "mean_fitness": 0.0956257774192054,
+      "fitness_std": 0.0023199750119033196,
+      "best_individual": {
+        "formula_id": "hybrid_random_5365_x_hybrid_random_815_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_5855_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766_x_hybrid_random_820_x_hybrid_random_9923_x_hybrid_random_7718_x_hybrid_random_5855_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_mutated_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_8646_x_hybrid_random_815_x_hybrid_random_5855_x_hybrid_random_5979_mutated",
+        "weights": {
+          "phonetic_weight": 0.9632091231543763,
+          "semantic_weight": 0.9726060534972162,
+          "structural_weight": 0.9789937445434699,
+          "frequency_weight": 1.035303200308763,
+          "numerological_weight": 0.9910162363197099
+        },
+        "fitness": 0.09870521957206009,
+        "generation": 5,
+        "parent_ids": [
+          "hybrid_random_5365_x_hybrid_random_815_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_5855_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766",
+          "hybrid_random_820_x_hybrid_random_9923_x_hybrid_random_7718_x_hybrid_random_5855_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_mutated_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_8646_x_hybrid_random_815_x_hybrid_random_5855_x_hybrid_random_5979_mutated"
+        ]
+      }
+    },
+    {
+      "generation_number": 6,
+      "population_size": 50,
+      "best_fitness": 0.09871748977911902,
+      "mean_fitness": 0.097363466646022,
+      "fitness_std": 0.0009979435313666554,
+      "best_individual": {
+        "formula_id": "hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_8646_x_hybrid_random_815_x_hybrid_random_5855_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_mutated_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766",
+        "weights": {
+          "phonetic_weight": 0.9632091231543763,
+          "semantic_weight": 0.9726060534972162,
+          "structural_weight": 0.9789937445434699,
+          "frequency_weight": 0.9659238203971294,
+          "numerological_weight": 0.9910162363197099
+        },
+        "fitness": 0.09871748977911902,
+        "generation": 6,
+        "parent_ids": [
+          "hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_8646_x_hybrid_random_815_x_hybrid_random_5855_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_mutated",
+          "hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766"
+        ]
+      }
+    },
+    {
+      "generation_number": 7,
+      "population_size": 50,
+      "best_fitness": 0.09871748977911902,
+      "mean_fitness": 0.0981903281669873,
+      "fitness_std": 0.0005114251876120931,
+      "best_individual": {
+        "formula_id": "hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_8646_x_hybrid_random_815_x_hybrid_random_5855_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_mutated_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766",
+        "weights": {
+          "phonetic_weight": 0.9632091231543763,
+          "semantic_weight": 0.9726060534972162,
+          "structural_weight": 0.9789937445434699,
+          "frequency_weight": 0.9659238203971294,
+          "numerological_weight": 0.9910162363197099
+        },
+        "fitness": 0.09871748977911902,
+        "generation": 7,
+        "parent_ids": [
+          "hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_8646_x_hybrid_random_815_x_hybrid_random_5855_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_mutated_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766"
+        ]
+      }
+    },
+    {
+      "generation_number": 8,
+      "population_size": 50,
+      "best_fitness": 0.09871748977911902,
+      "mean_fitness": 0.09854423224685722,
+      "fitness_std": 0.00024439645570852937,
+      "best_individual": {
+        "formula_id": "hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_8646_x_hybrid_random_815_x_hybrid_random_5855_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_mutated_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766",
+        "weights": {
+          "phonetic_weight": 0.9632091231543763,
+          "semantic_weight": 0.9726060534972162,
+          "structural_weight": 0.9789937445434699,
+          "frequency_weight": 0.9659238203971294,
+          "numerological_weight": 0.9910162363197099
+        },
+        "fitness": 0.09871748977911902,
+        "generation": 8,
+        "parent_ids": [
+          "hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_8646_x_hybrid_random_815_x_hybrid_random_5855_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_mutated_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766"
+        ]
+      }
+    },
+    {
+      "generation_number": 9,
+      "population_size": 50,
+      "best_fitness": 0.09871748977911902,
+      "mean_fitness": 0.09859291009546105,
+      "fitness_std": 0.00046172599647483566,
+      "best_individual": {
+        "formula_id": "hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_8646_x_hybrid_random_815_x_hybrid_random_5855_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_mutated_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766",
+        "weights": {
+          "phonetic_weight": 0.9632091231543763,
+          "semantic_weight": 0.9726060534972162,
+          "structural_weight": 0.9789937445434699,
+          "frequency_weight": 0.9659238203971294,
+          "numerological_weight": 0.9910162363197099
+        },
+        "fitness": 0.09871748977911902,
+        "generation": 9,
+        "parent_ids": [
+          "hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_8646_x_hybrid_random_815_x_hybrid_random_5855_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_mutated_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766"
+        ]
+      }
+    }
+  ],
+  "converged": true,
+  "convergence_generation": 10,
+  "final_best_fitness": 0.09871748977911902,
+  "best_formula": {
+    "formula_id": "hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_8646_x_hybrid_random_815_x_hybrid_random_5855_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_mutated_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766",
+    "weights": {
+      "phonetic_weight": 0.9632091231543763,
+      "semantic_weight": 0.9726060534972162,
+      "structural_weight": 0.9789937445434699,
+      "frequency_weight": 0.9659238203971294,
+      "numerological_weight": 0.9910162363197099
+    },
+    "fitness": 0.09871748977911902,
+    "generation": 9,
+    "parent_ids": [
+      "hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_8646_x_hybrid_random_815_x_hybrid_random_5855_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_mutated_x_hybrid_random_5437_x_hybrid_random_9923_mutated_x_hybrid_random_9923_x_hybrid_random_9923_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_5855_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_9923_x_hybrid_random_8399_x_hybrid_random_5979_x_hybrid_random_1955_x_hybrid_random_4766_x_hybrid_random_815_x_hybrid_random_815_x_hybrid_random_5365_x_hybrid_random_5855_x_hybrid_random_4766"
+    ]
+  },
+  "timestamp": "2025-11-08T06:22:24.372064"
+}

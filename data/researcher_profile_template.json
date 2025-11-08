@@ -1,0 +1,49 @@
+{
+  "name": "Full Name",
+  
+  "_comment_demographics": "Publicly available demographic data",
+  "birth_year": 0,
+  "age": 0,
+  "nationality": "Country",
+  "current_location": "City/State",
+  
+  "_comment_education": "From Wikipedia, university sites, CVs",
+  "universities": ["Princeton", "Oxford", "Stanford"],
+  "degrees": ["BA Philosophy", "JD Law", "MA Religion"],
+  "elite_institution": true,
+  "interdisciplinary": true,
+  
+  "_comment_professional": "From publications, websites, LinkedIn",
+  "primary_field": "Philosophy/Law/Drug Policy",
+  "career_type": "Independent/Entrepreneur/Academic",
+  "major_work": "ekko platform, nominative research",
+  "awards": [],
+  "publications": [],
+  
+  "_comment_public_indicators": "Observable from work/interviews",
+  "work_hours": "Unconventional (night/early morning evident from timestamps)",
+  "productivity_pattern": "Intense bursts (manic indicators)",
+  "interdisciplinary_bridges": ["Philosophy", "Tech", "Law"],
+  "challenges_paradigms": true,
+  "builds_systems": true,
+  
+  "_comment_family": "From public records, Wikipedia",
+  "has_suffix": "Jr",
+  "parent_names": ["Michael Smerconish Sr", "Lavinia Smerconish"],
+  "sibling_names": ["E Caitlin Marie Chagan", "Wilson Cole Smerconish", "Lucky Simon Kane Smerconish"],
+  "parent_prominence": "National (father is media personality)",
+  
+  "_comment_location": "Symbolic/nominative significance",
+  "location_name": "New Hope",
+  "location_symbolism": "Hope, renewal, rebirth",
+  
+  "_comment_observable_patterns": "From work itself",
+  "recursive_thinking": true,
+  "pattern_seeking": true,
+  "philosophical_depth": true,
+  "technical_capability": true,
+  "revolutionary_intent": true,
+  
+  "_comment_notes": "Only include what's publicly verifiable or evident from work"
+}
+

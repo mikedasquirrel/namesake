@@ -1,0 +1,95 @@
+================================================================================
+NOVEL PATTERN DISCOVERY REPORT
+================================================================================
+
+🔥 NOVEL PATTERNS DISCOVERED: 12
+--------------------------------------------------------------------------------
+
+Type: ratio
+Description: Consistent ratio in phonetic_fitness: 0.9871
+Parameters: {'ratio': 0.9870704933194773, 'std': 0.022163761142987612}
+Consistency: 0.978
+Confidence: 0.950
+Formula: r = 0.987070
+
+Type: ratio
+Description: Consistent ratio in semantic_fitness: 0.9885
+Parameters: {'ratio': 0.9885249162767853, 'std': 0.01959130647615713}
+Consistency: 0.980
+Confidence: 0.950
+Formula: r = 0.988525
+
+Type: ratio
+Description: Consistent ratio in structural_fitness: 0.9956
+Parameters: {'ratio': 0.9956069487503714, 'std': 0.008396217080465744}
+Consistency: 0.992
+Confidence: 0.950
+Formula: r = 0.995607
+
+Type: ratio
+Description: Consistent ratio in frequency_fitness: 0.9995
+Parameters: {'ratio': 0.9994887257299879, 'std': 0.0010225485400243261}
+Consistency: 0.999
+Confidence: 0.950
+Formula: r = 0.999489
+
+Type: ratio
+Description: Consistent ratio in numerological_fitness: 0.9919
+Parameters: {'ratio': 0.9918515490951236, 'std': 0.018932637573292516}
+Consistency: 0.981
+Confidence: 0.950
+Formula: r = 0.991852
+
+Type: ratio
+Description: Consistent ratio in hybrid_fitness: 0.9924
+Parameters: {'ratio': 0.9923772154057039, 'std': 0.012792412219067323}
+Consistency: 0.987
+Confidence: 0.950
+Formula: r = 0.992377
+
+Type: progression
+Description: Geometric progression in phonetic_fitness
+Parameters: {'ratio': 1.0136354802396281}
+Consistency: 0.976
+Confidence: 0.900
+Formula: a_n = a_0 * 1.0136^n
+
+Type: progression
+Description: Geometric progression in semantic_fitness
+Parameters: {'ratio': 1.0120177562407617}
+Consistency: 0.980
+Confidence: 0.900
+Formula: a_n = a_0 * 1.0120^n
+
+Type: progression
+Description: Geometric progression in structural_fitness
+Parameters: {'ratio': 1.004484989376646}
+Consistency: 0.991
+Confidence: 0.900
+Formula: a_n = a_0 * 1.0045^n
+
+Type: progression
+Description: Geometric progression in frequency_fitness
+Parameters: {'ratio': 1.0005125846266663}
+Consistency: 0.999
+Confidence: 0.900
+Formula: a_n = a_0 * 1.0005^n
+
+Type: progression
+Description: Geometric progression in numerological_fitness
+Parameters: {'ratio': 1.0085999823474328}
+Consistency: 0.980
+Confidence: 0.900
+Formula: a_n = a_0 * 1.0086^n
+
+Type: progression
+Description: Geometric progression in hybrid_fitness
+Parameters: {'ratio': 1.0078536501794988}
+Consistency: 0.987
+Confidence: 0.900
+Formula: a_n = a_0 * 1.0079^n
+
+
+KNOWN PATTERNS FOUND: 1
+--------------------------------------------------------------------------------
+  • Arithmetic progression in formula_correlations
