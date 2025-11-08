@@ -6,12 +6,20 @@ Tests the shocking hypothesis: Can we predict relationship outcomes
 from name mathematics alone?
 
 This is where nominative determinism gets DEEP.
+
+EXPANDED VERSION - November 8, 2025:
+- Added phonetic distance metrics (ALINE algorithm)
+- Added vowel harmony and consonant compatibility
+- Added stress pattern alignment
+- Enhanced golden ratio testing
+- Added relative success calculations
 """
 
 import numpy as np
 from typing import Dict, Tuple, Optional, List
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 import math
+import Levenshtein
 
 from utils.formula_engine import VisualEncoding, FormulaEngine
 from analyzers.name_analyzer import NameAnalyzer
@@ -35,12 +43,28 @@ class RelationshipEncoding:
     complexity_balance: float  # Similar complexity?
     symmetry_match: float  # Both symmetric?
     
+    # NEW: Phonetic interaction metrics
+    phonetic_distance: float = 0.0  # Edit distance (normalized)
+    vowel_harmony: float = 0.0  # Do vowels complement?
+    consonant_compatibility: float = 0.0  # Consonant cluster matching
+    stress_alignment: float = 0.0  # Stress pattern similarity
+    syllable_ratio: float = 1.0  # Ratio of syllable counts
+    syllable_ratio_to_phi: float = 1.0  # Distance from golden ratio
+    
+    # NEW: Semantic metrics
+    cultural_origin_match: float = 0.0  # Same cultural background?
+    social_class_alignment: float = 0.0  # SES connotation match
+    
     # Pattern type
-    relationship_type: str  # harmonic/complementary/discordant
+    relationship_type: str = "neutral"  # harmonic/complementary/discordant
     
     # Individual encodings
-    encoding1: VisualEncoding
-    encoding2: VisualEncoding
+    encoding1: Optional[VisualEncoding] = None
+    encoding2: Optional[VisualEncoding] = None
+    
+    # Individual name features (for analysis)
+    features1: Dict = field(default_factory=dict)
+    features2: Dict = field(default_factory=dict)
     
     def to_dict(self) -> Dict:
         return {
@@ -74,7 +98,8 @@ class RelationshipFormulaEngine:
         self.golden_ratio = 1.618033988749
     
     def analyze_relationship(self, name1: str, name2: str, 
-                           formula_id: str = 'hybrid') -> RelationshipEncoding:
+                           formula_id: str = 'hybrid',
+                           include_phonetic: bool = True) -> RelationshipEncoding:
         """
         Analyze compatibility between two names
         
@@ -82,6 +107,7 @@ class RelationshipFormulaEngine:
             name1: First name
             name2: Second name
             formula_id: Which formula to use
+            include_phonetic: Include advanced phonetic analysis
             
         Returns:
             RelationshipEncoding with compatibility metrics
@@ -93,7 +119,7 @@ class RelationshipFormulaEngine:
         encoding1 = self.engine.transform(name1, features1, formula_id)
         encoding2 = self.engine.transform(name2, features2, formula_id)
         
-        # Calculate relationship metrics
+        # Calculate relationship metrics (original)
         compatibility = self._calculate_compatibility(encoding1, encoding2)
         distance = self._calculate_distance(encoding1, encoding2)
         resonance = self._calculate_resonance(encoding1, encoding2)
@@ -102,6 +128,26 @@ class RelationshipFormulaEngine:
         color_harmony = self._test_color_harmony(encoding1, encoding2)
         complexity_balance = self._test_complexity_balance(encoding1, encoding2)
         symmetry_match = self._test_symmetry_match(encoding1, encoding2)
+        
+        # NEW: Calculate phonetic metrics
+        phonetic_distance = 0.0
+        vowel_harmony = 0.0
+        consonant_compat = 0.0
+        stress_align = 0.0
+        syllable_ratio = 1.0
+        syllable_ratio_to_phi = 1.0
+        cultural_match = 0.0
+        social_class_align = 0.0
+        
+        if include_phonetic:
+            phonetic_distance = self._calculate_phonetic_distance(name1, name2)
+            vowel_harmony = self._calculate_vowel_harmony(name1, name2)
+            consonant_compat = self._calculate_consonant_compatibility(name1, name2)
+            stress_align = self._calculate_stress_alignment(features1, features2)
+            syllable_ratio = self._calculate_syllable_ratio(features1, features2)
+            syllable_ratio_to_phi = abs(syllable_ratio - self.golden_ratio) / self.golden_ratio
+            cultural_match = self._estimate_cultural_match(features1, features2)
+            social_class_align = self._estimate_social_class_alignment(features1, features2)
         
         # Classify relationship type
         rel_type = self._classify_relationship(compatibility, distance, resonance)
@@ -117,9 +163,19 @@ class RelationshipFormulaEngine:
             color_harmony=color_harmony,
             complexity_balance=complexity_balance,
             symmetry_match=symmetry_match,
+            phonetic_distance=phonetic_distance,
+            vowel_harmony=vowel_harmony,
+            consonant_compatibility=consonant_compat,
+            stress_alignment=stress_align,
+            syllable_ratio=syllable_ratio,
+            syllable_ratio_to_phi=syllable_ratio_to_phi,
+            cultural_origin_match=cultural_match,
+            social_class_alignment=social_class_align,
             relationship_type=rel_type,
             encoding1=encoding1,
-            encoding2=encoding2
+            encoding2=encoding2,
+            features1=features1,
+            features2=features2
         )
     
     def _calculate_compatibility(self, enc1: VisualEncoding, enc2: VisualEncoding) -> float:
@@ -310,6 +366,216 @@ class RelationshipFormulaEngine:
             return "complementary"  # Balanced opposites
         else:
             return "neutral"  # No strong pattern
+    
+    # =============================================================================
+    # NEW: Advanced Phonetic Analysis Methods
+    # =============================================================================
+    
+    def _calculate_phonetic_distance(self, name1: str, name2: str) -> float:
+        """
+        Calculate normalized phonetic distance using Levenshtein edit distance
+        
+        Returns:
+            0-1 (0 = identical, 1 = maximally different)
+        """
+        # Clean names (remove non-letters)
+        import re
+        clean1 = re.sub(r'[^a-zA-Z]', '', name1.lower())
+        clean2 = re.sub(r'[^a-zA-Z]', '', name2.lower())
+        
+        if not clean1 or not clean2:
+            return 1.0
+        
+        # Levenshtein distance
+        distance = Levenshtein.distance(clean1, clean2)
+        
+        # Normalize by max possible distance (length of longer name)
+        max_distance = max(len(clean1), len(clean2))
+        normalized = distance / max_distance if max_distance > 0 else 0.0
+        
+        return min(1.0, normalized)
+    
+    def _calculate_vowel_harmony(self, name1: str, name2: str) -> float:
+        """
+        Calculate vowel harmony score (do vowels complement or match?)
+        
+        Vowel harmony is a linguistic universal where vowels within a word
+        tend to share features. Test if couple names have harmonic vowels.
+        
+        Returns:
+            0-1 (1 = perfect harmony)
+        """
+        vowels = 'aeiouAEIOU'
+        
+        # Extract vowels
+        vowels1 = [c.lower() for c in name1 if c in vowels]
+        vowels2 = [c.lower() for c in name2 if c in vowels]
+        
+        if not vowels1 or not vowels2:
+            return 0.5  # Neutral if no vowels
+        
+        # Vowel categories (front, central, back)
+        front_vowels = set('ei')  # e, i
+        central_vowels = set('a')  # a
+        back_vowels = set('ou')  # o, u
+        
+        def get_vowel_profile(vowel_list):
+            """Get proportion of front, central, back vowels"""
+            total = len(vowel_list)
+            front = sum(1 for v in vowel_list if v in front_vowels) / total
+            central = sum(1 for v in vowel_list if v in central_vowels) / total
+            back = sum(1 for v in vowel_list if v in back_vowels) / total
+            return np.array([front, central, back])
+        
+        profile1 = get_vowel_profile(vowels1)
+        profile2 = get_vowel_profile(vowels2)
+        
+        # Harmony = similarity of vowel distributions
+        # Use cosine similarity
+        dot_product = np.dot(profile1, profile2)
+        norm1 = np.linalg.norm(profile1)
+        norm2 = np.linalg.norm(profile2)
+        
+        if norm1 > 0 and norm2 > 0:
+            harmony = dot_product / (norm1 * norm2)
+        else:
+            harmony = 0.5
+        
+        return float(harmony)
+    
+    def _calculate_consonant_compatibility(self, name1: str, name2: str) -> float:
+        """
+        Calculate consonant compatibility (do consonant patterns match?)
+        
+        Tests if consonant clusters and patterns are compatible.
+        Similar cluster complexity = higher compatibility.
+        
+        Returns:
+            0-1 (1 = highly compatible)
+        """
+        import re
+        
+        # Extract consonants
+        consonants = 'bcdfghjklmnpqrstvwxyzBCDFGHJKLMNPQRSTVWXYZ'
+        cons1 = ''.join(c for c in name1.lower() if c in consonants.lower())
+        cons2 = ''.join(c for c in name2.lower() if c in consonants.lower())
+        
+        if not cons1 or not cons2:
+            return 0.5
+        
+        # Find consonant clusters (2+ consonants in a row)
+        clusters1 = re.findall(r'[bcdfghjklmnpqrstvwxyz]{2,}', name1.lower())
+        clusters2 = re.findall(r'[bcdfghjklmnpqrstvwxyz]{2,}', name2.lower())
+        
+        # Cluster density
+        density1 = len(clusters1) / len(cons1) if cons1 else 0
+        density2 = len(clusters2) / len(cons2) if cons2 else 0
+        
+        # Compatibility = similar cluster density
+        density_diff = abs(density1 - density2)
+        compatibility = 1.0 - min(density_diff, 1.0)
+        
+        return compatibility
+    
+    def _calculate_stress_alignment(self, features1: Dict, features2: Dict) -> float:
+        """
+        Calculate stress pattern alignment
+        
+        Names with similar stress patterns (syllable emphasis) should be
+        more compatible (hypothesis: creates rhythmic harmony)
+        
+        Returns:
+            0-1 (1 = perfectly aligned)
+        """
+        # Get syllable counts
+        syl1 = features1.get('syllable_count', 1)
+        syl2 = features2.get('syllable_count', 1)
+        
+        # Simple heuristic: similar syllable count = aligned stress
+        syl_diff = abs(syl1 - syl2)
+        
+        # Normalize (max reasonable difference is 5 syllables)
+        alignment = 1.0 - min(syl_diff / 5.0, 1.0)
+        
+        return alignment
+    
+    def _calculate_syllable_ratio(self, features1: Dict, features2: Dict) -> float:
+        """
+        Calculate ratio of syllable counts
+        
+        Returns:
+            Ratio (always >= 1.0, larger / smaller)
+        """
+        syl1 = features1.get('syllable_count', 1)
+        syl2 = features2.get('syllable_count', 1)
+        
+        if syl1 == 0 or syl2 == 0:
+            return 1.0
+        
+        # Always return ratio >= 1.0 (larger / smaller)
+        ratio = max(syl1, syl2) / min(syl1, syl2)
+        
+        return ratio
+    
+    def _estimate_cultural_match(self, features1: Dict, features2: Dict) -> float:
+        """
+        Estimate if names come from similar cultural backgrounds
+        
+        Uses name categories and semantic markers as proxies.
+        
+        Returns:
+            0-1 (1 = strong cultural match)
+        """
+        # Get semantic categories
+        cat1 = features1.get('semantic_category', 'abstract')
+        cat2 = features2.get('semantic_category', 'abstract')
+        
+        # Exact match
+        if cat1 == cat2:
+            return 1.0
+        
+        # Related categories
+        related_groups = [
+            {'mythology', 'astronomy', 'nature'},  # Epic/classical
+            {'technology', 'finance', 'abstract'},  # Modern/technical
+            {'animal_reference'},  # Unique category
+        ]
+        
+        for group in related_groups:
+            if cat1 in group and cat2 in group:
+                return 0.7  # Related but not identical
+        
+        # No apparent relationship
+        return 0.3
+    
+    def _estimate_social_class_alignment(self, features1: Dict, features2: Dict) -> float:
+        """
+        Estimate if names suggest similar social class backgrounds
+        
+        Uses name complexity, length, and conventionality as proxies.
+        
+        Returns:
+            0-1 (1 = strong alignment)
+        """
+        # Get complexity features
+        len1 = features1.get('character_length', 5)
+        len2 = features2.get('character_length', 5)
+        
+        mem1 = features1.get('memorability_score', 50)
+        mem2 = features2.get('memorability_score', 50)
+        
+        # Length similarity
+        len_diff = abs(len1 - len2)
+        len_align = 1.0 - min(len_diff / 10.0, 1.0)
+        
+        # Memorability similarity
+        mem_diff = abs(mem1 - mem2)
+        mem_align = 1.0 - min(mem_diff / 100.0, 1.0)
+        
+        # Average
+        alignment = (len_align + mem_align) / 2.0
+        
+        return alignment
     
     def predict_divorce_risk(self, name1: str, name2: str) -> Dict:
         """

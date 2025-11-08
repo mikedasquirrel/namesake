@@ -1,0 +1,217 @@
+{
+  "characterization_date": "2025-11-08",
+  "methodology": "Each sport coded on 6 dimensions (0-10 scales or categorical) to test as predictors of linguistic effect patterns",
+  "dimensions": {
+    "contact_level": {
+      "description": "Physical contact intensity during competition",
+      "scale": "0 (non-contact) to 10 (full combat)",
+      "hypothesis": "Higher contact predicts stronger phonetic harshness effects"
+    },
+    "team_structure": {
+      "description": "Team vs individual and team size if applicable",
+      "scale": "categorical + numeric",
+      "hypothesis": "Larger teams predict stronger name brevity effects (announcer constraints)"
+    },
+    "endurance_vs_explosive": {
+      "description": "Duration and intensity pattern of effort",
+      "scale": "0 (pure explosive) to 10 (pure endurance)",
+      "hypothesis": "Explosive sports require simpler names for rapid recognition"
+    },
+    "precision_vs_power": {
+      "description": "Technical precision vs raw power/force",
+      "scale": "0 (pure power) to 10 (pure precision)",
+      "hypothesis": "Precision sports value memorability over harshness"
+    },
+    "action_speed": {
+      "description": "Pace of play and frequency of events",
+      "scale": "0 (slow/deliberate) to 10 (fast/continuous)",
+      "hypothesis": "Faster sports require more memorable names for fan engagement"
+    },
+    "announcer_repetition": {
+      "description": "Frequency of name mentions during broadcast",
+      "scale": "0 (rarely mentioned) to 10 (constantly repeated)",
+      "hypothesis": "Higher repetition amplifies all name effects"
+    }
+  },
+  "sports_characterized": {
+    "soccer": {
+      "contact_level": 5,
+      "contact_rationale": "Moderate physical contact, some collisions but not primary focus",
+      "team_structure": {
+        "type": "team",
+        "team_size": 11,
+        "substitutions": "limited"
+      },
+      "endurance_vs_explosive": 7,
+      "endurance_rationale": "90 minute matches with continuous running, some sprints",
+      "precision_vs_power": 6,
+      "precision_rationale": "Balance of technical skill and physical attributes",
+      "action_speed": 7,
+      "action_speed_rationale": "Continuous play with frequent transitions",
+      "announcer_repetition": 9,
+      "announcer_rationale": "Names constantly called during play-by-play, especially goalscorers",
+      "predicted_name_pattern": "Short, memorable names dominate. Harsh phonetics moderate effect."
+    },
+    "tennis": {
+      "contact_level": 0,
+      "contact_rationale": "Zero physical contact between opponents",
+      "team_structure": {
+        "type": "individual",
+        "team_size": 1,
+        "substitutions": "n/a"
+      },
+      "endurance_vs_explosive": 5,
+      "endurance_rationale": "Matches vary 1-5 hours, mix of explosive shots and sustained rallies",
+      "precision_vs_power": 8,
+      "precision_rationale": "Highly technical sport, placement more important than power",
+      "action_speed": 6,
+      "action_speed_rationale": "Moderate pace, points interspersed with breaks",
+      "announcer_repetition": 10,
+      "announcer_rationale": "Individual sport, name called before every point",
+      "predicted_name_pattern": "Memorability critical. Soft phonetics predicted for precision."
+    },
+    "boxing_mma": {
+      "contact_level": 10,
+      "contact_rationale": "Pure combat sport, maximum physical contact and violence",
+      "team_structure": {
+        "type": "individual",
+        "team_size": 1,
+        "substitutions": "n/a"
+      },
+      "endurance_vs_explosive": 3,
+      "endurance_rationale": "Short explosive bursts (3-15 min rounds), some cardio element",
+      "precision_vs_power": 2,
+      "precision_rationale": "Power and aggression dominate, though technique matters",
+      "action_speed": 8,
+      "action_speed_rationale": "High intensity, rapid exchanges",
+      "announcer_repetition": 10,
+      "announcer_rationale": "Names constantly repeated during and between rounds",
+      "predicted_name_pattern": "MAXIMUM harsh phonetics effect expected. Short, aggressive-sounding names."
+    },
+    "baseball": {
+      "contact_level": 2,
+      "contact_rationale": "Minimal contact except occasional collisions at bases",
+      "team_structure": {
+        "type": "team",
+        "team_size": 9,
+        "substitutions": "unlimited"
+      },
+      "endurance_vs_explosive": 2,
+      "endurance_rationale": "Explosive batting/throwing, long games but low continuous exertion",
+      "precision_vs_power": 7,
+      "precision_rationale": "Highly technical: pitching control, batting eye critical",
+      "action_speed": 3,
+      "action_speed_rationale": "Slow pace, discrete events separated by time",
+      "announcer_repetition": 8,
+      "announcer_rationale": "Every batter announced, frequent name mentions",
+      "predicted_name_pattern": "Length less critical due to slow pace. Memorability matters."
+    },
+    "basketball": {
+      "contact_level": 6,
+      "contact_rationale": "Significant physical contact, especially in paint, but not combat",
+      "team_structure": {
+        "type": "team",
+        "team_size": 5,
+        "substitutions": "frequent"
+      },
+      "endurance_vs_explosive": 6,
+      "endurance_rationale": "Continuous running up and down court, explosive jumps",
+      "precision_vs_power": 6,
+      "precision_rationale": "Balance of athleticism and shooting precision",
+      "action_speed": 9,
+      "action_speed_rationale": "Fast-paced, constant scoring and transitions",
+      "announcer_repetition": 9,
+      "announcer_rationale": "Rapid-fire name calling during fast breaks and scores",
+      "predicted_name_pattern": "Short names advantage due to pace. Moderate harshness effect."
+    },
+    "football": {
+      "contact_level": 9,
+      "contact_rationale": "High-impact collisions on every play, one step below combat",
+      "team_structure": {
+        "type": "team",
+        "team_size": 11,
+        "substitutions": "unlimited"
+      },
+      "endurance_vs_explosive": 1,
+      "endurance_rationale": "Pure explosive power in 4-6 second bursts",
+      "precision_vs_power": 3,
+      "precision_rationale": "Power-dominated sport, though QB passing requires precision",
+      "action_speed": 5,
+      "action_speed_rationale": "Discrete plays with breaks between, but plays are explosive",
+      "announcer_repetition": 8,
+      "announcer_rationale": "Names called frequently, especially skill position players",
+      "predicted_name_pattern": "Strong harsh phonetics effect expected. Short, powerful names."
+    },
+    "cricket": {
+      "contact_level": 1,
+      "contact_rationale": "Minimal contact, occasional fielding collisions",
+      "team_structure": {
+        "type": "team",
+        "team_size": 11,
+        "substitutions": "none (fixed lineup)"
+      },
+      "endurance_vs_explosive": 4,
+      "endurance_rationale": "Test matches are endurance (5 days), but individual actions explosive",
+      "precision_vs_power": 7,
+      "precision_rationale": "Batting technique and bowling precision critical",
+      "action_speed": 2,
+      "action_speed_rationale": "Very slow pace, especially test cricket",
+      "announcer_repetition": 7,
+      "announcer_rationale": "Batsmen and bowlers named frequently during play",
+      "predicted_name_pattern": "Length less critical. Precision-associated names predicted."
+    }
+  },
+  "meta_hypotheses": {
+    "H1_contact_harshness": {
+      "hypothesis": "contact_level predicts harshness_effect_size",
+      "expected_correlation": "r > 0.60",
+      "expected_slope": "β = 0.03 per contact point",
+      "interpretation": "Each point increase in contact level predicts 3% stronger harshness effect"
+    },
+    "H2_team_size_length": {
+      "hypothesis": "team_size predicts name_length_effect_size (negative)",
+      "expected_correlation": "r < -0.50",
+      "expected_slope": "β = -0.02 per team member",
+      "interpretation": "Larger teams show stronger advantage for short names (announcer brevity)"
+    },
+    "H3_endurance_complexity": {
+      "hypothesis": "endurance_score predicts tolerance for complex names",
+      "expected_correlation": "r > 0.40",
+      "interpretation": "Endurance sports allow more complex names (less time pressure)"
+    },
+    "H4_precision_memorability": {
+      "hypothesis": "precision_score predicts memorability>harshness",
+      "expected_pattern": "High precision sports prioritize memorability over harshness",
+      "test": "Correlation between precision and (memorability_effect - harshness_effect)"
+    },
+    "H5_speed_simplicity": {
+      "hypothesis": "action_speed predicts simpler name requirements",
+      "expected_correlation": "r > 0.45",
+      "interpretation": "Faster sports require simpler, more quickly processable names"
+    },
+    "H6_announcer_amplification": {
+      "hypothesis": "announcer_repetition amplifies all name effects",
+      "expected_pattern": "Interaction term: repetition × effect strengthens correlations",
+      "interpretation": "High-repetition sports show stronger effects overall"
+    }
+  },
+  "expected_sport_rankings": {
+    "strongest_harshness_effects": ["boxing_mma", "football", "basketball", "soccer", "baseball", "cricket", "tennis"],
+    "strongest_brevity_effects": ["soccer", "basketball", "football", "cricket", "baseball", "tennis", "boxing_mma"],
+    "strongest_overall_effects": ["boxing_mma", "tennis", "soccer", "basketball", "football", "baseball", "cricket"]
+  },
+  "control_variables": {
+    "era": "Some sports have different eras (pre-analytics vs analytics), control for year",
+    "position": "Within-sport position effects (QB vs linebacker different from WR)",
+    "nationality": "Cultural name differences, include as covariate",
+    "career_length": "Survivorship bias - longer careers may correlate with everything"
+  },
+  "analysis_plan": {
+    "step_1": "Within-sport correlations (7 sports × 15 linguistic features = 105 correlation tests)",
+    "step_2": "Extract effect sizes (r-values) for each linguistic feature per sport",
+    "step_3": "Meta-regression: sport characteristics predict effect sizes (n=7 sports)",
+    "step_4": "Test specific hypotheses (H1-H6)",
+    "step_5": "Generate predictions for untested sports based on characteristics"
+  }
+}
+

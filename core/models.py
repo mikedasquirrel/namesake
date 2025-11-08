@@ -4004,6 +4004,13 @@ class AdultPerformerAnalysis(db.Model):
     has_title = db.Column(db.Boolean)  # Miss, Ms, etc.
     has_descriptor = db.Column(db.Boolean)  # "Little", "Big", etc.
     
+    # Authenticity & Language (NEW - critical for contrast analysis)
+    has_accent_marks = db.Column(db.Boolean, default=False)  # á, é, í, ñ, etc.
+    language_origin = db.Column(db.String(50))  # anglo, latino, asian, european
+    appears_anglicized = db.Column(db.Boolean)  # José → Joe pattern
+    ethnic_name_strength = db.Column(db.Float)  # How strongly ethnic identity signals
+    cross_linguistic_appeal = db.Column(db.Float)  # International-sounding score
+    
     # Comparison to real name (if known)
     real_name_syllables = db.Column(db.Integer)
     syllable_delta = db.Column(db.Integer)  # Stage - real (positive = longer stage name)

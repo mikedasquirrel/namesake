@@ -1,0 +1,255 @@
+{
+  "research_date": "2025-11-08",
+  "target_sample_size": 2000,
+  "sports_identified": 7,
+  "sports": {
+    "soccer": {
+      "priority": 1,
+      "data_availability": "EXCELLENT",
+      "estimated_sample_size": 5000,
+      "data_sources": [
+        {
+          "name": "Transfermarkt",
+          "url": "https://www.transfermarkt.com",
+          "api": false,
+          "scraping": "possible",
+          "data": "player stats, market value, appearances, goals, assists",
+          "coverage": "Global leagues - Premier League, La Liga, Bundesliga, Serie A, Ligue 1",
+          "cost": "free"
+        },
+        {
+          "name": "FBref (Sports Reference)",
+          "url": "https://fbref.com",
+          "api": false,
+          "scraping": "easy",
+          "data": "detailed stats, xG, passing, defensive actions",
+          "coverage": "Top 5 European leagues",
+          "cost": "free"
+        },
+        {
+          "name": "API-Football",
+          "url": "https://www.api-football.com",
+          "api": true,
+          "scraping": "not_needed",
+          "data": "comprehensive player and team stats",
+          "coverage": "Global",
+          "cost": "freemium (500 requests/day free)"
+        }
+      ],
+      "success_metrics": ["goals", "assists", "market_value", "appearances", "team_trophies"],
+      "collection_strategy": "Scrape FBref for top 5 leagues, focus on players with 50+ appearances",
+      "estimated_collection_time": "2 days"
+    },
+    "tennis": {
+      "priority": 2,
+      "data_availability": "EXCELLENT",
+      "estimated_sample_size": 2500,
+      "data_sources": [
+        {
+          "name": "ATP Official Stats",
+          "url": "https://www.atptour.com",
+          "api": false,
+          "scraping": "possible",
+          "data": "rankings, match records, prize money, tournament wins",
+          "coverage": "All ATP players",
+          "cost": "free"
+        },
+        {
+          "name": "WTA Official Stats",
+          "url": "https://www.wtatennis.com",
+          "api": false,
+          "scraping": "possible",
+          "data": "rankings, match records, prize money, tournament wins",
+          "coverage": "All WTA players",
+          "cost": "free"
+        },
+        {
+          "name": "Tennis Abstract",
+          "url": "http://www.tennisabstract.com",
+          "api": false,
+          "scraping": "easy",
+          "data": "historical rankings, Elo ratings, match data",
+          "coverage": "Comprehensive historical data",
+          "cost": "free"
+        }
+      ],
+      "success_metrics": ["career_high_ranking", "grand_slam_titles", "atp_points", "win_percentage", "career_prize_money"],
+      "collection_strategy": "Scrape ATP/WTA sites for all players ranked in top 500 at any point 2000-2024",
+      "estimated_collection_time": "1.5 days"
+    },
+    "boxing_mma": {
+      "priority": 3,
+      "data_availability": "EXCELLENT",
+      "estimated_sample_size": 3000,
+      "data_sources": [
+        {
+          "name": "BoxRec",
+          "url": "https://boxrec.com",
+          "api": false,
+          "scraping": "moderate",
+          "data": "fight records, knockouts, title wins, rankings",
+          "coverage": "Comprehensive boxing database",
+          "cost": "free"
+        },
+        {
+          "name": "UFC Stats",
+          "url": "http://ufcstats.com",
+          "api": false,
+          "scraping": "easy",
+          "data": "detailed fight stats, win/loss records, finish types",
+          "coverage": "All UFC fighters",
+          "cost": "free"
+        },
+        {
+          "name": "Sherdog",
+          "url": "https://www.sherdog.com",
+          "api": false,
+          "scraping": "easy",
+          "data": "MMA fighter records across all promotions",
+          "coverage": "Global MMA",
+          "cost": "free"
+        }
+      ],
+      "success_metrics": ["win_loss_record", "knockout_percentage", "title_wins", "fight_count", "ranking"],
+      "collection_strategy": "Combine UFC Stats (all UFC fighters) + BoxRec top 1000 boxers",
+      "estimated_collection_time": "2 days"
+    },
+    "baseball_expanded": {
+      "priority": 4,
+      "data_availability": "EXCELLENT",
+      "estimated_sample_size": 2000,
+      "data_sources": [
+        {
+          "name": "Baseball Reference",
+          "url": "https://www.baseball-reference.com",
+          "api": false,
+          "scraping": "easy",
+          "data": "comprehensive stats, WAR, OPS, ERA, career totals",
+          "coverage": "All MLB history",
+          "cost": "free"
+        },
+        {
+          "name": "FanGraphs",
+          "url": "https://www.fangraphs.com",
+          "api": false,
+          "scraping": "easy",
+          "data": "advanced metrics, wRC+, FIP, wOBA",
+          "coverage": "MLB comprehensive",
+          "cost": "free"
+        },
+        {
+          "name": "Lahman Database",
+          "url": "http://www.seanlahman.com/baseball-archive/statistics",
+          "api": false,
+          "scraping": "not_needed",
+          "data": "downloadable CSV with complete MLB history",
+          "coverage": "1871-present",
+          "cost": "free"
+        }
+      ],
+      "success_metrics": ["WAR", "all_star_selections", "MVP_votes", "career_length", "hall_of_fame"],
+      "collection_strategy": "Download Lahman database + scrape Baseball Reference for players with 2+ seasons",
+      "estimated_collection_time": "1 day (existing MLB data can be expanded)"
+    },
+    "basketball_expanded": {
+      "priority": 5,
+      "data_availability": "EXCELLENT",
+      "estimated_sample_size": 2000,
+      "data_sources": [
+        {
+          "name": "Basketball Reference",
+          "url": "https://www.basketball-reference.com",
+          "api": false,
+          "scraping": "easy",
+          "data": "comprehensive NBA stats, PER, Win Shares, career totals",
+          "coverage": "All NBA history",
+          "cost": "free"
+        },
+        {
+          "name": "NBA Stats API",
+          "url": "https://stats.nba.com",
+          "api": true,
+          "scraping": "not_needed",
+          "data": "official NBA statistics",
+          "coverage": "Modern NBA",
+          "cost": "free"
+        }
+      ],
+      "success_metrics": ["PPG", "all_star_selections", "PER", "win_shares", "championships"],
+      "collection_strategy": "Expand existing NBA dataset to all players with 2+ seasons",
+      "estimated_collection_time": "0.5 days (already have significant NBA data)"
+    },
+    "football_expanded": {
+      "priority": 6,
+      "data_availability": "EXCELLENT",
+      "estimated_sample_size": 2000,
+      "data_sources": [
+        {
+          "name": "Pro Football Reference",
+          "url": "https://www.pro-football-reference.com",
+          "api": false,
+          "scraping": "easy",
+          "data": "comprehensive NFL stats, AV, Pro Bowls, career totals",
+          "coverage": "All NFL history",
+          "cost": "free"
+        }
+      ],
+      "success_metrics": ["pro_bowls", "all_pro_selections", "AV_score", "career_length", "hall_of_fame"],
+      "collection_strategy": "Expand existing NFL dataset to all players with 3+ seasons",
+      "estimated_collection_time": "0.5 days (already have 949 players)"
+    },
+    "cricket": {
+      "priority": 7,
+      "data_availability": "GOOD",
+      "estimated_sample_size": 2000,
+      "data_sources": [
+        {
+          "name": "ESPN Cricinfo",
+          "url": "https://www.espncricinfo.com",
+          "api": false,
+          "scraping": "moderate",
+          "data": "comprehensive cricket stats, batting/bowling averages",
+          "coverage": "International and domestic cricket",
+          "cost": "free"
+        },
+        {
+          "name": "Cricsheet",
+          "url": "https://cricsheet.org",
+          "api": false,
+          "scraping": "not_needed",
+          "data": "downloadable match data",
+          "coverage": "International matches",
+          "cost": "free"
+        }
+      ],
+      "success_metrics": ["batting_average", "bowling_average", "centuries", "wickets", "matches_played"],
+      "collection_strategy": "Scrape Cricinfo for all players with 20+ international matches",
+      "estimated_collection_time": "2 days"
+    }
+  },
+  "sports_excluded": {
+    "golf": {
+      "reason": "Lower data availability for comprehensive stats across tours",
+      "estimated_sample": 800
+    },
+    "hockey": {
+      "reason": "Good availability but lower global sample than soccer",
+      "estimated_sample": 1500
+    },
+    "rugby": {
+      "reason": "Moderate data availability, fragmented across unions",
+      "estimated_sample": 1000
+    }
+  },
+  "total_estimated_athletes": 20000,
+  "total_estimated_collection_time": "9.5 days",
+  "recommendation": "Proceed with all 7 sports (soccer, tennis, boxing/MMA, baseball, basketball, football, cricket) for comprehensive cross-sport meta-analysis",
+  "priority_order": ["soccer", "tennis", "boxing_mma", "basketball_expanded", "football_expanded", "baseball_expanded", "cricket"],
+  "technical_notes": {
+    "scraping_tools": "BeautifulSoup4, Selenium for JavaScript-heavy sites",
+    "rate_limiting": "Implement 1-2 second delays between requests",
+    "data_storage": "SQLite database per sport, then merge for analysis",
+    "validation": "Check for duplicate athletes, missing data points"
+  }
+}
+

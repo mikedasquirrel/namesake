@@ -541,7 +541,90 @@ class AdultFilmCollector:
         # Alliteration
         analysis.alliteration_score = self._compute_alliteration(name)
         
+        # Authenticity & Language (NEW - for visual vs non-visual contrast)
+        analysis.has_accent_marks = self._has_accents(name)
+        analysis.language_origin = self._classify_language_origin(name)
+        analysis.appears_anglicized = self._detect_anglicization(name, analysis.has_accent_marks)
+        analysis.ethnic_name_strength = self._compute_ethnic_signal_strength(name)
+        analysis.cross_linguistic_appeal = self._compute_cross_linguistic_appeal(name)
+        
         return analysis
+    
+    def _has_accents(self, name: str) -> bool:
+        """Detect accent marks in name"""
+        accent_chars = set('áàâãäåéèêëíìîïóòôõöúùûüñçæœ')
+        return any(c in accent_chars for c in name.lower())
+    
+    def _classify_language_origin(self, name: str) -> str:
+        """Classify language origin from phonetic patterns"""
+        name_lower = name.lower()
+        
+        # Latino patterns
+        if any(c in name_lower for c in 'ñáéíóú'):
+            return 'latino'
+        if name_lower.endswith(('ez', 'es', 'ita', 'ina', 'ana')):
+            return 'latino'
+        
+        # Asian patterns
+        asian_markers = ['lee', 'kim', 'wang', 'chen', 'tanaka', 'sato', 'akira', 'hase', 'mai', 'asa']
+        if any(marker in name_lower for marker in asian_markers):
+            return 'asian'
+        
+        # European (non-Anglo)
+        if any(c in name_lower for c in 'àâæçèêëîïôœùûü'):
+            return 'european'
+        
+        # Default Anglo
+        return 'anglo'
+    
+    def _detect_anglicization(self, name: str, has_accents: bool) -> bool:
+        """Detect if name appears anglicized"""
+        name_lower = name.lower()
+        
+        # Hispanic surname without accents = likely anglicized
+        if name_lower.endswith(('ez', 'es', 'ita', 'ina')) and not has_accents:
+            return True
+        
+        # Common anglicization patterns
+        if 'maria' in name_lower and not has_accents:  # María → Maria
+            return True
+        
+        return False
+    
+    def _compute_ethnic_signal_strength(self, name: str) -> float:
+        """How strongly does name signal ethnic identity"""
+        score = 0.0
+        
+        # Accent marks = strong ethnic signal
+        if self._has_accents(name):
+            score += 50.0
+        
+        # Non-Anglo patterns
+        origin = self._classify_language_origin(name)
+        if origin != 'anglo':
+            score += 30.0
+        
+        # Distinctive ethnic markers
+        name_lower = name.lower()
+        if any(c in name_lower for c in 'ñáéíóúàèìòùçæœ'):
+            score += 20.0
+        
+        return min(100.0, score)
+    
+    def _compute_cross_linguistic_appeal(self, name: str) -> float:
+        """Score for international/cross-linguistic appeal"""
+        score = 50.0  # Base
+        
+        # Easy to pronounce across languages
+        if len(name) < 10 and self._has_accents(name):
+            score += 20.0  # Short + ethnic = international appeal
+        
+        # Common across languages
+        common_international = ['anna', 'maria', 'sofia', 'elena', 'alex', 'max']
+        if any(common in name.lower() for common in common_international):
+            score += 15.0
+        
+        return min(100.0, score)
     
     def _compute_sexy_score(self, features: Dict) -> float:
         """

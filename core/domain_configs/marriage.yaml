@@ -1,0 +1,310 @@
+# Marriage Prediction Domain Configuration
+# Name compatibility and relationship outcome analysis
+
+domain: marriage
+display_name: "Marriage Compatibility & Relationship Prediction"
+
+research_questions:
+  - "Do phonetic interactions between partners' names predict relationship outcomes?"
+  - "Which compatibility theory wins: similarity, complementarity, or golden ratio?"
+  - "Do name effects vary by age at marriage, era, or culture?"
+  - "Do children's names reflect or mediate relationship dynamics?"
+  - "Does surname combination choice predict relationship egalitarianism?"
+
+# Data collection configuration
+collector_class: "collectors.marriage_collector.MarriageCollector"
+collector_params:
+  sources:
+    - public_records
+    - celebrity_marriages
+    - historical_datasets
+  rate_limit_seconds: 3.0
+  respect_privacy: true
+  anonymize_individuals: true
+
+# Analysis configuration
+analyzer_class: "analyzers.relationship_compatibility_analyzer.RelationshipCompatibilityAnalyzer"
+analyzer_params:
+  include_phonetic: true
+  include_children_analysis: true
+  calculate_baselines: true
+  test_all_theories: true
+
+# Database models
+models:
+  - MarriedCouple
+  - MarriageAnalysis
+  - ChildName
+  - DivorceBaseline
+  - CelebrityMarriage
+  - PredictionLock
+
+# Sample targets
+target_sample_size: 5000
+min_sample_size: 800
+
+# Stratification strategy
+stratification:
+  enabled: true
+  field: cohort_era
+  targets:
+    1980s: 1000
+    1990s: 1250
+    2000s: 1500
+    2010s: 1000
+    2020s: 250
+
+# PRIMARY OUTCOME VARIABLE (relative success, not binary)
+primary_outcome_variable: "relative_success_score"
+primary_outcome_calculation: |
+  Relative_Success = Actual_Duration / Expected_Duration
+  Where Expected = f(age_at_marriage, marriage_year, geography, SES)
+
+# Secondary outcome variables
+secondary_outcome_variables:
+  - "is_divorced"  # Binary (for comparison)
+  - "marriage_duration_years"  # Continuous
+  - "exceeds_expectations"  # Binary (relative success > 1.0)
+  - "divorce_litigation_intensity"  # Ordinal (for celebrity subset)
+
+# KEY PREDICTOR VARIABLES (name interaction metrics)
+key_predictors:
+  # Phonetic interactions
+  - "phonetic_distance"
+  - "vowel_harmony"
+  - "consonant_compatibility"
+  - "stress_alignment"
+  
+  # Structural interactions
+  - "syllable_ratio"
+  - "syllable_ratio_to_phi"  # Test golden ratio
+  - "complexity_balance"
+  - "symmetry_match"
+  
+  # Harmonic/visual interactions
+  - "compatibility_score"
+  - "resonance_score"
+  - "balance_score"
+  - "color_harmony"
+  - "golden_ratio_proximity"
+  
+  # Semantic interactions
+  - "cultural_origin_match"
+  - "social_class_alignment"
+  
+  # Theory-specific scores
+  - "similarity_theory_score"
+  - "complementarity_theory_score"
+  - "golden_ratio_theory_score"
+  - "resonance_theory_score"
+
+# CONTROL VARIABLES (critical for causal inference)
+control_variables:
+  # Age controls
+  - "partner1_age_at_marriage"
+  - "partner2_age_at_marriage"
+  - "age_difference"
+  
+  # Temporal controls
+  - "marriage_year"
+  - "cohort_era"
+  
+  # Geographic controls
+  - "marriage_location_state"
+  - "geographic_region"
+  - "urban_rural"
+  
+  # Social controls (proxied from names/location)
+  - "cultural_origin_match"  # Also predictor
+  - "social_class_alignment"  # Also predictor
+
+# Expected baselines (null model)
+expected_baselines:
+  overall_divorce_rate: 0.42  # ~42% of marriages end in divorce
+  median_marriage_duration: 12.0  # years
+  divorce_rate_by_age:
+    "18-24": 0.55
+    "25-29": 0.45
+    "30-34": 0.38
+    "35-39": 0.32
+    "40+": 0.28
+
+# Temporal component
+temporal_component: true
+temporal_field: "marriage_year"
+temporal_periods:
+  era1_1980s: [1980, 1989]
+  era2_1990s: [1990, 1999]
+  era3_2000s: [2000, 2009]
+  era4_2010s: [2010, 2019]
+  era5_2020s: [2020, 2024]
+
+# Geographic component
+geographic_component: true
+geographic_regions:
+  - Northeast
+  - South
+  - Midwest
+  - West
+
+# Cross-cultural validation
+cross_cultural_validation: true
+cultures_to_test:
+  - USA_English
+  - USA_Hispanic
+  - USA_Asian
+  - Europe_mixed
+  - Latin_America
+  - East_Asia
+
+# Web interface (future)
+page_template: "marriage.html"
+findings_cache_key: "marriage_findings"
+api_endpoints:
+  - "/api/marriage/stats"
+  - "/api/marriage/compatibility-analysis"
+  - "/api/marriage/theory-comparison"
+  - "/api/marriage/era-trends"
+
+# EXPECTED OUTCOMES (pre-registered)
+effect_strength_expected: "small_to_moderate"
+expected_correlations:
+  compatibility_longevity: 0.18  # r = 0.15-0.25 expected
+  phonetic_distance_divorce: -0.15  # Negative (more distance → more divorce)
+  golden_ratio_stability: 0.12  # φ proximity → stability
+  vowel_harmony_satisfaction: 0.10
+  cultural_match_longevity: 0.08  # Small confound
+
+expected_R2:
+  null_model: 0.18  # Controls only (age, era, geography)
+  name_model: 0.23  # Controls + name features (ΔR² = 0.05)
+  full_model: 0.28  # All interactions
+
+# Theory comparison (which will win?)
+theory_hypotheses:
+  similarity:
+    hypothesis: "Similar names predict compatibility"
+    expected_effect: "r = 0.15-0.20"
+    test_metric: "similarity_theory_score"
+  
+  complementarity:
+    hypothesis: "Opposite names create balance"
+    expected_effect: "r = 0.12-0.18"
+    test_metric: "complementarity_theory_score"
+  
+  golden_ratio:
+    hypothesis: "φ relationship predicts harmony"
+    expected_effect: "r = 0.12-0.20, U-shaped"
+    test_metric: "golden_ratio_theory_score"
+  
+  resonance:
+    hypothesis: "Harmonic ratios predict success"
+    expected_effect: "r = 0.10-0.15"
+    test_metric: "resonance_theory_score"
+
+# Statistical thresholds
+statistical_thresholds:
+  primary_alpha: 0.05
+  secondary_alpha: 0.01  # Bonferroni for 4 theories
+  minimum_effect_size: 0.10  # r < 0.10 = not meaningful
+  meaningful_effect: 0.15
+  strong_effect: 0.25
+
+# Quality checks
+quality_checks:
+  min_data_completeness: 0.90  # 90% of fields present
+  max_missing_per_variable: 0.15  # No more than 15% missing
+  min_outcome_variance: 0.20  # Need outcome variability
+  check_duplicate_couples: true
+  validate_date_ranges: true
+  check_age_plausibility: true
+
+# Blind testing configuration
+blind_testing:
+  enabled: true
+  prediction_batch_size: 100
+  lock_before_outcome_reveal: true
+  audit_trail_required: true
+  
+# Ethical safeguards
+ethical_safeguards:
+  anonymize_results: true
+  no_individual_predictions: true
+  aggregate_reporting_only: true
+  transparent_limitations: true
+  emphasize_small_effects: true
+  
+# Publication strategy
+publication_plan:
+  target_journals:
+    - "Psychological Science"
+    - "PNAS"
+    - "Journal of Personality and Social Psychology"
+  
+  target_audience: "Academic only (not public tools)"
+  
+  communication_guardrails:
+    - "Always report effect sizes with CIs"
+    - "Emphasize 90%+ variance is other factors"
+    - "Note cultural/background confounds"
+    - "Stress research-only, not applied"
+    - "Resist commercial partnerships"
+
+# Analysis pipeline stages
+analysis_pipeline:
+  stage1_descriptive:
+    - "Calculate sample demographics"
+    - "Baseline divorce rates"
+    - "Name feature distributions"
+  
+  stage2_feature_engineering:
+    - "Individual name analysis"
+    - "Pairwise interactions"
+    - "Theory-specific scores"
+  
+  stage3_baseline_model:
+    - "Predict from controls only"
+    - "Establish null model R²"
+  
+  stage4_name_models:
+    - "Add name features"
+    - "Test ΔR² significance"
+    - "Compare theories"
+  
+  stage5_interactions:
+    - "Test era moderation"
+    - "Test age moderation"
+    - "Test cultural moderation"
+  
+  stage6_children_analysis:
+    - "Blending hypothesis"
+    - "Dominance hypothesis"
+    - "Innovation hypothesis"
+  
+  stage7_validation:
+    - "Cross-validation (70/15/15 split)"
+    - "Temporal validation"
+    - "Cultural validation"
+  
+  stage8_robustness:
+    - "Remove celebrity subset"
+    - "Recent marriages only"
+    - "Historical marriages only"
+    - "Sensitivity analyses"
+
+# Constants discovery configuration
+constants_testing:
+  enabled: true
+  expected_decay_constant: 0.993
+  expected_growth_constant: 1.008
+  tolerance: 0.01
+  test_method: "genetic_algorithm_optimization"
+  
+# Success criteria (when to publish)
+success_criteria:
+  minimum_sample: 800
+  primary_hypothesis_supported: "r >= 0.15, p < 0.001"
+  at_least_one_theory_wins: "p < 0.01 after Bonferroni"
+  replicates_across_eras: true
+  no_sign_reversals: true
+
