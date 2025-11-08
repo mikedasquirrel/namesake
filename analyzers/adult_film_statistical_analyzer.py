@@ -112,15 +112,22 @@ class AdultFilmStatisticalAnalyzer:
         """
         Predict career success from name features
         
-        Key hypothesis: Shorter, memorable names predict higher success
+        Tests ALL outcome metrics to see which are best predicted by names:
+        - Overall success (composite)
+        - Views (direct popularity)
+        - Videos (productivity)
+        - Awards (recognition)
+        - Career length (longevity)
+        
+        Random Forest determines which outcomes are most name-dependent
         """
         
         df = self.get_comprehensive_dataset()
         
-        if len(df) < 50:
+        if len(df) < 20:
             return {
                 'status': 'insufficient_data',
-                'message': 'Need at least 50 performers for meaningful analysis',
+                'message': f'Need at least 20 performers, have {len(df)}',
                 'current_count': len(df)
             }
         
@@ -135,41 +142,73 @@ class AdultFilmStatisticalAnalyzer:
         ]
         
         X = df[feature_cols].fillna(0)
-        y = df['overall_success_score'].fillna(0)
         
-        # Train model
-        self.success_model = RandomForestRegressor(n_estimators=100, random_state=42)
-        
-        # Cross-validation
-        cv_scores = cross_val_score(self.success_model, X, y, cv=min(5, len(df)//10), scoring='r2')
-        
-        # Fit full model
-        self.success_model.fit(X, y)
-        
-        # Feature importance
-        importances = self.success_model.feature_importances_
-        feature_importance = {
-            feature: float(importance)
-            for feature, importance in zip(feature_cols, importances)
+        # Test multiple outcome variables to see which names predict best
+        outcome_metrics = {
+            'overall_success': 'overall_success_score',
+            'popularity': 'popularity_score',
+            'longevity': 'longevity_score',
+            'productivity': 'total_views',  # Using views as productivity proxy
+            'recognition': 'achievement_score'
         }
         
-        # Sort by importance
-        sorted_features = sorted(feature_importance.items(), key=lambda x: x[1], reverse=True)
+        results_by_outcome = {}
         
-        # Correlations
-        correlations = {}
-        for feature in feature_cols:
-            r, p = stats.pearsonr(df[feature], df['overall_success_score'])
-            correlations[feature] = {'r': float(r), 'p': float(p)}
+        for outcome_name, outcome_col in outcome_metrics.items():
+            if outcome_col not in df.columns:
+                continue
+            
+            y = df[outcome_col].fillna(0)
+            
+            if y.std() == 0:  # Skip if no variation
+                continue
+            
+            # Train Random Forest
+            model = RandomForestRegressor(n_estimators=100, random_state=42, max_depth=5)
+            
+            # Cross-validation
+            cv_scores = cross_val_score(model, X, y, cv=min(3, len(df)//7), scoring='r2')
+            
+            # Fit full model
+            model.fit(X, y)
+            
+            # Feature importance
+            importances = model.feature_importances_
+            feature_importance = {
+                feature: float(importance)
+                for feature, importance in zip(feature_cols, importances)
+            }
+            
+            # Sort by importance
+            sorted_features = sorted(feature_importance.items(), key=lambda x: x[1], reverse=True)
+            
+            # Correlations
+            correlations = {}
+            for feature in feature_cols:
+                if df[feature].std() > 0:
+                    r, p = stats.pearsonr(df[feature], y)
+                    correlations[feature] = {'r': float(r), 'p': float(p)}
+            
+            results_by_outcome[outcome_name] = {
+                'cv_r2_mean': float(np.mean(cv_scores)),
+                'cv_r2_std': float(np.std(cv_scores)),
+                'top_5_features': dict(sorted_features[:5]),
+                'top_3_correlations': dict(sorted(correlations.items(), key=lambda x: abs(x[1]['r']), reverse=True)[:3])
+            }
+        
+        # Determine which outcome is most name-dependent
+        best_outcome = max(results_by_outcome.items(), key=lambda x: x[1]['cv_r2_mean'])
         
         return {
             'status': 'complete',
             'sample_size': len(df),
-            'cv_r2_mean': float(np.mean(cv_scores)),
-            'cv_r2_std': float(np.std(cv_scores)),
-            'feature_importance': dict(sorted_features[:10]),  # Top 10
-            'correlations': correlations,
-            'top_predictors': [f for f, _ in sorted_features[:5]]
+            'results_by_outcome': results_by_outcome,
+            'best_predicted_outcome': {
+                'metric': best_outcome[0],
+                'r2': best_outcome[1]['cv_r2_mean'],
+                'top_features': best_outcome[1]['top_5_features']
+            },
+            'interpretation': f"{best_outcome[0]} is most predictable from names (R²={best_outcome[1]['cv_r2_mean']:.3f})"
         }
     
     def analyze_genre_specialization(self) -> Dict:

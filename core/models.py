@@ -3912,6 +3912,14 @@ class AdultPerformer(db.Model):
     previous_stage_names = db.Column(db.Text)  # JSON list if changed names
     name_change_count = db.Column(db.Integer, default=0)
     
+    # Career outcome tracking (CRITICAL for risk analysis)
+    career_outcome = db.Column(db.String(50), index=True)  # 'active', 'retired', 'early_exit', 'tragic', 'deceased'
+    exit_reason = db.Column(db.String(100))  # If known: 'natural', 'suicide', 'overdose', 'accident', 'illness', 'unknown'
+    age_at_exit = db.Column(db.Integer)  # If applicable
+    years_until_exit = db.Column(db.Float)  # From debut to exit/death
+    early_exit = db.Column(db.Boolean, default=False, index=True)  # Career < 3 years
+    tragic_outcome = db.Column(db.Boolean, default=False, index=True)  # Suicide/overdose/violent death
+    
     # Success metrics (computed)
     popularity_score = db.Column(db.Float, index=True)  # 0-100 based on views/subscribers
     longevity_score = db.Column(db.Float)  # 0-100 based on career length and consistency

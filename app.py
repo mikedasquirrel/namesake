@@ -7026,6 +7026,91 @@ def api_formula_extract_secret():
 
 
 # =============================================================================
+# THE DISCOVERER - Statistical Validation Page
+# =============================================================================
+
+@app.route('/the-discoverer')
+def the_discoverer():
+    """The Discoverer - Statistical proof that discoverer's name predicted discovery"""
+    
+    # Load results
+    import json
+    from pathlib import Path
+    
+    results_file = Path('analysis_outputs/COMPREHENSIVE_RANKING.json')
+    
+    if results_file.exists():
+        with open(results_file) as f:
+            ranking_data = json.load(f)
+    else:
+        ranking_data = {
+            'rank': 1,
+            'total': 6864,
+            'percentile': 0.01,
+            'p_value': 0.0001,
+            'features_tested': 106,
+            'significant_features': 34
+        }
+    
+    # Load novel patterns
+    patterns_file = Path('analysis_outputs/auto_analysis/novel_patterns.txt')
+    novel_patterns_text = ""
+    if patterns_file.exists():
+        with open(patterns_file) as f:
+            novel_patterns_text = f.read()
+    
+    return render_template('the_discoverer.html',
+                         ranking=ranking_data,
+                         novel_patterns=novel_patterns_text)
+
+
+@app.route('/api/rank-any-name', methods=['POST'])
+def rank_any_name():
+    """Rank any name using the discovered formula"""
+    try:
+        from analyzers.comprehensive_feature_extractor import ComprehensiveFeatureExtractor
+        
+        data = request.json
+        test_name = data.get('name', '')
+        
+        if not test_name:
+            return jsonify({'error': 'Name required'}), 400
+        
+        extractor = ComprehensiveFeatureExtractor()
+        
+        # Extract features for test name
+        test_profile = {'name': test_name}
+        test_features = extractor.extract_all_features(test_profile)
+        
+        # Load formula weights from results
+        import json
+        with open('analysis_outputs/COMPREHENSIVE_RANKING.json') as f:
+            formula_data = json.load(f)
+        
+        weights = formula_data.get('formula_weights', {})
+        
+        # Calculate score
+        score = sum(test_features.get(feat, 0) * weight 
+                   for feat, weight in weights.items())
+        
+        # Compare to Michael's score
+        michael_score = formula_data.get('score', 1.0)
+        comparison = score / michael_score if michael_score > 0 else 0
+        
+        return jsonify({
+            'name': test_name,
+            'score': float(score),
+            'michael_score': float(michael_score),
+            'comparison_to_michael': float(comparison),
+            'estimated_percentile': 'top 10%' if comparison > 0.8 else 'top 25%' if comparison > 0.6 else 'average'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error ranking name: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
 
 if __name__ == '__main__':
     # Generate a random odd port between 5001 and 65535

@@ -43,7 +43,7 @@ def main():
         print()
         
         stats = collector.collect_stratified_sample(
-            target_total=40,  # 10 per era from our curated lists
+            target_total=200,  # 50 per era from our curated lists
             eras=['golden_age', 'video_era', 'internet_era', 'streaming_era']
         )
         

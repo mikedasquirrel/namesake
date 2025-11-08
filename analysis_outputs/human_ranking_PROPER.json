@@ -1,0 +1,93 @@
+{
+  "timestamp": "2025-11-08T12:35:04.417202",
+  "population_type": "REAL_HUMANS",
+  "total_analyzed": 6864,
+  "name": "Michael Andrew Smerconish Jr",
+  "rank": 1470,
+  "percentile": 21.416083916083917,
+  "score": 0.6928328974135596,
+  "p_value": 0.21416083916083917,
+  "top_20": [
+    [
+      "Debra Patricia Stone",
+      0.8140135440811905
+    ],
+    [
+      "Betty Deborah Jenkins",
+      0.7973495117866869
+    ],
+    [
+      "Patricia Jacob Bailey",
+      0.7944815804161625
+    ],
+    [
+      "Jessica Cynthia Crawford",
+      0.7923820794570506
+    ],
+    [
+      "Jeremy Cynthia Parker",
+      0.7905229320674064
+    ],
+    [
+      "Anthony Virginia Henderson",
+      0.788081527434424
+    ],
+    [
+      "Jessica Deborah Murray Jr",
+      0.7857666573067679
+    ],
+    [
+      "Deborah Samuel Watson",
+      0.7853495117866869
+    ],
+    [
+      "Elizabeth Guzman Jr",
+      0.7827305499681253
+    ],
+    [
+      "Cynthia Julie Ford",
+      0.78175
+    ],
+    [
+      "Johnny Olszewski",
+      0.7795233580152147
+    ],
+    [
+      "Deborah Castillo",
+      0.7795233580152147
+    ],
+    [
+      "Deborah Castillo",
+      0.7795233580152147
+    ],
+    [
+      "Kyle Gary Washington",
+      0.7786833363050549
+    ],
+    [
+      "Albert Jason Patel",
+      0.7783909765557393
+    ],
+    [
+      "Anthony Raymond Fisher",
+      0.7778604049437615
+    ],
+    [
+      "Judith Karen Wagner",
+      0.7769740666241671
+    ],
+    [
+      "Elizabeth Foster",
+      0.7769470978284497
+    ],
+    [
+      "Terry Keith Wagner",
+      0.7760319531114783
+    ],
+    [
+      "Laura Isabella Thompson",
+      0.775670577099933
+    ]
+  ],
+  "computation_time_seconds": 1.242375
+}
