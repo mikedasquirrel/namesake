@@ -6175,3 +6175,411 @@ class BettingPerformance(db.Model):
         }
 
 
+# ============================================================================
+# LABEL NOMINATIVE MODELS - Nominative analysis of categorical labels
+# ============================================================================
+
+class LabelNominativeProfile(db.Model):
+    """
+    Comprehensive nominative features for categorical labels
+    (team names, venue names, play types, genres, etc.)
+    """
+    __tablename__ = 'label_nominative_profile'
+    __table_args__ = (
+        db.Index('idx_label_type', 'label_type'),
+        db.Index('idx_label_domain', 'domain'),
+        db.Index('idx_label_text', 'label_text'),
+        db.UniqueConstraint('label_text', 'label_type', 'domain', name='uq_label_profile'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Label identification
+    label_text = db.Column(db.String(200), nullable=False, index=True)
+    label_type = db.Column(db.String(50), nullable=False)  # team, venue, play, prop, genre, etc.
+    domain = db.Column(db.String(50), nullable=False)  # sports, music, literary, etc.
+    sport = db.Column(db.String(50))  # For sports-specific labels
+    
+    # === BASE LINGUISTIC FEATURES ===
+    syllables = db.Column(db.Integer)
+    length = db.Column(db.Integer)
+    harshness = db.Column(db.Float)  # 0-100
+    memorability = db.Column(db.Float)  # 0-100
+    pronounceability = db.Column(db.Float)  # 0-100
+    uniqueness = db.Column(db.Float)  # 0-100
+    vowel_ratio = db.Column(db.Float)
+    consonant_clusters = db.Column(db.Integer)
+    first_letter_harsh = db.Column(db.Boolean)
+    last_letter_harsh = db.Column(db.Boolean)
+    
+    # === PHONETIC FEATURES ===
+    plosive_count = db.Column(db.Integer)
+    fricative_count = db.Column(db.Integer)
+    liquid_count = db.Column(db.Integer)
+    nasal_count = db.Column(db.Integer)
+    front_vowel_count = db.Column(db.Integer)
+    back_vowel_count = db.Column(db.Integer)
+    power_phoneme_count = db.Column(db.Integer)
+    speed_phoneme_count = db.Column(db.Integer)
+    soft_phoneme_count = db.Column(db.Integer)
+    power_phoneme_ratio = db.Column(db.Float)
+    speed_phoneme_ratio = db.Column(db.Float)
+    soft_phoneme_ratio = db.Column(db.Float)
+    initial_consonant_strength = db.Column(db.Float)
+    final_consonant_strength = db.Column(db.Float)
+    sonority_score = db.Column(db.Float)
+    consonant_harmony = db.Column(db.Float)
+    vowel_harmony = db.Column(db.Float)
+    
+    # === SEMANTIC FEATURES ===
+    word_count = db.Column(db.Integer)
+    contains_numbers = db.Column(db.Boolean)
+    has_acronym = db.Column(db.Boolean)
+    is_compound = db.Column(db.Boolean)
+    prestige_indicator = db.Column(db.Boolean)
+    power_semantic = db.Column(db.Boolean)
+    speed_semantic = db.Column(db.Boolean)
+    has_geographic = db.Column(db.Boolean)
+    has_color = db.Column(db.Boolean)
+    is_animal = db.Column(db.Boolean)
+    
+    # === LABEL-SPECIFIC FEATURES (stored as JSON for flexibility) ===
+    specific_features = db.Column(db.Text)  # JSON-encoded dict
+    
+    # Metadata
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    interactions = db.relationship('LabelInteraction', backref='label_profile', lazy='dynamic', 
+                                   cascade='all, delete-orphan')
+    
+    def to_dict(self):
+        specific = json.loads(self.specific_features) if self.specific_features else {}
+        return {
+            'id': self.id,
+            'label_text': self.label_text,
+            'label_type': self.label_type,
+            'domain': self.domain,
+            'sport': self.sport,
+            'syllables': self.syllables,
+            'length': self.length,
+            'harshness': self.harshness,
+            'memorability': self.memorability,
+            'pronounceability': self.pronounceability,
+            'uniqueness': self.uniqueness,
+            'power_phoneme_count': self.power_phoneme_count,
+            'specific_features': specific
+        }
+    
+    def set_specific_features(self, features_dict):
+        """Set label-specific features from dict"""
+        self.specific_features = json.dumps(features_dict)
+    
+    def get_specific_features(self):
+        """Get label-specific features as dict"""
+        return json.loads(self.specific_features) if self.specific_features else {}
+
+
+class LabelInteraction(db.Model):
+    """
+    Interaction features between person names and label names
+    (ensemble nominative effects)
+    """
+    __tablename__ = 'label_interaction'
+    __table_args__ = (
+        db.Index('idx_interaction_person_label', 'person_id', 'label_id'),
+        db.Index('idx_interaction_type', 'interaction_type'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # References
+    person_id = db.Column(db.Integer)  # Reference to person (player, artist, etc.)
+    person_name = db.Column(db.String(200), nullable=False)
+    label_id = db.Column(db.Integer, db.ForeignKey('label_nominative_profile.id'), nullable=False)
+    interaction_type = db.Column(db.String(50), nullable=False)  # team, venue, play, etc.
+    
+    # === ALIGNMENT FEATURES ===
+    harshness_alignment = db.Column(db.Float)  # 0-100
+    memorability_alignment = db.Column(db.Float)
+    syllable_alignment = db.Column(db.Float)
+    power_phoneme_alignment = db.Column(db.Float)
+    overall_alignment = db.Column(db.Float)
+    both_harsh = db.Column(db.Boolean)
+    both_soft = db.Column(db.Boolean)
+    both_memorable = db.Column(db.Boolean)
+    both_brief = db.Column(db.Boolean)
+    
+    # === CONTRAST FEATURES ===
+    harshness_contrast = db.Column(db.Float)
+    memorability_contrast = db.Column(db.Float)
+    complexity_contrast = db.Column(db.Float)
+    extreme_harsh_contrast = db.Column(db.Boolean)
+    person_dominates_harsh = db.Column(db.Boolean)
+    person_dominates_memorable = db.Column(db.Boolean)
+    label_dominates_harsh = db.Column(db.Boolean)
+    
+    # === SYNERGY FEATURES ===
+    harsh_synergy = db.Column(db.Float)  # Multiplicative effects
+    memorable_synergy = db.Column(db.Float)
+    brevity_synergy = db.Column(db.Float)
+    combined_power_phonemes = db.Column(db.Integer)
+    combined_speed_phonemes = db.Column(db.Integer)
+    
+    # === DOMINANCE FEATURES ===
+    harshness_differential = db.Column(db.Float)
+    memorability_differential = db.Column(db.Float)
+    length_differential = db.Column(db.Integer)
+    person_dominance_score = db.Column(db.Float)
+    label_dominance_score = db.Column(db.Float)
+    
+    # === HARMONY FEATURES ===
+    vowel_harmony = db.Column(db.Float)
+    consonant_harmony_score = db.Column(db.Float)
+    rhythmic_harmony = db.Column(db.Float)
+    sonority_harmony = db.Column(db.Float)
+    overall_harmony = db.Column(db.Float)
+    
+    # === INTERACTION-SPECIFIC FEATURES (JSON) ===
+    specific_interactions = db.Column(db.Text)  # JSON for type-specific features
+    
+    # Metadata
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        specific = json.loads(self.specific_interactions) if self.specific_interactions else {}
+        return {
+            'id': self.id,
+            'person_name': self.person_name,
+            'label_text': self.label_profile.label_text if self.label_profile else None,
+            'interaction_type': self.interaction_type,
+            'overall_alignment': self.overall_alignment,
+            'overall_harmony': self.overall_harmony,
+            'harsh_synergy': self.harsh_synergy,
+            'person_dominance_score': self.person_dominance_score,
+            'specific_interactions': specific
+        }
+    
+    def set_specific_interactions(self, interactions_dict):
+        """Set interaction-specific features from dict"""
+        self.specific_interactions = json.dumps(interactions_dict)
+    
+    def get_specific_interactions(self):
+        """Get interaction-specific features as dict"""
+        return json.loads(self.specific_interactions) if self.specific_interactions else {}
+
+
+class TeamProfile(db.Model):
+    """
+    Extended profile for sports teams with nominative analysis
+    """
+    __tablename__ = 'team_profile'
+    __table_args__ = (
+        db.Index('idx_team_sport', 'sport'),
+        db.Index('idx_team_name', 'team_name'),
+        db.UniqueConstraint('team_name', 'sport', 'league', name='uq_team'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Team identification
+    team_name = db.Column(db.String(200), nullable=False)
+    team_city = db.Column(db.String(100))
+    team_full_name = db.Column(db.String(300))  # "Kansas City Chiefs"
+    sport = db.Column(db.String(50), nullable=False)
+    league = db.Column(db.String(50))  # NFL, NBA, MLB, etc.
+    conference = db.Column(db.String(50))
+    division = db.Column(db.String(50))
+    
+    # Nominative profile reference
+    label_profile_id = db.Column(db.Integer, db.ForeignKey('label_nominative_profile.id'))
+    
+    # Team-specific nominative features
+    team_aggression_score = db.Column(db.Float)
+    team_tradition_score = db.Column(db.Float)
+    geographic_prominence = db.Column(db.Float)
+    market_size = db.Column(db.String(20))  # large, medium, small
+    
+    # Performance context (for correlation analysis)
+    home_record = db.Column(db.String(20))  # W-L format
+    away_record = db.Column(db.String(20))
+    home_advantage_score = db.Column(db.Float)  # For testing label effects
+    
+    # Metadata
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    label_profile = db.relationship('LabelNominativeProfile', backref='team_profiles')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'team_name': self.team_name,
+            'team_full_name': self.team_full_name,
+            'sport': self.sport,
+            'league': self.league,
+            'team_aggression_score': self.team_aggression_score,
+            'team_tradition_score': self.team_tradition_score,
+            'geographic_prominence': self.geographic_prominence,
+            'home_advantage_score': self.home_advantage_score
+        }
+
+
+class VenueProfile(db.Model):
+    """
+    Extended profile for sports venues with nominative analysis
+    """
+    __tablename__ = 'venue_profile'
+    __table_args__ = (
+        db.Index('idx_venue_name', 'venue_name'),
+        db.Index('idx_venue_sport', 'sport'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Venue identification
+    venue_name = db.Column(db.String(200), nullable=False, unique=True)
+    city = db.Column(db.String(100))
+    state = db.Column(db.String(50))
+    sport = db.Column(db.String(50))
+    
+    # Nominative profile reference
+    label_profile_id = db.Column(db.Integer, db.ForeignKey('label_nominative_profile.id'))
+    
+    # Venue-specific nominative features
+    venue_prestige = db.Column(db.Float)
+    venue_intimidation = db.Column(db.Float)
+    venue_memorability = db.Column(db.Float)
+    
+    # Physical characteristics (for context)
+    surface_type = db.Column(db.String(50))  # grass, turf, hardwood, clay, etc.
+    capacity = db.Column(db.Integer)
+    is_outdoor = db.Column(db.Boolean)
+    altitude = db.Column(db.Integer)  # feet above sea level
+    
+    # Performance context
+    home_team_win_pct = db.Column(db.Float)  # Historical home team performance
+    crowd_noise_level = db.Column(db.String(20))  # loud, moderate, quiet
+    
+    # Metadata
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    label_profile = db.relationship('LabelNominativeProfile', backref='venue_profiles')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'venue_name': self.venue_name,
+            'city': self.city,
+            'state': self.state,
+            'sport': self.sport,
+            'venue_prestige': self.venue_prestige,
+            'venue_intimidation': self.venue_intimidation,
+            'surface_type': self.surface_type,
+            'home_team_win_pct': self.home_team_win_pct
+        }
+
+
+class PropTypeProfile(db.Model):
+    """
+    Standardized prop type taxonomy with nominative features
+    """
+    __tablename__ = 'prop_type_profile'
+    __table_args__ = (
+        db.Index('idx_prop_sport', 'sport'),
+        db.Index('idx_prop_category', 'prop_category'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Prop identification
+    prop_type_name = db.Column(db.String(100), nullable=False, unique=True)
+    sport = db.Column(db.String(50), nullable=False)
+    prop_category = db.Column(db.String(50))  # passing, rushing, receiving, defense, etc.
+    
+    # Nominative profile reference
+    label_profile_id = db.Column(db.Integer, db.ForeignKey('label_nominative_profile.id'))
+    
+    # Prop-specific nominative features
+    prop_action_intensity = db.Column(db.Float)  # 0-100
+    prop_precision_demand = db.Column(db.Float)  # 0-100
+    prop_power_indicator = db.Column(db.Boolean)
+    prop_speed_indicator = db.Column(db.Boolean)
+    
+    # Statistical characteristics (for analysis)
+    typical_variance = db.Column(db.Float)  # How much this prop varies
+    skill_vs_luck_ratio = db.Column(db.Float)  # Skill-based vs luck-based
+    
+    # Metadata
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    label_profile = db.relationship('LabelNominativeProfile', backref='prop_type_profiles')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'prop_type_name': self.prop_type_name,
+            'sport': self.sport,
+            'prop_category': self.prop_category,
+            'prop_action_intensity': self.prop_action_intensity,
+            'prop_precision_demand': self.prop_precision_demand
+        }
+
+
+class LabelCorrelationAnalysis(db.Model):
+    """
+    Store correlation analysis results for label nominative effects
+    """
+    __tablename__ = 'label_correlation_analysis'
+    __table_args__ = (
+        db.Index('idx_label_corr_type', 'label_type'),
+        db.Index('idx_label_corr_feature', 'feature_name'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Analysis identification
+    label_type = db.Column(db.String(50), nullable=False)  # team, venue, play, etc.
+    feature_name = db.Column(db.String(100), nullable=False)  # harshness, memorability, etc.
+    outcome_variable = db.Column(db.String(100), nullable=False)  # performance, win_rate, etc.
+    
+    # Correlation results
+    correlation_coefficient = db.Column(db.Float)
+    p_value = db.Column(db.Float)
+    sample_size = db.Column(db.Integer)
+    effect_size = db.Column(db.Float)  # Cohen's d or similar
+    
+    # Confidence intervals
+    ci_lower = db.Column(db.Float)
+    ci_upper = db.Column(db.Float)
+    
+    # Context
+    sport = db.Column(db.String(50))
+    domain = db.Column(db.String(50))
+    analysis_date = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    # Interpretation
+    is_significant = db.Column(db.Boolean)  # p < 0.05
+    interpretation = db.Column(db.Text)  # Human-readable summary
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'label_type': self.label_type,
+            'feature_name': self.feature_name,
+            'outcome_variable': self.outcome_variable,
+            'correlation_coefficient': self.correlation_coefficient,
+            'p_value': self.p_value,
+            'sample_size': self.sample_size,
+            'is_significant': self.is_significant,
+            'interpretation': self.interpretation
+        }
+
+

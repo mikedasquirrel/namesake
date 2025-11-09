@@ -7,11 +7,9 @@ __pycache__/
 *.egg-info/
 dist/
 build/
-*.egg
 
-# Virtual Environment
+# Virtual environments
 venv/
-.venv/
 env/
 ENV/
 
@@ -20,32 +18,24 @@ ENV/
 .idea/
 *.swp
 *.swo
-*~
+
+# Database files (too large)
+*.db
+*.duckdb
+
+# Large log files
+*.log
+
+# Instance folder
+instance/
+
+# Environment variables
+.env
+.env.local
 
 # OS
 .DS_Store
 Thumbs.db
 
-# Flask
-instance/*.db
-*.db
-*.sqlite
-*.sqlite3
-
-# Logs
-*.log
-*.log.*
-
-# Temporary files
-*.tmp
-*.temp
-*.cache
-
-# Analysis outputs (large files)
-*.parquet
-*.duckdb
-*.duckdb.wal
-
-# Don't ignore certain important files
+# Keep structure files
 !name_study.duckdb
-

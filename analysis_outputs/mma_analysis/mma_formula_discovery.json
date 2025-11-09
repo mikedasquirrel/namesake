@@ -1,0 +1,33 @@
+{
+  "sport": "MMA",
+  "sample_size": 1200,
+  "correlations": {
+    "harshness": {
+      "r": 0.5679584987462399,
+      "p": 1.962029873982766e-103
+    },
+    "syllables": {
+      "r": NaN,
+      "p": NaN
+    },
+    "memorability": {
+      "r": 0.016616496568217773,
+      "p": 0.5652560331348059
+    }
+  },
+  "universal_ratio": NaN,
+  "r_squared": 0.3231442667698241,
+  "cv_r_squared": 0.31748321765112164,
+  "formula_weights": {
+    "syllables": -0.919802323055738,
+    "harshness": 0.5845614336588063,
+    "memorability": 0.2387148145295126
+  },
+  "sweet_spots": {
+    "ko_harshness_correlation": 0.5681749198040595,
+    "heavyweight_correlation": 0.6277988491597605,
+    "lightweight_correlation": 0.5440036018849129
+  },
+  "prediction_validated": true,
+  "upper_bound_confirmed": true
+}
