@@ -1,0 +1,567 @@
+{% extends "base.html" %}
+
+{% block title %}Romance Instrument Names: Phonetics Meets Musicology{% endblock %}
+
+{% block content %}
+<div style="max-width: 1400px; margin: 0 auto;">
+
+<!-- Hero Section -->
+<div style="text-align: center; margin-bottom: 3rem;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Romance Instrument Names: Phonetics Meets Musicology</h1>
+    <p class="subtitle" style="font-size: 1.15rem;">Cross-linguistic analysis of 100+ instruments across 5 Romance languages reveals how phonetic beauty correlates with cultural usage patterns</p>
+</div>
+
+<!-- Key Finding Banner -->
+<div style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(236, 72, 153, 0.05)); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #8b5cf6; margin-bottom: 2rem;">
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+        <div style="font-size: 3rem;">🎻</div>
+        <div style="flex: 1;">
+            <div style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: #8b5cf6;">Italian Instruments: Most Melodious Names</div>
+            <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;" id="key-finding-text">
+                Loading analysis...
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+    <div class="glass card" style="padding: 1.5rem; text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-purple);" id="total-instruments">--</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Instruments Analyzed</div>
+    </div>
+    <div class="glass card" style="padding: 1.5rem; text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: 700; color: #ec4899;" id="total-languages">5</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Romance Languages</div>
+    </div>
+    <div class="glass card" style="padding: 1.5rem; text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: 700; color: var(--success-muted);" id="total-analyses">--</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Total Analyses</div>
+    </div>
+    <div class="glass card" style="padding: 1.5rem; text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: 700; color: var(--warning-muted);" id="significant-correlations">--</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Significant Findings</div>
+    </div>
+</div>
+
+<!-- Instrument Name Comparison Grid -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">🌍 Cross-Linguistic Name Comparison</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+        Same instrument across 5 Romance languages - phonetic scores and usage frequency.
+    </p>
+    
+    <div style="margin-bottom: 1.5rem;">
+        <label style="font-weight: 600; margin-right: 0.75rem;">Select Instrument:</label>
+        <select id="comparison-instrument" style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--background-secondary); color: var(--text-primary); min-width: 200px;">
+            <option value="">Loading instruments...</option>
+        </select>
+    </div>
+    
+    <div id="instrument-comparison" style="display: none;">
+        <!-- Will be populated by JavaScript -->
+    </div>
+</div>
+
+<!-- H1: Beauty ↔ Usage Correlation -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">📊 H1: Phonetic Beauty ↔ Usage Frequency</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+        Do instruments with more melodious names show higher usage in that culture's music?
+    </p>
+    
+    <div id="correlation-analysis-loading" style="text-align: center; padding: 2rem;">
+        <p style="color: var(--text-muted);">Loading correlation analysis...</p>
+    </div>
+    
+    <div id="correlation-analysis" style="display: none;">
+        <!-- Will be populated by JavaScript -->
+    </div>
+</div>
+
+<!-- H2: Native vs. Borrowed -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">🔤 H2: Native vs. Borrowed Words</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+        Do instruments with native Romance words show higher cultural integration and usage?
+    </p>
+    
+    <div id="native-borrowed-loading" style="text-align: center; padding: 2rem;">
+        <p style="color: var(--text-muted);">Loading native vs borrowed analysis...</p>
+    </div>
+    
+    <div id="native-borrowed-analysis" style="display: none;">
+        <!-- Will be populated by JavaScript -->
+    </div>
+</div>
+
+<!-- Language Beauty Profiles -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">🏆 Language Beauty Rankings</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+        Which Romance language has the most melodious instrument names overall?
+    </p>
+    
+    <div id="language-profiles" style="display: none;">
+        <!-- Will be populated by JavaScript -->
+    </div>
+</div>
+
+<!-- Usage Frequency by Region -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">🎵 Usage Frequency by Region</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+        Which instruments dominate in each Romance culture?
+    </p>
+    
+    <div style="margin-bottom: 1.5rem;">
+        <label style="font-weight: 600; margin-right: 0.75rem;">Select Region:</label>
+        <select id="usage-region" style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--background-secondary); color: var(--text-primary);">
+            <option value="spain">Spain</option>
+            <option value="france">France</option>
+            <option value="italy" selected>Italy</option>
+            <option value="portugal">Portugal</option>
+            <option value="romania">Romania</option>
+        </select>
+    </div>
+    
+    <div id="usage-by-region">
+        Loading...
+    </div>
+</div>
+
+<!-- Interactive Instrument Explorer -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">🔍 Complete Instrument Explorer</h2>
+    
+    <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+        <select id="filter-category" style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--background-secondary); color: var(--text-primary);">
+            <option value="">All Categories</option>
+            <option value="string">String</option>
+            <option value="woodwind">Woodwind</option>
+            <option value="brass">Brass</option>
+            <option value="percussion">Percussion</option>
+            <option value="keyboard">Keyboard</option>
+            <option value="folk">Folk/Regional</option>
+            <option value="modern">Modern</option>
+        </select>
+        
+        <select id="filter-lang" style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--background-secondary); color: var(--text-primary);">
+            <option value="">All Languages</option>
+            <option value="spanish">Spanish</option>
+            <option value="french">French</option>
+            <option value="italian">Italian</option>
+            <option value="portuguese">Portuguese</option>
+            <option value="romanian">Romanian</option>
+        </select>
+        
+        <input type="text" id="search-instruments" placeholder="Search instruments..." style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--background-secondary); color: var(--text-primary); flex: 1; min-width: 200px;">
+    </div>
+    
+    <div id="instruments-table-container" style="overflow-x: auto;">
+        <table id="instruments-table" style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+            <thead>
+                <tr style="background: var(--background-secondary); border-bottom: 2px solid var(--border-color);">
+                    <th style="padding: 0.75rem; text-align: left;">Instrument</th>
+                    <th style="padding: 0.75rem; text-align: left;">Category</th>
+                    <th style="padding: 0.75rem; text-align: center;">Spanish</th>
+                    <th style="padding: 0.75rem; text-align: center;">French</th>
+                    <th style="padding: 0.75rem; text-align: center;">Italian</th>
+                    <th style="padding: 0.75rem; text-align: center;">Portuguese</th>
+                    <th style="padding: 0.75rem; text-align: center;">Romanian</th>
+                </tr>
+            </thead>
+            <tbody id="instruments-table-body">
+                <tr><td colspan="7" style="text-align: center; padding: 2rem;">Loading instruments...</td></tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Research Methodology -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">🔬 Research Methodology</h2>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div>
+            <h3 style="font-size: 1.05rem; margin-bottom: 1rem; color: var(--accent-purple);">Phonetic Analysis</h3>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+                <p style="margin-bottom: 1rem;">
+                    Same framework as love words and country name analysis:
+                </p>
+                <p style="margin-bottom: 1rem;">
+                    <strong>Beauty Score:</strong> melodiousness - (harshness × 0.3)
+                </p>
+                <p style="margin-bottom: 1rem;">
+                    <strong>Harshness (0-100):</strong> Weighted plosives + sibilants
+                </p>
+                <p>
+                    <strong>Melodiousness (0-100):</strong> Vowel density + liquid consonants + syllable flow
+                </p>
+            </div>
+        </div>
+        
+        <div>
+            <h3 style="font-size: 1.05rem; margin-bottom: 1rem; color: #ec4899;">Usage Data Sources</h3>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+                <div style="margin-bottom: 0.75rem;">✓ Historical composition counts</div>
+                <div style="margin-bottom: 0.75rem;">✓ Modern recording frequency proxies</div>
+                <div style="margin-bottom: 0.75rem;">✓ Sheet music corpus analysis</div>
+                <div style="margin-bottom: 0.75rem;">✓ Cultural survey prominence</div>
+                <div style="margin-bottom: 0.75rem;">✓ Ensemble appearance rates</div>
+                <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(236, 72, 153, 0.1); border-radius: 6px;">
+                    <strong>Composite Score:</strong> Weighted average of 5 sources (0-100)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+// Global data
+let allInstruments = [];
+let analysisData = null;
+
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        await Promise.all([
+            loadInstruments(),
+            loadComprehensiveAnalysis()
+        ]);
+        
+        populateStatistics();
+        populateCorrelationAnalysis();
+        populateNativeBorrowedAnalysis();
+        populateLanguageProfiles();
+        populateInstrumentsTable();
+        setupFilters();
+        setupComparisonSelector();
+        
+    } catch (error) {
+        console.error('Error loading data:', error);
+    }
+});
+
+async function loadInstruments() {
+    try {
+        const response = await fetch('/api/romance-instruments/all');
+        const data = await response.json();
+        allInstruments = data.instruments || [];
+    } catch (error) {
+        console.error('Error loading instruments:', error);
+    }
+}
+
+async function loadComprehensiveAnalysis() {
+    try {
+        const response = await fetch('/api/romance-instruments/comprehensive-analysis');
+        const data = await response.json();
+        analysisData = data.analysis;
+    } catch (error) {
+        console.error('Error loading analysis:', error);
+    }
+}
+
+function populateStatistics() {
+    if (!analysisData || !analysisData.summary) return;
+    
+    document.getElementById('total-instruments').textContent = analysisData.summary.dataset_size;
+    document.getElementById('total-analyses').textContent = analysisData.summary.total_analyses;
+    
+    // Count significant findings
+    const h1Results = analysisData.beauty_usage_correlation || {};
+    const sigCount = Object.values(h1Results).filter(r => r.significant).length;
+    document.getElementById('significant-correlations').textContent = sigCount + '/5';
+    
+    // Update key finding
+    if (analysisData.language_profiles && analysisData.language_profiles.most_melodious) {
+        const topLang = analysisData.language_profiles.most_melodious;
+        const profiles = analysisData.language_profiles.profiles || {};
+        const topProfile = profiles[topLang];
+        
+        if (topProfile) {
+            document.getElementById('key-finding-text').innerHTML = 
+                `<strong>${topLang.charAt(0).toUpperCase() + topLang.slice(1)}</strong> instrument names score highest on phonetic beauty 
+                (mean: <strong>${topProfile.mean_beauty.toFixed(1)}/100</strong>), followed by other Romance languages. 
+                Italian's vowel-rich phonology creates naturally melodious instrument names like <em>violino</em>, <em>violoncello</em>, 
+                and <em>pianoforte</em>, suggesting phonetic aesthetics may influence instrument adoption patterns.`;
+        }
+    }
+}
+
+function populateCorrelationAnalysis() {
+    if (!analysisData || !analysisData.beauty_usage_correlation) return;
+    
+    const container = document.getElementById('correlation-analysis');
+    const loading = document.getElementById('correlation-analysis-loading');
+    
+    const correlations = analysisData.beauty_usage_correlation;
+    
+    let html = '<div style="display: grid; gap: 1rem;">';
+    
+    const languages = ['spanish', 'french', 'italian', 'portuguese', 'romanian'];
+    languages.forEach(lang => {
+        const data = correlations[lang];
+        if (!data || data.error) {
+            html += `
+            <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; opacity: 0.5;">
+                <div style="font-weight: 700; margin-bottom: 0.5rem; text-transform: capitalize;">${lang}</div>
+                <div style="color: var(--text-muted);">Insufficient data</div>
+            </div>
+            `;
+            return;
+        }
+        
+        const isSignificant = data.significant;
+        const rSquared = data.regression_r_squared;
+        
+        html += `
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; border-left: 4px solid ${isSignificant ? '#22c55e' : '#94a3b8'};">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <div style="font-size: 1.1rem; font-weight: 700; text-transform: capitalize;">${lang}</div>
+                <div style="padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; ${isSignificant ? 'background: rgba(34, 197, 94, 0.15); color: #22c55e;' : 'background: rgba(148, 163, 184, 0.15); color: #94a3b8;'}">
+                    ${isSignificant ? 'Significant ✓' : 'Not significant'}
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; font-size: 0.85rem; margin-bottom: 1rem;">
+                <div>
+                    <div style="color: var(--text-muted); margin-bottom: 0.25rem;">Pearson r</div>
+                    <div style="font-size: 1.2rem; font-weight: 700;">${data.pearson_r.toFixed(3)}</div>
+                </div>
+                <div>
+                    <div style="color: var(--text-muted); margin-bottom: 0.25rem;">R² (regression)</div>
+                    <div style="font-size: 1.2rem; font-weight: 700;">${rSquared.toFixed(3)}</div>
+                </div>
+                <div>
+                    <div style="color: var(--text-muted); margin-bottom: 0.25rem;">p-value</div>
+                    <div style="font-size: 1.2rem; font-weight: 700;">${data.pearson_p.toFixed(4)}</div>
+                </div>
+            </div>
+            <div style="padding: 0.75rem; background: var(--background); border-radius: 6px; font-size: 0.85rem;">
+                ${data.interpretation}
+            </div>
+        </div>
+        `;
+    });
+    
+    html += '</div>';
+    
+    container.innerHTML = html;
+    container.style.display = 'block';
+    loading.style.display = 'none';
+}
+
+function populateNativeBorrowedAnalysis() {
+    if (!analysisData || !analysisData.native_vs_borrowed) return;
+    
+    const container = document.getElementById('native-borrowed-analysis');
+    const loading = document.getElementById('native-borrowed-loading');
+    
+    const nativeVsBorrowed = analysisData.native_vs_borrowed;
+    
+    let html = '<div style="display: grid; gap: 1rem;">';
+    
+    const languages = ['spanish', 'french', 'italian', 'portuguese', 'romanian'];
+    languages.forEach(lang => {
+        const data = nativeVsBorrowed[lang];
+        if (!data || data.error) return;
+        
+        const nativeHigher = data.difference > 0;
+        const isSignificant = data.significant;
+        
+        html += `
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <div style="font-size: 1.1rem; font-weight: 700; text-transform: capitalize;">${lang}</div>
+                <div style="padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; ${isSignificant ? 'background: rgba(34, 197, 94, 0.15); color: #22c55e;' : 'background: rgba(148, 163, 184, 0.15); color: #94a3b8;'}">
+                    p = ${data.p_value.toFixed(4)}
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1rem;">
+                <div style="padding: 1rem; background: var(--background); border-radius: 6px;">
+                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.25rem;">Native Words (n=${data.native_count})</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--success-muted);">${data.native_mean.toFixed(1)}</div>
+                </div>
+                <div style="padding: 1rem; background: var(--background); border-radius: 6px;">
+                    <div style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 0.25rem;">Borrowed Words (n=${data.borrowed_count})</div>
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--warning-muted);">${data.borrowed_mean.toFixed(1)}</div>
+                </div>
+            </div>
+            <div style="padding: 0.75rem; background: ${nativeHigher ? 'rgba(34, 197, 94, 0.1)' : 'rgba(234, 179, 8, 0.1)'}; border-radius: 6px; font-size: 0.85rem;">
+                <strong>${nativeHigher ? 'Native advantage' : 'Borrowed advantage'}:</strong> 
+                ${Math.abs(data.difference).toFixed(1)} points • 
+                Cohen's d = ${data.effect_size_cohens_d.toFixed(2)}
+            </div>
+        </div>
+        `;
+    });
+    
+    html += '</div>';
+    
+    container.innerHTML = html;
+    container.style.display = 'block';
+    loading.style.display = 'none';
+}
+
+function populateLanguageProfiles() {
+    if (!analysisData || !analysisData.language_profiles) return;
+    
+    const container = document.getElementById('language-profiles');
+    const profiles = analysisData.language_profiles.profiles || {};
+    const ranked = analysisData.language_profiles.ranked || [];
+    
+    let html = '<div style="display: grid; gap: 1rem;">';
+    
+    ranked.forEach(([lang, beauty], index) => {
+        const profile = profiles[lang];
+        if (!profile) return;
+        
+        const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}.`;
+        
+        html += `
+        <div style="display: flex; align-items: center; gap: 1rem; padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 1.5rem; width: 50px; text-align: center;">${medal}</div>
+            <div style="flex: 1;">
+                <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.5rem; text-transform: capitalize;">${lang}</div>
+                <div style="display: flex; gap: 2rem; font-size: 0.85rem; color: var(--text-secondary);">
+                    <div><strong>Beauty:</strong> ${profile.mean_beauty.toFixed(1)}</div>
+                    <div><strong>Melodiousness:</strong> ${profile.mean_melodiousness.toFixed(1)}</div>
+                    <div><strong>Harshness:</strong> ${profile.mean_harshness.toFixed(1)}</div>
+                </div>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-purple);">${profile.mean_beauty.toFixed(1)}</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">mean beauty</div>
+            </div>
+        </div>
+        `;
+    });
+    
+    html += '</div>';
+    
+    container.innerHTML = html;
+    container.style.display = 'block';
+}
+
+function populateInstrumentsTable() {
+    if (allInstruments.length === 0) return;
+    
+    const tbody = document.getElementById('instruments-table-body');
+    
+    let html = '';
+    
+    allInstruments.forEach(inst => {
+        html += `
+        <tr style="border-bottom: 1px solid var(--border-color);" 
+            data-category="${inst.instrument_category}" 
+            data-english="${inst.base_name_english.toLowerCase()}">
+            <td style="padding: 0.75rem; font-weight: 600;">${inst.base_name_english}</td>
+            <td style="padding: 0.75rem;"><span style="padding: 0.25rem 0.5rem; background: var(--background-secondary); border-radius: 4px; font-size: 0.8rem;">${inst.instrument_category}</span></td>
+            <td style="padding: 0.75rem; text-align: center;">${inst.names.spanish || 'N/A'}</td>
+            <td style="padding: 0.75rem; text-align: center;">${inst.names.french || 'N/A'}</td>
+            <td style="padding: 0.75rem; text-align: center;">${inst.names.italian || 'N/A'}</td>
+            <td style="padding: 0.75rem; text-align: center;">${inst.names.portuguese || 'N/A'}</td>
+            <td style="padding: 0.75rem; text-align: center;">${inst.names.romanian || 'N/A'}</td>
+        </tr>
+        `;
+    });
+    
+    tbody.innerHTML = html;
+}
+
+function setupFilters() {
+    const categoryFilter = document.getElementById('filter-category');
+    const langFilter = document.getElementById('filter-lang');
+    const searchBox = document.getElementById('search-instruments');
+    
+    function applyFilters() {
+        const category = categoryFilter.value.toLowerCase();
+        const lang = langFilter.value.toLowerCase();
+        const search = searchBox.value.toLowerCase();
+        
+        const rows = document.querySelectorAll('#instruments-table-body tr');
+        
+        rows.forEach(row => {
+            const rowCategory = row.dataset.category;
+            const rowEnglish = row.dataset.english;
+            
+            const matchCategory = !category || rowCategory === category;
+            const matchSearch = !search || rowEnglish.includes(search);
+            
+            if (matchCategory && matchSearch) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+    
+    categoryFilter.addEventListener('change', applyFilters);
+    langFilter.addEventListener('change', applyFilters);
+    searchBox.addEventListener('input', applyFilters);
+}
+
+function setupComparisonSelector() {
+    const selector = document.getElementById('comparison-instrument');
+    
+    // Populate options
+    let options = '<option value="">Select an instrument...</option>';
+    allInstruments.forEach(inst => {
+        options += `<option value="${inst.base_name_english}">${inst.base_name_english}</option>`;
+    });
+    selector.innerHTML = options;
+    
+    // Handle selection
+    selector.addEventListener('change', (e) => {
+        const instrumentName = e.target.value;
+        if (instrumentName) {
+            displayInstrumentComparison(instrumentName);
+        }
+    });
+}
+
+function displayInstrumentComparison(instrumentName) {
+    const instrument = allInstruments.find(i => i.base_name_english === instrumentName);
+    if (!instrument) return;
+    
+    const container = document.getElementById('instrument-comparison');
+    const languages = ['spanish', 'french', 'italian', 'portuguese', 'romanian'];
+    
+    let html = '<div style="display: grid; gap: 1rem;">';
+    
+    languages.forEach(lang => {
+        const name = instrument.names[lang];
+        const ipa = instrument.ipa[lang];
+        const isNative = instrument.is_native_word[lang];
+        const descTrans = instrument.descriptive_transparency[lang];
+        
+        html += `
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; border-left: 4px solid ${isNative ? '#22c55e' : '#94a3b8'};">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem;">
+                <div>
+                    <div style="font-size: 1.1rem; font-weight: 700; text-transform: capitalize; margin-bottom: 0.25rem;">${lang}</div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">${isNative ? 'Native word' : 'Borrowed'}</div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="padding: 0.25rem 0.5rem; background: var(--background); border-radius: 4px; font-size: 0.75rem;">
+                        Transparency: ${descTrans}/100
+                    </div>
+                </div>
+            </div>
+            <div style="font-size: 1.3rem; margin-bottom: 0.5rem;">${name}</div>
+            <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 1rem;">${ipa}</div>
+        </div>
+        `;
+    });
+    
+    html += '</div>';
+    
+    container.innerHTML = html;
+    container.style.display = 'block';
+}
+</script>
+
+{% endblock %}
+

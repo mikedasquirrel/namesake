@@ -28,3 +28,20 @@ geopy==2.4.1
 # Domain Analysis Template System
 PyYAML==6.0.1
 
+# Literary Name Analysis Dependencies
+spacy==3.7.2
+nltk==3.8.1
+# Note: gutenbergpy removed due to Python 2 dependency issues
+# Using direct HTTP requests to Project Gutenberg instead
+
+# Advanced Nominative Traits - Research Excellence Dependencies
+pymc3==3.11.5
+arviz==0.16.1
+transformers==4.35.2
+torch==2.1.1
+torchvision==0.16.1
+xgboost==2.0.2
+shap==0.43.0
+lime==0.2.0.1
+gensim==4.3.2
+

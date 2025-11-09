@@ -14,6 +14,7 @@ from analyzers.breakout_predictor import BreakoutPredictor
 from trackers.forward_validator import ForwardValidator
 from scanners.opportunity_finder import OpportunityFinder
 from datetime import datetime, timedelta
+from collections import defaultdict
 import logging
 import json
 import pandas as pd
@@ -332,6 +333,383 @@ def predict_sport_success():
         })
     except Exception as e:
         logger.error(f"Error predicting sport success: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
+# API ENDPOINTS - SPORTS BETTING
+# =============================================================================
+
+@app.route('/sports-betting')
+def sports_betting_dashboard():
+    """Sports Betting Dashboard - Main betting opportunities interface"""
+    return render_template('sports_betting_dashboard.html')
+
+
+@app.route('/api/betting/opportunities')
+def get_betting_opportunities():
+    """API: Get current top betting opportunities across all sports"""
+    try:
+        from analyzers.sports_betting_analyzer import SportsBettingAnalyzer
+        
+        analyzer = SportsBettingAnalyzer()
+        sport = request.args.get('sport')
+        min_score = float(request.args.get('min_score', 60))
+        min_confidence = float(request.args.get('min_confidence', 50))
+        limit = int(request.args.get('limit', 20))
+        
+        if sport:
+            opportunities = analyzer.identify_opportunities(
+                sport, min_score=min_score, min_confidence=min_confidence, limit=limit
+            )
+        else:
+            # Get opportunities from all sports
+            all_opportunities = []
+            for s in ['football', 'basketball', 'baseball']:
+                opps = analyzer.identify_opportunities(
+                    s, min_score=min_score, min_confidence=min_confidence, limit=limit
+                )
+                all_opportunities.extend(opps)
+            
+            # Sort by edge
+            all_opportunities.sort(key=lambda x: abs(x['edge']), reverse=True)
+            opportunities = all_opportunities[:limit]
+        
+        return jsonify({
+            'total_opportunities': len(opportunities),
+            'opportunities': opportunities
+        })
+    except Exception as e:
+        logger.error(f"Error getting betting opportunities: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/betting/opportunities/<sport>')
+def get_sport_betting_opportunities(sport):
+    """API: Get betting opportunities for specific sport"""
+    try:
+        from analyzers.sports_betting_analyzer import SportsBettingAnalyzer
+        
+        analyzer = SportsBettingAnalyzer()
+        min_score = float(request.args.get('min_score', 60))
+        min_confidence = float(request.args.get('min_confidence', 50))
+        limit = int(request.args.get('limit', 20))
+        
+        opportunities = analyzer.identify_opportunities(
+            sport, min_score=min_score, min_confidence=min_confidence, limit=limit
+        )
+        
+        return jsonify({
+            'sport': sport,
+            'total_opportunities': len(opportunities),
+            'opportunities': opportunities
+        })
+    except Exception as e:
+        logger.error(f"Error getting {sport} opportunities: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/betting/analyze-prop', methods=['POST'])
+def analyze_prop_bet():
+    """API: Analyze specific player prop bet"""
+    try:
+        from analyzers.player_prop_analyzer import PlayerPropAnalyzer
+        
+        data = request.get_json()
+        
+        required_fields = ['player_name', 'sport', 'prop_type', 'linguistic_features', 
+                          'baseline_average', 'market_line']
+        for field in required_fields:
+            if field not in data:
+                return jsonify({'error': f'Missing required field: {field}'}), 400
+        
+        analyzer = PlayerPropAnalyzer()
+        analysis = analyzer.analyze_prop_bet(
+            player_name=data['player_name'],
+            sport=data['sport'],
+            prop_type=data['prop_type'],
+            linguistic_features=data['linguistic_features'],
+            baseline_average=data['baseline_average'],
+            market_line=data['market_line'],
+            over_odds=data.get('over_odds', -110),
+            under_odds=data.get('under_odds', -110)
+        )
+        
+        return jsonify(analysis)
+    except Exception as e:
+        logger.error(f"Error analyzing prop bet: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/betting/bankroll/status')
+def get_bankroll_status():
+    """API: Get current bankroll status"""
+    try:
+        from utils.betting_bankroll_manager import BettingBankrollManager
+        
+        # In production, load from session/database
+        # For now, create instance with defaults
+        manager = BettingBankrollManager(initial_bankroll=10000)
+        status = manager.get_status()
+        
+        return jsonify(status)
+    except Exception as e:
+        logger.error(f"Error getting bankroll status: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/betting/place-bet', methods=['POST'])
+def place_bet():
+    """API: Log a placed bet"""
+    try:
+        from trackers.bet_tracker import BetTracker
+        
+        data = request.get_json()
+        
+        required_fields = ['sport', 'bet_type', 'odds', 'stake']
+        for field in required_fields:
+            if field not in data:
+                return jsonify({'error': f'Missing required field: {field}'}), 400
+        
+        tracker = BetTracker()
+        
+        # Get bankroll state (in production, from session/database)
+        bankroll_state = {
+            'current_bankroll': data.get('current_bankroll', 10000),
+            'allocated_capital': data.get('allocated_capital', 0)
+        }
+        
+        bet = tracker.place_bet(data, bankroll_state)
+        
+        return jsonify({
+            'success': True,
+            'bet': bet.to_dict()
+        })
+    except Exception as e:
+        logger.error(f"Error placing bet: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/betting/performance')
+def get_betting_performance():
+    """API: Get historical betting performance"""
+    try:
+        from analyzers.betting_performance_analyzer import BettingPerformanceAnalyzer
+        
+        analyzer = BettingPerformanceAnalyzer()
+        sport = request.args.get('sport')
+        market_type = request.args.get('market_type')
+        days = request.args.get('days', type=int)
+        
+        if days:
+            performance = analyzer.calculate_recent_performance(days)
+        elif sport:
+            performance = analyzer.calculate_sport_performance(sport)
+        elif market_type:
+            performance = analyzer.calculate_market_performance(market_type)
+        else:
+            performance = analyzer.calculate_overall_performance()
+        
+        return jsonify(performance)
+    except Exception as e:
+        logger.error(f"Error getting betting performance: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/betting/backtest', methods=['POST'])
+def run_betting_backtest():
+    """API: Run backtest on historical data"""
+    try:
+        from analyzers.betting_backtester import BettingBacktester
+        
+        data = request.get_json()
+        sport = data.get('sport', 'football')
+        initial_bankroll = data.get('initial_bankroll', 10000)
+        min_score = data.get('min_score', 60)
+        min_confidence = data.get('min_confidence', 50)
+        min_ev = data.get('min_ev', 0.03)
+        
+        backtester = BettingBacktester(initial_bankroll=initial_bankroll)
+        
+        if data.get('comprehensive'):
+            results = backtester.run_comprehensive_backtest()
+        else:
+            results = backtester.run_backtest(
+                sport=sport,
+                min_score=min_score,
+                min_confidence=min_confidence,
+                min_ev=min_ev
+            )
+        
+        return jsonify(results)
+    except Exception as e:
+        logger.error(f"Error running backtest: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/betting/bet-history')
+def get_bet_history():
+    """API: Get bet history"""
+    try:
+        from trackers.bet_tracker import BetTracker
+        
+        tracker = BetTracker()
+        sport = request.args.get('sport')
+        limit = int(request.args.get('limit', 100))
+        
+        history = tracker.get_bet_history(sport=sport, limit=limit)
+        
+        return jsonify({
+            'total_bets': len(history),
+            'bets': history
+        })
+    except Exception as e:
+        logger.error(f"Error getting bet history: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
+# LIVE BETTING SYSTEM
+# =============================================================================
+
+@app.route('/live-betting')
+def live_betting_dashboard():
+    """Live betting recommendations with real-time data"""
+    return render_template('live_betting_dashboard.html')
+
+
+@app.route('/portfolio-history')
+def portfolio_history():
+    """Historical portfolio performance across seasons"""
+    return render_template('portfolio_history.html')
+
+
+@app.route('/api/betting/live-recommendations')
+def get_live_recommendations():
+    """API: Get current live betting recommendations"""
+    try:
+        from collectors.live_sports_data_connector import LiveSportsDataConnector
+        from analyzers.realtime_recommendation_engine import RealtimeRecommendationEngine
+        
+        # Initialize connectors
+        connector = LiveSportsDataConnector()
+        engine = RealtimeRecommendationEngine()
+        
+        # Get today's games
+        all_games = []
+        for sport in ['football', 'basketball', 'baseball']:
+            games = connector.get_todays_games(sport)
+            for game in games:
+                game['sport'] = sport
+            all_games.extend(games)
+        
+        # For demo: Generate mock recommendations
+        # In production: engine.generate_live_recommendations(all_games, odds, player_db)
+        
+        mock_recommendations = [
+            {
+                'player_name': 'Demo Player 1',
+                'sport': 'football',
+                'final_score': 85.2,
+                'final_confidence': 82.5,
+                'expected_roi': 36.8,
+                'cumulative_multiplier': 4.2,
+                'priority': 5,
+                'recommendation': 'STRONG BET - BET HEAVY (4.2× size)',
+                'prop_available': {
+                    'prop_type': 'rushing_yards',
+                    'line': 85.5,
+                    'over_odds': -110,
+                    'under_odds': -110
+                },
+                'game': all_games[0] if all_games else {'home_team': 'Home', 'away_team': 'Away'},
+                'metadata': {'contexts_summary': '🌟 Primetime • 🏆 Playoff'},
+                'layer_breakdown': {
+                    'layer2_universal': {'ratio_used': 1.420},
+                    'layer3_opponent': {'edge': 15.2},
+                    'layer4_context': {'multiplier': 1.68},
+                    'layer6_market': {'signal': 'STRONG_CONTRARIAN'}
+                }
+            }
+        ]
+        
+        return jsonify({
+            'status': 'success',
+            'recommendations': mock_recommendations,
+            'games_today': len(all_games),
+            'last_update': datetime.now().isoformat(),
+            'next_update': (datetime.now() + timedelta(minutes=15)).isoformat()
+        })
+    except Exception as e:
+        logger.error(f"Error generating live recommendations: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/betting/portfolio-history')
+def get_portfolio_history():
+    """API: Get complete portfolio history across seasons"""
+    try:
+        from analyzers.historical_season_analyzer import HistoricalSeasonAnalyzer
+        from core.models import SportsBet
+        
+        analyzer = HistoricalSeasonAnalyzer()
+        
+        # Get all bets from database
+        all_bets = SportsBet.query.filter(
+            SportsBet.bet_status.in_(['won', 'lost', 'push'])
+        ).all()
+        
+        if not all_bets:
+            # Return mock data for demonstration
+            return jsonify({
+                'aggregate': {
+                    'total_bets': 0,
+                    'overall_roi': 0,
+                    'overall_win_rate': 0,
+                    'total_profit': 0,
+                    'total_staked': 0,
+                    'by_sport_contribution': {}
+                },
+                'by_sport': {},
+                'by_season': {},
+                'note': 'No betting history yet - mock data shown'
+            })
+        
+        # Organize bets by sport
+        bets_by_sport = {}
+        for bet in all_bets:
+            sport = bet.sport
+            if sport not in bets_by_sport:
+                bets_by_sport[sport] = []
+            bets_by_sport[sport].append(bet.to_dict())
+        
+        # Analyze portfolio
+        portfolio_analysis = analyzer.analyze_portfolio_history(bets_by_sport)
+        
+        return jsonify(portfolio_analysis)
+    except Exception as e:
+        logger.error(f"Error getting portfolio history: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/betting/season-performance/<int:year>')
+def get_season_performance(year):
+    """API: Get performance for specific season"""
+    try:
+        from analyzers.historical_season_analyzer import HistoricalSeasonAnalyzer
+        from core.models import SportsBet
+        
+        analyzer = HistoricalSeasonAnalyzer()
+        
+        # Get bets for season
+        # (Would filter by date range for season)
+        
+        return jsonify({
+            'season': year,
+            'note': 'Season-specific data endpoint'
+        })
+    except Exception as e:
+        logger.error(f"Error getting season performance: {e}")
         return jsonify({'error': str(e)}), 500
 
 
@@ -7112,6 +7490,151 @@ def formula_overview():
     return render_template('overview.html')
 
 
+@app.route('/formula-dashboard')
+def formula_dashboard():
+    """Main Formula Analysis Dashboard - 72K Entity System"""
+    return render_template('formula_dashboard.html')
+
+
+@app.route('/meta-formulas')
+def meta_formulas():
+    """Meta-Formula Analysis - Golden Ratio & Harmonic Relationships"""
+    return render_template('meta_formulas.html')
+
+
+@app.route('/pattern-discovery')
+def pattern_discovery():
+    """Novel Pattern Discovery Visualization"""
+    return render_template('pattern_discovery.html')
+
+
+@app.route('/analysis-72k')
+def analysis_72k():
+    """Comprehensive 72K Dataset Analysis"""
+    return render_template('analysis_72k.html')
+
+
+@app.route('/convergence-tracker')
+def convergence_tracker():
+    """Evolution & Convergence Monitoring"""
+    return render_template('convergence_tracker.html')
+
+
+@app.route('/api/formula-dashboard/status')
+def formula_dashboard_status():
+    """API endpoint for dashboard status and data"""
+    import json
+    from pathlib import Path
+    from datetime import datetime
+    
+    try:
+        # Load latest analysis results
+        analysis_dir = Path('analysis_outputs/auto_analysis')
+        latest_file = analysis_dir / 'weekly_analysis_latest.json'
+        
+        if not latest_file.exists():
+            # Try daily analysis
+            latest_file = analysis_dir / 'daily_analysis_latest.json'
+        
+        if latest_file.exists():
+            with open(latest_file) as f:
+                data = json.load(f)
+            
+            # Extract ranking data
+            rankings = []
+            if 'comparisons' in data and 'rankings' in data['comparisons']:
+                for rank_data in data['comparisons']['rankings'][:6]:
+                    formula_id = rank_data['formula']
+                    correlation = rank_data['correlation']
+                    
+                    # Get best domain for this formula
+                    best_domain = None
+                    if 'validations' in data and formula_id in data['validations']:
+                        validation = data['validations'][formula_id]
+                        best_domain = validation.get('best_domain')
+                    
+                    rankings.append({
+                        'name': formula_id,
+                        'correlation': correlation,
+                        'best_domain': best_domain,
+                        'significant': abs(correlation) > 0.15
+                    })
+            
+            # Extract meta-formula data
+            meta_formulas = {}
+            if 'meta_formula' in data:
+                meta_formulas = {
+                    'golden_pairs': len(data['meta_formula'].get('golden_ratio_pairs', [])),
+                    'harmonic_triads': len(data['meta_formula'].get('harmonic_triads', [])),
+                    'dimensionality': data['meta_formula'].get('dimensionality', 0)
+                }
+            
+            # Extract evolution data
+            evolution = {}
+            if 'evolutions' in data:
+                for formula_id, evol_data in data['evolutions'].items():
+                    evolution[formula_id] = {
+                        'converged': evol_data.get('converged', False),
+                        'fitness': evol_data.get('final_best_fitness', 0)
+                    }
+            
+            # Domain distribution
+            domains = {
+                'crypto': 65087,
+                'mtg_card': 4144,
+                'nfl_player': 949,
+                'election': 870,
+                'ship': 853,
+                'hurricane': 236,
+                'film': 46,
+                'mlb_player': 44,
+                'board_game': 37,
+                'book': 34
+            }
+            
+            return jsonify({
+                'status': 'operational',
+                'last_update': data.get('end_time', data.get('start_time', 'Unknown')),
+                'total_entities': sum(domains.values()),
+                'golden_ratios': meta_formulas.get('golden_pairs', 0),
+                'rankings': rankings,
+                'domains': domains,
+                'meta_formulas': meta_formulas,
+                'evolution': evolution
+            })
+        else:
+            # Return default structure
+            return jsonify({
+                'status': 'no_data',
+                'last_update': 'No analysis run yet',
+                'total_entities': 72300,
+                'golden_ratios': 0,
+                'rankings': [],
+                'domains': {
+                    'crypto': 65087,
+                    'mtg_card': 4144,
+                    'nfl_player': 949,
+                    'election': 870,
+                    'ship': 853,
+                    'hurricane': 236,
+                    'film': 46,
+                    'mlb_player': 44,
+                    'board_game': 37,
+                    'book': 34
+                },
+                'meta_formulas': {
+                    'golden_pairs': 0,
+                    'harmonic_triads': 0,
+                    'dimensionality': 0
+                },
+                'evolution': {}
+            })
+    
+    except Exception as e:
+        logger.error(f"Error loading dashboard status: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
 @app.route('/the-discoverer')
 def the_discoverer():
     """The Discoverer - Statistical proof that discoverer's name predicted discovery"""
@@ -7194,6 +7717,1989 @@ def rank_any_name():
 
 
 # =============================================================================
+# MARRIAGE PREDICTION ROUTES (NOMINATIVE MATCHMAKER)
+# =============================================================================
+
+@app.route('/marriage')
+def marriage_home():
+    """Marriage prediction study homepage"""
+    try:
+        # Get statistics
+        from core.marriage_models import MarriedCouple, MarriageAnalysis
+        
+        total_couples = MarriedCouple.query.count()
+        analyzed_couples = MarriageAnalysis.query.count()
+        
+        if total_couples > 0:
+            divorced = MarriedCouple.query.filter_by(is_divorced=True).count()
+            divorce_rate = divorced / total_couples
+        else:
+            divorce_rate = 0
+        
+        return render_template('marriage.html',
+            total_couples=total_couples,
+            analyzed_couples=analyzed_couples,
+            divorce_rate=divorce_rate
+        )
+    except Exception as e:
+        logger.error(f"Error in marriage home: {e}")
+        return render_template('marriage.html',
+            total_couples=0,
+            analyzed_couples=0,
+            divorce_rate=0
+        )
+
+
+@app.route('/marriage/analyze', methods=['POST'])
+def marriage_analyze():
+    """Analyze name compatibility for a couple"""
+    try:
+        from analyzers.relationship_compatibility_analyzer import RelationshipCompatibilityAnalyzer
+        
+        name1 = request.form.get('name1', '').strip()
+        name2 = request.form.get('name2', '').strip()
+        
+        if not name1 or not name2:
+            return jsonify({'error': 'Both names required'}), 400
+        
+        # Analyze compatibility
+        analyzer = RelationshipCompatibilityAnalyzer(db.session)
+        prediction = analyzer.predict_relationship_outcome(name1, name2)
+        
+        return jsonify({
+            'name1': name1,
+            'name2': name2,
+            'compatibility': prediction['predicted_compatibility'],
+            'divorce_risk': prediction['predicted_divorce_risk'],
+            'predicted_years': prediction['predicted_longevity_years'],
+            'relationship_type': prediction['relationship_type'],
+            'dominant_theory': prediction['dominant_theory'],
+            'confidence': prediction['confidence'],
+            'theory_scores': prediction['theory_scores']
+        })
+    
+    except Exception as e:
+        logger.error(f"Error analyzing couple: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/marriage/stats')
+def marriage_stats():
+    """Get marriage prediction statistics"""
+    try:
+        from core.marriage_models import MarriedCouple, MarriageAnalysis
+        
+        # Query database
+        total = MarriedCouple.query.count()
+        analyzed = MarriageAnalysis.query.count()
+        
+        if total > 0:
+            divorced = MarriedCouple.query.filter_by(is_divorced=True).count()
+            divorce_rate = divorced / total
+            
+            # Get average metrics
+            analyses = MarriageAnalysis.query.limit(1000).all()
+            if analyses:
+                avg_compat = sum(a.compatibility_score for a in analyses if a.compatibility_score) / len(analyses)
+                avg_distance = sum(a.phonetic_distance for a in analyses if a.phonetic_distance) / len(analyses)
+                avg_golden = sum(a.golden_ratio_proximity for a in analyses if a.golden_ratio_proximity) / len(analyses)
+            else:
+                avg_compat = 0
+                avg_distance = 0
+                avg_golden = 0
+        else:
+            divorced = 0
+            divorce_rate = 0
+            avg_compat = 0
+            avg_distance = 0
+            avg_golden = 0
+        
+        return jsonify({
+            'total_couples': total,
+            'analyzed_couples': analyzed,
+            'divorced_couples': divorced,
+            'divorce_rate': divorce_rate,
+            'avg_compatibility': avg_compat,
+            'avg_phonetic_distance': avg_distance,
+            'avg_golden_ratio': avg_golden
+        })
+    
+    except Exception as e:
+        logger.error(f"Error getting marriage stats: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
+# LOVE WORDS CROSS-LINGUISTIC ANALYSIS
+# =============================================================================
+
+@app.route('/love-words')
+def love_words_home():
+    """Love Words: Cross-Linguistic Journey main page"""
+    return render_template('love_words.html')
+
+
+@app.route('/api/love-words/all')
+def api_love_words_all():
+    """
+    Get all love words with complete analysis.
+    
+    Returns:
+        JSON with all love words and their phonetic/semantic analysis
+    """
+    try:
+        from core.models import LoveWord
+        
+        # Query all love words with their analyses
+        words = LoveWord.query.all()
+        
+        # If no data, populate from collector
+        if not words:
+            logger.info("No love words in database, populating from collector...")
+            from collectors.love_words_collector import LoveWordsCollector
+            from analyzers.love_words_analyzer import LoveWordsAnalyzer
+            
+            collector = LoveWordsCollector()
+            analyzer = LoveWordsAnalyzer()
+            words_data = collector.get_all_words()
+            
+            # Populate database
+            for word_data in words_data:
+                # Create love word
+                love_word = LoveWord(
+                    language=word_data['language'],
+                    language_family=word_data['language_family'],
+                    language_code=word_data.get('language_code'),
+                    is_ancient=word_data['is_ancient'],
+                    word=word_data['word'],
+                    romanization=word_data.get('romanization'),
+                    ipa_pronunciation=word_data.get('ipa_pronunciation'),
+                    semantic_type=word_data['semantic_type'],
+                    semantic_nuance=word_data.get('semantic_nuance'),
+                    etymology_root=word_data.get('etymology_root'),
+                    etymology_path=word_data.get('etymology_path'),
+                    first_recorded_year=word_data.get('first_recorded_year'),
+                    cultural_context=word_data.get('cultural_context'),
+                    usage_frequency=word_data.get('usage_frequency'),
+                    usage_examples=word_data.get('usage_examples'),
+                    cognates=word_data.get('cognates'),
+                    synonyms=word_data.get('synonyms'),
+                    source=word_data.get('source'),
+                )
+                db.session.add(love_word)
+                db.session.flush()
+                
+                # Analyze word
+                analysis_result = analyzer.analyze_word(word_data['word'], word_data.get('romanization'))
+                
+                # Create analysis
+                from core.models import LoveWordAnalysis
+                love_analysis = LoveWordAnalysis(
+                    love_word_id=love_word.id,
+                    character_length=analysis_result['character_length'],
+                    syllable_count=analysis_result['syllable_count'],
+                    plosives_count=analysis_result['plosives_count'],
+                    sibilants_count=analysis_result['sibilants_count'],
+                    liquids_nasals_count=analysis_result['liquids_nasals_count'],
+                    vowels_count=analysis_result['vowels_count'],
+                    vowel_density=analysis_result['vowel_density'],
+                    consonant_density=analysis_result['consonant_density'],
+                    liquid_density=analysis_result['liquid_density'],
+                    harshness_score=analysis_result['harshness_score'],
+                    melodiousness_score=analysis_result['melodiousness_score'],
+                    beauty_score=analysis_result['beauty_score'],
+                    has_consonant_clusters=analysis_result['has_consonant_clusters'],
+                    max_consonant_cluster_length=analysis_result['max_consonant_cluster_length'],
+                    consonant_cluster_count=analysis_result.get('consonant_cluster_count', 0),
+                    sharp_sounds_count=analysis_result['sharp_sounds_count'],
+                    round_sounds_count=analysis_result['round_sounds_count'],
+                    sound_symbolism_ratio=analysis_result['sound_symbolism_ratio'],
+                    starts_with_liquid=analysis_result['starts_with_liquid'],
+                    ends_with_vowel=analysis_result['ends_with_vowel'],
+                    has_repeated_sounds=analysis_result['has_repeated_sounds'],
+                    has_love_phonestheme=analysis_result['has_love_phonestheme'],
+                    soft_sound_dominance=analysis_result['soft_sound_dominance'],
+                    analysis_version='1.0'
+                )
+                db.session.add(love_analysis)
+            
+            db.session.commit()
+            logger.info(f"Populated {len(words_data)} love words into database")
+            
+            # Re-query
+            words = LoveWord.query.all()
+        
+        # Convert to dict
+        words_list = [word.to_dict() for word in words]
+        
+        return jsonify({
+            'words': words_list,
+            'count': len(words_list),
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error retrieving love words: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/love-words/language/<language>')
+def api_love_words_by_language(language):
+    """
+    Get love words filtered by language.
+    
+    Args:
+        language: Language name (e.g., 'English', 'Ancient Greek')
+        
+    Returns:
+        JSON with filtered love words
+    """
+    try:
+        from core.models import LoveWord
+        
+        words = LoveWord.query.filter_by(language=language).all()
+        words_list = [word.to_dict() for word in words]
+        
+        return jsonify({
+            'language': language,
+            'words': words_list,
+            'count': len(words_list),
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error retrieving words for language {language}: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/love-words/semantic/<semantic_type>')
+def api_love_words_by_semantic(semantic_type):
+    """
+    Get love words filtered by semantic type.
+    
+    Args:
+        semantic_type: Type (romantic, familial, platonic, divine, general)
+        
+    Returns:
+        JSON with filtered love words
+    """
+    try:
+        from core.models import LoveWord
+        
+        words = LoveWord.query.filter_by(semantic_type=semantic_type).all()
+        words_list = [word.to_dict() for word in words]
+        
+        return jsonify({
+            'semantic_type': semantic_type,
+            'words': words_list,
+            'count': len(words_list),
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error retrieving words for semantic type {semantic_type}: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/love-words/ancient-vs-modern')
+def api_love_words_ancient_vs_modern():
+    """
+    Comparative analysis of ancient vs. modern love words.
+    
+    Returns:
+        JSON with statistical comparison
+    """
+    try:
+        from core.models import LoveWord
+        from analyzers.love_words_analyzer import LoveWordsAnalyzer
+        from collectors.love_words_collector import LoveWordsCollector
+        
+        # Get all words
+        collector = LoveWordsCollector()
+        words_data = collector.get_all_words()
+        
+        # Run analysis
+        analyzer = LoveWordsAnalyzer()
+        comparison = analyzer.compare_ancient_vs_modern(words_data)
+        
+        return jsonify({
+            'comparison': comparison,
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error comparing ancient vs modern: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/love-words/etymology-tree')
+def api_love_words_etymology():
+    """
+    Etymology tree visualization data.
+    
+    Returns:
+        JSON with etymology families and relationships
+    """
+    try:
+        from collectors.love_words_collector import LoveWordsCollector
+        from analyzers.love_words_analyzer import LoveWordsAnalyzer
+        
+        collector = LoveWordsCollector()
+        words_data = collector.get_all_words()
+        
+        analyzer = LoveWordsAnalyzer()
+        etymology_analysis = analyzer.analyze_etymology_patterns(words_data)
+        
+        return jsonify({
+            'etymology': etymology_analysis,
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error generating etymology tree: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/love-words/beauty-ranking')
+def api_love_words_beauty_ranking():
+    """
+    Phonetic beauty scores ranked across all languages.
+    
+    Returns:
+        JSON with beauty rankings
+    """
+    try:
+        from collectors.love_words_collector import LoveWordsCollector
+        from analyzers.love_words_analyzer import LoveWordsAnalyzer
+        
+        collector = LoveWordsCollector()
+        words_data = collector.get_all_words()
+        
+        analyzer = LoveWordsAnalyzer()
+        beauty_ranking = analyzer.generate_beauty_ranking(words_data)
+        
+        return jsonify({
+            'rankings': beauty_ranking,
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error generating beauty ranking: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/love-words/phonetic-analysis')
+def api_love_words_phonetic_analysis():
+    """
+    Aggregate phonetic statistics and sound symbolism analysis.
+    
+    Returns:
+        JSON with comprehensive phonetic analysis
+    """
+    try:
+        from collectors.love_words_collector import LoveWordsCollector
+        from analyzers.love_words_analyzer import LoveWordsAnalyzer
+        
+        collector = LoveWordsCollector()
+        words_data = collector.get_all_words()
+        
+        analyzer = LoveWordsAnalyzer()
+        
+        # Run comprehensive analysis
+        full_analysis = analyzer.run_comprehensive_analysis(words_data)
+        
+        return jsonify({
+            'analysis': full_analysis,
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in phonetic analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
+# ROMANCE INSTRUMENT NAMES & USAGE FREQUENCY ANALYSIS
+# =============================================================================
+
+@app.route('/romance-instruments')
+def romance_instruments_home():
+    """Romance Instrument Names: Phonetics Meets Musicology main page"""
+    return render_template('romance_instruments.html')
+
+
+@app.route('/api/romance-instruments/all')
+def api_romance_instruments_all():
+    """Get all instruments with names in 5 languages + usage data"""
+    try:
+        from core.models import Instrument
+        
+        instruments = Instrument.query.all()
+        
+        # If no data, populate from collector
+        if not instruments:
+            logger.info("No instruments in database, populating from collector...")
+            from collectors.romance_instrument_collector import RomanceInstrumentCollector
+            from analyzers.romance_instrument_analyzer import RomanceInstrumentAnalyzer
+            from collectors.instrument_usage_collector import InstrumentUsageCollector
+            
+            collector = RomanceInstrumentCollector()
+            analyzer = RomanceInstrumentAnalyzer()
+            usage_collector = InstrumentUsageCollector()
+            
+            instruments_data = collector.get_all_instruments()
+            instrument_names = [i['base_name_english'] for i in instruments_data]
+            usage_data = usage_collector.get_all_usage_data(instrument_names)
+            
+            # Populate database
+            for inst_data in instruments_data:
+                # Create instrument
+                instrument = Instrument(
+                    base_name_english=inst_data['base_name_english'],
+                    instrument_category=inst_data['instrument_category'],
+                    origin_period=inst_data['origin_period'],
+                    physical_properties=inst_data['physical_properties'],
+                    spanish_name=inst_data['names']['spanish'],
+                    french_name=inst_data['names']['french'],
+                    italian_name=inst_data['names']['italian'],
+                    portuguese_name=inst_data['names']['portuguese'],
+                    romanian_name=inst_data['names']['romanian'],
+                    spanish_ipa=inst_data['ipa']['spanish'],
+                    french_ipa=inst_data['ipa']['french'],
+                    italian_ipa=inst_data['ipa']['italian'],
+                    portuguese_ipa=inst_data['ipa']['portuguese'],
+                    romanian_ipa=inst_data['ipa']['romanian'],
+                    etymology_by_language=json.dumps(inst_data['etymology']),
+                    is_native_word=json.dumps(inst_data['is_native']),
+                    descriptive_transparency=json.dumps(inst_data['descriptive_transparency']),
+                    cultural_associations=inst_data.get('cultural_associations'),
+                    source=inst_data.get('source')
+                )
+                db.session.add(instrument)
+                db.session.flush()
+                
+                # Analyze and add name analyses for each language
+                from core.models import InstrumentNameAnalysis
+                for lang in ['spanish', 'french', 'italian', 'portuguese', 'romanian']:
+                    name = inst_data['names'][lang]
+                    if name:
+                        analysis = analyzer.analyze_instrument_name(
+                            name, lang,
+                            inst_data['is_native'][lang],
+                            inst_data['descriptive_transparency'][lang]
+                        )
+                        
+                        name_analysis = InstrumentNameAnalysis(
+                            instrument_id=instrument.id,
+                            language=lang,
+                            character_length=analysis['character_length'],
+                            syllable_count=analysis['syllable_count'],
+                            plosives_count=analysis['plosives_count'],
+                            sibilants_count=analysis['sibilants_count'],
+                            liquids_nasals_count=analysis['liquids_nasals_count'],
+                            vowels_count=analysis['vowels_count'],
+                            vowel_density=analysis['vowel_density'],
+                            consonant_density=analysis['consonant_density'],
+                            liquid_density=analysis['liquid_density'],
+                            harshness_score=analysis['harshness_score'],
+                            melodiousness_score=analysis['melodiousness_score'],
+                            beauty_score=analysis['beauty_score'],
+                            has_consonant_clusters=analysis['has_consonant_clusters'],
+                            max_consonant_cluster_length=analysis['max_consonant_cluster_length'],
+                            consonant_cluster_count=analysis['consonant_cluster_count'],
+                            sharp_sounds_count=analysis['sharp_sounds_count'],
+                            round_sounds_count=analysis['round_sounds_count'],
+                            sound_symbolism_ratio=analysis['sound_symbolism_ratio'],
+                            starts_with_liquid=analysis['starts_with_liquid'],
+                            ends_with_vowel=analysis['ends_with_vowel'],
+                            has_repeated_sounds=analysis['has_repeated_sounds'],
+                            soft_sound_dominance=analysis['soft_sound_dominance'],
+                            native_word=analysis['native_word'],
+                            descriptive_transparency=analysis['descriptive_transparency'],
+                            is_compound=analysis['is_compound']
+                        )
+                        db.session.add(name_analysis)
+                
+                # Add usage data for each region
+                from core.models import InstrumentUsageData
+                base_name = inst_data['base_name_english']
+                if base_name in usage_data:
+                    region_map = {'spain': 'spain', 'france': 'france', 'italy': 'italy',
+                                 'portugal': 'portugal', 'romania': 'romania'}
+                    
+                    for region_name, region_key in region_map.items():
+                        usage = usage_data[base_name].get(region_key, {})
+                        if usage:
+                            usage_record = InstrumentUsageData(
+                                instrument_id=instrument.id,
+                                language_region=region_key,
+                                historical_composition_count=usage.get('historical_composition_count', 0),
+                                historical_composition_score=usage.get('historical_composition_score', 50),
+                                modern_recording_frequency=usage.get('modern_recording_frequency', 0.5),
+                                modern_recording_score=usage.get('modern_recording_score', 50),
+                                sheet_music_corpus_frequency=usage.get('sheet_music_corpus_frequency', 0),
+                                sheet_music_corpus_score=usage.get('sheet_music_corpus_score', 50),
+                                cultural_survey_prominence=usage.get('cultural_survey_prominence', 5),
+                                cultural_survey_score=usage.get('cultural_survey_score', 50),
+                                ensemble_appearance_rate=usage.get('ensemble_appearance_rate', 0.5),
+                                ensemble_appearance_score=usage.get('ensemble_appearance_score', 50),
+                                period_breakdown=usage.get('period_breakdown'),
+                                normalized_usage_score=usage.get('normalized_usage_score', 50),
+                                weights_used=usage.get('weights_used'),
+                                data_completeness_score=usage.get('data_completeness_score', 100),
+                                confidence_level=usage.get('confidence_level', 'medium'),
+                                sources_used=usage.get('sources_used'),
+                                regional_specialization_score=usage.get('regional_specialization_score', 0),
+                                usage_notes=usage.get('usage_notes')
+                            )
+                            db.session.add(usage_record)
+            
+            db.session.commit()
+            logger.info(f"Populated {len(instruments_data)} instruments with analyses")
+            
+            # Re-query
+            instruments = Instrument.query.all()
+        
+        # Convert to dict
+        instruments_list = [inst.to_dict() for inst in instruments]
+        
+        return jsonify({
+            'instruments': instruments_list,
+            'count': len(instruments_list),
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error retrieving instruments: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/romance-instruments/language/<language>')
+def api_romance_instruments_by_language(language):
+    """Get instruments filtered by language with phonetic analysis"""
+    try:
+        from core.models import Instrument, InstrumentNameAnalysis
+        
+        # Query instruments and their analyses for this language
+        instruments = Instrument.query.all()
+        
+        results = []
+        for inst in instruments:
+            analyses = InstrumentNameAnalysis.query.filter_by(
+                instrument_id=inst.id,
+                language=language
+            ).first()
+            
+            inst_dict = inst.to_dict()
+            if analyses:
+                inst_dict['analysis'] = analyses.to_dict()
+            
+            results.append(inst_dict)
+        
+        return jsonify({
+            'language': language,
+            'instruments': results,
+            'count': len(results),
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error retrieving instruments for language {language}: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/romance-instruments/category/<category>')
+def api_romance_instruments_by_category(category):
+    """Get instruments filtered by category"""
+    try:
+        from core.models import Instrument
+        
+        instruments = Instrument.query.filter_by(instrument_category=category).all()
+        instruments_list = [inst.to_dict() for inst in instruments]
+        
+        return jsonify({
+            'category': category,
+            'instruments': instruments_list,
+            'count': len(instruments_list),
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error retrieving instruments for category {category}: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/romance-instruments/usage-correlation')
+def api_romance_instruments_usage_correlation():
+    """Phonetic beauty vs. usage frequency correlation analysis"""
+    try:
+        from collectors.romance_instrument_collector import RomanceInstrumentCollector
+        from collectors.instrument_usage_collector import InstrumentUsageCollector
+        from analyzers.romance_instrument_analyzer import RomanceInstrumentAnalyzer
+        
+        collector = RomanceInstrumentCollector()
+        usage_collector = InstrumentUsageCollector()
+        analyzer = RomanceInstrumentAnalyzer()
+        
+        instruments = collector.get_all_instruments()
+        instrument_names = [i['base_name_english'] for i in instruments]
+        usage_data = usage_collector.get_all_usage_data(instrument_names)
+        
+        correlation_results = analyzer.test_beauty_usage_correlation(instruments, usage_data)
+        
+        return jsonify({
+            'correlation_by_language': correlation_results,
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in correlation analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/romance-instruments/native-vs-borrowed')
+def api_romance_instruments_native_vs_borrowed():
+    """Compare usage patterns for native vs. loan words"""
+    try:
+        from collectors.romance_instrument_collector import RomanceInstrumentCollector
+        from collectors.instrument_usage_collector import InstrumentUsageCollector
+        from analyzers.romance_instrument_analyzer import RomanceInstrumentAnalyzer
+        
+        collector = RomanceInstrumentCollector()
+        usage_collector = InstrumentUsageCollector()
+        analyzer = RomanceInstrumentAnalyzer()
+        
+        instruments = collector.get_all_instruments()
+        instrument_names = [i['base_name_english'] for i in instruments]
+        usage_data = usage_collector.get_all_usage_data(instrument_names)
+        
+        native_borrowed_results = analyzer.test_native_vs_borrowed(instruments, usage_data)
+        
+        return jsonify({
+            'native_vs_borrowed': native_borrowed_results,
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in native vs borrowed analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/romance-instruments/ensemble-analysis')
+def api_romance_instruments_ensemble_analysis():
+    """Ensemble configurations and phonetic coherence"""
+    try:
+        from core.models import InstrumentEnsemble
+        
+        ensembles = InstrumentEnsemble.query.all()
+        ensembles_list = [ens.to_dict() for ens in ensembles]
+        
+        return jsonify({
+            'ensembles': ensembles_list,
+            'count': len(ensembles_list),
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in ensemble analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/romance-instruments/temporal-evolution')
+def api_romance_instruments_temporal():
+    """How usage changed over historical periods"""
+    try:
+        from core.models import InstrumentUsageData
+        
+        # Get all usage data with period breakdowns
+        usage_records = InstrumentUsageData.query.all()
+        
+        # Aggregate by period
+        period_data = {}
+        for record in usage_records:
+            breakdown = json.loads(record.period_breakdown) if record.period_breakdown else {}
+            region = record.language_region
+            
+            if region not in period_data:
+                period_data[region] = defaultdict(list)
+            
+            for period, score in breakdown.items():
+                period_data[region][period].append(score)
+        
+        # Calculate means
+        period_means = {}
+        for region, periods in period_data.items():
+            period_means[region] = {period: float(np.mean(scores)) if scores else 0 
+                                   for period, scores in periods.items()}
+        
+        return jsonify({
+            'temporal_evolution': period_means,
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in temporal analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/romance-instruments/comprehensive-analysis')
+def api_romance_instruments_comprehensive():
+    """Full analysis results - all hypotheses tested"""
+    try:
+        from collectors.romance_instrument_collector import RomanceInstrumentCollector
+        from collectors.instrument_usage_collector import InstrumentUsageCollector
+        from analyzers.romance_instrument_analyzer import RomanceInstrumentAnalyzer
+        
+        collector = RomanceInstrumentCollector()
+        usage_collector = InstrumentUsageCollector()
+        analyzer = RomanceInstrumentAnalyzer()
+        
+        instruments = collector.get_all_instruments()
+        instrument_names = [i['base_name_english'] for i in instruments]
+        usage_data = usage_collector.get_all_usage_data(instrument_names)
+        
+        # Run comprehensive analysis
+        full_results = analyzer.run_comprehensive_analysis(instruments, usage_data)
+        
+        return jsonify({
+            'analysis': full_results,
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in comprehensive analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
+# ADVANCED NOMINATIVE TRAITS - FORETOLD NAMING, ACOUSTIC, GOSPEL SUCCESS
+# =============================================================================
+
+@app.route('/foretold-naming')
+def foretold_naming_dashboard():
+    """Foretold Naming & Prophetic Analysis Dashboard"""
+    return render_template('foretold_naming.html')
+
+
+@app.route('/api/foretold-naming/<name>')
+def api_foretold_naming(name):
+    """
+    Get complete prophetic analysis for a name.
+    
+    Args:
+        name: Name to analyze
+    
+    Returns:
+        Prophetic meaning, destiny alignment, cultural patterns
+    """
+    try:
+        from analyzers.foretold_naming_analyzer import foretold_analyzer
+        
+        analysis = foretold_analyzer.analyze_name(name)
+        
+        return jsonify({
+            'status': 'success',
+            'name': name,
+            'analysis': analysis
+        })
+    except Exception as e:
+        logger.error(f"Error in foretold naming analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/foretold-naming/predict-fate/<domain>/<name>')
+def api_predict_fate(domain, name):
+    """
+    Predict fate/outcome based on name.
+    
+    Args:
+        domain: Domain context (literary, sports, business, etc.)
+        name: Name to analyze
+    
+    Returns:
+        Predicted outcome with probabilities
+    """
+    try:
+        from analyzers.foretold_naming_analyzer import foretold_analyzer
+        
+        prediction = foretold_analyzer.predict_fate_from_name(name, domain)
+        
+        return jsonify({
+            'status': 'success',
+            'name': name,
+            'domain': domain,
+            'prediction': prediction
+        })
+    except Exception as e:
+        logger.error(f"Error predicting fate: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/foretold-naming/destiny-alignment-stats')
+def api_destiny_alignment_stats():
+    """Get aggregate destiny alignment statistics."""
+    try:
+        from analyzers.foretold_naming_analyzer import foretold_analyzer
+        
+        domain = request.args.get('domain')
+        stats = foretold_analyzer.get_aggregate_alignment_statistics(domain)
+        
+        return jsonify({
+            'status': 'success',
+            'statistics': stats
+        })
+    except Exception as e:
+        logger.error(f"Error getting alignment stats: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/acoustic-analysis')
+def acoustic_analysis_dashboard():
+    """Acoustic Analysis & Sound Composition Dashboard"""
+    return render_template('acoustic_analysis.html')
+
+
+@app.route('/api/acoustic-profile/<name>')
+def api_acoustic_profile(name):
+    """
+    Get deep acoustic profile for a name.
+    
+    Args:
+        name: Name to analyze
+    
+    Returns:
+        Formants, spectral energy, VOT, prosody, harshness
+    """
+    try:
+        from analyzers.acoustic_analyzer import acoustic_analyzer
+        
+        profile = acoustic_analyzer.analyze(name)
+        
+        return jsonify({
+            'status': 'success',
+            'name': name,
+            'acoustic_profile': profile
+        })
+    except Exception as e:
+        logger.error(f"Error in acoustic analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/phonetic-universals/<name>')
+def api_phonetic_universals(name):
+    """
+    Get cross-linguistic phonetic universals analysis.
+    
+    Args:
+        name: Name to analyze
+    
+    Returns:
+        Bouba/Kiki, size symbolism, emotional valence, language fit
+    """
+    try:
+        from analyzers.phonetic_universals_analyzer import phonetic_universals_analyzer
+        
+        analysis = phonetic_universals_analyzer.analyze(name)
+        
+        return jsonify({
+            'status': 'success',
+            'name': name,
+            'phonetic_universals': analysis
+        })
+    except Exception as e:
+        logger.error(f"Error in phonetic universals analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/gospel-success')
+def gospel_success_dashboard():
+    """Gospel Success & Religious Text Analysis Dashboard"""
+    return render_template('gospel_success.html')
+
+
+@app.route('/api/gospel-success/texts')
+def api_gospel_texts():
+    """Get all religious texts with basic info."""
+    try:
+        from core.models import ReligiousText
+        
+        texts = ReligiousText.query.all()
+        
+        return jsonify({
+            'status': 'success',
+            'count': len(texts),
+            'texts': [t.to_dict() for t in texts]
+        })
+    except Exception as e:
+        logger.error(f"Error getting religious texts: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/gospel-success/text/<int:text_id>')
+def api_gospel_text_detail(text_id):
+    """Get detailed analysis for a specific religious text."""
+    try:
+        from core.models import ReligiousText, ReligiousTextSuccessMetrics
+        
+        text = ReligiousText.query.get(text_id)
+        if not text:
+            return jsonify({'error': 'Text not found'}), 404
+        
+        metrics = ReligiousTextSuccessMetrics.query.filter_by(religious_text_id=text_id).all()
+        
+        return jsonify({
+            'status': 'success',
+            'text': text.to_dict(),
+            'success_metrics': [m.to_dict() for m in metrics]
+        })
+    except Exception as e:
+        logger.error(f"Error getting text detail: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/gospel-success/compare')
+def api_gospel_compare():
+    """
+    Compare multiple gospels/religious texts.
+    
+    Query params:
+        ids: Comma-separated text IDs (e.g., ?ids=1,2,3,4)
+    
+    Returns:
+        Comparative analysis
+    """
+    try:
+        from analyzers.gospel_success_analyzer import gospel_success_analyzer
+        
+        ids_str = request.args.get('ids', '')
+        text_ids = [int(id_str.strip()) for id_str in ids_str.split(',') if id_str.strip()]
+        
+        if not text_ids:
+            return jsonify({'error': 'No text IDs provided'}), 400
+        
+        comparison = gospel_success_analyzer.compare_gospels(text_ids)
+        
+        return jsonify({
+            'status': 'success',
+            'comparison': comparison
+        })
+    except Exception as e:
+        logger.error(f"Error comparing gospels: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/gospel-success/correlate/<int:text_id>')
+def api_gospel_correlate(text_id):
+    """Correlate text composition with success metrics."""
+    try:
+        from analyzers.gospel_success_analyzer import gospel_success_analyzer
+        
+        correlation = gospel_success_analyzer.correlate_composition_with_success(text_id)
+        
+        return jsonify({
+            'status': 'success',
+            'correlation': correlation
+        })
+    except Exception as e:
+        logger.error(f"Error correlating composition with success: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/gospel-success/collect-gospels', methods=['POST'])
+def api_collect_gospels():
+    """Collect and process canonical gospels."""
+    try:
+        from collectors.religious_text_collector import religious_text_collector
+        
+        texts = religious_text_collector.collect_all_gospels()
+        
+        return jsonify({
+            'status': 'success',
+            'message': f'Collected {len(texts)} gospels',
+            'texts': [t.to_dict() for t in texts]
+        })
+    except Exception as e:
+        logger.error(f"Error collecting gospels: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/cross-religious-linguistics')
+def cross_religious_dashboard():
+    """Cross-Religious Linguistic Comparison Dashboard"""
+    return render_template('cross_religious.html')
+
+
+@app.route('/personal-name-analyzer')
+def personal_name_analyzer():
+    """Beautiful Personal Name Analysis Tool"""
+    return render_template('personal_name_analyzer.html')
+
+
+@app.route('/research-dashboard')
+def research_dashboard():
+    """Comprehensive Research Dashboard with All Visualizations"""
+    return render_template('research_dashboard.html')
+
+
+@app.route('/brand-optimizer')
+def brand_optimizer_page():
+    """AI Brand Name Generator and Optimizer"""
+    return render_template('brand_optimizer.html')
+
+
+@app.route('/philosophical-implications')
+def philosophical_implications_interactive():
+    """Visually Stunning Interactive Philosophical Implications Page"""
+    return render_template('philosophical_implications_interactive.html')
+
+
+@app.route('/api/research/statistical-comparison', methods=['POST'])
+def api_statistical_comparison():
+    """Perform rigorous statistical comparison between two groups."""
+    try:
+        from analyzers.statistical_rigor import statistical_rigor
+        data = request.get_json()
+        
+        group1 = np.array(data['group1'])
+        group2 = np.array(data['group2'])
+        
+        comparison = statistical_rigor.comprehensive_comparison(
+            group1, group2,
+            data.get('group1_name', 'Group 1'),
+            data.get('group2_name', 'Group 2')
+        )
+        
+        return jsonify({'status': 'success', 'comparison': comparison})
+    except Exception as e:
+        logger.error(f"Error in statistical comparison: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/research/bayesian-analysis', methods=['POST'])
+def api_bayesian_analysis():
+    """Run Bayesian hierarchical analysis on destiny alignment data."""
+    try:
+        from analyzers.bayesian_destiny_analyzer import bayesian_analyzer
+        data = request.get_json()
+        
+        alignment_data = data['alignment_data']  # List of dicts
+        
+        result = bayesian_analyzer.hierarchical_destiny_model(alignment_data)
+        
+        return jsonify({'status': 'success', 'analysis': result})
+    except Exception as e:
+        logger.error(f"Error in Bayesian analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/research/survival-analysis', methods=['POST'])
+def api_survival_analysis():
+    """Run survival analysis on name persistence data."""
+    try:
+        from analyzers.name_survival_analyzer import survival_analyzer
+        data = request.get_json()
+        
+        survival_data = data['survival_data']
+        
+        result = survival_analyzer.kaplan_meier_analysis(survival_data)
+        
+        return jsonify({'status': 'success', 'survival': result})
+    except Exception as e:
+        logger.error(f"Error in survival analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/research/spatial-analysis', methods=['POST'])
+def api_spatial_analysis():
+    """Run spatial analysis (Moran's I) on geographic data."""
+    try:
+        from analyzers.spatial_analyzer import spatial_analyzer
+        data = request.get_json()
+        
+        values = np.array(data['values'])
+        coordinates = np.array(data['coordinates'])
+        
+        result = spatial_analyzer.morans_i(values, coordinates)
+        
+        return jsonify({'status': 'success', 'spatial': result})
+    except Exception as e:
+        logger.error(f"Error in spatial analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/brand-optimizer/generate', methods=['POST'])
+def api_brand_optimizer():
+    """Generate optimized brand names based on target characteristics."""
+    try:
+        from analyzers.brand_name_optimizer import brand_optimizer
+        data = request.get_json()
+        
+        target_characteristics = data.get('targets', {
+            'melodiousness': 0.8,
+            'universal_appeal': 0.75,
+            'length_min': 6,
+            'length_max': 10
+        })
+        
+        n_candidates = data.get('n_candidates', 20)
+        
+        names = brand_optimizer.generate_optimized_names(
+            target_characteristics,
+            n_candidates=n_candidates,
+            n_generations=50
+        )
+        
+        return jsonify({
+            'status': 'success',
+            'generated_names': names,
+            'n_generated': len(names)
+        })
+    except Exception as e:
+        logger.error(f"Error generating brand names: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/research/generate-paper', methods=['POST'])
+def api_generate_paper():
+    """Generate LaTeX academic paper."""
+    try:
+        from research.paper_generator import paper_generator
+        
+        # Generate paper for our research
+        paper_path = paper_generator.generate_nominative_traits_paper()
+        
+        return jsonify({
+            'status': 'success',
+            'paper_path': paper_path,
+            'message': 'Academic paper generated successfully'
+        })
+    except Exception as e:
+        logger.error(f"Error generating paper: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/research/literary-intention/<text_id>', methods=['POST'])
+def api_literary_intention_analysis(text_id):
+    """
+    Sophisticated analysis of literary intention (fiction vs truth-claiming).
+    
+    Args:
+        text_id: ID of text to analyze
+    
+    Body:
+        character_names: List of character name analyses
+        text_metadata: Genre, authorship info
+    
+    Returns:
+        Intention analysis with fiction markers, truth markers, epistemological status
+    """
+    try:
+        from analyzers.literary_intention_analyzer import literary_intention_analyzer
+        data = request.get_json()
+        
+        text_data = data.get('text_data', {})
+        character_names = data.get('character_names', [])
+        text_metadata = data.get('text_metadata', {})
+        
+        analysis = literary_intention_analyzer.analyze_text_intention(
+            text_data, character_names, text_metadata
+        )
+        
+        return jsonify({
+            'status': 'success',
+            'analysis': analysis
+        })
+    except Exception as e:
+        logger.error(f"Error in literary intention analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/research/fiction-vs-gospel-comparison', methods=['POST'])
+def api_fiction_gospel_comparison():
+    """
+    Compare naming patterns between fiction and gospels.
+    Tests whether gospels show fictional or documentary patterns.
+    
+    Body:
+        fiction_names: Character names from acknowledged fiction
+        gospel_names: Character names from gospels
+    
+    Returns:
+        Statistical comparison with implications for gospel truth-status
+    """
+    try:
+        from analyzers.literary_intention_analyzer import literary_intention_analyzer
+        data = request.get_json()
+        
+        fiction_names = data.get('fiction_names', [])
+        gospel_names = data.get('gospel_names', [])
+        
+        comparison = literary_intention_analyzer.compare_fiction_vs_gospel_naming(
+            fiction_names, gospel_names
+        )
+        
+        return jsonify({
+            'status': 'success',
+            'comparison': comparison
+        })
+    except Exception as e:
+        logger.error(f"Error in fiction-gospel comparison: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/research/theological-epistemology/<gospel_name>')
+def api_theological_epistemology(gospel_name):
+    """
+    Sophisticated theological and epistemological analysis of gospel.
+    
+    Args:
+        gospel_name: Gospel to analyze (matthew, mark, luke, john)
+    
+    Returns:
+        Multi-layered epistemological assessment with implications for believers and skeptics
+    """
+    try:
+        from analyzers.theological_epistemology_analyzer import theological_epistemology_analyzer
+        
+        # Would fetch real data in production
+        nominative_patterns = {
+            'mean_prophetic_score': 0.7,
+            'optimization_score': 0.35,
+            'name_repetition': 0.25,
+            'cultural_authenticity': 0.87
+        }
+        
+        historical_context = {
+            'era': '1st century CE',
+            'location': 'Judea/Galilee',
+            'culture': 'Jewish/Greco-Roman'
+        }
+        
+        analysis = theological_epistemology_analyzer.analyze_gospel_epistemology(
+            gospel_name, nominative_patterns, historical_context
+        )
+        
+        return jsonify({
+            'status': 'success',
+            'analysis': analysis
+        })
+    except Exception as e:
+        logger.error(f"Error in theological epistemology analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/research/gospel-specific-analysis/<gospel_name>')
+def api_gospel_specific_analysis(gospel_name):
+    """
+    Gospel-specific nominative analysis accounting for unique genre.
+    
+    Args:
+        gospel_name: Gospel to analyze (matthew, mark, luke, john)
+    
+    Returns:
+        Historicity assessment, theological purpose, selection bias, nominative theology
+    """
+    try:
+        from analyzers.literary_intention_analyzer import literary_intention_analyzer
+        
+        # Would use real data in production
+        text_data = {'total_words': 18000}  # Approximate
+        character_names = []  # Would fetch from database
+        
+        analysis = literary_intention_analyzer.gospel_specific_analysis(
+            gospel_name, text_data, character_names
+        )
+        
+        return jsonify({
+            'status': 'success',
+            'gospel_analysis': analysis
+        })
+    except Exception as e:
+        logger.error(f"Error in gospel-specific analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/research/old-testament-ensemble')
+def api_old_testament_ensemble():
+    """
+    Analyze Old Testament ensemble patterns and compare to New Testament.
+    
+    Returns:
+        OT ensemble analysis with OT-NT comparison
+    """
+    try:
+        from analyzers.old_testament_ensemble_analyzer import ot_ensemble_analyzer
+        
+        # Analyze all OT ensembles
+        ot_analysis = ot_ensemble_analyzer.analyze_all_ot_ensembles()
+        
+        # Compare to NT
+        nt_data = {'variance': 0.028, 'commonality': 0.65}
+        comparison = ot_ensemble_analyzer.compare_ot_to_nt(
+            ot_analysis['aggregate_statistics'],
+            nt_data
+        )
+        
+        return jsonify({
+            'status': 'success',
+            'old_testament': ot_analysis,
+            'ot_nt_comparison': comparison
+        })
+    except Exception as e:
+        logger.error(f"Error in OT ensemble analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/complete-name-analysis/<name>')
+def api_complete_name_analysis(name):
+    """
+    DOMAIN-FORMULAICALLY-GUIDED Complete Name Analysis with Ensemble Predictions.
+    
+    Combines foretold naming, acoustic, phonetic universals, AND domain-specific formulas.
+    
+    Query Parameters:
+        domain: Domain of application (crypto, stocks, sports, literary, gospel, etc.)
+        context: Additional context variables as JSON
+    
+    Args:
+        name: Name to analyze
+    
+    Returns:
+        Comprehensive analysis with ensemble predictions across all applicable domains
+    """
+    try:
+        from analyzers.foretold_naming_analyzer import foretold_analyzer
+        from analyzers.acoustic_analyzer import acoustic_analyzer
+        from analyzers.phonetic_universals_analyzer import phonetic_universals_analyzer
+        from analyzers.phonetic_base import PhoneticBase
+        
+        # Get domain parameter
+        domain = request.args.get('domain', 'general')
+        context_json = request.args.get('context', '{}')
+        
+        try:
+            context = json.loads(context_json)
+        except:
+            context = {}
+        
+        logger.info(f"Analyzing name '{name}' for domain: {domain}")
+        
+        # Base phonetic analysis
+        phonetic_base = PhoneticBase()
+        base_phonetics = phonetic_base.analyze(name)
+        
+        # Get all analyses
+        foretold = foretold_analyzer.analyze_name(name)
+        acoustic = acoustic_analyzer.analyze(name)
+        universals = phonetic_universals_analyzer.analyze(name)
+        
+        # Domain-specific formula application
+        domain_predictions = {}
+        ensemble_weights = {}
+        
+        # CRYPTOCURRENCY DOMAIN
+        if domain in ['crypto', 'cryptocurrency', 'general']:
+            crypto_score = _calculate_crypto_success_score(
+                name, base_phonetics, foretold, acoustic, context
+            )
+            domain_predictions['cryptocurrency'] = crypto_score
+            ensemble_weights['cryptocurrency'] = 0.25 if domain == 'general' else 1.0
+        
+        # SPORTS DOMAIN
+        if domain in ['sports', 'athlete', 'general']:
+            sports_score = _calculate_sports_success_score(
+                name, base_phonetics, acoustic, context
+            )
+            domain_predictions['sports'] = sports_score
+            ensemble_weights['sports'] = 0.25 if domain == 'general' else 1.0
+        
+        # LITERARY/CHARACTER DOMAIN
+        if domain in ['literary', 'character', 'fiction', 'general']:
+            literary_score = _calculate_literary_role_score(
+                name, base_phonetics, acoustic, universals, context
+            )
+            domain_predictions['literary'] = literary_score
+            ensemble_weights['literary'] = 0.25 if domain == 'general' else 1.0
+        
+        # GOSPEL/RELIGIOUS DOMAIN
+        if domain in ['gospel', 'religious', 'theological', 'general']:
+            gospel_score = _calculate_gospel_significance_score(
+                name, foretold, base_phonetics, context
+            )
+            domain_predictions['gospel'] = gospel_score
+            ensemble_weights['gospel'] = 0.25 if domain == 'general' else 1.0
+        
+        # ENSEMBLE PREDICTION: Weight and combine all domains
+        ensemble_success_score = 0.0
+        total_weight = sum(ensemble_weights.values())
+        
+        for domain_key, weight in ensemble_weights.items():
+            if domain_key in domain_predictions:
+                ensemble_success_score += (
+                    domain_predictions[domain_key].get('success_score', 0.5) * 
+                    (weight / total_weight)
+                )
+        
+        # Determine applicable variables based on domain
+        applicable_variables = _get_domain_variables(domain)
+        
+        # Combine into comprehensive profile
+        complete_analysis = {
+            'name': name,
+            'analysis_domain': domain,
+            'context_provided': context,
+            'applicable_variables': applicable_variables,
+            
+            # Base analyses
+            'foretold_naming': foretold,
+            'acoustic_profile': acoustic,
+            'phonetic_universals': universals,
+            'base_phonetics': {
+                'syllable_count': base_phonetics.get('syllable_count'),
+                'harshness_score': base_phonetics.get('harshness_score'),
+                'melodiousness_score': base_phonetics.get('melodiousness_score'),
+                'memorability_score': base_phonetics.get('memorability_score'),
+            },
+            
+            # Domain-specific predictions
+            'domain_predictions': domain_predictions,
+            
+            # Ensemble prediction
+            'ensemble': {
+                'success_score': float(ensemble_success_score),
+                'confidence': _calculate_ensemble_confidence(domain_predictions),
+                'dominant_domain': max(domain_predictions.items(), 
+                                     key=lambda x: x[1].get('success_score', 0))[0] if domain_predictions else None,
+                'weights': ensemble_weights,
+            },
+            
+            # Universal summary
+            'summary': {
+                'ensemble_success_score': float(ensemble_success_score),
+                'prophetic_score': foretold.get('prophetic_score', 0.5),
+                'melodiousness': acoustic.get('overall', {}).get('melodiousness', 0.5),
+                'harshness': acoustic.get('harshness', {}).get('overall_score', 0.5),
+                'bouba_kiki_score': universals.get('bouba_kiki', {}).get('score', 0),
+                'universal_valence': universals.get('emotional_valence', {}).get('universal', 0),
+                'destiny_category': foretold.get('destiny_category'),
+                'cultural_origin': foretold.get('cultural_origin'),
+                'domains_analyzed': list(domain_predictions.keys()),
+            }
+        }
+        
+        return jsonify({
+            'status': 'success',
+            'complete_analysis': complete_analysis
+        })
+    except Exception as e:
+        logger.error(f"Error in complete name analysis: {e}", exc_info=True)
+        return jsonify({'error': str(e)}), 500
+
+
+def _calculate_crypto_success_score(name: str, phonetics: dict, foretold: dict, 
+                                     acoustic: dict, context: dict) -> dict:
+    """Apply cryptocurrency-specific formula"""
+    # Formula based on our research: melodiousness + innovation + memorability
+    melodiousness = acoustic.get('overall', {}).get('melodiousness', 0.5)
+    innovation_score = 1.0 - (phonetics.get('commonality_score', 50) / 100)  # Inverse of commonality
+    memorability = phonetics.get('memorability_score', 50) / 100
+    harshness = acoustic.get('harshness', {}).get('overall_score', 0.5)
+    
+    # Crypto formula: innovation (40%) + melodiousness (30%) + memorability (20%) + controlled harshness (10%)
+    success_score = (
+        0.40 * innovation_score +
+        0.30 * melodiousness +
+        0.20 * memorability +
+        0.10 * (1.0 - harshness)  # Lower harshness is better for crypto
+    )
+    
+    return {
+        'success_score': float(success_score),
+        'innovation_score': float(innovation_score),
+        'melodiousness': float(melodiousness),
+        'memorability': float(memorability),
+        'formula': 'crypto_innovation_weighted',
+        'recommended_variables': ['market_timing', 'founder_reputation', 'technical_innovation'],
+        'interpretation': 'High for innovative, memorable cryptocurrency names',
+    }
+
+
+def _calculate_sports_success_score(name: str, phonetics: dict, acoustic: dict, 
+                                     context: dict) -> dict:
+    """Apply sports/athlete-specific formula"""
+    # Formula based on research: power + memorability + harshness for contact sports
+    harshness = acoustic.get('harshness', {}).get('overall_score', 0.5)
+    memorability = phonetics.get('memorability_score', 50) / 100
+    syllables = phonetics.get('syllable_count', 2)
+    
+    # Get sport type from context
+    sport_type = context.get('sport_type', 'general')
+    
+    if sport_type in ['football', 'basketball', 'contact']:
+        # Contact sports: harshness is good
+        success_score = (
+            0.40 * harshness +
+            0.35 * memorability +
+            0.25 * (1.0 if syllables <= 3 else 0.7)  # Short names better
+        )
+    else:
+        # Precision sports (golf, tennis): melodiousness is better
+        melodiousness = acoustic.get('overall', {}).get('melodiousness', 0.5)
+        success_score = (
+            0.40 * melodiousness +
+            0.35 * memorability +
+            0.25 * (1.0 if syllables <= 3 else 0.7)
+        )
+    
+    return {
+        'success_score': float(success_score),
+        'harshness': float(harshness),
+        'memorability': float(memorability),
+        'formula': f'sports_{sport_type}_optimized',
+        'recommended_variables': ['sport_type', 'position', 'playing_style'],
+        'interpretation': f'Optimized for {sport_type} athletes',
+    }
+
+
+def _calculate_literary_role_score(name: str, phonetics: dict, acoustic: dict, 
+                                    universals: dict, context: dict) -> dict:
+    """Apply literary character role prediction formula"""
+    melodiousness = acoustic.get('overall', {}).get('melodiousness', 0.5)
+    harshness = acoustic.get('harshness', {}).get('overall_score', 0.5)
+    bouba_kiki = universals.get('bouba_kiki', {}).get('score', 0)
+    
+    # Protagonist scoring: melodious, relatable
+    protagonist_score = (
+        0.45 * melodiousness +
+        0.30 * (1.0 - harshness) +
+        0.25 * (0.5 if bouba_kiki > 0 else 0.3)  # Slight bouba preference
+    )
+    
+    # Antagonist scoring: harsh, distinctive
+    antagonist_score = (
+        0.45 * harshness +
+        0.30 * (1.0 - melodiousness) +
+        0.25 * (0.5 if bouba_kiki < 0 else 0.3)  # Slight kiki preference
+    )
+    
+    # Overall success: higher of the two (distinctive role)
+    success_score = max(protagonist_score, antagonist_score)
+    predicted_role = 'protagonist' if protagonist_score > antagonist_score else 'antagonist'
+    
+    return {
+        'success_score': float(success_score),
+        'protagonist_score': float(protagonist_score),
+        'antagonist_score': float(antagonist_score),
+        'predicted_role': predicted_role,
+        'formula': 'literary_role_prediction',
+        'recommended_variables': ['genre', 'character_arc', 'narrative_importance'],
+        'interpretation': f'Name suggests {predicted_role} characteristics',
+    }
+
+
+def _calculate_gospel_significance_score(name: str, foretold: dict, phonetics: dict, 
+                                         context: dict) -> dict:
+    """Apply gospel/religious significance formula"""
+    prophetic_score = foretold.get('prophetic_score', 0.5)
+    cultural_origin = foretold.get('cultural_origin', 'unknown')
+    destiny_category = foretold.get('destiny_category', 'neutral')
+    
+    # Gospel significance: prophetic + cultural alignment + meaning depth
+    historical_authenticity = 0.8 if cultural_origin in ['hebrew', 'aramaic', 'greek'] else 0.4
+    prophetic_weight = prophetic_score
+    destiny_weight = 0.7 if destiny_category in ['leadership', 'wisdom', 'strength'] else 0.5
+    
+    success_score = (
+        0.40 * prophetic_weight +
+        0.35 * historical_authenticity +
+        0.25 * destiny_weight
+    )
+    
+    return {
+        'success_score': float(success_score),
+        'prophetic_score': float(prophetic_score),
+        'historical_authenticity': float(historical_authenticity),
+        'cultural_origin': cultural_origin,
+        'destiny_category': destiny_category,
+        'formula': 'gospel_theological_significance',
+        'recommended_variables': ['historical_period', 'role_in_narrative', 'theological_meaning'],
+        'interpretation': 'Significance in religious/theological context',
+    }
+
+
+def _calculate_ensemble_confidence(domain_predictions: dict) -> float:
+    """Calculate confidence in ensemble prediction based on domain agreement"""
+    if not domain_predictions:
+        return 0.0
+    
+    scores = [pred.get('success_score', 0.5) for pred in domain_predictions.values()]
+    if len(scores) == 1:
+        return 0.8
+    
+    # Higher confidence when domains agree
+    score_variance = np.var(scores)
+    confidence = 1.0 - min(score_variance * 2, 0.5)  # Lower variance = higher confidence
+    
+    return float(confidence)
+
+
+def _get_domain_variables(domain: str) -> dict:
+    """Get recommended variables for each domain"""
+    domain_variables = {
+        'crypto': {
+            'required': ['name'],
+            'optional': ['market_cap', 'launch_date', 'founder_reputation', 'technical_innovation', 'whitepaper_quality'],
+            'recommended': 'Include market_cap and launch_date for timing analysis',
+        },
+        'sports': {
+            'required': ['name', 'sport_type'],
+            'optional': ['position', 'playing_style', 'team', 'draft_position', 'college'],
+            'recommended': 'Sport type significantly affects formula weighting',
+        },
+        'literary': {
+            'required': ['name'],
+            'optional': ['genre', 'character_arc', 'narrative_importance', 'first_appearance', 'speaking_lines'],
+            'recommended': 'Genre context helps refine predictions',
+        },
+        'gospel': {
+            'required': ['name'],
+            'optional': ['historical_period', 'role_in_narrative', 'theological_meaning', 'gospel_source'],
+            'recommended': 'Historical period provides cultural context',
+        },
+        'general': {
+            'required': ['name'],
+            'optional': ['domain', 'context'],
+            'recommended': 'Specify domain for targeted analysis',
+        },
+    }
+    
+    return domain_variables.get(domain, domain_variables['general'])
+
+
+# =============================================================================
+# PHONETIC UNIVERSALS & CROSS-DOMAIN META-ANALYSIS
+# =============================================================================
+
+@app.route('/phonetic-universals')
+def phonetic_universals_home():
+    """Phonetic Universals: The Grand Unified Theory"""
+    return render_template('phonetic_universals.html')
+
+
+@app.route('/api/sound-symbolism/all')
+def api_sound_symbolism_all():
+    """Get complete sound symbolism database"""
+    try:
+        from core.models import SoundSymbolism
+        
+        symbols = SoundSymbolism.query.all()
+        
+        # If no data, populate from collector
+        if not symbols:
+            logger.info("Populating sound symbolism database...")
+            from collectors.sound_symbolism_collector import SoundSymbolismCollector
+            
+            collector = SoundSymbolismCollector()
+            symbolism_data = collector.get_all_associations()
+            
+            for sym_data in symbolism_data:
+                symbol = SoundSymbolism(
+                    phoneme=sym_data['phoneme'],
+                    phoneme_type=sym_data['phoneme_type'],
+                    phonetic_feature=sym_data['phonetic_feature'],
+                    symbolic_meanings=sym_data['symbolic_meanings'],
+                    emotional_valence=sym_data['emotional_valence'],
+                    size_association=sym_data['size_association'],
+                    shape_association=sym_data['shape_association'],
+                    texture_association=sym_data['texture_association'],
+                    motion_association=sym_data['motion_association'],
+                    brightness_association=sym_data['brightness_association'],
+                    hardness_association=sym_data['hardness_association'],
+                    temperature_association=sym_data['temperature_association'],
+                    example_words=sym_data['example_words'],
+                    cultures_observed=sym_data['cultures_observed'],
+                    observation_count=sym_data['observation_count'],
+                    universality_score=sym_data['universality_score'],
+                    source_studies=sym_data['source_studies'],
+                    effect_size=sym_data['effect_size'],
+                    confidence_interval=sym_data['confidence_interval']
+                )
+                db.session.add(symbol)
+            
+            db.session.commit()
+            logger.info(f"Populated {len(symbolism_data)} sound symbolism entries")
+            
+            symbols = SoundSymbolism.query.all()
+        
+        symbols_list = [s.to_dict() for s in symbols]
+        
+        return jsonify({
+            'symbolisms': symbols_list,
+            'count': len(symbols_list),
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error retrieving sound symbolism: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/phonetic-universals/meta-analysis')
+def api_phonetic_universals_meta():
+    """Run cross-domain meta-analysis across all domains"""
+    try:
+        from analyzers.cross_domain_phonetic_universals import CrossDomainPhoneticUniversals
+        from collectors.love_words_collector import LoveWordsCollector
+        from collectors.romance_instrument_collector import RomanceInstrumentCollector
+        
+        analyzer = CrossDomainPhoneticUniversals()
+        
+        # Gather data from multiple domains
+        love_collector = LoveWordsCollector()
+        instrument_collector = RomanceInstrumentCollector()
+        
+        domains_data = {
+            'love_words': love_collector.get_all_words(),
+            'instruments': instrument_collector.get_all_instruments(),
+        }
+        
+        # Run meta-analysis
+        results = analyzer.run_comprehensive_meta_analysis(domains_data)
+        
+        return jsonify({
+            'meta_analysis': results,
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error in meta-analysis: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/phonetic-universals/optimal-phonetics/<concept>')
+def api_optimal_phonetics(concept):
+    """Get optimal phonetic features for a concept"""
+    try:
+        from analyzers.cross_domain_phonetic_universals import CrossDomainPhoneticUniversals
+        
+        analyzer = CrossDomainPhoneticUniversals()
+        optimal = analyzer.calculate_optimal_phonetics(concept)
+        
+        return jsonify({
+            'optimal_phonetics': optimal,
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error calculating optimal phonetics: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/phonetic-universals/validate-theory')
+def api_validate_theory():
+    """Validate nominative determinism theory with cross-domain evidence"""
+    try:
+        from analyzers.cross_domain_phonetic_universals import CrossDomainPhoneticUniversals
+        from collectors.love_words_collector import LoveWordsCollector
+        from collectors.romance_instrument_collector import RomanceInstrumentCollector
+        
+        analyzer = CrossDomainPhoneticUniversals()
+        
+        # Gather data
+        love_collector = LoveWordsCollector()
+        instrument_collector = RomanceInstrumentCollector()
+        
+        domains_data = {
+            'love_words': love_collector.get_all_words(),
+            'instruments': instrument_collector.get_all_instruments(),
+        }
+        
+        # Run meta-analysis
+        results = analyzer.run_comprehensive_meta_analysis(domains_data)
+        
+        # Validate theory
+        validation = analyzer.validate_nominative_determinism_theory(results)
+        
+        return jsonify({
+            'validation': validation,
+            'status': 'success'
+        })
+        
+    except Exception as e:
+        logger.error(f"Error validating theory: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+# =============================================================================
+
+@app.route('/api/research/comprehensive-stats')
+def comprehensive_research_stats():
+    """Get comprehensive statistics across all research domains for the dashboard"""
+    try:
+        from core.research_framework import FRAMEWORK
+        from core.models import (
+            Cryptocurrency, Hurricane, MTGCard, Band, NBAPlayer, NFLPlayer,
+            MentalHealthTerm, Academic, ElectionCandidate, Ship, BoardGame, MLBPlayer
+        )
+        
+        # Domain configurations with model classes
+        domain_models = {
+            'cryptocurrency': {
+                'model': Cryptocurrency,
+                'display_name': 'Cryptocurrency',
+                'icon': '₿',
+                'key_finding': 'High-quality names outperform by +17.6pp. Memorability predicts negative outcomes.',
+                'innovation_rating': 2
+            },
+            'hurricanes': {
+                'model': Hurricane,
+                'display_name': 'Hurricanes',
+                'icon': '🌀',
+                'key_finding': 'Phonetic harshness predicts casualties (ROC AUC 0.916). 27% risk increase from harsh names.',
+                'innovation_rating': 3
+            },
+            'mtg_card': {
+                'model': MTGCard,
+                'display_name': 'Magic: The Gathering',
+                'icon': '🃏',
+                'key_finding': 'Memorability aids tournament adoption. Card mechanics dominate (90%+).',
+                'innovation_rating': 1
+            },
+            'bands': {
+                'model': Band,
+                'display_name': 'Music Bands',
+                'icon': '🎸',
+                'key_finding': 'Genre-specific formulas. Harsh names aid rock/metal (2.8× effect), harm pop.',
+                'innovation_rating': 2
+            },
+            'nba_player': {
+                'model': NBAPlayer,
+                'display_name': 'NBA Players',
+                'icon': '🏀',
+                'key_finding': 'Phonetic features predict position with 68% accuracy.',
+                'innovation_rating': 2
+            },
+            'nfl_player': {
+                'model': NFLPlayer,
+                'display_name': 'NFL Players',
+                'icon': '🏈',
+                'key_finding': 'Position-specific patterns. Harsh names correlate with defensive roles.',
+                'innovation_rating': 2
+            },
+            'mental_health': {
+                'model': MentalHealthTerm,
+                'display_name': 'Mental Health',
+                'icon': '🧠',
+                'key_finding': 'Brand names achieve +52% recall vs generics. Nomenclature affects stigma.',
+                'innovation_rating': 2
+            },
+            'academics': {
+                'model': Academic,
+                'display_name': 'Academics',
+                'icon': '🎓',
+                'key_finding': 'Name complexity correlates with field prestige.',
+                'innovation_rating': 1
+            },
+            'elections': {
+                'model': ElectionCandidate,
+                'display_name': 'Elections',
+                'icon': '🗳️',
+                'key_finding': 'Candidate name phonetics correlate with electoral outcomes.',
+                'innovation_rating': 1
+            },
+            'ships': {
+                'model': Ship,
+                'display_name': 'Naval Ships',
+                'icon': '⚓',
+                'key_finding': 'Name characteristics correlate with service longevity.',
+                'innovation_rating': 1
+            },
+            'board_games': {
+                'model': BoardGame,
+                'display_name': 'Board Games',
+                'icon': '🎲',
+                'key_finding': 'Name memorability predicts commercial success.',
+                'innovation_rating': 1
+            },
+            'mlb_player': {
+                'model': MLBPlayer,
+                'display_name': 'MLB Players',
+                'icon': '⚾',
+                'key_finding': 'Phonetic patterns vary by position and batting order.',
+                'innovation_rating': 2
+            }
+        }
+        
+        # Gather statistics for each domain
+        domains_data = []
+        total_records = 0
+        completed_count = 0
+        active_count = 0
+        
+        for domain_id, config in domain_models.items():
+            try:
+                model = config['model']
+                count = db.session.query(model).count()
+                
+                # Get metadata from framework if available
+                framework_domain = FRAMEWORK.get_domain(domain_id)
+                status = framework_domain.status if framework_domain else 'active'
+                
+                if status == 'complete':
+                    completed_count += 1
+                elif status == 'active':
+                    active_count += 1
+                
+                # Estimate feature count (phonetic features typically ~25-40)
+                feature_count = 35
+                
+                # Get rough effect size estimate from framework or defaults
+                effect_size = 0.15  # Conservative default R²
+                if domain_id == 'hurricanes':
+                    effect_size = 0.35
+                elif domain_id == 'cryptocurrency':
+                    effect_size = 0.25
+                elif domain_id in ['nba_player', 'nfl_player', 'bands']:
+                    effect_size = 0.20
+                
+                total_records += count
+                
+                domains_data.append({
+                    'domain_id': domain_id,
+                    'display_name': config['display_name'],
+                    'sample_size': count,
+                    'feature_count': feature_count,
+                    'status': status,
+                    'key_finding': config.get('key_finding'),
+                    'innovation_rating': config.get('innovation_rating', 1),
+                    'effect_size': effect_size
+                })
+                
+            except Exception as e:
+                logger.warning(f"Could not load stats for {domain_id}: {e}")
+                continue
+        
+        # Sort by sample size descending
+        domains_data.sort(key=lambda x: x['sample_size'], reverse=True)
+        
+        return jsonify({
+            'status': 'success',
+            'overview': {
+                'total_domains': len(domains_data),
+                'total_records': total_records,
+                'completed_domains': completed_count,
+                'active_domains': active_count
+            },
+            'domains': domains_data
+        })
+        
+    except Exception as e:
+        logger.error(f"Error generating comprehensive stats: {e}")
+        return jsonify({
+            'error': str(e),
+            'status': 'error'
+        }), 500
+
 
 if __name__ == '__main__':
     # Generate a random odd port between 5001 and 65535
@@ -7202,5 +9708,6 @@ if __name__ == '__main__':
     print(f"Nominative Determinism Investment Intelligence Platform")
     print(f"{'='*60}")
     print(f"Server: http://localhost:{random_port}")
+    print(f"Marriage Prediction: http://localhost:{random_port}/marriage")
     print(f"{'='*60}\n")
     app.run(host='0.0.0.0', port=random_port, debug=True)

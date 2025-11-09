@@ -1,0 +1,194 @@
+{
+  "formula_type": "frequency",
+  "population_size": 50,
+  "n_generations": 50,
+  "mutation_rate": 0.1,
+  "generations": [
+    {
+      "generation_number": 0,
+      "population_size": 50,
+      "best_fitness": 0.29164738827441367,
+      "mean_fitness": 0.2751140145621237,
+      "fitness_std": 0.0062164767132219766,
+      "best_individual": {
+        "formula_id": "frequency_random_5549",
+        "weights": {
+          "frequency_to_hue": 1.216157011330896,
+          "entropy_to_complexity": 0.8762326795337726,
+          "repetition_to_pattern": 1.2669137849825547,
+          "rhythm_to_rotation": 1.0613708212672315
+        },
+        "fitness": 0.29164738827441367,
+        "generation": 0,
+        "parent_ids": []
+      }
+    },
+    {
+      "generation_number": 1,
+      "population_size": 50,
+      "best_fitness": 0.29385300458121655,
+      "mean_fitness": 0.28152394762298155,
+      "fitness_std": 0.005359898268954322,
+      "best_individual": {
+        "formula_id": "frequency_random_5549_x_frequency_random_1116",
+        "weights": {
+          "frequency_to_hue": 1.216157011330896,
+          "entropy_to_complexity": 0.8762326795337726,
+          "repetition_to_pattern": 0.9095355195616762,
+          "rhythm_to_rotation": 1.0613708212672315
+        },
+        "fitness": 0.29385300458121655,
+        "generation": 1,
+        "parent_ids": [
+          "frequency_random_5549",
+          "frequency_random_1116"
+        ]
+      }
+    },
+    {
+      "generation_number": 2,
+      "population_size": 50,
+      "best_fitness": 0.2985375587548267,
+      "mean_fitness": 0.2859623530443207,
+      "fitness_std": 0.005670401639847591,
+      "best_individual": {
+        "formula_id": "frequency_random_1116_x_frequency_random_2725_x_frequency_random_6743_x_frequency_random_3565",
+        "weights": {
+          "frequency_to_hue": 1.0085709660681388,
+          "entropy_to_complexity": 1.043063368191495,
+          "repetition_to_pattern": 1.0434533850193977,
+          "rhythm_to_rotation": 1.021907580334837
+        },
+        "fitness": 0.2985375587548267,
+        "generation": 2,
+        "parent_ids": [
+          "frequency_random_1116_x_frequency_random_2725",
+          "frequency_random_6743_x_frequency_random_3565"
+        ]
+      }
+    },
+    {
+      "generation_number": 3,
+      "population_size": 50,
+      "best_fitness": 0.2985375587548267,
+      "mean_fitness": 0.29169199918103245,
+      "fitness_std": 0.003545247106199124,
+      "best_individual": {
+        "formula_id": "frequency_random_1116_x_frequency_random_2725_x_frequency_random_6743_x_frequency_random_3565",
+        "weights": {
+          "frequency_to_hue": 1.0085709660681388,
+          "entropy_to_complexity": 1.043063368191495,
+          "repetition_to_pattern": 1.0434533850193977,
+          "rhythm_to_rotation": 1.021907580334837
+        },
+        "fitness": 0.2985375587548267,
+        "generation": 3,
+        "parent_ids": [
+          "frequency_random_1116_x_frequency_random_2725_x_frequency_random_6743_x_frequency_random_3565"
+        ]
+      }
+    },
+    {
+      "generation_number": 4,
+      "population_size": 50,
+      "best_fitness": 0.2985375587548267,
+      "mean_fitness": 0.29564734790572983,
+      "fitness_std": 0.00254464836848895,
+      "best_individual": {
+        "formula_id": "frequency_random_1116_x_frequency_random_2725_x_frequency_random_6743_x_frequency_random_3565",
+        "weights": {
+          "frequency_to_hue": 1.0085709660681388,
+          "entropy_to_complexity": 1.043063368191495,
+          "repetition_to_pattern": 1.0434533850193977,
+          "rhythm_to_rotation": 1.021907580334837
+        },
+        "fitness": 0.2985375587548267,
+        "generation": 4,
+        "parent_ids": [
+          "frequency_random_1116_x_frequency_random_2725_x_frequency_random_6743_x_frequency_random_3565"
+        ]
+      }
+    },
+    {
+      "generation_number": 5,
+      "population_size": 50,
+      "best_fitness": 0.2985375587548267,
+      "mean_fitness": 0.29772074196517173,
+      "fitness_std": 0.0009070817447566467,
+      "best_individual": {
+        "formula_id": "frequency_random_1116_x_frequency_random_2725_x_frequency_random_6743_x_frequency_random_3565",
+        "weights": {
+          "frequency_to_hue": 1.0085709660681388,
+          "entropy_to_complexity": 1.043063368191495,
+          "repetition_to_pattern": 1.0434533850193977,
+          "rhythm_to_rotation": 1.021907580334837
+        },
+        "fitness": 0.2985375587548267,
+        "generation": 5,
+        "parent_ids": [
+          "frequency_random_1116_x_frequency_random_2725_x_frequency_random_6743_x_frequency_random_3565"
+        ]
+      }
+    },
+    {
+      "generation_number": 6,
+      "population_size": 50,
+      "best_fitness": 0.2985375587548267,
+      "mean_fitness": 0.2983756705858975,
+      "fitness_std": 0.0002632368802453046,
+      "best_individual": {
+        "formula_id": "frequency_random_1116_x_frequency_random_2725_x_frequency_random_6743_x_frequency_random_3565",
+        "weights": {
+          "frequency_to_hue": 1.0085709660681388,
+          "entropy_to_complexity": 1.043063368191495,
+          "repetition_to_pattern": 1.0434533850193977,
+          "rhythm_to_rotation": 1.021907580334837
+        },
+        "fitness": 0.2985375587548267,
+        "generation": 6,
+        "parent_ids": [
+          "frequency_random_1116_x_frequency_random_2725_x_frequency_random_6743_x_frequency_random_3565"
+        ]
+      }
+    },
+    {
+      "generation_number": 7,
+      "population_size": 50,
+      "best_fitness": 0.2985375587548267,
+      "mean_fitness": 0.2985375587548267,
+      "fitness_std": 0.0,
+      "best_individual": {
+        "formula_id": "frequency_random_1116_x_frequency_random_2725_x_frequency_random_6743_x_frequency_random_3565",
+        "weights": {
+          "frequency_to_hue": 1.0085709660681388,
+          "entropy_to_complexity": 1.043063368191495,
+          "repetition_to_pattern": 1.0434533850193977,
+          "rhythm_to_rotation": 1.021907580334837
+        },
+        "fitness": 0.2985375587548267,
+        "generation": 7,
+        "parent_ids": [
+          "frequency_random_1116_x_frequency_random_2725_x_frequency_random_6743_x_frequency_random_3565"
+        ]
+      }
+    }
+  ],
+  "converged": true,
+  "convergence_generation": 8,
+  "final_best_fitness": 0.2985375587548267,
+  "best_formula": {
+    "formula_id": "frequency_random_1116_x_frequency_random_2725_x_frequency_random_6743_x_frequency_random_3565",
+    "weights": {
+      "frequency_to_hue": 1.0085709660681388,
+      "entropy_to_complexity": 1.043063368191495,
+      "repetition_to_pattern": 1.0434533850193977,
+      "rhythm_to_rotation": 1.021907580334837
+    },
+    "fitness": 0.2985375587548267,
+    "generation": 7,
+    "parent_ids": [
+      "frequency_random_1116_x_frequency_random_2725_x_frequency_random_6743_x_frequency_random_3565"
+    ]
+  },
+  "timestamp": "2025-11-08T20:56:05.447757"
+}

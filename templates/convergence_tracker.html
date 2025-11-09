@@ -1,0 +1,348 @@
+{% extends "base.html" %}
+
+{% block title %}Convergence Tracker - Formula Evolution Monitoring{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Elegant Background -->
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.3;">
+        <div style="position: absolute; width: 100%; height: 100%; opacity: 0.015; filter: blur(100px); background: radial-gradient(ellipse at 50% 30%, var(--accent-green) 0%, transparent 70%);"></div>
+    </div>
+
+    <div style="max-width: 1300px; margin: 0 auto; padding: 3rem 2rem 5rem; position: relative; z-index: 1;">
+
+        <!-- Breadcrumb -->
+        <div style="margin-bottom: 2rem;">
+            <a href="{{ url_for('formula_dashboard') }}" style="color: var(--text-muted); text-decoration: none; font-size: var(--text-sm); transition: color 0.2s;">
+                ← Back to Dashboard
+            </a>
+        </div>
+
+        <!-- Hero Section -->
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <div style="font-size: 5rem; margin-bottom: 1rem; opacity: 0.9; background: linear-gradient(135deg, var(--accent-green), var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1;">
+                🧬
+            </div>
+            <h1 style="font-size: 3rem; font-weight: var(--weight-ultra); margin-bottom: 1rem; letter-spacing: -0.03em; font-family: 'Playfair Display', serif;">
+                Formula Evolution & Convergence
+            </h1>
+            <p style="font-size: 1.125rem; color: var(--text-muted); max-width: 800px; margin: 0 auto; line-height: 1.6;">
+                Genetic algorithm optimization reveals mathematical invariants<br>
+                50 population × 50 generations = 2,500 formula variants tested per run
+            </p>
+        </div>
+
+        <!-- Evolution Concept -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem;">
+            <h2 style="margin: 0 0 1.5rem; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 2rem;">
+                How Formula Evolution Works
+            </h2>
+            
+            <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                Each formula has adjustable parameters (weights, thresholds, combinations). We use a <strong>genetic algorithm</strong> 
+                to evolve optimal parameters: generate population of variants, test performance, keep best, mutate, repeat.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 2rem;">
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.75rem; border-radius: 12px; text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🧬</div>
+                    <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-cyan);">Generation 0</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted); line-height: 1.6;">
+                        Random initialization<br>50 formula variants
+                    </div>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.75rem; border-radius: 12px; text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎯</div>
+                    <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-purple);">Test & Rank</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted); line-height: 1.6;">
+                        Correlate with outcomes<br>Fitness score each
+                    </div>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.75rem; border-radius: 12px; text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">✂️</div>
+                    <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-gold);">Select & Breed</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted); line-height: 1.6;">
+                        Keep top 50%<br>Crossover + mutate
+                    </div>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.75rem; border-radius: 12px; text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🔄</div>
+                    <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-green);">Repeat 50x</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted); line-height: 1.6;">
+                        Until convergence<br>or max generations
+                    </div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding: 1.75rem; background: rgba(16, 185, 129, 0.08); border-radius: 12px; border-left: 4px solid var(--accent-green);">
+                <p style="margin: 0; line-height: 1.7; font-size: 1.05rem;">
+                    <strong style="color: var(--accent-green);">Why This Matters:</strong> If evolution consistently converges 
+                    to the same parameters across runs, those parameters represent <em>mathematical invariants</em>—optimal values 
+                    that reflect underlying structure, not just noise.
+                </p>
+            </div>
+        </div>
+
+        <!-- Current Evolution Status -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem; background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(6, 182, 212, 0.05) 100%);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 style="margin: 0; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 1.75rem;">
+                    Latest Evolution Results
+                </h2>
+                <div id="evolutionTimestamp" style="font-size: var(--text-sm); color: var(--text-muted);">
+                    Loading...
+                </div>
+            </div>
+
+            <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 1.5rem;">
+                <div style="background: rgba(6, 182, 212, 0.1); padding: 2rem 1.5rem; border-radius: 12px; text-align: center; border: 1px solid rgba(6, 182, 212, 0.3);">
+                    <div style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;">
+                        Phonetic
+                    </div>
+                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;" id="status-phonetic">⏳</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted);" id="fitness-phonetic">-</div>
+                </div>
+
+                <div style="background: rgba(147, 51, 234, 0.1); padding: 2rem 1.5rem; border-radius: 12px; text-align: center; border: 1px solid rgba(147, 51, 234, 0.3);">
+                    <div style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;">
+                        Semantic
+                    </div>
+                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;" id="status-semantic">⏳</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted);" id="fitness-semantic">-</div>
+                </div>
+
+                <div style="background: rgba(251, 191, 36, 0.1); padding: 2rem 1.5rem; border-radius: 12px; text-align: center; border: 1px solid rgba(251, 191, 36, 0.3);">
+                    <div style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;">
+                        Structural
+                    </div>
+                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;" id="status-structural">⏳</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted);" id="fitness-structural">-</div>
+                </div>
+
+                <div style="background: rgba(16, 185, 129, 0.1); padding: 2rem 1.5rem; border-radius: 12px; text-align: center; border: 1px solid rgba(16, 185, 129, 0.3);">
+                    <div style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;">
+                        Frequency
+                    </div>
+                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;" id="status-frequency">⏳</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted);" id="fitness-frequency">-</div>
+                </div>
+
+                <div style="background: rgba(239, 68, 68, 0.1); padding: 2rem 1.5rem; border-radius: 12px; text-align: center; border: 1px solid rgba(239, 68, 68, 0.3);">
+                    <div style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;">
+                        Numerical
+                    </div>
+                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;" id="status-numerological">⏳</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted);" id="fitness-numerological">-</div>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.05); padding: 2rem 1.5rem; border-radius: 12px; text-align: center; border: 1px solid rgba(255, 255, 255, 0.2);">
+                    <div style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: 0.75rem; text-transform: uppercase; letter-spacing: 0.08em;">
+                        Hybrid
+                    </div>
+                    <div style="font-size: 2.5rem; margin-bottom: 0.5rem;" id="status-hybrid">⏳</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted);" id="fitness-hybrid">-</div>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.02); border-radius: 10px;">
+                <div style="display: flex; align-items: center; gap: 2rem; font-size: var(--text-sm);">
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 1.5rem;">✓</span>
+                        <span style="color: var(--text-muted);">Converged</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 1.5rem;">○</span>
+                        <span style="color: var(--text-muted);">Evolving</span>
+                    </div>
+                    <div style="display: flex; align-items: center; gap: 0.5rem;">
+                        <span style="font-size: 1.5rem;">⏳</span>
+                        <span style="color: var(--text-muted);">Pending</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Convergence Explained -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem;">
+            <h2 style="margin: 0 0 1.5rem; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 1.75rem;">
+                What is Convergence?
+            </h2>
+            
+            <p style="line-height: 1.8; color: var(--text-secondary); margin-bottom: 2rem;">
+                Convergence occurs when the best formula stops improving for multiple generations. It means evolution 
+                has found an <strong>optimal solution</strong> (local or global maximum). The converged parameters 
+                represent mathematical invariants.
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div>
+                    <h4 style="margin: 0 0 1rem; font-weight: 600; font-size: 1.125rem; color: var(--accent-green);">
+                        ✓ Strong Convergence
+                    </h4>
+                    <div style="background: rgba(16, 185, 129, 0.08); padding: 1.5rem; border-radius: 10px;">
+                        <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.9; font-size: var(--text-sm); color: var(--text-secondary);">
+                            <li><strong>Early:</strong> Converges within 15-20 generations</li>
+                            <li><strong>Stable:</strong> Fitness plateau is flat (Δ < 0.001)</li>
+                            <li><strong>Consistent:</strong> Multiple runs converge to same parameters</li>
+                            <li><strong>Interpretation:</strong> Strong mathematical structure, true optimum</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 style="margin: 0 0 1rem; font-weight: 600; font-size: 1.125rem; color: var(--accent-cyan);">
+                        ○ Weak/No Convergence
+                    </h4>
+                    <div style="background: rgba(6, 182, 212, 0.08); padding: 1.5rem; border-radius: 10px;">
+                        <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.9; font-size: var(--text-sm); color: var(--text-secondary);">
+                            <li><strong>Late:</strong> Still improving at generation 50</li>
+                            <li><strong>Noisy:</strong> Fitness oscillates, no clear plateau</li>
+                            <li><strong>Variable:</strong> Different runs find different optima</li>
+                            <li><strong>Interpretation:</strong> Weak structure, many local maxima, or noise</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Invariant Detection -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem; border: 1px solid rgba(16, 185, 129, 0.2);">
+            <h2 style="margin: 0 0 1.5rem; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 1.75rem;">
+                Mathematical Invariants Detected
+            </h2>
+            
+            <p style="line-height: 1.8; color: var(--text-secondary); margin-bottom: 2rem;">
+                Invariants are parameter values that remain constant across evolution runs and domains. They suggest 
+                fundamental mathematical properties of nominative determinism.
+            </p>
+
+            <div id="invariantsList">
+                <div style="text-align: center; padding: 3rem; color: var(--text-muted);">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">🔬</div>
+                    <div style="font-size: 1.125rem; margin-bottom: 0.5rem;">No Invariants Detected Yet</div>
+                    <div style="font-size: var(--text-sm); line-height: 1.6;">
+                        Invariants emerge after multiple evolution runs<br>
+                        showing consistent convergence patterns
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evolution History -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem;">
+            <h2 style="margin: 0 0 1.5rem; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 1.75rem;">
+                Evolution Fitness Over Time
+            </h2>
+            
+            <p style="line-height: 1.8; color: var(--text-secondary); margin-bottom: 2rem;">
+                Tracking how formula fitness improves across generations reveals convergence patterns. Steep curves indicate 
+                strong gradients toward optimal parameters.
+            </p>
+
+            <div id="evolutionCharts" style="min-height: 400px; display: flex; align-items: center; justify-content: center; background: rgba(255, 255, 255, 0.02); border-radius: 12px; padding: 3rem;">
+                <div style="text-align: center; color: var(--text-muted);">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">📈</div>
+                    <div style="font-size: 1.125rem; margin-bottom: 0.5rem;">Evolution Visualization Coming Soon</div>
+                    <div style="font-size: var(--text-sm);">
+                        Interactive charts showing fitness progression per generation
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interpretation Guide -->
+        <div class="glass-card" style="padding: 2.5rem; background: rgba(147, 51, 234, 0.05);">
+            <h2 style="margin: 0 0 1.5rem; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 1.75rem;">
+                What Evolution Results Tell Us
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div>
+                    <h4 style="margin: 0 0 1rem; font-weight: 600; font-size: 1.125rem; color: var(--accent-green);">
+                        All Formulas Converge Strongly
+                    </h4>
+                    <p style="font-size: var(--text-sm); line-height: 1.8; color: var(--text-secondary); margin: 0;">
+                        <strong>Interpretation:</strong> Every measurement approach has clear optimal parameters. 
+                        Nominative determinism is mathematically well-defined. Strong evidence for underlying structure.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 style="margin: 0 0 1rem; font-weight: 600; font-size: 1.125rem; color: var(--accent-cyan);">
+                        Only Some Formulas Converge
+                    </h4>
+                    <p style="font-size: var(--text-sm); line-height: 1.8; color: var(--text-secondary); margin: 0;">
+                        <strong>Interpretation:</strong> Some approaches work better than others. Converged formulas 
+                        capture real patterns, non-converged ones may be measuring noise or wrong dimensions.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 style="margin: 0 0 1rem; font-weight: 600; font-size: 1.125rem; color: var(--accent-purple);">
+                        Invariants Match Known Constants
+                    </h4>
+                    <p style="font-size: var(--text-sm); line-height: 1.8; color: var(--text-secondary); margin: 0;">
+                        <strong>Interpretation:</strong> If optimal weights are φ or e-based, nominative determinism 
+                        connects to fundamental mathematics. This would be profound—Nature/Science level discovery.
+                    </p>
+                </div>
+
+                <div>
+                    <h4 style="margin: 0 0 1rem; font-weight: 600; font-size: 1.125rem; color: var(--accent-gold);">
+                        No Convergence Anywhere
+                    </h4>
+                    <p style="font-size: var(--text-sm); line-height: 1.8; color: var(--text-secondary); margin: 0;">
+                        <strong>Interpretation:</strong> Patterns are weak or non-existent. Evolution can't find clear 
+                        optima because there's nothing to optimize. Suggests nominative effects are very small or absent.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+async function loadConvergenceData() {
+    try {
+        const response = await fetch('/api/formula-dashboard/status');
+        const data = await response.json();
+        
+        if (data.evolution) {
+            updateEvolutionStatus(data.evolution);
+        }
+        
+        if (data.last_update) {
+            document.getElementById('evolutionTimestamp').textContent = `Last run: ${new Date(data.last_update).toLocaleString()}`;
+        }
+    } catch (error) {
+        console.error('Failed to load convergence data:', error);
+    }
+}
+
+function updateEvolutionStatus(evolution) {
+    const formulas = ['phonetic', 'semantic', 'structural', 'frequency', 'numerological', 'hybrid'];
+    
+    formulas.forEach(formula => {
+        if (evolution[formula]) {
+            const status = evolution[formula].converged ? '✓' : '○';
+            const fitness = evolution[formula].fitness ? evolution[formula].fitness.toFixed(3) : '-';
+            
+            document.getElementById(`status-${formula}`).textContent = status;
+            document.getElementById(`fitness-${formula}`).textContent = `r = ${fitness}`;
+        }
+    });
+}
+
+// Load data on page load
+document.addEventListener('DOMContentLoaded', loadConvergenceData);
+
+// Auto-refresh every 60 seconds
+setInterval(loadConvergenceData, 60000);
+</script>
+
+{% endblock %}
+

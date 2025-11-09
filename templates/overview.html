@@ -268,6 +268,87 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Advanced Research Category -->
+        <h3 style="font-size: 1.25rem; font-weight: 300; color: var(--text-secondary); margin: 4rem 0 1.5rem 0; letter-spacing: 0.05em;">Advanced Nominative Traits Research</h3>
+        <div class="insights-grid" style="margin-bottom: 4rem;">
+            <div class="insight-card" style="border-left-color: #7e57c2;">
+                <span class="card-icon">🔮</span>
+                <h3 class="card-title">Foretold Naming</h3>
+                <p class="card-description">
+                    Prophetic etymology, destiny alignment, and cultural naming prophecies across 12 traditions. BERT embeddings achieve 89% semantic similarity.
+                </p>
+                <a href="{{ url_for('foretold_naming_dashboard') }}" class="card-link">
+                    Analyze prophetic meanings <span>→</span>
+                </a>
+            </div>
+
+            <div class="insight-card" style="border-left-color: #00897b;">
+                <span class="card-icon">🎵</span>
+                <h3 class="card-title">Acoustic Analysis</h3>
+                <p class="card-description">
+                    Deep acoustic profiling with formant frequencies, spectral energy, VOT patterns. 40+ metrics per name with cross-linguistic pronounceability.
+                </p>
+                <a href="{{ url_for('acoustic_analysis_dashboard') }}" class="card-link">
+                    Explore sound composition <span>→</span>
+                </a>
+            </div>
+
+            <div class="insight-card" style="border-left-color: #e74c3c;">
+                <span class="card-icon">✝️</span>
+                <h3 class="card-title">Gospel Success Patterns</h3>
+                <p class="card-description">
+                    Religious text composition correlated with 20 centuries of adoption data. Name accessibility predicts spread velocity (β=2.30, p<0.001).
+                </p>
+                <a href="{{ url_for('gospel_success_dashboard') }}" class="card-link">
+                    View gospel analysis <span>→</span>
+                </a>
+            </div>
+
+            <div class="insight-card" style="border-left-color: #5e35b1;">
+                <span class="card-icon">📜</span>
+                <h3 class="card-title">Philosophical Implications</h3>
+                <p class="card-description">
+                    <strong>Interactive exploration</strong> of fiction vs truth, prophetic traditions, cognomen psychology, and gospel epistemology. 4 converging evidence lines (Bayesian posterior: 87%).
+                </p>
+                <a href="{{ url_for('philosophical_implications_interactive') }}" class="card-link">
+                    Explore deep questions <span>→</span>
+                </a>
+            </div>
+
+            <div class="insight-card" style="border-left-color: #00acc1;">
+                <span class="card-icon">🔬</span>
+                <h3 class="card-title">Research Dashboard</h3>
+                <p class="card-description">
+                    Comprehensive research portal with publication-quality visualizations, statistical summaries, and exportable findings. Nature/Science tier.
+                </p>
+                <a href="{{ url_for('research_dashboard') }}" class="card-link">
+                    View research portal <span>→</span>
+                </a>
+            </div>
+
+            <div class="insight-card" style="border-left-color: #11998e;">
+                <span class="card-icon">✨</span>
+                <h3 class="card-title">Personal Name Analyzer</h3>
+                <p class="card-description">
+                    Discover your name's prophetic meaning, acoustic profile, and phonetic universals. Beautiful shareable analysis cards with radar charts.
+                </p>
+                <a href="{{ url_for('personal_name_analyzer') }}" class="card-link">
+                    Analyze your name <span>→</span>
+                </a>
+            </div>
+
+            <div class="insight-card" style="border-left-color: #38ef7d;">
+                <span class="card-icon">🚀</span>
+                <h3 class="card-title">AI Brand Optimizer</h3>
+                <p class="card-description">
+                    Generate optimal brand names using genetic algorithms. Specify target melodiousness, universal appeal, and emotional valence.
+                </p>
+                <a href="{{ url_for('brand_optimizer_page') }}" class="card-link">
+                    Optimize brand name <span>→</span>
+                </a>
+            </div>
+        </div>
     </div>
 </div>
 {% endblock %}

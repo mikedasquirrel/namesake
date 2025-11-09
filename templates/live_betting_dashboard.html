@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Live Betting Recommendations - Sports Intelligence</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #0f0c29, #302b63, #24243e);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1600px;
+            margin: 0 auto;
+        }
+        
+        header {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header-top {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .live-indicator {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.1em;
+        }
+        
+        .pulse {
+            width: 12px;
+            height: 12px;
+            background: #2ed573;
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(1.2); }
+        }
+        
+        .last-update {
+            font-size: 0.9em;
+            color: #a0aec0;
+            margin-top: 10px;
+        }
+        
+        .stats-bar {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+        }
+        
+        .stat-label {
+            font-size: 0.85em;
+            color: #a0aec0;
+            margin-bottom: 8px;
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .tab:hover {
+            background: rgba(102, 126, 234, 0.2);
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-color: #667eea;
+        }
+        
+        .recommendations-grid {
+            display: grid;
+            gap: 20px;
+        }
+        
+        .recommendation-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .recommendation-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+        }
+        
+        .recommendation-card.priority-5::before {
+            background: linear-gradient(90deg, #2ed573, #0abf53);
+            height: 6px;
+        }
+        
+        .recommendation-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+        }
+        
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 20px;
+        }
+        
+        .player-info h3 {
+            font-size: 1.5em;
+            margin-bottom: 8px;
+        }
+        
+        .game-info {
+            font-size: 0.9em;
+            color: #a0aec0;
+        }
+        
+        .priority-badge {
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85em;
+        }
+        
+        .priority-5 { background: rgba(46, 213, 115, 0.3); color: #2ed573; }
+        .priority-4 { background: rgba(102, 126, 234, 0.3); color: #667eea; }
+        .priority-3 { background: rgba(255, 184, 0, 0.3); color: #ffb800; }
+        
+        .metrics-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .metric {
+            text-align: center;
+            padding: 10px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+        }
+        
+        .metric-label {
+            font-size: 0.75em;
+            color: #a0aec0;
+            margin-bottom: 5px;
+        }
+        
+        .metric-value {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #fff;
+        }
+        
+        .prop-details {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .prop-line {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        
+        .bet-recommendation {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+        
+        .bet-rec-title {
+            font-size: 0.9em;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+        
+        .bet-rec-value {
+            font-size: 1.8em;
+            font-weight: bold;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-size: 1em;
+            transition: transform 0.2s;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 60px;
+            font-size: 1.2em;
+            color: #a0aec0;
+        }
+        
+        .context-badges {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin: 15px 0;
+        }
+        
+        .context-badge {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 0.8em;
+            background: rgba(102, 126, 234, 0.2);
+            border: 1px solid rgba(102, 126, 234, 0.4);
+        }
+        
+        .layer-breakdown {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(0, 0, 0, 0.2);
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+        
+        .layer-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+        
+        .refresh-controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div>
+                    <h1>🔴 Live Betting Recommendations</h1>
+                    <p style="color: #a0aec0; margin-top: 10px;">
+                        Real-time opportunities with 138-feature analysis
+                    </p>
+                </div>
+                <div class="live-indicator">
+                    <span class="pulse"></span>
+                    <span>LIVE</span>
+                </div>
+            </div>
+            <div class="last-update" id="lastUpdate">
+                Last updated: Loading...
+            </div>
+            <div class="refresh-controls" style="margin-top: 15px;">
+                <button class="btn" onclick="refreshRecommendations()">🔄 Refresh Now</button>
+                <button class="btn btn-secondary" onclick="window.location.href='/betting-performance'">
+                    📊 View Historical Performance
+                </button>
+                <button class="btn btn-secondary" onclick="window.location.href='/portfolio-history'">
+                    💼 Portfolio History
+                </button>
+            </div>
+        </header>
+        
+        <div class="stats-bar" id="statsBar">
+            <div class="stat-card">
+                <div class="stat-label">Today's Opportunities</div>
+                <div class="stat-value" id="todayCount">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Avg Expected ROI</div>
+                <div class="stat-value" id="avgROI">0%</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Priority 5 Bets</div>
+                <div class="stat-value" id="priority5Count">0</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Total Expected Value</div>
+                <div class="stat-value" id="totalEV">$0</div>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" data-view="all">All Sports</div>
+            <div class="tab" data-view="priority5">⭐ Priority 5 Only</div>
+            <div class="tab" data-view="football">🏈 Football</div>
+            <div class="tab" data-view="basketball">🏀 Basketball</div>
+            <div class="tab" data-view="baseball">⚾ Baseball</div>
+            <div class="tab" data-view="sweet_spots">🎯 Sweet Spots</div>
+        </div>
+        
+        <div id="recommendationsContainer">
+            <div class="loading">
+                🔄 Loading live recommendations...
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentView = 'all';
+        let allRecommendations = [];
+        
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentView = tab.dataset.view;
+                displayRecommendations();
+            });
+        });
+        
+        function loadRecommendations() {
+            fetch('/api/betting/live-recommendations')
+                .then(response => response.json())
+                .then(data => {
+                    if (data.recommendations) {
+                        allRecommendations = data.recommendations;
+                        updateStats(data.recommendations);
+                        displayRecommendations();
+                        document.getElementById('lastUpdate').textContent = 
+                            `Last updated: ${new Date(data.last_update).toLocaleTimeString()}`;
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading recommendations:', error);
+                    document.getElementById('recommendationsContainer').innerHTML = `
+                        <div style="text-align: center; padding: 40px; color: #ff6b6b;">
+                            Error loading recommendations. Check API connection.
+                        </div>
+                    `;
+                });
+        }
+        
+        function displayRecommendations() {
+            let filtered = allRecommendations;
+            
+            // Filter by view
+            if (currentView === 'priority5') {
+                filtered = filtered.filter(r => r.priority === 5);
+            } else if (currentView !== 'all' && currentView !== 'sweet_spots') {
+                filtered = filtered.filter(r => r.sport === currentView);
+            } else if (currentView === 'sweet_spots') {
+                // Show only sweet spot situations
+                filtered = filtered.filter(r => r.is_sweet_spot || r.expected_roi > 35);
+            }
+            
+            const container = document.getElementById('recommendationsContainer');
+            
+            if (filtered.length === 0) {
+                container.innerHTML = `
+                    <div style="text-align: center; padding: 60px; color: #a0aec0;">
+                        <div style="font-size: 4em; margin-bottom: 20px;">🔍</div>
+                        <h3>No recommendations for this view</h3>
+                        <p>Try a different filter or refresh data</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="recommendations-grid">
+                    ${filtered.map(rec => createRecommendationCard(rec)).join('')}
+                </div>
+            `;
+        }
+        
+        function createRecommendationCard(rec) {
+            const priorityClass = `priority-${rec.priority || 3}`;
+            const priorityLabel = ['', 'Pass', 'Consider', 'Good', 'Strong', 'MUST BET'][rec.priority || 3];
+            
+            return `
+                <div class="recommendation-card ${priorityClass}">
+                    <div class="card-header">
+                        <div class="player-info">
+                            <h3>${rec.player_name || 'Player'}</h3>
+                            <div class="game-info">
+                                ${rec.game?.away_team || 'Away'} @ ${rec.game?.home_team || 'Home'}
+                                ${rec.game?.broadcast ? '📺 ' + rec.game.broadcast : ''}
+                            </div>
+                        </div>
+                        <div class="priority-badge ${priorityClass}">
+                            ${priorityLabel}
+                        </div>
+                    </div>
+                    
+                    <div class="context-badges">
+                        ${rec.metadata?.contexts_summary || 'Regular game'}
+                    </div>
+                    
+                    <div class="metrics-row">
+                        <div class="metric">
+                            <div class="metric-label">Score</div>
+                            <div class="metric-value">${rec.final_score?.toFixed(1) || '0'}</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Confidence</div>
+                            <div class="metric-value">${rec.final_confidence?.toFixed(0) || '0'}%</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Expected ROI</div>
+                            <div class="metric-value" style="color: #2ed573;">${rec.expected_roi?.toFixed(1) || '0'}%</div>
+                        </div>
+                        <div class="metric">
+                            <div class="metric-label">Multiplier</div>
+                            <div class="metric-value">${rec.cumulative_multiplier?.toFixed(2) || '1'}×</div>
+                        </div>
+                    </div>
+                    
+                    <div class="prop-details">
+                        <div class="prop-line">
+                            <span><strong>Prop:</strong> ${rec.prop_available?.prop_type || 'N/A'}</span>
+                            <span><strong>Line:</strong> ${rec.prop_available?.line || 'N/A'}</span>
+                        </div>
+                        <div class="prop-line">
+                            <span>Over: ${rec.prop_available?.over_odds || -110}</span>
+                            <span>Under: ${rec.prop_available?.under_odds || -110}</span>
+                        </div>
+                    </div>
+                    
+                    <div class="bet-recommendation">
+                        <div class="bet-rec-title">RECOMMENDATION</div>
+                        <div class="bet-rec-value">${rec.recommendation || 'Analyzing...'}</div>
+                    </div>
+                    
+                    <div class="layer-breakdown">
+                        <strong>Analysis Breakdown:</strong>
+                        <div class="layer-item">
+                            <span>Position Formula</span>
+                            <span>${rec.layer_breakdown?.layer2_universal?.ratio_used || '1.344'}</span>
+                        </div>
+                        <div class="layer-item">
+                            <span>Opponent Edge</span>
+                            <span>${rec.layer_breakdown?.layer3_opponent?.edge?.toFixed(1) || '0'}</span>
+                        </div>
+                        <div class="layer-item">
+                            <span>Context Boost</span>
+                            <span>${rec.layer_breakdown?.layer4_context?.multiplier?.toFixed(2) || '1'}×</span>
+                        </div>
+                        <div class="layer-item">
+                            <span>Market Signal</span>
+                            <span>${rec.layer_breakdown?.layer6_market?.signal || 'N/A'}</span>
+                        </div>
+                    </div>
+                    
+                    <button class="btn" onclick="logBet('${rec.player_name}', ${rec.final_score})" 
+                            style="width: 100%; margin-top: 15px;">
+                        📝 Log This Bet
+                    </button>
+                </div>
+            `;
+        }
+        
+        function updateStats(recommendations) {
+            document.getElementById('todayCount').textContent = recommendations.length;
+            
+            const avgROI = recommendations.reduce((sum, r) => sum + (r.expected_roi || 0), 0) / recommendations.length;
+            document.getElementById('avgROI').textContent = avgROI.toFixed(1) + '%';
+            
+            const priority5 = recommendations.filter(r => r.priority === 5).length;
+            document.getElementById('priority5Count').textContent = priority5;
+            
+            // Calculate total EV (rough estimate)
+            const totalEV = recommendations.reduce((sum, r) => {
+                const stake = 250;  // Assume $250 average
+                const ev = (r.expected_roi || 0) / 100;
+                return sum + (stake * ev);
+            }, 0);
+            document.getElementById('totalEV').textContent = '$' + totalEV.toFixed(0);
+        }
+        
+        function refreshRecommendations() {
+            document.getElementById('recommendationsContainer').innerHTML = 
+                '<div class="loading">🔄 Refreshing recommendations...</div>';
+            loadRecommendations();
+        }
+        
+        function logBet(playerName, score) {
+            alert(`Logging bet for ${playerName} (Score: ${score})\n\nThis would save to database and track performance.`);
+            // Would call /api/betting/place-bet
+        }
+        
+        // Auto-refresh every 15 minutes
+        setInterval(loadRecommendations, 900000);
+        
+        // Initial load
+        loadRecommendations();
+    </script>
+</body>
+</html>
+

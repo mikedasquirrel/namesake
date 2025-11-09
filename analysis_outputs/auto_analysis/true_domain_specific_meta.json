@@ -1,0 +1,314 @@
+{
+  "formula_domain_scores": {
+    "phonetic": {
+      "crypto": 0.0,
+      "mtg_card": 0.0,
+      "nfl_player": 0.0,
+      "election": 0.0,
+      "ship": 0.0,
+      "hurricane": 0.0,
+      "film": 0.0,
+      "mlb_player": 0.26037751939209375,
+      "board_game": 0.24345980762602923,
+      "book": 0.0
+    },
+    "semantic": {
+      "crypto": 0.0,
+      "mtg_card": 0.0,
+      "nfl_player": 0.0,
+      "election": 0.0,
+      "ship": 0.0800987508805439,
+      "hurricane": 0.0,
+      "film": 0.0,
+      "mlb_player": 0.0,
+      "board_game": 0.0,
+      "book": 0.0
+    },
+    "structural": {
+      "crypto": 0.8699211787655029,
+      "mtg_card": 0.1340847415043497,
+      "nfl_player": 0.0,
+      "election": 0.0,
+      "ship": 0.13147871176422185,
+      "hurricane": 0.0,
+      "film": 0.0,
+      "mlb_player": 0.24788713662710926,
+      "board_game": 0.30532952155339027,
+      "book": 0.0
+    },
+    "frequency": {
+      "crypto": 0.9999860721900807,
+      "mtg_card": 0.11794242768037584,
+      "nfl_player": 0.0,
+      "election": 0.0,
+      "ship": 0.019656335241085683,
+      "hurricane": 0.0,
+      "film": 0.0,
+      "mlb_player": 0.15199390304361932,
+      "board_game": 0.17854598576991823,
+      "book": 0.0
+    },
+    "numerological": {
+      "crypto": 0.9897645729993956,
+      "mtg_card": 0.09050405667780251,
+      "nfl_player": 0.0,
+      "election": 0.0,
+      "ship": 0.08518401510162658,
+      "hurricane": 0.0,
+      "film": 0.0,
+      "mlb_player": 0.43470192075389785,
+      "board_game": 0.3025122318368207,
+      "book": 0.0
+    },
+    "hybrid": {
+      "crypto": 0.9977100899117028,
+      "mtg_card": 0.12781729457637625,
+      "nfl_player": 0.0,
+      "election": 0.0,
+      "ship": 0.1297916464178709,
+      "hurricane": 0.0,
+      "film": 0.0,
+      "mlb_player": 0.40212981125240316,
+      "board_game": 0.2741933110168208,
+      "book": 0.0
+    }
+  },
+  "domain_optimal_formulas": {
+    "crypto": {
+      "phonetic": 0.0,
+      "semantic": 0.0,
+      "structural": 0.225521143145892,
+      "frequency": 0.25923958128057994,
+      "numerological": 0.256589727203663,
+      "hybrid": 0.25864954836986503
+    },
+    "mtg_card": {
+      "phonetic": 0.0,
+      "semantic": 0.0,
+      "structural": 0.28507529135890325,
+      "frequency": 0.2507553921299002,
+      "numerological": 0.192419137607468,
+      "hybrid": 0.2717501789037285
+    },
+    "nfl_player": {
+      "phonetic": 0.16666666666666666,
+      "semantic": 0.16666666666666666,
+      "structural": 0.16666666666666666,
+      "frequency": 0.16666666666666666,
+      "numerological": 0.16666666666666666,
+      "hybrid": 0.16666666666666666
+    },
+    "election": {
+      "phonetic": 0.16666666666666666,
+      "semantic": 0.16666666666666666,
+      "structural": 0.16666666666666666,
+      "frequency": 0.16666666666666666,
+      "numerological": 0.16666666666666666,
+      "hybrid": 0.16666666666666666
+    },
+    "ship": {
+      "phonetic": 0.0,
+      "semantic": 0.17950930710274343,
+      "structural": 0.2946569351968466,
+      "frequency": 0.044051812050961765,
+      "numerological": 0.19090589252668239,
+      "hybrid": 0.2908760531227658
+    },
+    "hurricane": {
+      "phonetic": 0.16666666666666666,
+      "semantic": 0.16666666666666666,
+      "structural": 0.16666666666666666,
+      "frequency": 0.16666666666666666,
+      "numerological": 0.16666666666666666,
+      "hybrid": 0.16666666666666666
+    },
+    "film": {
+      "phonetic": 0.16666666666666666,
+      "semantic": 0.16666666666666666,
+      "structural": 0.16666666666666666,
+      "frequency": 0.16666666666666666,
+      "numerological": 0.16666666666666666,
+      "hybrid": 0.16666666666666666
+    },
+    "mlb_player": {
+      "phonetic": 0.17392238861301362,
+      "semantic": 0.0,
+      "structural": 0.16557928276328918,
+      "frequency": 0.10152620984207658,
+      "numerological": 0.2903645313493165,
+      "hybrid": 0.2686075874323041
+    },
+    "board_game": {
+      "phonetic": 0.18669645676302293,
+      "semantic": 0.0,
+      "structural": 0.23414106983411784,
+      "frequency": 0.1369174782381656,
+      "numerological": 0.23198063927727464,
+      "hybrid": 0.21026435588741904
+    },
+    "book": {
+      "phonetic": 0.16666666666666666,
+      "semantic": 0.16666666666666666,
+      "structural": 0.16666666666666666,
+      "frequency": 0.16666666666666666,
+      "numerological": 0.16666666666666666,
+      "hybrid": 0.16666666666666666
+    }
+  },
+  "meta_patterns": {
+    "by_type": {
+      "market": {
+        "phonetic": 0.0,
+        "semantic": 0.0,
+        "structural": 0.225521143145892,
+        "frequency": 0.25923958128057994,
+        "numerological": 0.256589727203663,
+        "hybrid": 0.25864954836986503
+      },
+      "game": {
+        "phonetic": 0.09334822838151147,
+        "semantic": 0.0,
+        "structural": 0.25960818059651053,
+        "frequency": 0.19383643518403293,
+        "numerological": 0.2121998884423713,
+        "hybrid": 0.24100726739557377
+      },
+      "sports": {
+        "phonetic": 0.17029452763984015,
+        "semantic": 0.08333333333333333,
+        "structural": 0.16612297471497792,
+        "frequency": 0.13409643825437162,
+        "numerological": 0.22851559900799157,
+        "hybrid": 0.2176371270494854
+      },
+      "political": {
+        "phonetic": 0.16666666666666666,
+        "semantic": 0.16666666666666666,
+        "structural": 0.16666666666666666,
+        "frequency": 0.16666666666666666,
+        "numerological": 0.16666666666666666,
+        "hybrid": 0.16666666666666666
+      },
+      "historical": {
+        "phonetic": 0.0,
+        "semantic": 0.17950930710274343,
+        "structural": 0.2946569351968466,
+        "frequency": 0.044051812050961765,
+        "numerological": 0.19090589252668239,
+        "hybrid": 0.2908760531227658
+      },
+      "natural": {
+        "phonetic": 0.16666666666666666,
+        "semantic": 0.16666666666666666,
+        "structural": 0.16666666666666666,
+        "frequency": 0.16666666666666666,
+        "numerological": 0.16666666666666666,
+        "hybrid": 0.16666666666666666
+      },
+      "entertainment": {
+        "phonetic": 0.16666666666666666,
+        "semantic": 0.16666666666666666,
+        "structural": 0.16666666666666666,
+        "frequency": 0.16666666666666666,
+        "numerological": 0.16666666666666666,
+        "hybrid": 0.16666666666666666
+      },
+      "cultural": {
+        "phonetic": 0.16666666666666666,
+        "semantic": 0.16666666666666666,
+        "structural": 0.16666666666666666,
+        "frequency": 0.16666666666666666,
+        "numerological": 0.16666666666666666,
+        "hybrid": 0.16666666666666666
+      }
+    },
+    "by_power": {
+      "False": {
+        "phonetic": 0.13879043574187397,
+        "semantic": 0.06666666666666667,
+        "structural": 0.19171496581532646,
+        "frequency": 0.16620332053883108,
+        "numerological": 0.2224536462327175,
+        "hybrid": 0.21417096500458435
+      },
+      "True": {
+        "phonetic": 0.1,
+        "semantic": 0.13590186142054866,
+        "structural": 0.21594644531114998,
+        "frequency": 0.1589614408361724,
+        "numerological": 0.17666500602683005,
+        "hybrid": 0.21252524640529885
+      }
+    },
+    "by_memorability": {
+      "True": {
+        "phonetic": 0.1284106890053379,
+        "semantic": 0.08333333333333333,
+        "structural": 0.19712293172110862,
+        "frequency": 0.17688816601967364,
+        "numerological": 0.20475258776304858,
+        "hybrid": 0.20949229215749793
+      },
+      "False": {
+        "phonetic": 0.08333333333333333,
+        "semantic": 0.17308798688470506,
+        "structural": 0.23066180093175664,
+        "frequency": 0.10535923935881421,
+        "numerological": 0.17878627959667454,
+        "hybrid": 0.22877135989471625
+      }
+    }
+  },
+  "domain_characteristics": {
+    "crypto": {
+      "type": "market",
+      "power_based": false,
+      "memorability_critical": true
+    },
+    "mtg_card": {
+      "type": "game",
+      "power_based": true,
+      "memorability_critical": true
+    },
+    "nfl_player": {
+      "type": "sports",
+      "power_based": true,
+      "memorability_critical": true
+    },
+    "election": {
+      "type": "political",
+      "power_based": true,
+      "memorability_critical": true
+    },
+    "ship": {
+      "type": "historical",
+      "power_based": true,
+      "memorability_critical": false
+    },
+    "hurricane": {
+      "type": "natural",
+      "power_based": true,
+      "memorability_critical": false
+    },
+    "film": {
+      "type": "entertainment",
+      "power_based": false,
+      "memorability_critical": true
+    },
+    "mlb_player": {
+      "type": "sports",
+      "power_based": false,
+      "memorability_critical": true
+    },
+    "board_game": {
+      "type": "game",
+      "power_based": false,
+      "memorability_critical": true
+    },
+    "book": {
+      "type": "cultural",
+      "power_based": false,
+      "memorability_critical": true
+    }
+  }
+}

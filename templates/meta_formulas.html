@@ -1,0 +1,369 @@
+{% extends "base.html" %}
+
+{% block title %}Meta-Formula Analysis - Golden Ratio & Harmonic Relationships{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Elegant Background -->
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.3;">
+        <div style="position: absolute; width: 100%; height: 100%; opacity: 0.015; filter: blur(100px); background: radial-gradient(ellipse at 50% 50%, var(--accent-gold) 0%, transparent 70%);"></div>
+    </div>
+
+    <div style="max-width: 1200px; margin: 0 auto; padding: 3rem 2rem 5rem; position: relative; z-index: 1;">
+
+        <!-- Breadcrumb -->
+        <div style="margin-bottom: 2rem;">
+            <a href="{{ url_for('formula_dashboard') }}" style="color: var(--text-muted); text-decoration: none; font-size: var(--text-sm); transition: color 0.2s;">
+                ← Back to Dashboard
+            </a>
+        </div>
+
+        <!-- Hero Section -->
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <div style="font-size: 5rem; margin-bottom: 1rem; opacity: 0.9; background: linear-gradient(135deg, var(--accent-gold), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1;">
+                φ
+            </div>
+            <h1 style="font-size: 3rem; font-weight: var(--weight-ultra); margin-bottom: 1rem; letter-spacing: -0.03em; font-family: 'Playfair Display', serif;">
+                Meta-Formula Analysis
+            </h1>
+            <p style="font-size: 1.125rem; color: var(--text-muted); max-width: 700px; margin: 0 auto; line-height: 1.6;">
+                Discovering the mathematical structure of relationships <em>between</em> formulas<br>
+                Golden ratios, harmonic intervals, and optimal combinations
+            </p>
+        </div>
+
+        <!-- Concept Introduction -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem;">
+            <h2 style="margin: 0 0 1.5rem; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 2rem;">
+                The Formula of Formulas
+            </h2>
+            
+            <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                Each formula measures nominative determinism through a different lens: phonetic patterns, semantic meaning, 
+                structural composition, frequency analysis, numerological properties, and hybrid combinations. But what if 
+                the formulas themselves relate to each other through mathematical constants?
+            </p>
+
+            <p style="line-height: 1.8; margin-bottom: 1.5rem;">
+                Meta-formula analysis examines the <strong>correlations between formula performances</strong> across domains. 
+                If Formula A predicts well in crypto with r=0.28, and Formula B predicts at r=0.17, what is their ratio? 
+                Does it approach φ (1.618)? Do three formulas form harmonic triads (3:2 ratios like musical fifths)?
+            </p>
+
+            <div style="background: rgba(251, 191, 36, 0.08); padding: 1.75rem; border-radius: 12px; border-left: 4px solid var(--accent-gold); margin-top: 2rem;">
+                <p style="margin: 0; line-height: 1.7; font-size: 1.05rem;">
+                    <strong style="color: var(--accent-gold);">The Hypothesis:</strong> If nominative determinism reflects 
+                    deep mathematical principles, then formulas measuring it should <em>themselves</em> exhibit mathematical 
+                    relationships. Finding φ or harmonic ratios between formulas would suggest universal structure.
+                </p>
+            </div>
+        </div>
+
+        <!-- Live Results Section -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem; background: linear-gradient(135deg, rgba(251, 191, 36, 0.05) 0%, rgba(147, 51, 234, 0.05) 100%);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 style="margin: 0; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 1.75rem;">
+                    Current Analysis Results
+                </h2>
+                <div id="updateStatus" style="font-size: var(--text-sm); color: var(--text-muted);">
+                    Loading...
+                </div>
+            </div>
+
+            <!-- Key Metrics -->
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-bottom: 3rem;">
+                <div style="background: rgba(255, 255, 255, 0.03); padding: 2rem; border-radius: 12px; text-align: center; border: 1px solid rgba(251, 191, 36, 0.2);">
+                    <div style="font-size: 3rem; font-weight: var(--weight-thin); color: var(--accent-gold); margin-bottom: 0.5rem;" id="goldenPairs">
+                        -
+                    </div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">
+                        Golden Ratio Pairs
+                    </div>
+                    <div style="font-size: var(--text-xs); color: var(--accent-gold); margin-top: 0.5rem;">
+                        ratio ≈ 1.618 ± 0.05
+                    </div>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.03); padding: 2rem; border-radius: 12px; text-align: center; border: 1px solid rgba(147, 51, 234, 0.2);">
+                    <div style="font-size: 3rem; font-weight: var(--weight-thin); color: var(--accent-purple); margin-bottom: 0.5rem;" id="harmonicTriads">
+                        -
+                    </div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">
+                        Harmonic Triads
+                    </div>
+                    <div style="font-size: var(--text-xs); color: var(--accent-purple); margin-top: 0.5rem;">
+                        3:2 ratio (perfect fifth)
+                    </div>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.03); padding: 2rem; border-radius: 12px; text-align: center; border: 1px solid rgba(6, 182, 212, 0.2);">
+                    <div style="font-size: 3rem; font-weight: var(--weight-thin); color: var(--accent-cyan); margin-bottom: 0.5rem;" id="dimensionality">
+                        -
+                    </div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">
+                        Formula Space Dims
+                    </div>
+                    <div style="font-size: var(--text-xs); color: var(--accent-cyan); margin-top: 0.5rem;">
+                        Principal components
+                    </div>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.03); padding: 2rem; border-radius: 12px; text-align: center; border: 1px solid rgba(16, 185, 129, 0.2);">
+                    <div style="font-size: 3rem; font-weight: var(--weight-thin); color: var(--accent-green); margin-bottom: 0.5rem;" id="simpleRatios">
+                        -
+                    </div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">
+                        Simple Ratios
+                    </div>
+                    <div style="font-size: var(--text-xs); color: var(--accent-green); margin-top: 0.5rem;">
+                        2:1, 3:1, 4:3, etc.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Discovery Status -->
+            <div id="discoveryStatus">
+                <div style="text-align: center; padding: 3rem; color: var(--text-muted);">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+                    <div style="font-size: 1.125rem; margin-bottom: 0.5rem;">Awaiting Analysis Results</div>
+                    <div style="font-size: var(--text-sm);">
+                        Run comprehensive analysis to discover meta-formula patterns
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Golden Ratio Pairs Section -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem;">
+            <h2 style="margin: 0 0 1.5rem; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 1.75rem;">
+                Golden Ratio Pairs (φ ≈ 1.618)
+            </h2>
+            
+            <p style="line-height: 1.8; color: var(--text-secondary); margin-bottom: 2rem;">
+                When two formulas' performance ratios approach the golden ratio (1.618 ± 0.05), it suggests they represent 
+                related but optimally-distinct measurement approaches—like how the Fibonacci sequence appears in natural growth patterns.
+            </p>
+
+            <div id="goldenRatioList">
+                <div style="text-align: center; padding: 2rem; color: var(--text-muted); font-style: italic;">
+                    No golden ratio pairs detected in current analysis
+                </div>
+            </div>
+
+            <!-- Example Visualization -->
+            <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.02); border-radius: 12px;">
+                <div style="font-size: var(--text-sm); color: var(--text-muted); margin-bottom: 1rem; text-transform: uppercase; letter-spacing: 0.1em;">
+                    Example Calculation
+                </div>
+                <div style="font-family: 'Courier New', monospace; font-size: var(--text-sm); line-height: 2;">
+                    <div>Formula A (Phonetic): r = 0.287</div>
+                    <div>Formula B (Semantic): r = 0.178</div>
+                    <div style="margin-top: 0.5rem; color: var(--accent-gold);">
+                        Ratio: 0.287 / 0.178 = 1.612 ≈ φ ✓
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Harmonic Relationships -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem;">
+            <h2 style="margin: 0 0 1.5rem; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 1.75rem;">
+                Harmonic Relationships
+            </h2>
+            
+            <p style="line-height: 1.8; color: var(--text-secondary); margin-bottom: 2rem;">
+                Musical harmony emerges from simple integer ratios: 2:1 (octave), 3:2 (perfect fifth), 4:3 (perfect fourth). 
+                If formula ratios match these, it suggests nominative determinism operates through harmonic principles.
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎵</div>
+                    <div style="font-weight: 600; margin-bottom: 0.25rem; color: var(--accent-purple);">2:1</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted);">Octave</div>
+                    <div style="font-size: var(--text-xs); color: var(--text-secondary); margin-top: 0.5rem;">Perfect consonance</div>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎶</div>
+                    <div style="font-weight: 600; margin-bottom: 0.25rem; color: var(--accent-cyan);">3:2</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted);">Perfect Fifth</div>
+                    <div style="font-size: var(--text-xs); color: var(--text-secondary); margin-top: 0.5rem;">Strong consonance</div>
+                </div>
+
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: 2rem; margin-bottom: 0.5rem;">🎼</div>
+                    <div style="font-weight: 600; margin-bottom: 0.25rem; color: var(--accent-gold);">4:3</div>
+                    <div style="font-size: var(--text-sm); color: var(--text-muted);">Perfect Fourth</div>
+                    <div style="font-size: var(--text-xs); color: var(--text-secondary); margin-top: 0.5rem;">Moderate consonance</div>
+                </div>
+            </div>
+
+            <div id="harmonicList" style="margin-top: 2rem;">
+                <div style="text-align: center; padding: 2rem; color: var(--text-muted); font-style: italic;">
+                    No harmonic relationships detected in current analysis
+                </div>
+            </div>
+        </div>
+
+        <!-- Optimal Meta-Formula -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem; border: 1px solid rgba(251, 191, 36, 0.2);">
+            <h2 style="margin: 0 0 1.5rem; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 1.75rem;">
+                Optimal Meta-Formula
+            </h2>
+            
+            <p style="line-height: 1.8; color: var(--text-secondary); margin-bottom: 2rem;">
+                If we combine all six formulas with optimal weights, what weighted combination maximizes predictive power? 
+                Do the weights follow Fibonacci decay (0.382, 0.236, 0.146...)? Do they sum to φ?
+            </p>
+
+            <div id="metaFormulaWeights">
+                <div style="text-align: center; padding: 2rem; color: var(--text-muted); font-style: italic;">
+                    Optimal weights will appear after analysis completion
+                </div>
+            </div>
+
+            <!-- Mathematical Properties -->
+            <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(251, 191, 36, 0.05); border-radius: 12px; border-left: 4px solid var(--accent-gold);">
+                <div style="font-weight: 600; margin-bottom: 1rem;">Expected Properties</div>
+                <ul style="margin: 0; padding-left: 1.5rem; line-height: 2; color: var(--text-secondary);">
+                    <li>Weights should decay geometrically (each ≈ 0.618 × previous)</li>
+                    <li>Sum of weights may approach φ or e (2.718)</li>
+                    <li>Ratio of consecutive weights may be constant</li>
+                    <li>Top formula gets ~38-40% weight (φ⁻¹ ≈ 0.618)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Formula Space Dimensionality -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem;">
+            <h2 style="margin: 0 0 1.5rem; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 1.75rem;">
+                Formula Space Dimensionality
+            </h2>
+            
+            <p style="line-height: 1.8; color: var(--text-secondary); margin-bottom: 2rem;">
+                Six formulas create a 6-dimensional space of predictions. Principal Component Analysis reveals how many 
+                <em>independent</em> dimensions actually matter. If only 2-3 dimensions explain 90% of variance, 
+                multiple formulas may be measuring the same underlying phenomenon.
+            </p>
+
+            <div id="dimensionalityViz">
+                <div style="text-align: center; padding: 3rem; color: var(--text-muted);">
+                    <div style="font-size: 2.5rem; margin-bottom: 1rem;">📊</div>
+                    <div>Dimensionality analysis available after completion</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Interpretation Guide -->
+        <div class="glass-card" style="padding: 2.5rem; background: rgba(147, 51, 234, 0.05);">
+            <h2 style="margin: 0 0 1.5rem; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 1.75rem;">
+                Interpretation Guide
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+                <div>
+                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; color: var(--accent-green);">
+                        🔥 If We Find Golden Ratios:
+                    </h3>
+                    <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.9; color: var(--text-secondary);">
+                        <li>Suggests deep mathematical structure</li>
+                        <li>Formulas aren't arbitrary—they reflect natural law</li>
+                        <li>Nominative determinism may be fundamental</li>
+                        <li>Publication in Nature/Science territory</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; color: var(--accent-cyan);">
+                        🔍 If We Find Simple Ratios:
+                    </h3>
+                    <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.9; color: var(--text-secondary);">
+                        <li>Suggests harmonic relationships</li>
+                        <li>Formulas form natural hierarchy</li>
+                        <li>Some formulas are "overtones" of others</li>
+                        <li>Strong but less mystical finding</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; color: var(--accent-purple);">
+                        📐 If Dimensionality is Low (2-3):
+                    </h3>
+                    <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.9; color: var(--text-secondary);">
+                        <li>Multiple formulas measure same thing</li>
+                        <li>Redundancy in measurement approaches</li>
+                        <li>Could simplify to 2-3 core formulas</li>
+                        <li>Parsimony principle applies</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; color: var(--accent-gold);">
+                        🌟 If No Patterns Emerge:
+                    </h3>
+                    <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.9; color: var(--text-secondary);">
+                        <li>Formulas are truly independent</li>
+                        <li>No universal meta-structure</li>
+                        <li>Each domain needs different approach</li>
+                        <li>Still valuable but less profound</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+async function loadMetaFormulaData() {
+    try {
+        const response = await fetch('/api/formula-dashboard/status');
+        const data = await response.json();
+        
+        if (data.meta_formulas) {
+            updateMetaFormulaDisplay(data.meta_formulas);
+        }
+        
+        // Update status
+        if (data.last_update) {
+            document.getElementById('updateStatus').textContent = `Last updated: ${new Date(data.last_update).toLocaleString()}`;
+        }
+    } catch (error) {
+        console.error('Failed to load meta-formula data:', error);
+    }
+}
+
+function updateMetaFormulaDisplay(meta) {
+    // Update key metrics
+    document.getElementById('goldenPairs').textContent = meta.golden_pairs || 0;
+    document.getElementById('harmonicTriads').textContent = meta.harmonic_triads || 0;
+    document.getElementById('dimensionality').textContent = meta.dimensionality || '?';
+    document.getElementById('simpleRatios').textContent = meta.simple_ratios || 0;
+    
+    // Update discovery status if we have data
+    if (meta.golden_pairs > 0 || meta.harmonic_triads > 0) {
+        const statusHtml = `
+            <div style="padding: 2rem; background: rgba(251, 191, 36, 0.1); border-radius: 12px; border: 2px solid var(--accent-gold);">
+                <div style="font-size: 1.5rem; font-weight: 600; margin-bottom: 1rem; color: var(--accent-gold);">
+                    🔥 Meta-Patterns Detected!
+                </div>
+                <div style="line-height: 1.8; color: var(--text-secondary);">
+                    The analysis has discovered ${meta.golden_pairs} golden ratio pair(s) and ${meta.harmonic_triads} harmonic triad(s). 
+                    This suggests formulas relate through fundamental mathematical constants.
+                </div>
+            </div>
+        `;
+        document.getElementById('discoveryStatus').innerHTML = statusHtml;
+    }
+}
+
+// Load data on page load
+document.addEventListener('DOMContentLoaded', loadMetaFormulaData);
+
+// Auto-refresh every 60 seconds
+setInterval(loadMetaFormulaData, 60000);
+</script>
+
+{% endblock %}
+

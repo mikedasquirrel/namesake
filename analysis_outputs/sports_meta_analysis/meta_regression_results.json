@@ -1,0 +1,51 @@
+{
+  "n_sports": 3,
+  "sports": [
+    "baseball",
+    "basketball",
+    "football"
+  ],
+  "total_athletes": 6000,
+  "contact_harshness": {
+    "r": -0.8508,
+    "p": 0.352263,
+    "data": [
+      [
+        "baseball",
+        2,
+        0.2206
+      ],
+      [
+        "basketball",
+        6,
+        0.1964
+      ],
+      [
+        "football",
+        9,
+        0.4269
+      ]
+    ]
+  },
+  "team_syllables": {
+    "r": -0.8508,
+    "p": 0.352263,
+    "data": [
+      [
+        "baseball",
+        9,
+        -0.2297
+      ],
+      [
+        "basketball",
+        5,
+        -0.1909
+      ],
+      [
+        "football",
+        11,
+        -0.418
+      ]
+    ]
+  }
+}

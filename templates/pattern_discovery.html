@@ -1,0 +1,362 @@
+{% extends "base.html" %}
+
+{% block title %}Novel Pattern Discovery - Beyond Known Constants{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Elegant Background -->
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.25;">
+        <div style="position: absolute; width: 100%; height: 100%; opacity: 0.02; filter: blur(120px); background: radial-gradient(ellipse at 30% 40%, var(--accent-purple) 0%, transparent 60%), radial-gradient(ellipse at 70% 60%, var(--accent-cyan) 0%, transparent 60%);"></div>
+    </div>
+
+    <div style="max-width: 1200px; margin: 0 auto; padding: 3rem 2rem 5rem; position: relative; z-index: 1;">
+
+        <!-- Breadcrumb -->
+        <div style="margin-bottom: 2rem;">
+            <a href="{{ url_for('formula_dashboard') }}" style="color: var(--text-muted); text-decoration: none; font-size: var(--text-sm); transition: color 0.2s;">
+                ← Back to Dashboard
+            </a>
+        </div>
+
+        <!-- Hero Section -->
+        <div style="text-align: center; margin-bottom: 4rem;">
+            <div style="font-size: 5rem; margin-bottom: 1rem; opacity: 0.9; background: linear-gradient(135deg, var(--accent-cyan), var(--accent-purple)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; line-height: 1;">
+                ∞
+            </div>
+            <h1 style="font-size: 3rem; font-weight: var(--weight-ultra); margin-bottom: 1rem; letter-spacing: -0.03em; font-family: 'Playfair Display', serif;">
+                Novel Pattern Discovery
+            </h1>
+            <p style="font-size: 1.125rem; color: var(--text-muted); max-width: 750px; margin: 0 auto; line-height: 1.6;">
+                Discovering new mathematical patterns in name-outcome relationships<br>
+                Beyond φ, π, and e—finding regularities that have never been seen before
+            </p>
+        </div>
+
+        <!-- Core Concept -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem;">
+            <h2 style="margin: 0 0 1.5rem; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 2rem;">
+                What is a "Novel Pattern"?
+            </h2>
+            
+            <p style="font-size: 1.05rem; line-height: 1.8; margin-bottom: 1.5rem;">
+                Known mathematical constants appear everywhere in nature: φ (golden ratio) in spirals, π in circles, 
+                e in growth rates, Fibonacci in branching. But what if nominative determinism reveals <strong>new</strong> 
+                mathematical regularities—patterns that don't match any known sequence?
+            </p>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem;">
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.75rem; border-radius: 12px;">
+                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; color: var(--accent-purple);">
+                        Known Constants (Expected)
+                    </h3>
+                    <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.9; color: var(--text-secondary); font-size: var(--text-sm);">
+                        <li>φ = 1.618034... (golden ratio)</li>
+                        <li>π = 3.141592... (circle ratio)</li>
+                        <li>e = 2.718281... (natural growth)</li>
+                        <li>√2 = 1.414213... (diagonal)</li>
+                        <li>Fibonacci: 1, 1, 2, 3, 5, 8, 13...</li>
+                    </ul>
+                </div>
+
+                <div style="background: rgba(147, 51, 234, 0.08); padding: 1.75rem; border-radius: 12px; border-left: 4px solid var(--accent-purple);">
+                    <h3 style="font-size: 1.125rem; font-weight: 600; margin-bottom: 1rem; color: var(--accent-cyan);">
+                        Novel Patterns (Discovery)
+                    </h3>
+                    <ul style="margin: 0; padding-left: 1.25rem; line-height: 1.9; color: var(--text-secondary); font-size: var(--text-sm);">
+                        <li>Custom ratio: 1.427... (appears 3+ times)</li>
+                        <li>Decay series: 0.89, 0.62, 0.44, 0.31...</li>
+                        <li>Oscillating pattern: +0.2, -0.1, +0.2, -0.1...</li>
+                        <li>Power law: relationship ~ n^α where α ≠ known</li>
+                        <li>Novel sequence: doesn't match OEIS database</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; padding: 1.75rem; background: rgba(6, 182, 212, 0.08); border-radius: 12px; border-left: 4px solid var(--accent-cyan);">
+                <p style="margin: 0; line-height: 1.7; font-size: 1.05rem;">
+                    <strong style="color: var(--accent-cyan);">The Goal:</strong> If we find a mathematical pattern that 
+                    appears consistently across domains but doesn't match any known constant, we may have discovered a 
+                    <em>new mathematical structure unique to nominative processes</em>. This would be profound.
+                </p>
+            </div>
+        </div>
+
+        <!-- Discovery Status -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem; background: linear-gradient(135deg, rgba(147, 51, 234, 0.05) 0%, rgba(6, 182, 212, 0.05) 100%);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 style="margin: 0; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 1.75rem;">
+                    Current Discoveries
+                </h2>
+                <div id="discoveryCount" style="padding: 0.5rem 1rem; background: rgba(147, 51, 234, 0.2); border-radius: 20px; font-size: var(--text-sm); font-weight: 600; color: var(--accent-purple);">
+                    0 patterns found
+                </div>
+            </div>
+
+            <div id="patternsList">
+                <div style="text-align: center; padding: 4rem 2rem; color: var(--text-muted);">
+                    <div style="font-size: 3rem; margin-bottom: 1rem;">🔍</div>
+                    <div style="font-size: 1.125rem; margin-bottom: 0.5rem;">No Patterns Discovered Yet</div>
+                    <div style="font-size: var(--text-sm); line-height: 1.6;">
+                        Novel patterns will appear here after running comprehensive analysis<br>
+                        on the 72K entity dataset
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Pattern Categories -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem;">
+            <h2 style="margin: 0 0 1.5rem; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 1.75rem;">
+                Pattern Categories We Test For
+            </h2>
+            
+            <p style="line-height: 1.8; color: var(--text-secondary); margin-bottom: 2rem;">
+                Our pattern discovery engine systematically tests for seven categories of mathematical regularity:
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                <!-- Ratio Patterns -->
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 2rem; border-radius: 12px;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="font-size: 2rem;">📐</div>
+                        <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--accent-cyan);">
+                            Ratio Patterns
+                        </h3>
+                    </div>
+                    <p style="font-size: var(--text-sm); line-height: 1.7; color: var(--text-secondary); margin: 0;">
+                        Consistent ratios between variables (a/b ≈ constant). Tests if ratio appears 3+ times across 
+                        domains with consistency score >0.85.
+                    </p>
+                </div>
+
+                <!-- Decay Series -->
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 2rem; border-radius: 12px;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="font-size: 2rem;">📉</div>
+                        <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--accent-purple);">
+                            Decay Series
+                        </h3>
+                    </div>
+                    <p style="font-size: var(--text-sm); line-height: 1.7; color: var(--text-secondary); margin: 0;">
+                        Exponential decay sequences where each term = previous × constant. Common in natural phenomena 
+                        but may have novel decay rates.
+                    </p>
+                </div>
+
+                <!-- Power Laws -->
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 2rem; border-radius: 12px;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="font-size: 2rem;">📊</div>
+                        <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--accent-gold);">
+                            Power Law Relationships
+                        </h3>
+                    </div>
+                    <p style="font-size: var(--text-sm); line-height: 1.7; color: var(--text-secondary); margin: 0;">
+                        y = x^α relationships where exponent α is consistent across domains. Tests for both known 
+                        (α = 2, 0.5, etc.) and novel exponents.
+                    </p>
+                </div>
+
+                <!-- Oscillations -->
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 2rem; border-radius: 12px;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="font-size: 2rem;">〰️</div>
+                        <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--accent-green);">
+                            Oscillating Patterns
+                        </h3>
+                    </div>
+                    <p style="font-size: var(--text-sm); line-height: 1.7; color: var(--text-secondary); margin: 0;">
+                        Alternating positive/negative effects or cyclical patterns. Could indicate feedback loops or 
+                        saturation effects.
+                    </p>
+                </div>
+
+                <!-- Threshold Effects -->
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 2rem; border-radius: 12px;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="font-size: 2rem;">⚡</div>
+                        <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--accent-red);">
+                            Threshold Effects
+                        </h3>
+                    </div>
+                    <p style="font-size: var(--text-sm); line-height: 1.7; color: var(--text-secondary); margin: 0;">
+                        Step functions where effect suddenly changes at specific value. Suggests phase transitions or 
+                        critical points.
+                    </p>
+                </div>
+
+                <!-- Fibonacci-like -->
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 2rem; border-radius: 12px;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="font-size: 2rem;">🌀</div>
+                        <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--accent-purple);">
+                            Recursive Sequences
+                        </h3>
+                    </div>
+                    <p style="font-size: var(--text-sm); line-height: 1.7; color: var(--text-secondary); margin: 0;">
+                        Sequences where term_n = f(term_n-1, term_n-2). Tests for Fibonacci-like patterns with different 
+                        starting conditions or operations.
+                    </p>
+                </div>
+
+                <!-- Complex Patterns -->
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 2rem; border-radius: 12px;">
+                    <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                        <div style="font-size: 2rem;">🎯</div>
+                        <h3 style="margin: 0; font-size: 1.125rem; font-weight: 600; color: var(--accent-cyan);">
+                            Composite Patterns
+                        </h3>
+                    </div>
+                    <p style="font-size: var(--text-sm); line-height: 1.7; color: var(--text-secondary); margin: 0;">
+                        Combinations of multiple simple patterns (e.g., power law × oscillation). Often the most 
+                        interesting discoveries.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Validation Criteria -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem; border: 1px solid rgba(147, 51, 234, 0.2);">
+            <h2 style="margin: 0 0 1.5rem; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 1.75rem;">
+                What Makes a Pattern "Novel"?
+            </h2>
+            
+            <p style="line-height: 1.8; color: var(--text-secondary); margin-bottom: 2rem;">
+                To qualify as a novel pattern, a discovery must pass rigorous validation:
+            </p>
+
+            <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.5rem;">
+                <div style="background: rgba(147, 51, 234, 0.05); padding: 1.5rem; border-radius: 10px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">✓</div>
+                    <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-purple);">Consistency</div>
+                    <div style="font-size: var(--text-sm); line-height: 1.7; color: var(--text-secondary);">
+                        Appears in at least 3 different domains with consistency score > 0.85
+                    </div>
+                </div>
+
+                <div style="background: rgba(147, 51, 234, 0.05); padding: 1.5rem; border-radius: 10px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">✓</div>
+                    <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-purple);">Statistical Significance</div>
+                    <div style="font-size: var(--text-sm); line-height: 1.7; color: var(--text-secondary);">
+                        p < 0.01 that pattern occurred by chance across all instances
+                    </div>
+                </div>
+
+                <div style="background: rgba(147, 51, 234, 0.05); padding: 1.5rem; border-radius: 10px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">✓</div>
+                    <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-purple);">Novelty Check</div>
+                    <div style="font-size: var(--text-sm); line-height: 1.7; color: var(--text-secondary);">
+                        Doesn't match known constants (φ, π, e, √2, etc.) within ±0.05 tolerance
+                    </div>
+                </div>
+
+                <div style="background: rgba(147, 51, 234, 0.05); padding: 1.5rem; border-radius: 10px;">
+                    <div style="font-size: 1.5rem; margin-bottom: 0.5rem;">✓</div>
+                    <div style="font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-purple);">Robustness</div>
+                    <div style="font-size: var(--text-sm); line-height: 1.7; color: var(--text-secondary);">
+                        Remains detectable after bootstrapping and cross-validation tests
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- If/When Section -->
+        <div class="glass-card" style="padding: 2.5rem; background: rgba(6, 182, 212, 0.05);">
+            <h2 style="margin: 0 0 1.5rem; font-weight: var(--weight-light); font-family: 'Playfair Display', serif; font-size: 1.75rem;">
+                If We Discover Novel Patterns
+            </h2>
+            
+            <div style="line-height: 1.9; color: var(--text-secondary);">
+                <p style="margin-bottom: 1.5rem;">
+                    Finding a truly novel mathematical pattern that appears consistently across nominative determinism 
+                    research would be <strong>unprecedented</strong>. It would suggest:
+                </p>
+
+                <ul style="margin: 0 0 1.5rem; padding-left: 2rem; line-height: 2;">
+                    <li><strong>New Mathematical Structure:</strong> A constant or sequence unknown to mathematics, specific to nominative processes</li>
+                    <li><strong>Universal Principle:</strong> Something fundamental about how names influence outcomes across all domains</li>
+                    <li><strong>Falsifiable Prediction:</strong> The pattern should appear in future domains we haven't tested yet</li>
+                    <li><strong>Academic Impact:</strong> Paper in Nature/Science, potential new area of mathematical research</li>
+                </ul>
+
+                <div style="background: rgba(6, 182, 212, 0.1); padding: 1.5rem; border-radius: 12px; border-left: 4px solid var(--accent-cyan);">
+                    <p style="margin: 0; font-style: italic; line-height: 1.7;">
+                        "The most exciting phrase to hear in science, the one that heralds new discoveries, 
+                        is not 'Eureka!' but 'That's funny...'" — Isaac Asimov
+                    </p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+async function loadPatternData() {
+    try {
+        const response = await fetch('/api/formula-dashboard/status');
+        const data = await response.json();
+        
+        // Check for novel patterns in the data
+        if (data.novel_patterns && data.novel_patterns.length > 0) {
+            displayPatterns(data.novel_patterns);
+        }
+    } catch (error) {
+        console.error('Failed to load pattern data:', error);
+    }
+}
+
+function displayPatterns(patterns) {
+    const novelPatterns = patterns.filter(p => p.is_novel);
+    
+    if (novelPatterns.length === 0) {
+        return;
+    }
+    
+    // Update count
+    document.getElementById('discoveryCount').textContent = `${novelPatterns.length} pattern${novelPatterns.length > 1 ? 's' : ''} found`;
+    
+    // Build pattern list
+    let html = '<div style="display: flex; flex-direction: column; gap: 1.5rem;">';
+    
+    novelPatterns.forEach((pattern, index) => {
+        html += `
+            <div style="background: rgba(147, 51, 234, 0.08); padding: 2rem; border-radius: 12px; border-left: 4px solid var(--accent-purple);">
+                <div style="display: flex; justify-content: between; align-items: start; margin-bottom: 1rem;">
+                    <div>
+                        <div style="font-size: 1.25rem; font-weight: 600; margin-bottom: 0.5rem; color: var(--accent-purple);">
+                            Pattern ${index + 1}: ${pattern.type}
+                        </div>
+                        <div style="font-size: var(--text-sm); color: var(--text-muted);">
+                            Consistency: ${(pattern.consistency * 100).toFixed(1)}%
+                        </div>
+                    </div>
+                    <div style="padding: 0.25rem 0.75rem; background: rgba(147, 51, 234, 0.2); border-radius: 12px; font-size: var(--text-xs); font-weight: 600; color: var(--accent-purple);">
+                        NOVEL
+                    </div>
+                </div>
+                <p style="line-height: 1.7; color: var(--text-secondary); margin: 0;">
+                    ${pattern.description}
+                </p>
+                ${pattern.parameters ? `
+                    <div style="margin-top: 1rem; font-family: 'Courier New', monospace; font-size: var(--text-sm); color: var(--text-muted);">
+                        ${JSON.stringify(pattern.parameters, null, 2)}
+                    </div>
+                ` : ''}
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    document.getElementById('patternsList').innerHTML = html;
+}
+
+// Load data on page load
+document.addEventListener('DOMContentLoaded', loadPatternData);
+
+// Auto-refresh every 60 seconds
+setInterval(loadPatternData, 60000);
+</script>
+
+{% endblock %}
+

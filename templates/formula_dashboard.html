@@ -1,0 +1,379 @@
+{% extends "base.html" %}
+
+{% block title %}Formula Analysis Dashboard - 72K Entity System{% endblock %}
+
+{% block content %}
+<div class="dashboard-container">
+    <!-- Animated Background -->
+    <div style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; pointer-events: none; opacity: 0.4;">
+        <div style="position: absolute; width: 300%; height: 100%; opacity: 0.02; filter: blur(100px); background: radial-gradient(ellipse at 30% 60%, var(--accent-purple) 0%, transparent 50%), radial-gradient(ellipse at 70% 40%, var(--accent-cyan) 0%, transparent 50%);"></div>
+    </div>
+
+    <div style="max-width: 1400px; margin: 0 auto; padding: 2rem 2rem 4rem; position: relative; z-index: 1;">
+
+        <!-- Hero Section -->
+        <div style="text-align: center; margin-bottom: 3rem;">
+            <div style="font-size: 4rem; margin-bottom: 0.5rem; opacity: 0.9; background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">
+                ∑ φ ∞
+            </div>
+            <h1 style="font-size: 3rem; font-weight: var(--weight-ultra); margin-bottom: 1rem; letter-spacing: -0.03em;">
+                Formula Analysis System
+            </h1>
+            <p style="font-size: 1.125rem; color: var(--text-muted); max-width: 800px; margin: 0 auto;">
+                Comprehensive nominative determinism framework analyzing 72,300+ entities across 10 domains<br>
+                6 formula types × 13 visual properties × evolutionary optimization
+            </p>
+        </div>
+
+        <!-- Real-Time Status Banner -->
+        <div id="statusBanner" class="glass-card" style="padding: 1.5rem; margin-bottom: 2rem; background: linear-gradient(135deg, rgba(147, 51, 234, 0.1) 0%, rgba(6, 182, 212, 0.1) 100%);">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div class="pulse-dot" id="statusIndicator" style="width: 12px; height: 12px; border-radius: 50%; background: var(--accent-green);"></div>
+                    <div>
+                        <div style="font-weight: 600; font-size: 1.125rem;" id="statusText">System Operational</div>
+                        <div style="font-size: var(--text-sm); color: var(--text-muted);" id="statusDetails">Last analysis: <span id="lastUpdate">Loading...</span></div>
+                    </div>
+                </div>
+                <button onclick="refreshDashboard()" class="btn-primary" style="padding: 0.5rem 1.5rem;">
+                    <span style="margin-right: 0.5rem;">↻</span> Refresh Data
+                </button>
+            </div>
+        </div>
+
+        <!-- Key Metrics Grid -->
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+            <div class="glass-card" style="padding: 2rem; text-align: center; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="font-size: 3rem; font-weight: var(--weight-thin); background: linear-gradient(135deg, var(--accent-purple), var(--accent-cyan)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; margin-bottom: 0.5rem;" id="totalEntities">
+                    72,300
+                </div>
+                <div style="font-size: var(--text-sm); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Total Entities</div>
+                <div style="font-size: var(--text-xs); color: var(--accent-purple); margin-top: 0.5rem;">10 Domains</div>
+            </div>
+
+            <div class="glass-card" style="padding: 2rem; text-align: center; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="font-size: 3rem; font-weight: var(--weight-thin); color: var(--accent-cyan); margin-bottom: 0.5rem;" id="formulaCount">
+                    6
+                </div>
+                <div style="font-size: var(--text-sm); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Formula Types</div>
+                <div style="font-size: var(--text-xs); color: var(--accent-cyan); margin-top: 0.5rem;">Phonetic → Hybrid</div>
+            </div>
+
+            <div class="glass-card" style="padding: 2rem; text-align: center; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="font-size: 3rem; font-weight: var(--weight-thin); color: var(--accent-gold); margin-bottom: 0.5rem;" id="correlationTests">
+                    780
+                </div>
+                <div style="font-size: var(--text-sm); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Correlations</div>
+                <div style="font-size: var(--text-xs); color: var(--accent-gold); margin-top: 0.5rem;">Per Analysis Run</div>
+            </div>
+
+            <div class="glass-card" style="padding: 2rem; text-align: center; transition: transform 0.3s ease; cursor: pointer;" onmouseover="this.style.transform='translateY(-4px)'" onmouseout="this.style.transform='translateY(0)'">
+                <div style="font-size: 3rem; font-weight: var(--weight-thin); color: var(--accent-green); margin-bottom: 0.5rem;" id="goldenRatios">
+                    ?
+                </div>
+                <div style="font-size: var(--text-sm); color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.1em;">Golden Ratios</div>
+                <div style="font-size: var(--text-xs); color: var(--accent-green); margin-top: 0.5rem;">Meta-Level Discoveries</div>
+            </div>
+        </div>
+
+        <!-- Two Column Layout -->
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-bottom: 3rem;">
+            
+            <!-- Formula Rankings -->
+            <div class="glass-card" style="padding: 2rem;">
+                <h2 style="margin: 0 0 1.5rem; font-weight: var(--weight-light); display: flex; align-items: center; gap: 0.75rem;">
+                    <span style="font-size: 1.5rem;">🏆</span> Formula Rankings
+                </h2>
+                <div id="formulaRankings">
+                    <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">⏳</div>
+                        Loading latest rankings...
+                    </div>
+                </div>
+            </div>
+
+            <!-- Domain Breakdown -->
+            <div class="glass-card" style="padding: 2rem;">
+                <h2 style="margin: 0 0 1.5rem; font-weight: var(--weight-light); display: flex; align-items: center; gap: 0.75rem;">
+                    <span style="font-size: 1.5rem;">🌐</span> Domain Distribution
+                </h2>
+                <div id="domainBreakdown">
+                    <div style="text-align: center; padding: 2rem; color: var(--text-muted);">
+                        <div style="font-size: 2rem; margin-bottom: 0.5rem;">📊</div>
+                        Loading domain data...
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Meta-Formula Discoveries -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem; background: linear-gradient(135deg, rgba(251, 191, 36, 0.05) 0%, rgba(147, 51, 234, 0.05) 100%);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 style="margin: 0; font-weight: var(--weight-light); display: flex; align-items: center; gap: 0.75rem;">
+                    <span style="font-size: 1.5rem;">φ</span> Meta-Formula Analysis
+                </h2>
+                <a href="{{ url_for('meta_formulas') }}" class="btn-secondary" style="padding: 0.5rem 1rem; font-size: var(--text-sm);">
+                    View Details →
+                </a>
+            </div>
+            
+            <div id="metaFormulaPreview">
+                <p style="line-height: 1.8; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                    Analysis of relationships <em>between</em> formulas reveals higher-order mathematical patterns. 
+                    Golden ratio pairs, harmonic triads, and optimal meta-combinations emerge from cross-formula correlations.
+                </p>
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+                    <div style="background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: var(--weight-thin); color: var(--accent-gold); margin-bottom: 0.5rem;" id="goldenPairs">-</div>
+                        <div style="font-size: var(--text-sm); color: var(--text-muted);">Golden Ratio Pairs</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: var(--weight-thin); color: var(--accent-purple); margin-bottom: 0.5rem;" id="harmonicTriads">-</div>
+                        <div style="font-size: var(--text-sm); color: var(--text-muted);">Harmonic Triads</div>
+                    </div>
+                    <div style="background: rgba(255, 255, 255, 0.02); padding: 1.5rem; border-radius: 12px; text-align: center;">
+                        <div style="font-size: 2.5rem; font-weight: var(--weight-thin); color: var(--accent-cyan); margin-bottom: 0.5rem;" id="dimensionality">-</div>
+                        <div style="font-size: var(--text-sm); color: var(--text-muted);">Formula Space Dimensions</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Novel Pattern Discoveries -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 style="margin: 0; font-weight: var(--weight-light); display: flex; align-items: center; gap: 0.75rem;">
+                    <span style="font-size: 1.5rem;">🔍</span> Novel Pattern Discovery
+                </h2>
+                <a href="{{ url_for('pattern_discovery') }}" class="btn-secondary" style="padding: 0.5rem 1rem; font-size: var(--text-sm);">
+                    Explore Patterns →
+                </a>
+            </div>
+            
+            <div id="novelPatterns">
+                <p style="line-height: 1.8; color: var(--text-secondary); margin-bottom: 1rem;">
+                    Beyond known mathematical constants (φ, π, e), the system discovers <strong>novel patterns</strong> in name-outcome relationships.
+                    These are mathematical regularities that appear consistently but don't match classical sequences.
+                </p>
+                <div style="background: rgba(147, 51, 234, 0.08); padding: 1.5rem; border-radius: 12px; border-left: 3px solid var(--accent-purple);">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <div>
+                            <div style="font-weight: 600; margin-bottom: 0.25rem;">Latest Discovery</div>
+                            <div style="font-size: var(--text-sm); color: var(--text-muted);" id="latestPattern">Analyzing current run...</div>
+                        </div>
+                        <div style="font-size: 2rem; opacity: 0.5;">∞</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Evolution & Convergence -->
+        <div class="glass-card" style="padding: 2.5rem; margin-bottom: 3rem;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 2rem;">
+                <h2 style="margin: 0; font-weight: var(--weight-light); display: flex; align-items: center; gap: 0.75rem;">
+                    <span style="font-size: 1.5rem;">🧬</span> Formula Evolution
+                </h2>
+                <a href="{{ url_for('convergence_tracker') }}" class="btn-secondary" style="padding: 0.5rem 1rem; font-size: var(--text-sm);">
+                    Track Evolution →
+                </a>
+            </div>
+            
+            <p style="line-height: 1.8; color: var(--text-secondary); margin-bottom: 1.5rem;">
+                Genetic algorithm with 50 population, 50 generations optimizes formula parameters. 
+                Convergence reveals mathematical invariants that persist across evolutionary pressure.
+            </p>
+            
+            <div style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 1rem;">
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase;">Phonetic</div>
+                    <div style="font-size: 1.25rem; font-weight: 600; color: var(--accent-cyan);" id="evol-phonetic">-</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase;">Semantic</div>
+                    <div style="font-size: 1.25rem; font-weight: 600; color: var(--accent-purple);" id="evol-semantic">-</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase;">Structural</div>
+                    <div style="font-size: 1.25rem; font-weight: 600; color: var(--accent-gold);" id="evol-structural">-</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase;">Frequency</div>
+                    <div style="font-size: 1.25rem; font-weight: 600; color: var(--accent-green);" id="evol-frequency">-</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase;">Numerical</div>
+                    <div style="font-size: 1.25rem; font-weight: 600; color: var(--accent-red);" id="evol-numerological">-</div>
+                </div>
+                <div style="background: rgba(255, 255, 255, 0.02); padding: 1.25rem; border-radius: 10px; text-align: center;">
+                    <div style="font-size: var(--text-xs); color: var(--text-muted); margin-bottom: 0.5rem; text-transform: uppercase;">Hybrid</div>
+                    <div style="font-size: 1.25rem; font-weight: 600; color: var(--text-primary);" id="evol-hybrid">-</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+            <a href="{{ url_for('analysis_72k') }}" class="glass-card" style="padding: 2rem; text-align: center; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow=''">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">📊</div>
+                <div style="font-weight: 600; margin-bottom: 0.5rem; font-size: 1.125rem;">72K Dataset</div>
+                <div style="font-size: var(--text-sm); color: var(--text-muted);">Comprehensive entity analysis across all domains</div>
+            </a>
+
+            <a href="{{ url_for('formula_explorer') }}" class="glass-card" style="padding: 2rem; text-align: center; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow=''">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">🧪</div>
+                <div style="font-weight: 600; margin-bottom: 0.5rem; font-size: 1.125rem;">Formula Explorer</div>
+                <div style="font-size: var(--text-sm); color: var(--text-muted);">Interactive testing and transformation tools</div>
+            </a>
+
+            <a href="{{ url_for('formula_overview') }}" class="glass-card" style="padding: 2rem; text-align: center; text-decoration: none; transition: all 0.3s ease;" onmouseover="this.style.transform='translateY(-4px)'; this.style.boxShadow='0 20px 40px rgba(0,0,0,0.3)'" onmouseout="this.style.transform='translateY(0)'; this.style.boxShadow=''">
+                <div style="font-size: 2.5rem; margin-bottom: 1rem;">📖</div>
+                <div style="font-weight: 600; margin-bottom: 0.5rem; font-size: 1.125rem;">System Overview</div>
+                <div style="font-size: var(--text-sm); color: var(--text-muted);">Complete documentation and methodology</div>
+            </a>
+        </div>
+
+    </div>
+</div>
+
+<style>
+.pulse-dot {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+}
+
+@keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: 0.5;
+    }
+}
+</style>
+
+<script>
+// Dashboard data loading
+async function loadDashboardData() {
+    try {
+        // Load latest analysis results
+        const response = await fetch('/api/formula-dashboard/status');
+        const data = await response.json();
+        
+        updateStatus(data);
+        updateRankings(data.rankings);
+        updateDomains(data.domains);
+        updateMetaFormulas(data.meta_formulas);
+        updateEvolution(data.evolution);
+    } catch (error) {
+        console.error('Failed to load dashboard data:', error);
+    }
+}
+
+function updateStatus(data) {
+    document.getElementById('lastUpdate').textContent = data.last_update || 'Never';
+    document.getElementById('totalEntities').textContent = (data.total_entities || 72300).toLocaleString();
+    document.getElementById('goldenRatios').textContent = data.golden_ratios || '?';
+}
+
+function updateRankings(rankings) {
+    const container = document.getElementById('formulaRankings');
+    if (!rankings || rankings.length === 0) {
+        container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-muted);">No ranking data available</div>';
+        return;
+    }
+    
+    let html = '<div style="display: flex; flex-direction: column; gap: 1rem;">';
+    rankings.forEach((formula, index) => {
+        const colors = ['var(--accent-gold)', 'var(--accent-cyan)', 'var(--accent-purple)', 'var(--accent-green)', 'var(--accent-red)', 'var(--text-muted)'];
+        html += `
+            <div style="display: flex; justify-content: space-between; align-items: center; padding: 1rem; background: rgba(255, 255, 255, 0.02); border-radius: 8px;">
+                <div style="display: flex; align-items: center; gap: 1rem;">
+                    <div style="font-size: 1.5rem; font-weight: 600; color: ${colors[index]}; min-width: 2rem;">${index + 1}</div>
+                    <div>
+                        <div style="font-weight: 600; text-transform: capitalize;">${formula.name}</div>
+                        <div style="font-size: var(--text-xs); color: var(--text-muted);">Best in: ${formula.best_domain || 'N/A'}</div>
+                    </div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 1.25rem; font-weight: 600; color: ${colors[index]};">r = ${formula.correlation ? formula.correlation.toFixed(3) : 'N/A'}</div>
+                    <div style="font-size: var(--text-xs); color: var(--text-muted);">${formula.significant ? '✓ Significant' : ''}</div>
+                </div>
+            </div>
+        `;
+    });
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function updateDomains(domains) {
+    const container = document.getElementById('domainBreakdown');
+    if (!domains || Object.keys(domains).length === 0) {
+        container.innerHTML = '<div style="text-align: center; padding: 2rem; color: var(--text-muted);">No domain data available</div>';
+        return;
+    }
+    
+    let html = '<div style="display: flex; flex-direction: column; gap: 0.75rem;">';
+    const domainList = [
+        {name: 'crypto', label: 'Cryptocurrency', count: 65087},
+        {name: 'mtg_card', label: 'MTG Cards', count: 4144},
+        {name: 'nfl_player', label: 'NFL Players', count: 949},
+        {name: 'election', label: 'Elections', count: 870},
+        {name: 'ship', label: 'Ships', count: 853},
+        {name: 'hurricane', label: 'Hurricanes', count: 236},
+        {name: 'film', label: 'Films', count: 46},
+        {name: 'mlb_player', label: 'MLB Players', count: 44},
+        {name: 'board_game', label: 'Board Games', count: 37},
+        {name: 'book', label: 'Books', count: 34}
+    ];
+    
+    const total = domainList.reduce((sum, d) => sum + d.count, 0);
+    
+    domainList.forEach(domain => {
+        const percentage = (domain.count / total * 100).toFixed(1);
+        html += `
+            <div>
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.25rem;">
+                    <span style="font-size: var(--text-sm);">${domain.label}</span>
+                    <span style="font-size: var(--text-sm); color: var(--text-muted);">${domain.count.toLocaleString()} (${percentage}%)</span>
+                </div>
+                <div style="height: 6px; background: rgba(255, 255, 255, 0.05); border-radius: 3px; overflow: hidden;">
+                    <div style="height: 100%; width: ${percentage}%; background: linear-gradient(90deg, var(--accent-purple), var(--accent-cyan)); transition: width 1s ease;"></div>
+                </div>
+            </div>
+        `;
+    });
+    html += '</div>';
+    container.innerHTML = html;
+}
+
+function updateMetaFormulas(meta) {
+    if (meta) {
+        document.getElementById('goldenPairs').textContent = meta.golden_pairs || 0;
+        document.getElementById('harmonicTriads').textContent = meta.harmonic_triads || 0;
+        document.getElementById('dimensionality').textContent = meta.dimensionality || '?';
+    }
+}
+
+function updateEvolution(evolution) {
+    const formulas = ['phonetic', 'semantic', 'structural', 'frequency', 'numerological', 'hybrid'];
+    formulas.forEach(formula => {
+        const elem = document.getElementById(`evol-${formula}`);
+        if (elem && evolution && evolution[formula]) {
+            elem.textContent = evolution[formula].converged ? '✓' : '○';
+        }
+    });
+}
+
+function refreshDashboard() {
+    document.getElementById('statusText').textContent = 'Refreshing...';
+    loadDashboardData();
+}
+
+// Load data on page load
+document.addEventListener('DOMContentLoaded', loadDashboardData);
+
+// Auto-refresh every 30 seconds
+setInterval(loadDashboardData, 30000);
+</script>
+
+{% endblock %}
+

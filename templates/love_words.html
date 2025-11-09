@@ -1,0 +1,749 @@
+{% extends "base.html" %}
+
+{% block title %}Words for Love: A Cross-Linguistic Journey{% endblock %}
+
+{% block content %}
+<div style="max-width: 1200px; margin: 0 auto;">
+
+<!-- Hero Section -->
+<div style="text-align: center; margin-bottom: 3rem;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 1rem;">Words for Love: A Cross-Linguistic Journey</h1>
+    <p class="subtitle" style="font-size: 1.15rem;">Phonetic analysis of 100+ love words across 20+ languages reveals universal patterns in how humans express affection</p>
+</div>
+
+<!-- Key Finding Banner -->
+<div style="background: linear-gradient(135deg, rgba(236, 72, 153, 0.15), rgba(236, 72, 153, 0.05)); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #ec4899; margin-bottom: 2rem;">
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+        <div style="font-size: 3rem;">💕</div>
+        <div style="flex: 1;">
+            <div style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: #ec4899;">Love Words Are Universally Melodious</div>
+            <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;" id="key-finding-text">
+                Loading analysis...
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Ancient Greek Insight -->
+<div style="background: linear-gradient(135deg, rgba(139, 92, 246, 0.15), rgba(139, 92, 246, 0.05)); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #8b5cf6; margin-bottom: 2rem;">
+    <div style="display: flex; align-items: center; gap: 1.5rem;">
+        <div style="font-size: 3rem;">🏛️</div>
+        <div style="flex: 1;">
+            <div style="font-size: 1.15rem; font-weight: 700; margin-bottom: 0.5rem; color: #8b5cf6;">Ancient Greek: Four Types of Love</div>
+            <div style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.6;">
+                Ancient Greeks distinguished <strong>ἀγάπη (agape)</strong> - divine love, <strong>ἔρως (eros)</strong> - passionate love, 
+                <strong>φιλία (philia)</strong> - friendship, and <strong>στοργή (storge)</strong> - familial affection. 
+                Most modern languages collapsed these into a single general term (English "love", Spanish "amor"), 
+                revealing a philosophical shift from semantic precision to emotional generalization.
+                <span style="color: #8b5cf6; font-weight: 600; margin-left: 0.5rem;">Greek semantic sophistication: 4 concepts vs. English: 1</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Statistics Cards -->
+<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-bottom: 2rem;">
+    <div class="glass card" style="padding: 1.5rem; text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-pink);" id="total-words">100+</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Love Words Analyzed</div>
+    </div>
+    <div class="glass card" style="padding: 1.5rem; text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: 700; color: var(--accent-purple);" id="total-languages">20+</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Languages Studied</div>
+    </div>
+    <div class="glass card" style="padding: 1.5rem; text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: 700; color: var(--success-muted);" id="mean-beauty">--</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Mean Beauty Score</div>
+    </div>
+    <div class="glass card" style="padding: 1.5rem; text-align: center;">
+        <div style="font-size: 2.5rem; font-weight: 700; color: var(--warning-muted);" id="soft-dominance">--</div>
+        <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.5rem;">Soft Sound Dominance</div>
+    </div>
+</div>
+
+<!-- Phonetic Beauty Rankings -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">🏆 Top 10 Most Beautiful Love Words</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+        Ranked by beauty score: melodiousness - (harshness × 0.3). Same methodology as country name analysis.
+    </p>
+    
+    <div id="beauty-rankings-loading" style="text-align: center; padding: 2rem;">
+        <p style="color: var(--text-muted);">Loading beauty rankings...</p>
+    </div>
+    
+    <div id="beauty-rankings" style="display: none;">
+        <!-- Rankings will be populated by JavaScript -->
+    </div>
+</div>
+
+<!-- Etymology Tree -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">🌳 Etymology: Proto-Indo-European to Modern Languages</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+        Love words cluster into two major families: Germanic *leubʰ- (love, Liebe, lyubov) and Latin amor (Spanish/French/Italian amor/amour/amore).
+    </p>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <!-- PIE *leubʰ- Family -->
+        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border-left: 4px solid var(--accent-purple);">
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: var(--accent-purple);">PIE *leubʰ- → Germanic & Slavic</div>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+                <div style="margin-bottom: 0.5rem;"><strong>English:</strong> love (from Old English lufu)</div>
+                <div style="margin-bottom: 0.5rem;"><strong>German:</strong> Liebe</div>
+                <div style="margin-bottom: 0.5rem;"><strong>Dutch:</strong> liefde</div>
+                <div style="margin-bottom: 0.5rem;"><strong>Russian:</strong> любовь (lyubov)</div>
+                <div style="margin-bottom: 0.5rem;"><strong>Polish:</strong> miłość</div>
+                <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(139, 92, 246, 0.1); border-radius: 6px;">
+                    <strong>Phonetic pattern:</strong> Initial /l/ sound preserved across millennia
+                </div>
+            </div>
+        </div>
+        
+        <!-- Latin amor Family -->
+        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border-left: 4px solid #ec4899;">
+            <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 1rem; color: #ec4899;">Latin amor → Romance Languages</div>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+                <div style="margin-bottom: 0.5rem;"><strong>Spanish:</strong> amor</div>
+                <div style="margin-bottom: 0.5rem;"><strong>French:</strong> amour</div>
+                <div style="margin-bottom: 0.5rem;"><strong>Italian:</strong> amore</div>
+                <div style="margin-bottom: 0.5rem;"><strong>Portuguese:</strong> amor</div>
+                <div style="margin-bottom: 0.5rem;"><strong>Exception - Romanian:</strong> dragoste (Slavic influence)</div>
+                <div style="margin-top: 1rem; padding: 0.75rem; background: rgba(236, 72, 153, 0.1); border-radius: 6px;">
+                    <strong>Preservation:</strong> 95%+ phonetic fidelity to Latin root
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+        <h3 style="font-size: 1.05rem; margin-bottom: 1rem;">Key Finding: Parallel Evolution</h3>
+        <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; margin: 0;">
+            Two independent etymological families (Germanic/Slavic *leubʰ- and Romance amor) both favor soft, liquid consonants (l, m, r) and open vowels. 
+            This parallel evolution suggests <strong>universal sound symbolism</strong>: humans across cultures instinctively associate melodious sounds with the concept of love.
+        </p>
+    </div>
+</div>
+
+<!-- Language Family Comparison -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">🌍 Language Family Comparison</h2>
+    
+    <div id="family-comparison-loading" style="text-align: center; padding: 2rem;">
+        <p style="color: var(--text-muted);">Loading language family analysis...</p>
+    </div>
+    
+    <div id="family-comparison" style="display: none;">
+        <!-- Will be populated by JavaScript -->
+    </div>
+</div>
+
+<!-- Ancient vs. Modern Evolution -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">⏳ Ancient vs. Modern: How Love Words Evolved</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+        Comparing phonetic properties of ancient languages (Greek, Latin, Sanskrit, Old English) vs. modern descendants.
+    </p>
+    
+    <div id="ancient-modern-loading" style="text-align: center; padding: 2rem;">
+        <p style="color: var(--text-muted);">Loading temporal analysis...</p>
+    </div>
+    
+    <div id="ancient-modern-comparison" style="display: none;">
+        <!-- Will be populated by JavaScript -->
+    </div>
+</div>
+
+<!-- Sound Symbolism Analysis -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">🔊 Sound Symbolism: The Physics of Love</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+        Do love words favor certain sounds? Analysis of phoneme frequency across all 100+ words.
+    </p>
+    
+    <div style="display: grid; grid-template-columns: 2fr 1fr; gap: 2rem;">
+        <div>
+            <h3 style="font-size: 1.05rem; margin-bottom: 1rem;">Most Common Sounds in Love Words</h3>
+            <div id="sound-frequencies" style="font-size: 0.9rem;">
+                Loading...
+            </div>
+        </div>
+        
+        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px;">
+            <h3 style="font-size: 1.05rem; margin-bottom: 1rem;">Love Phonesthemes</h3>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+                <div style="margin-bottom: 0.75rem;"><strong>L</strong> - Liquid, flowing (love, lufu, lyubov)</div>
+                <div style="margin-bottom: 0.75rem;"><strong>M</strong> - Maternal, soft (amor, miłość)</div>
+                <div style="margin-bottom: 0.75rem;"><strong>V</strong> - Gentle fricative (love, lyubov)</div>
+                <div style="margin-bottom: 0.75rem;"><strong>R</strong> - Romance (amor, rakkaus, eros)</div>
+                <div style="margin-bottom: 0.75rem;"><strong>A</strong> - Open, receptive (amor, agape, ahavah)</div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="margin-top: 2rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(139, 92, 246, 0.1)); border-radius: 8px;">
+        <h3 style="font-size: 1.05rem; margin-bottom: 1rem;">Soft vs. Harsh Sounds</h3>
+        <div id="soft-harsh-analysis" style="font-size: 0.95rem; color: var(--text-secondary);">
+            Loading analysis...
+        </div>
+    </div>
+</div>
+
+<!-- Semantic Depth Chart -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">📚 Semantic Depth: One Word vs. Many</h2>
+    <p style="color: var(--text-secondary); margin-bottom: 2rem;">
+        Languages differ in how many distinct love words they maintain. More words = more philosophical precision.
+    </p>
+    
+    <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem;">
+        <!-- High Semantic Complexity -->
+        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border-top: 3px solid var(--accent-purple);">
+            <div style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--accent-purple);">High Complexity</div>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+                <div style="margin-bottom: 1rem;">
+                    <strong>Ancient Greek:</strong> 4 distinct types
+                    <div style="font-size: 0.85rem; margin-top: 0.25rem;">agape (divine), eros (romantic), philia (friendship), storge (familial)</div>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <strong>Sanskrit:</strong> 3 distinct types
+                    <div style="font-size: 0.85rem; margin-top: 0.25rem;">prema (divine), kāma (desire), sneha (affection)</div>
+                </div>
+                <div>
+                    <strong>Arabic:</strong> 3 distinct types
+                    <div style="font-size: 0.85rem; margin-top: 0.25rem;">ḥubb (general), ʿishq (passionate), hawā (desire)</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Medium Complexity -->
+        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border-top: 3px solid var(--warning-muted);">
+            <div style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: var(--warning-muted);">Medium Complexity</div>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+                <div style="margin-bottom: 1rem;">
+                    <strong>Persian:</strong> 2 types
+                    <div style="font-size: 0.85rem; margin-top: 0.25rem;">eshq (passionate), mohabbat (affection)</div>
+                </div>
+                <div style="margin-bottom: 1rem;">
+                    <strong>Hindi:</strong> 2 types
+                    <div style="font-size: 0.85rem; margin-top: 0.25rem;">pyaar (general), prem (formal/divine)</div>
+                </div>
+                <div>
+                    <strong>Swedish:</strong> 2 types
+                    <div style="font-size: 0.85rem; margin-top: 0.25rem;">kärlek (romantic), älska (general verb)</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Low Complexity -->
+        <div style="background: var(--background-secondary); padding: 1.5rem; border-radius: 8px; border-top: 3px solid #94a3b8;">
+            <div style="font-size: 1.3rem; font-weight: 700; margin-bottom: 0.5rem; color: #94a3b8;">Low Complexity</div>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+                <strong>Most Modern Languages:</strong> 1 general term
+                <div style="font-size: 0.85rem; margin-top: 0.75rem;">
+                    <div>• English: love</div>
+                    <div>• Spanish: amor</div>
+                    <div>• French: amour</div>
+                    <div>• Italian: amore</div>
+                    <div>• German: Liebe</div>
+                    <div>• Russian: любовь</div>
+                    <div>• Mandarin: 爱</div>
+                    <div>• Korean: 사랑</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <div style="margin-top: 2rem; padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+        <h3 style="font-size: 1.05rem; margin-bottom: 1rem;">Cultural Insight</h3>
+        <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; margin: 0;">
+            Ancient cultures maintained semantic precision with multiple love words, reflecting philosophical sophistication. 
+            Modern languages generally collapsed to single terms, suggesting cultural shift toward emotional simplicity over conceptual granularity. 
+            Exception: Romance languages preserve distinction between romantic love (amor) and platonic affection (cariño, affection) through related words.
+        </p>
+    </div>
+</div>
+
+<!-- Complete Interactive Table -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">📊 Complete Dataset: All 100+ Love Words</h2>
+    
+    <div style="margin-bottom: 1.5rem; display: flex; gap: 1rem; flex-wrap: wrap;">
+        <select id="filter-family" style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--background-secondary); color: var(--text-primary);">
+            <option value="">All Language Families</option>
+            <option value="Germanic">Germanic</option>
+            <option value="Romance">Romance</option>
+            <option value="Slavic">Slavic</option>
+            <option value="Hellenic">Hellenic</option>
+            <option value="Semitic">Semitic</option>
+            <option value="Indo-Iranian">Indo-Iranian</option>
+            <option value="Sino-Tibetan">Sino-Tibetan</option>
+            <option value="Other">Other</option>
+        </select>
+        
+        <select id="filter-semantic" style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--background-secondary); color: var(--text-primary);">
+            <option value="">All Semantic Types</option>
+            <option value="romantic">Romantic</option>
+            <option value="familial">Familial</option>
+            <option value="platonic">Platonic</option>
+            <option value="divine">Divine</option>
+            <option value="general">General</option>
+        </select>
+        
+        <select id="filter-era" style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--background-secondary); color: var(--text-primary);">
+            <option value="">Ancient & Modern</option>
+            <option value="ancient">Ancient Only</option>
+            <option value="modern">Modern Only</option>
+        </select>
+        
+        <input type="text" id="search-box" placeholder="Search by language or word..." style="padding: 0.5rem 1rem; border-radius: 6px; border: 1px solid var(--border-color); background: var(--background-secondary); color: var(--text-primary); flex: 1; min-width: 200px;">
+    </div>
+    
+    <div id="words-table-loading" style="text-align: center; padding: 2rem;">
+        <p style="color: var(--text-muted);">Loading complete dataset...</p>
+    </div>
+    
+    <div id="words-table-container" style="display: none; overflow-x: auto;">
+        <table id="words-table" style="width: 100%; border-collapse: collapse; font-size: 0.9rem;">
+            <thead>
+                <tr style="background: var(--background-secondary); border-bottom: 2px solid var(--border-color);">
+                    <th style="padding: 0.75rem; text-align: left; cursor: pointer;" data-sort="language">Language ↕</th>
+                    <th style="padding: 0.75rem; text-align: left;">Word</th>
+                    <th style="padding: 0.75rem; text-align: left;">Romanization</th>
+                    <th style="padding: 0.75rem; text-align: center; cursor: pointer;" data-sort="beauty">Beauty ↕</th>
+                    <th style="padding: 0.75rem; text-align: center; cursor: pointer;" data-sort="melodiousness">Melodious ↕</th>
+                    <th style="padding: 0.75rem; text-align: center;">Semantic Type</th>
+                    <th style="padding: 0.75rem; text-align: left;">Etymology Root</th>
+                </tr>
+            </thead>
+            <tbody id="words-table-body">
+                <!-- Will be populated by JavaScript -->
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Research Methodology -->
+<div class="glass card mb-1">
+    <h2 style="margin-bottom: 1.5rem;">🔬 Research Methodology</h2>
+    
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+        <div>
+            <h3 style="font-size: 1.05rem; margin-bottom: 1rem; color: var(--accent-purple);">Phonetic Analysis Framework</h3>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+                <p style="margin-bottom: 1rem;">
+                    <strong>Harshness Score (0-100):</strong> Weighted count of plosives (p, t, k, b, d, g) and sibilants (s, z, sh, ch). 
+                    Higher = more aggressive phonetics.
+                </p>
+                <p style="margin-bottom: 1rem;">
+                    <strong>Melodiousness Score (0-100):</strong> Combination of vowel density, liquid consonants (l, r, m, n), and syllable flow. 
+                    Higher = more pleasant phonetics.
+                </p>
+                <p>
+                    <strong>Beauty Score:</strong> melodiousness - (harshness × 0.3). Composite metric balancing positive (melodious) and negative (harsh) qualities.
+                </p>
+            </div>
+        </div>
+        
+        <div>
+            <h3 style="font-size: 1.05rem; margin-bottom: 1rem; color: #ec4899;">Dataset Composition</h3>
+            <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.8;">
+                <p style="margin-bottom: 1rem;">
+                    <strong>100+ love words</strong> from 20+ languages spanning 6,000 years (PIE reconstruction to modern)
+                </p>
+                <p style="margin-bottom: 1rem;">
+                    <strong>Language families:</strong> Germanic, Romance, Slavic, Hellenic, Semitic, Indo-Iranian, Sino-Tibetan, Turkic, Uralic, Niger-Congo, Austroasiatic, Kra-Dai
+                </p>
+                <p>
+                    <strong>Data sources:</strong> Oxford English Dictionary, Liddell-Scott Greek Lexicon, Monier-Williams Sanskrit Dictionary, etymological dictionaries, classical texts
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>
+
+<script>
+// Global data storage
+let allWords = [];
+let analysisData = null;
+
+// Load all data on page load
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        // Load words and analysis
+        await Promise.all([
+            loadWords(),
+            loadPhoneticAnalysis()
+        ]);
+        
+        // Populate all sections
+        populateBeautyRankings();
+        populateFamilyComparison();
+        populateAncientModernComparison();
+        populateSoundSymbolism();
+        populateWordsTable();
+        
+        // Setup filters
+        setupFilters();
+        setupTableSorting();
+        
+    } catch (error) {
+        console.error('Error loading data:', error);
+    }
+});
+
+// Load all words
+async function loadWords() {
+    try {
+        const response = await fetch('/api/love-words/all');
+        const data = await response.json();
+        allWords = data.words || [];
+        
+        // Update statistics
+        if (allWords.length > 0) {
+            document.getElementById('total-words').textContent = allWords.length;
+            const uniqueLanguages = new Set(allWords.map(w => w.language)).size;
+            document.getElementById('total-languages').textContent = uniqueLanguages;
+        }
+    } catch (error) {
+        console.error('Error loading words:', error);
+    }
+}
+
+// Load phonetic analysis
+async function loadPhoneticAnalysis() {
+    try {
+        const response = await fetch('/api/love-words/phonetic-analysis');
+        const data = await response.json();
+        analysisData = data.analysis;
+        
+        // Update summary statistics
+        if (analysisData && analysisData.summary) {
+            document.getElementById('mean-beauty').textContent = 
+                analysisData.summary.mean_beauty_score.toFixed(1);
+            document.getElementById('soft-dominance').textContent = 
+                analysisData.summary.soft_sound_dominance.toFixed(1) + 'x';
+            
+            // Update key finding
+            document.getElementById('key-finding-text').innerHTML = 
+                `Across all ${analysisData.summary.dataset_size} love words and ${analysisData.summary.unique_languages} languages, 
+                love words score <strong>${analysisData.summary.mean_beauty_score.toFixed(1)}/100</strong> on beauty (melodiousness). 
+                Soft sounds (l, m, r, n, v) dominate harsh sounds by <strong>${analysisData.summary.soft_sound_dominance.toFixed(1)}×</strong>, 
+                suggesting <strong>universal sound symbolism</strong>: humans instinctively associate melodious phonetics with the concept of love.`;
+        }
+    } catch (error) {
+        console.error('Error loading analysis:', error);
+    }
+}
+
+// Populate beauty rankings
+function populateBeautyRankings() {
+    if (!analysisData || !analysisData.beauty_rankings) return;
+    
+    const container = document.getElementById('beauty-rankings');
+    const loading = document.getElementById('beauty-rankings-loading');
+    
+    const top10 = analysisData.beauty_rankings.top_10;
+    
+    let html = '<div style="display: grid; gap: 0.75rem;">';
+    
+    top10.forEach((word, index) => {
+        const medal = index === 0 ? '🥇' : index === 1 ? '🥈' : index === 2 ? '🥉' : `${index + 1}.`;
+        
+        html += `
+        <div style="display: flex; align-items: center; gap: 1rem; padding: 1rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="font-size: 1.5rem; width: 40px;">${medal}</div>
+            <div style="flex: 1;">
+                <div style="font-weight: 600; font-size: 1.05rem; margin-bottom: 0.25rem;">
+                    ${word.word} <span style="color: var(--text-muted); font-weight: 400;">(${word.romanization})</span>
+                </div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">
+                    ${word.language} • ${word.semantic_type} • ${word.is_ancient ? 'Ancient' : 'Modern'}
+                </div>
+            </div>
+            <div style="text-align: right;">
+                <div style="font-size: 1.3rem; font-weight: 700; color: var(--accent-purple);">${word.beauty_score.toFixed(1)}</div>
+                <div style="font-size: 0.75rem; color: var(--text-muted);">beauty score</div>
+            </div>
+        </div>
+        `;
+    });
+    
+    html += '</div>';
+    
+    container.innerHTML = html;
+    container.style.display = 'block';
+    loading.style.display = 'none';
+}
+
+// Populate family comparison
+function populateFamilyComparison() {
+    if (!analysisData || !analysisData.family_comparison) return;
+    
+    const container = document.getElementById('family-comparison');
+    const loading = document.getElementById('family-comparison-loading');
+    
+    const families = analysisData.family_comparison.ranked_by_beauty;
+    
+    let html = '<div style="display: grid; gap: 1rem;">';
+    
+    families.forEach(([familyName, familyData]) => {
+        html += `
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px; border-left: 4px solid var(--accent-purple);">
+            <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem;">
+                <div>
+                    <div style="font-size: 1.1rem; font-weight: 700; margin-bottom: 0.25rem;">${familyName}</div>
+                    <div style="font-size: 0.85rem; color: var(--text-muted);">${familyData.word_count} words analyzed</div>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 1.5rem; font-weight: 700; color: var(--accent-purple);">${familyData.mean_beauty.toFixed(1)}</div>
+                    <div style="font-size: 0.75rem; color: var(--text-muted);">mean beauty</div>
+                </div>
+            </div>
+            <div style="display: flex; gap: 1.5rem; font-size: 0.85rem; color: var(--text-secondary);">
+                <div><strong>Melodiousness:</strong> ${familyData.mean_melodiousness.toFixed(1)}</div>
+                <div><strong>Harshness:</strong> ${familyData.mean_harshness.toFixed(1)}</div>
+                <div><strong>Syllables:</strong> ${familyData.mean_syllables.toFixed(1)}</div>
+            </div>
+            <div style="margin-top: 0.75rem; font-size: 0.85rem; color: var(--text-muted);">
+                <strong>Languages:</strong> ${familyData.languages.join(', ')}
+            </div>
+        </div>
+        `;
+    });
+    
+    html += '</div>';
+    
+    container.innerHTML = html;
+    container.style.display = 'block';
+    loading.style.display = 'none';
+}
+
+// Populate ancient vs modern comparison
+function populateAncientModernComparison() {
+    if (!analysisData || !analysisData.ancient_vs_modern) return;
+    
+    const container = document.getElementById('ancient-modern-comparison');
+    const loading = document.getElementById('ancient-modern-loading');
+    
+    const comparison = analysisData.ancient_vs_modern;
+    const metrics = ['beauty', 'melodiousness', 'harshness', 'syllables', 'vowel_density'];
+    
+    let html = '<div style="display: grid; gap: 1rem;">';
+    
+    metrics.forEach(metric => {
+        const data = comparison.comparisons[metric];
+        const isSignificant = data.significant;
+        const direction = data.difference > 0 ? 'Modern higher' : 'Ancient higher';
+        
+        html += `
+        <div style="padding: 1.5rem; background: var(--background-secondary); border-radius: 8px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                <div style="font-size: 1.05rem; font-weight: 700; text-transform: capitalize;">${metric.replace('_', ' ')}</div>
+                <div style="padding: 0.25rem 0.75rem; border-radius: 6px; font-size: 0.75rem; font-weight: 600; ${isSignificant ? 'background: rgba(34, 197, 94, 0.15); color: #22c55e;' : 'background: rgba(148, 163, 184, 0.15); color: #94a3b8;'}">
+                    ${isSignificant ? 'Significant' : 'Not significant'} (p=${data.p_value.toFixed(4)})
+                </div>
+            </div>
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; font-size: 0.9rem;">
+                <div>
+                    <div style="color: var(--text-muted); margin-bottom: 0.25rem;">Ancient</div>
+                    <div style="font-size: 1.3rem; font-weight: 700;">${data.ancient_mean.toFixed(2)}</div>
+                </div>
+                <div>
+                    <div style="color: var(--text-muted); margin-bottom: 0.25rem;">Modern</div>
+                    <div style="font-size: 1.3rem; font-weight: 700;">${data.modern_mean.toFixed(2)}</div>
+                </div>
+            </div>
+            <div style="margin-top: 0.75rem; padding-top: 0.75rem; border-top: 1px solid var(--border-color); font-size: 0.85rem; color: var(--text-secondary);">
+                <strong>Change:</strong> ${data.percent_change > 0 ? '+' : ''}${data.percent_change.toFixed(1)}% • ${direction}
+            </div>
+        </div>
+        `;
+    });
+    
+    html += '</div>';
+    
+    html += `
+    <div style="margin-top: 1.5rem; padding: 1.5rem; background: linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(236, 72, 153, 0.1)); border-radius: 8px;">
+        <h3 style="font-size: 1.05rem; margin-bottom: 0.75rem;">Interpretation</h3>
+        <p style="font-size: 0.95rem; color: var(--text-secondary); line-height: 1.7; margin: 0;">
+            ${comparison.interpretation.overall_trend}. ${comparison.interpretation.cultural_insight}
+        </p>
+    </div>
+    `;
+    
+    container.innerHTML = html;
+    container.style.display = 'block';
+    loading.style.display = 'none';
+}
+
+// Populate sound symbolism
+function populateSoundSymbolism() {
+    if (!analysisData || !analysisData.sound_symbolism) return;
+    
+    const symbolism = analysisData.sound_symbolism;
+    
+    // Sound frequencies
+    const freqContainer = document.getElementById('sound-frequencies');
+    let freqHtml = '<div style="display: grid; gap: 0.5rem;">';
+    
+    Object.entries(symbolism.sound_frequencies).slice(0, 10).forEach(([sound, freq]) => {
+        const percentage = (freq * 100).toFixed(1);
+        freqHtml += `
+        <div style="display: flex; align-items: center; gap: 0.75rem;">
+            <div style="font-weight: 700; width: 30px; color: var(--accent-purple);">${sound.toUpperCase()}</div>
+            <div style="flex: 1; height: 20px; background: var(--background-secondary); border-radius: 4px; overflow: hidden;">
+                <div style="height: 100%; background: linear-gradient(90deg, var(--accent-purple), #ec4899); width: ${percentage}%;"></div>
+            </div>
+            <div style="width: 50px; text-align: right; font-size: 0.85rem; color: var(--text-muted);">${percentage}%</div>
+        </div>
+        `;
+    });
+    freqHtml += '</div>';
+    freqContainer.innerHTML = freqHtml;
+    
+    // Soft vs harsh analysis
+    const softHarsh = symbolism.soft_vs_harsh;
+    const softHarshContainer = document.getElementById('soft-harsh-analysis');
+    softHarshContainer.innerHTML = `
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;">
+            <div>
+                <div style="font-size: 1.3rem; font-weight: 700; color: var(--success-muted); margin-bottom: 0.5rem;">
+                    ${(softHarsh.soft_frequency * 100).toFixed(1)}%
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.25rem;">Soft Sounds (l, m, n, r, v, w, y)</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary);">Liquid consonants and gentle fricatives</div>
+            </div>
+            <div>
+                <div style="font-size: 1.3rem; font-weight: 700; color: var(--danger-muted); margin-bottom: 0.5rem;">
+                    ${(softHarsh.harsh_frequency * 100).toFixed(1)}%
+                </div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.25rem;">Harsh Sounds (k, g, t, d, p, b)</div>
+                <div style="font-size: 0.85rem; color: var(--text-secondary);">Plosive consonants</div>
+            </div>
+        </div>
+        <div style="margin-top: 1.5rem; padding: 1rem; background: var(--background-secondary); border-radius: 6px;">
+            <strong>Result:</strong> Soft sounds dominate by <strong>${softHarsh.soft_to_harsh_ratio.toFixed(1)}×</strong>, 
+            confirming universal preference for melodious phonetics when expressing love across all cultures and time periods.
+        </div>
+    `;
+}
+
+// Populate words table
+function populateWordsTable() {
+    if (allWords.length === 0) return;
+    
+    const tbody = document.getElementById('words-table-body');
+    const container = document.getElementById('words-table-container');
+    const loading = document.getElementById('words-table-loading');
+    
+    let html = '';
+    
+    allWords.forEach(word => {
+        const analysis = word.analysis || {};
+        html += `
+        <tr style="border-bottom: 1px solid var(--border-color);" data-family="${word.language_family || ''}" data-semantic="${word.semantic_type || ''}" data-era="${word.is_ancient ? 'ancient' : 'modern'}" data-language="${word.language || ''}" data-word="${word.romanization || word.word}">
+            <td style="padding: 0.75rem; font-weight: 600;">${word.language || 'N/A'}</td>
+            <td style="padding: 0.75rem; font-size: 1.1rem;">${word.word || 'N/A'}</td>
+            <td style="padding: 0.75rem;">${word.romanization || 'N/A'}</td>
+            <td style="padding: 0.75rem; text-align: center; font-weight: 600; color: var(--accent-purple);" data-value="${analysis.beauty_score || 0}">${analysis.beauty_score ? analysis.beauty_score.toFixed(1) : 'N/A'}</td>
+            <td style="padding: 0.75rem; text-align: center; font-weight: 600; color: #ec4899;" data-value="${analysis.melodiousness_score || 0}">${analysis.melodiousness_score ? analysis.melodiousness_score.toFixed(1) : 'N/A'}</td>
+            <td style="padding: 0.75rem; text-align: center;"><span style="padding: 0.25rem 0.5rem; border-radius: 4px; font-size: 0.8rem; background: var(--background-secondary);">${word.semantic_type || 'N/A'}</span></td>
+            <td style="padding: 0.75rem; font-size: 0.85rem; color: var(--text-muted);">${word.etymology_root || 'N/A'}</td>
+        </tr>
+        `;
+    });
+    
+    tbody.innerHTML = html;
+    container.style.display = 'block';
+    loading.style.display = 'none';
+}
+
+// Setup filters
+function setupFilters() {
+    const familyFilter = document.getElementById('filter-family');
+    const semanticFilter = document.getElementById('filter-semantic');
+    const eraFilter = document.getElementById('filter-era');
+    const searchBox = document.getElementById('search-box');
+    
+    function applyFilters() {
+        const family = familyFilter.value.toLowerCase();
+        const semantic = semanticFilter.value.toLowerCase();
+        const era = eraFilter.value.toLowerCase();
+        const search = searchBox.value.toLowerCase();
+        
+        const rows = document.querySelectorAll('#words-table-body tr');
+        
+        rows.forEach(row => {
+            const rowFamily = row.dataset.family.toLowerCase();
+            const rowSemantic = row.dataset.semantic.toLowerCase();
+            const rowEra = row.dataset.era.toLowerCase();
+            const rowLanguage = row.dataset.language.toLowerCase();
+            const rowWord = row.dataset.word.toLowerCase();
+            
+            const matchFamily = !family || rowFamily === family;
+            const matchSemantic = !semantic || rowSemantic === semantic;
+            const matchEra = !era || rowEra === era;
+            const matchSearch = !search || rowLanguage.includes(search) || rowWord.includes(search);
+            
+            if (matchFamily && matchSemantic && matchEra && matchSearch) {
+                row.style.display = '';
+            } else {
+                row.style.display = 'none';
+            }
+        });
+    }
+    
+    familyFilter.addEventListener('change', applyFilters);
+    semanticFilter.addEventListener('change', applyFilters);
+    eraFilter.addEventListener('change', applyFilters);
+    searchBox.addEventListener('input', applyFilters);
+}
+
+// Setup table sorting
+function setupTableSorting() {
+    const headers = document.querySelectorAll('#words-table th[data-sort]');
+    
+    headers.forEach(header => {
+        header.addEventListener('click', () => {
+            const sortKey = header.dataset.sort;
+            sortTable(sortKey);
+        });
+    });
+}
+
+let sortDirection = {};
+
+function sortTable(key) {
+    const tbody = document.getElementById('words-table-body');
+    const rows = Array.from(tbody.querySelectorAll('tr'));
+    
+    // Toggle direction
+    sortDirection[key] = sortDirection[key] === 'asc' ? 'desc' : 'asc';
+    const direction = sortDirection[key];
+    
+    rows.sort((a, b) => {
+        let aVal, bVal;
+        
+        if (key === 'language') {
+            aVal = a.dataset.language;
+            bVal = b.dataset.language;
+            return direction === 'asc' ? aVal.localeCompare(bVal) : bVal.localeCompare(aVal);
+        } else if (key === 'beauty' || key === 'melodiousness') {
+            const aCell = a.querySelector(`td[data-value]`);
+            const bCell = b.querySelector(`td[data-value]`);
+            aVal = parseFloat(aCell.dataset.value) || 0;
+            bVal = parseFloat(bCell.dataset.value) || 0;
+            return direction === 'asc' ? aVal - bVal : bVal - aVal;
+        }
+    });
+    
+    // Re-append sorted rows
+    rows.forEach(row => tbody.appendChild(row));
+}
+</script>
+
+{% endblock %}
+

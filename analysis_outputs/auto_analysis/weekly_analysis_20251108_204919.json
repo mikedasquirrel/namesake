@@ -1,0 +1,15 @@
+{
+  "start_time": "2025-11-08T20:49:05.456909",
+  "mode": "weekly",
+  "validations": {},
+  "evolutions": {},
+  "convergences": {},
+  "encryptions": {
+    "phonetic": {
+      "formula_id": "phonetic",
+      "reversibility": {
+        "formula_id": "phonetic",
+        "pca_reconstruction_accuracy": 1.0,
+        "nearest_neighbor_accuracy": 0.004,
+        "information_preservation_score": 1.0,
+        "is_reversible": 

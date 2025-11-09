@@ -23,6 +23,7 @@ sys.path.insert(0, str(Path(__file__).parent.parent))
 import logging
 import argparse
 import json
+import numpy as np
 from datetime import datetime
 from typing import Dict, List, Any, Optional
 
@@ -55,6 +56,20 @@ logging.basicConfig(
     ]
 )
 logger = logging.getLogger(__name__)
+
+
+class NumpyEncoder(json.JSONEncoder):
+    """Custom JSON encoder that handles NumPy types"""
+    def default(self, obj):
+        if isinstance(obj, np.integer):
+            return int(obj)
+        elif isinstance(obj, np.floating):
+            return float(obj)
+        elif isinstance(obj, np.ndarray):
+            return obj.tolist()
+        elif isinstance(obj, np.bool_):
+            return bool(obj)
+        return super(NumpyEncoder, self).default(obj)
 
 
 class AutoFormulaAnalyzer:
@@ -309,7 +324,7 @@ class AutoFormulaAnalyzer:
                     # Check cache first
                     cached = cache.get_validation(
                         formula_id,
-                        [d.value for d in self.DOMAINS],
+                        self.DOMAINS,
                         limit_per_domain
                     )
                     
@@ -329,7 +344,7 @@ class AutoFormulaAnalyzer:
                     # Cache result
                     cache.set_validation(
                         formula_id,
-                        [d.value for d in self.DOMAINS],
+                        self.DOMAINS,
                         limit_per_domain,
                         result
                     )
@@ -529,7 +544,7 @@ class AutoFormulaAnalyzer:
             
             for formula_id, validation in self.results['validations'].items():
                 domain_perfs = validation.get('domain_performances', {})
-                domain_perf = domain_perfs.get(domain.value, {})
+                domain_perf = domain_perfs.get(domain, {})
                 corr = abs(domain_perf.get('best_correlation', 0))
                 
                 if corr > best_corr:
@@ -537,7 +552,7 @@ class AutoFormulaAnalyzer:
                     best_formula = formula_id
             
             if best_formula:
-                winners[domain.value] = best_formula
+                winners[domain] = best_formula
         
         return winners
     
@@ -749,7 +764,7 @@ class AutoFormulaAnalyzer:
         results_file = self.output_dir / f'{mode}_analysis_{timestamp}.json'
         
         with open(results_file, 'w') as f:
-            json.dump(self.results, f, indent=2)
+            json.dump(self.results, f, indent=2, cls=NumpyEncoder)
         
         logger.info(f"\nResults saved to: {results_file}")
         

@@ -1,0 +1,560 @@
+{% extends "base.html" %}
+
+{% block title %}Research Dashboard - Nominative Determinism{% endblock %}
+
+{% block content %}
+<style>
+    .research-dashboard {
+        background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+        min-height: 100vh;
+        padding: 2rem 0;
+    }
+    
+    .dashboard-header {
+        text-align: center;
+        color: white;
+        padding: 3rem 0;
+        margin-bottom: 2rem;
+    }
+    
+    .dashboard-header h1 {
+        font-size: 3rem;
+        font-weight: 700;
+        margin-bottom: 1rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+    }
+    
+    .dashboard-header p {
+        font-size: 1.25rem;
+        opacity: 0.9;
+    }
+    
+    .stats-overview {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 1.5rem;
+        margin-bottom: 3rem;
+    }
+    
+    .stat-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 2rem;
+        text-align: center;
+        transition: all 0.3s ease;
+    }
+    
+    .stat-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(102, 126, 234, 0.5);
+        background: rgba(102, 126, 234, 0.1);
+    }
+    
+    .stat-number {
+        font-size: 3rem;
+        font-weight: 700;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        background-clip: text;
+        display: block;
+        margin-bottom: 0.5rem;
+    }
+    
+    .stat-label {
+        color: rgba(255, 255, 255, 0.8);
+        font-size: 1rem;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+    }
+    
+    .domain-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+        gap: 2rem;
+        margin-bottom: 3rem;
+    }
+    
+    .domain-card {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 2rem;
+        transition: all 0.3s ease;
+    }
+    
+    .domain-card:hover {
+        transform: translateY(-5px);
+        border-color: rgba(102, 126, 234, 0.5);
+        box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+    }
+    
+    .domain-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+    }
+    
+    .domain-icon {
+        font-size: 2.5rem;
+        margin-right: 1rem;
+    }
+    
+    .domain-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: white;
+        margin: 0;
+    }
+    
+    .domain-status {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin-left: auto;
+    }
+    
+    .status-complete {
+        background: rgba(16, 185, 129, 0.2);
+        color: #10b981;
+        border: 1px solid #10b981;
+    }
+    
+    .status-active {
+        background: rgba(59, 130, 246, 0.2);
+        color: #3b82f6;
+        border: 1px solid #3b82f6;
+    }
+    
+    .status-planned {
+        background: rgba(156, 163, 175, 0.2);
+        color: #9ca3af;
+        border: 1px solid #9ca3af;
+    }
+    
+    .domain-metrics {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+    }
+    
+    .metric-item {
+        background: rgba(0, 0, 0, 0.2);
+        padding: 1rem;
+        border-radius: 10px;
+    }
+    
+    .metric-label {
+        color: rgba(255, 255, 255, 0.6);
+        font-size: 0.875rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .metric-value {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 700;
+    }
+    
+    .domain-description {
+        color: rgba(255, 255, 255, 0.8);
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+    
+    .domain-findings {
+        background: rgba(102, 126, 234, 0.1);
+        border-left: 3px solid #667eea;
+        padding: 1rem;
+        border-radius: 5px;
+        margin-bottom: 1rem;
+    }
+    
+    .finding-label {
+        color: #667eea;
+        font-size: 0.875rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+    }
+    
+    .finding-text {
+        color: white;
+        font-size: 0.95rem;
+        line-height: 1.5;
+    }
+    
+    .chart-container {
+        background: rgba(255, 255, 255, 0.05);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 15px;
+        padding: 2rem;
+        margin-bottom: 2rem;
+    }
+    
+    .chart-title {
+        color: white;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+    }
+    
+    .loading-spinner {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 3rem;
+        color: white;
+    }
+    
+    .spinner {
+        border: 4px solid rgba(255, 255, 255, 0.1);
+        border-left-color: #667eea;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 1s linear infinite;
+    }
+    
+    @keyframes spin {
+        to { transform: rotate(360deg); }
+    }
+    
+    .section-header {
+        color: white;
+        font-size: 2rem;
+        font-weight: 600;
+        margin: 3rem 0 2rem 0;
+        text-align: center;
+    }
+    
+    .btn-explore {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        text-decoration: none;
+        border-radius: 10px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        border: none;
+        cursor: pointer;
+    }
+    
+    .btn-explore:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba(102, 126, 234, 0.4);
+        color: white;
+    }
+    
+    .innovation-badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-left: 0.5rem;
+    }
+</style>
+
+<div class="research-dashboard">
+    <div class="container">
+        <div class="dashboard-header">
+            <h1>Research Dashboard</h1>
+            <p>Comprehensive nominative determinism research across multiple domains</p>
+        </div>
+        
+        <!-- Loading State -->
+        <div id="loadingState" class="loading-spinner">
+            <div class="spinner"></div>
+        </div>
+        
+        <!-- Statistics Overview -->
+        <div id="statsOverview" class="stats-overview" style="display: none;">
+            <!-- Populated dynamically -->
+        </div>
+        
+        <!-- Domain Cards -->
+        <h2 class="section-header">Research Domains</h2>
+        <div id="domainGrid" class="domain-grid">
+            <!-- Populated dynamically -->
+        </div>
+        
+        <!-- Cross-Domain Analysis -->
+        <h2 class="section-header">Cross-Domain Analysis</h2>
+        <div class="chart-container">
+            <h3 class="chart-title">Effect Sizes Across Domains</h3>
+            <canvas id="effectSizeChart" height="100"></canvas>
+        </div>
+        
+        <div class="chart-container">
+            <h3 class="chart-title">Sample Sizes by Domain</h3>
+            <canvas id="sampleSizeChart" height="100"></canvas>
+        </div>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3.0/dist/chart.umd.min.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', async function() {
+    const loadingState = document.getElementById('loadingState');
+    const statsOverview = document.getElementById('statsOverview');
+    const domainGrid = document.getElementById('domainGrid');
+    
+    try {
+        // Fetch comprehensive research data
+        const response = await fetch('/api/research/comprehensive-stats');
+        const data = await response.json();
+        
+        // Hide loading
+        loadingState.style.display = 'none';
+        statsOverview.style.display = 'grid';
+        
+        // Populate overview statistics
+        populateOverviewStats(data.overview);
+        
+        // Populate domain cards
+        populateDomainCards(data.domains);
+        
+        // Create charts
+        createEffectSizeChart(data.domains);
+        createSampleSizeChart(data.domains);
+        
+    } catch (error) {
+        console.error('Error loading dashboard:', error);
+        loadingState.innerHTML = '<p style="color: #ef4444;">Error loading dashboard data. Please refresh the page.</p>';
+    }
+});
+
+function populateOverviewStats(overview) {
+    const statsOverview = document.getElementById('statsOverview');
+    statsOverview.innerHTML = `
+        <div class="stat-card">
+            <span class="stat-number">${overview.total_domains || 0}</span>
+            <span class="stat-label">Research Domains</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number">${formatNumber(overview.total_records || 0)}</span>
+            <span class="stat-label">Total Records</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number">${overview.completed_domains || 0}</span>
+            <span class="stat-label">Completed Studies</span>
+        </div>
+        <div class="stat-card">
+            <span class="stat-number">${overview.active_domains || 0}</span>
+            <span class="stat-label">Active Studies</span>
+        </div>
+    `;
+}
+
+function populateDomainCards(domains) {
+    const domainGrid = document.getElementById('domainGrid');
+    
+    const domainConfigs = {
+        'cryptocurrency': { icon: '₿', route: '/crypto/findings' },
+        'hurricanes': { icon: '🌀', route: '/hurricanes' },
+        'mtg_card': { icon: '🃏', route: '/mtg' },
+        'bands': { icon: '🎸', route: '/bands' },
+        'nba_player': { icon: '🏀', route: '/nba' },
+        'nfl_player': { icon: '🏈', route: '/nfl' },
+        'mental_health': { icon: '🧠', route: '/mental-health' },
+        'academics': { icon: '🎓', route: '/academics' },
+        'elections': { icon: '🗳️', route: '/elections' },
+        'ships': { icon: '⚓', route: '/ships' },
+        'board_games': { icon: '🎲', route: '/board-games' },
+        'mlb_player': { icon: '⚾', route: '/mlb' }
+    };
+    
+    domainGrid.innerHTML = domains.map(domain => {
+        const config = domainConfigs[domain.domain_id] || { icon: '📊', route: '#' };
+        const statusClass = `status-${domain.status || 'planned'}`;
+        
+        return `
+            <div class="domain-card">
+                <div class="domain-header">
+                    <span class="domain-icon">${config.icon}</span>
+                    <div style="flex: 1;">
+                        <h3 class="domain-title">${domain.display_name}</h3>
+                    </div>
+                    <span class="domain-status ${statusClass}">${domain.status || 'planned'}</span>
+                </div>
+                
+                <div class="domain-metrics">
+                    <div class="metric-item">
+                        <div class="metric-label">Sample Size</div>
+                        <div class="metric-value">${formatNumber(domain.sample_size || 0)}</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-label">Features</div>
+                        <div class="metric-value">${domain.feature_count || 0}</div>
+                    </div>
+                </div>
+                
+                ${domain.key_finding ? `
+                <div class="domain-findings">
+                    <div class="finding-label">Key Finding</div>
+                    <div class="finding-text">${domain.key_finding}</div>
+                </div>
+                ` : ''}
+                
+                ${domain.innovation_rating && domain.innovation_rating >= 2 ? `
+                <div style="margin-bottom: 1rem;">
+                    <span class="innovation-badge">Innovation: ${'⭐'.repeat(domain.innovation_rating)}</span>
+                </div>
+                ` : ''}
+                
+                <a href="${config.route}" class="btn-explore">Explore Findings →</a>
+            </div>
+        `;
+    }).join('');
+}
+
+function createEffectSizeChart(domains) {
+    const ctx = document.getElementById('effectSizeChart').getContext('2d');
+    
+    const labels = domains.map(d => d.display_name);
+    const effectSizes = domains.map(d => d.effect_size || 0);
+    const colors = domains.map((d, i) => {
+        const hue = (i * 360 / domains.length);
+        return `hsla(${hue}, 70%, 60%, 0.8)`;
+    });
+    
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Effect Size (R²)',
+                data: effectSizes,
+                backgroundColor: colors,
+                borderColor: colors.map(c => c.replace('0.8', '1')),
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `R² = ${context.parsed.y.toFixed(3)}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 1,
+                    title: {
+                        display: true,
+                        text: 'R² (Variance Explained)',
+                        color: 'white'
+                    },
+                    ticks: { color: 'white' },
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                },
+                x: {
+                    ticks: { 
+                        color: 'white',
+                        maxRotation: 45,
+                        minRotation: 45
+                    },
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                }
+            }
+        }
+    });
+}
+
+function createSampleSizeChart(domains) {
+    const ctx = document.getElementById('sampleSizeChart').getContext('2d');
+    
+    const labels = domains.map(d => d.display_name);
+    const sampleSizes = domains.map(d => d.sample_size || 0);
+    
+    new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: labels,
+            datasets: [{
+                label: 'Sample Size',
+                data: sampleSizes,
+                backgroundColor: 'rgba(102, 126, 234, 0.8)',
+                borderColor: 'rgba(102, 126, 234, 1)',
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: true,
+            plugins: {
+                legend: {
+                    display: false
+                },
+                tooltip: {
+                    callbacks: {
+                        label: function(context) {
+                            return `n = ${context.parsed.y.toLocaleString()}`;
+                        }
+                    }
+                }
+            },
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    title: {
+                        display: true,
+                        text: 'Sample Size',
+                        color: 'white'
+                    },
+                    ticks: { 
+                        color: 'white',
+                        callback: function(value) {
+                            return value.toLocaleString();
+                        }
+                    },
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                },
+                x: {
+                    ticks: { 
+                        color: 'white',
+                        maxRotation: 45,
+                        minRotation: 45
+                    },
+                    grid: { color: 'rgba(255, 255, 255, 0.1)' }
+                }
+            }
+        }
+    });
+}
+
+function formatNumber(num) {
+    if (num >= 1000000) {
+        return (num / 1000000).toFixed(1) + 'M';
+    } else if (num >= 1000) {
+        return (num / 1000).toFixed(1) + 'K';
+    }
+    return num.toString();
+}
+</script>
+{% endblock %}

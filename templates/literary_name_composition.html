@@ -1,0 +1,394 @@
+{% extends "base.html" %}
+
+{% block title %}Literary Name Composition Analysis{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">📚 Literary Name Composition & Predictive Nominative Analysis</h1>
+            <p class="lead">Examining fictional naming patterns across modern fiction, nonfiction, and synoptic gospels</p>
+            <p class="text-muted">Testing whether character roles and outcomes can be predicted from name phonetic characteristics</p>
+        </div>
+    </div>
+
+    <!-- Study Statistics -->
+    <div class="row mb-4">
+        <div class="col-md-2">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3 class="text-primary">{{ total_works }}</h3>
+                    <p class="mb-0">Total Works</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3 class="text-success">{{ total_characters }}</h3>
+                    <p class="mb-0">Characters</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3 class="text-info">{{ fiction_count }}</h3>
+                    <p class="mb-0">Fiction Works</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3 class="text-warning">{{ nonfiction_count }}</h3>
+                    <p class="mb-0">Nonfiction Works</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3 class="text-secondary">{{ gospels_count }}</h3>
+                    <p class="mb-0">Gospel Texts</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3 class="text-danger">Active</h3>
+                    <p class="mb-0">Status</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Character Role Predictor -->
+    <div class="row mb-4">
+        <div class="col-lg-8 mx-auto">
+            <div class="card border-primary">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">🎭 Character Role Predictor</h4>
+                </div>
+                <div class="card-body">
+                    <p class="text-muted">Test whether a name sounds like a protagonist, antagonist, or supporting character</p>
+                    <form id="rolePredictionForm">
+                        <div class="mb-3">
+                            <label for="characterName" class="form-label">Character Name</label>
+                            <input type="text" class="form-control form-control-lg" 
+                                   id="characterName" name="characterName" 
+                                   placeholder="e.g., Harry Potter, Voldemort, Hermione Granger" required>
+                            <small class="form-text text-muted">Enter any character name (real or fictional)</small>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-100">
+                            🔮 Predict Character Role
+                        </button>
+                    </form>
+
+                    <!-- Prediction Results -->
+                    <div id="predictionResults" class="mt-4" style="display: none;">
+                        <hr>
+                        <h5>Prediction Results:</h5>
+                        
+                        <div class="alert" id="predictionAlert" role="alert">
+                            <h5 id="predictedRole" class="mb-0">-</h5>
+                            <p class="mb-0 mt-2" id="roleExplanation">-</p>
+                        </div>
+
+                        <div class="row text-center mb-3">
+                            <div class="col-md-4">
+                                <div class="p-3 bg-light rounded">
+                                    <h6>Protagonist Score</h6>
+                                    <h3 id="protagonistScore" class="mb-0">-</h3>
+                                    <small class="text-muted">0-100 scale</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 bg-light rounded">
+                                    <h6>Antagonist Score</h6>
+                                    <h3 id="antagonistScore" class="mb-0">-</h3>
+                                    <small class="text-muted">0-100 scale</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 bg-light rounded">
+                                    <h6>Syllables</h6>
+                                    <h3 id="syllableCount" class="mb-0">-</h3>
+                                    <small class="text-muted">count</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row text-center">
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded">
+                                    <h6>Melodiousness</h6>
+                                    <div class="progress" style="height: 25px;">
+                                        <div id="melodiousnessBar" class="progress-bar bg-success" role="progressbar" style="width: 0%">0</div>
+                                    </div>
+                                    <small class="text-muted">Higher = softer, more pleasant sounds</small>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="p-3 bg-light rounded">
+                                    <h6>Harshness</h6>
+                                    <div class="progress" style="height: 25px;">
+                                        <div id="harshnessBar" class="progress-bar bg-danger" role="progressbar" style="width: 0%">0</div>
+                                    </div>
+                                    <small class="text-muted">Higher = harsher, more threatening sounds</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Category Comparison -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-info text-white">
+                    <h4 class="mb-0">📊 Cross-Category Comparison</h4>
+                </div>
+                <div class="card-body">
+                    <p>Comparing name characteristics across fiction, nonfiction, and synoptic gospels</p>
+                    <div id="categoryComparison">
+                        <div class="text-center">
+                            <div class="spinner-border text-primary" role="status">
+                                <span class="visually-hidden">Loading...</span>
+                            </div>
+                            <p class="mt-2">Loading comparison data...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Research Questions -->
+    <div class="row mb-4">
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0">Research Questions</h5>
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li class="mb-2">✓ Do fictional character names differ systematically from nonfiction person names?</li>
+                        <li class="mb-2">✓ Can character roles be predicted from name characteristics alone?</li>
+                        <li class="mb-2">✓ Do synoptic gospels follow distinct naming patterns?</li>
+                        <li class="mb-2">✓ What proportion of names are invented vs. real?</li>
+                        <li class="mb-2">✓ Do character outcomes correlate with name phonetics?</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="card">
+                <div class="card-header bg-secondary text-white">
+                    <h5 class="mb-0">Key Hypotheses</h5>
+                </div>
+                <div class="card-body">
+                    <h6>Category Differences:</h6>
+                    <ul>
+                        <li><strong>Fiction:</strong> More melodious, invented names</li>
+                        <li><strong>Nonfiction:</strong> Common, real names</li>
+                        <li><strong>Gospels:</strong> Middle ground, historically plausible</li>
+                    </ul>
+                    <h6 class="mt-3">Role Prediction (Nominative Determinism):</h6>
+                    <ul>
+                        <li><strong>Protagonists:</strong> Higher melodiousness, common names</li>
+                        <li><strong>Antagonists:</strong> Harsher phonetics, unusual names</li>
+                        <li><strong>Victims:</strong> Softer phonetics, vulnerable-sounding</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sample Works -->
+    {% if sample_works %}
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header bg-success text-white">
+                    <h5 class="mb-0">📖 Sample Works Analyzed</h5>
+                </div>
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Author</th>
+                                    <th>Category</th>
+                                    <th>Genre</th>
+                                    <th>Characters</th>
+                                    <th>Invented %</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for work in sample_works %}
+                                <tr>
+                                    <td>{{ work.title }}</td>
+                                    <td>{{ work.author }}</td>
+                                    <td>
+                                        <span class="badge 
+                                            {% if work.category == 'fiction' %}bg-info
+                                            {% elif work.category == 'nonfiction' %}bg-warning
+                                            {% else %}bg-secondary{% endif %}">
+                                            {{ work.category }}
+                                        </span>
+                                    </td>
+                                    <td>{{ work.genre or '-' }}</td>
+                                    <td>{{ work.character_count_total or '-' }}</td>
+                                    <td>{{ work.invented_name_pct|round(1) if work.invented_name_pct else '-' }}%</td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% endif %}
+
+    <!-- Methodology -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="mb-0">🔬 Methodology</h5>
+                </div>
+                <div class="card-body">
+                    <h6>Data Collection:</h6>
+                    <ul>
+                        <li>Fiction: Project Gutenberg texts (mixed genres, 1900-present)</li>
+                        <li>Nonfiction: Biographies, memoirs, historical works</li>
+                        <li>Gospels: Matthew, Mark, Luke (canonical texts)</li>
+                    </ul>
+                    
+                    <h6 class="mt-3">Analysis Metrics:</h6>
+                    <ul>
+                        <li><strong>Melodiousness:</strong> Phonetic flow, vowel harmony, rhythm (0-100)</li>
+                        <li><strong>Americanness:</strong> Anglo-American phonetic patterns (0-100)</li>
+                        <li><strong>Commonality:</strong> Name frequency in US Census data (0-100)</li>
+                        <li><strong>Harshness:</strong> Plosive/fricative consonant density</li>
+                        <li><strong>Name Valence:</strong> Positive/negative semantic associations (-100 to +100)</li>
+                    </ul>
+                    
+                    <h6 class="mt-3">Predictive Modeling:</h6>
+                    <p>Logistic regression with 5-fold cross-validation predicts character roles from name features. 
+                       Accuracy >60% demonstrates nominative determinism beyond chance (50%).</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+// Role Prediction Form Handler
+document.getElementById('rolePredictionForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('characterName').value;
+    const resultsDiv = document.getElementById('predictionResults');
+    const alertDiv = document.getElementById('predictionAlert');
+    
+    try {
+        const response = await fetch('/api/literary_name_composition/role-prediction', {
+            method: 'POST',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({name: name})
+        });
+        
+        const data = await response.json();
+        
+        if (response.ok) {
+            // Update role prediction
+            const predictedRole = data.predictions.predicted_role;
+            document.getElementById('predictedRole').textContent = 
+                `Predicted Role: ${predictedRole.toUpperCase()}`;
+            
+            // Set alert color
+            alertDiv.className = 'alert ' + 
+                (predictedRole === 'protagonist' ? 'alert-success' : 'alert-danger');
+            
+            // Explanation
+            document.getElementById('roleExplanation').textContent = 
+                predictedRole === 'protagonist' 
+                ? 'This name has characteristics typical of heroic protagonists: moderate melodiousness and accessible phonetics.'
+                : 'This name has characteristics typical of antagonists: harsher sounds and distinctive phonetics.';
+            
+            // Update scores
+            document.getElementById('protagonistScore').textContent = 
+                data.predictions.protagonist_score.toFixed(0);
+            document.getElementById('antagonistScore').textContent = 
+                data.predictions.antagonist_score.toFixed(0);
+            document.getElementById('syllableCount').textContent = 
+                data.phonetics.syllables;
+            
+            // Update progress bars
+            const melodiousness = data.phonetics.melodiousness;
+            const harshness = data.phonetics.harshness;
+            
+            document.getElementById('melodiousnessBar').style.width = melodiousness + '%';
+            document.getElementById('melodiousnessBar').textContent = melodiousness.toFixed(0);
+            
+            document.getElementById('harshnessBar').style.width = harshness + '%';
+            document.getElementById('harshnessBar').textContent = harshness.toFixed(0);
+            
+            // Show results
+            resultsDiv.style.display = 'block';
+            
+        } else {
+            alert('Error: ' + data.error);
+        }
+        
+    } catch (error) {
+        alert('Error predicting role: ' + error);
+    }
+});
+
+// Load category comparison on page load
+document.addEventListener('DOMContentLoaded', async function() {
+    try {
+        const response = await fetch('/api/literary_name_composition/category-comparison');
+        const data = await response.json();
+        
+        let html = '<div class="table-responsive"><table class="table table-bordered">';
+        html += '<thead class="table-dark"><tr><th>Category</th><th>Characters</th><th>Melodiousness</th><th>Americanness</th><th>Commonality</th><th>Harshness</th></tr></thead>';
+        html += '<tbody>';
+        
+        for (const [category, stats] of Object.entries(data)) {
+            html += `<tr>
+                <td><strong>${category.toUpperCase()}</strong></td>
+                <td>${stats.character_count}</td>
+                <td>${stats.mean_melodiousness ? stats.mean_melodiousness.toFixed(1) : '-'}</td>
+                <td>${stats.mean_americanness ? stats.mean_americanness.toFixed(1) : '-'}</td>
+                <td>${stats.mean_commonality ? stats.mean_commonality.toFixed(1) : '-'}</td>
+                <td>${stats.mean_harshness ? stats.mean_harshness.toFixed(1) : '-'}</td>
+            </tr>`;
+        }
+        
+        html += '</tbody></table></div>';
+        
+        if (Object.keys(data).length === 0) {
+            html = '<div class="alert alert-info">No data available yet. Run the analysis script to populate the database.</div>';
+        }
+        
+        document.getElementById('categoryComparison').innerHTML = html;
+        
+    } catch (error) {
+        document.getElementById('categoryComparison').innerHTML = 
+            '<div class="alert alert-warning">Error loading comparison data. Database may be empty.</div>';
+    }
+});
+</script>
+
+{% endblock %}
+

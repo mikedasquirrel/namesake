@@ -1,0 +1,52 @@
+================================================================================
+DOMAIN-SPECIFIC META-FORMULA ANALYSIS
+================================================================================
+
+This analysis reveals which formulas work best in which types of domains,
+and whether domain characteristics predict optimal formula combinations.
+
+
+CRYPTO:
+----------------------------------------
+  phonetic       :  16.7%
+  semantic       :  16.7%
+  structural     :  16.7%
+  frequency      :  16.7%
+  numerological  :  16.7%
+  hybrid         :  16.7%
+
+ELECTION:
+----------------------------------------
+  phonetic       :  16.7%
+  semantic       :  16.7%
+  structural     :  16.7%
+  frequency      :  16.7%
+  numerological  :  16.7%
+  hybrid         :  16.7%
+
+SHIP:
+----------------------------------------
+  phonetic       :  16.7%
+  semantic       :  16.7%
+  structural     :  16.7%
+  frequency      :  16.7%
+  numerological  :  16.7%
+  hybrid         :  16.7%
+
+MLB_PLAYER:
+----------------------------------------
+  phonetic       :  16.7%
+  semantic       :  16.7%
+  structural     :  16.7%
+  frequency      :  16.7%
+  numerological  :  16.7%
+  hybrid         :  16.7%
+
+BOARD_GAME:
+----------------------------------------
+  phonetic       :  16.7%
+  semantic       :  16.7%
+  structural     :  16.7%
+  frequency      :  16.7%
+  numerological  :  16.7%
+  hybrid         :  16.7%

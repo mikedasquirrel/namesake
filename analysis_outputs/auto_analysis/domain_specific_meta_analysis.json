@@ -1,0 +1,279 @@
+{
+  "domain_formula_performance": {
+    "crypto": {
+      "phonetic": 0.0,
+      "semantic": 0.0,
+      "structural": 0.0,
+      "frequency": 0.0,
+      "numerological": 0.0,
+      "hybrid": 0.0
+    },
+    "mtg_card": {},
+    "nfl_player": {},
+    "election": {
+      "phonetic": 0.0,
+      "semantic": 0.0,
+      "structural": 0.0,
+      "frequency": 0.0,
+      "numerological": 0.0,
+      "hybrid": 0.0
+    },
+    "ship": {
+      "phonetic": 0.0,
+      "semantic": 0.0,
+      "structural": 0.0,
+      "frequency": 0.0,
+      "numerological": 0.0,
+      "hybrid": 0.0
+    },
+    "hurricane": {},
+    "film": {},
+    "mlb_player": {
+      "phonetic": 0.0,
+      "semantic": 0.0,
+      "structural": 0.0,
+      "frequency": 0.0,
+      "numerological": 0.0,
+      "hybrid": 0.0
+    },
+    "board_game": {
+      "phonetic": 0.0,
+      "semantic": 0.0,
+      "structural": 0.0,
+      "frequency": 0.0,
+      "numerological": 0.0,
+      "hybrid": 0.0
+    },
+    "book": {}
+  },
+  "domain_optimal_formulas": {
+    "crypto": {
+      "phonetic": 0.16666666666666666,
+      "semantic": 0.16666666666666666,
+      "structural": 0.16666666666666666,
+      "frequency": 0.16666666666666666,
+      "numerological": 0.16666666666666666,
+      "hybrid": 0.16666666666666666
+    },
+    "election": {
+      "phonetic": 0.16666666666666666,
+      "semantic": 0.16666666666666666,
+      "structural": 0.16666666666666666,
+      "frequency": 0.16666666666666666,
+      "numerological": 0.16666666666666666,
+      "hybrid": 0.16666666666666666
+    },
+    "ship": {
+      "phonetic": 0.16666666666666666,
+      "semantic": 0.16666666666666666,
+      "structural": 0.16666666666666666,
+      "frequency": 0.16666666666666666,
+      "numerological": 0.16666666666666666,
+      "hybrid": 0.16666666666666666
+    },
+    "mlb_player": {
+      "phonetic": 0.16666666666666666,
+      "semantic": 0.16666666666666666,
+      "structural": 0.16666666666666666,
+      "frequency": 0.16666666666666666,
+      "numerological": 0.16666666666666666,
+      "hybrid": 0.16666666666666666
+    },
+    "board_game": {
+      "phonetic": 0.16666666666666666,
+      "semantic": 0.16666666666666666,
+      "structural": 0.16666666666666666,
+      "frequency": 0.16666666666666666,
+      "numerological": 0.16666666666666666,
+      "hybrid": 0.16666666666666666
+    }
+  },
+  "meta_patterns": {
+    "by_domain_type": {
+      "market": {
+        "phonetic": 0.16666666666666666,
+        "semantic": 0.16666666666666666,
+        "structural": 0.16666666666666666,
+        "frequency": 0.16666666666666666,
+        "numerological": 0.16666666666666666,
+        "hybrid": 0.16666666666666666
+      },
+      "political": {
+        "phonetic": 0.16666666666666666,
+        "semantic": 0.16666666666666666,
+        "structural": 0.16666666666666666,
+        "frequency": 0.16666666666666666,
+        "numerological": 0.16666666666666666,
+        "hybrid": 0.16666666666666666
+      },
+      "historical": {
+        "phonetic": 0.16666666666666666,
+        "semantic": 0.16666666666666666,
+        "structural": 0.16666666666666666,
+        "frequency": 0.16666666666666666,
+        "numerological": 0.16666666666666666,
+        "hybrid": 0.16666666666666666
+      },
+      "sports": {
+        "phonetic": 0.16666666666666666,
+        "semantic": 0.16666666666666666,
+        "structural": 0.16666666666666666,
+        "frequency": 0.16666666666666666,
+        "numerological": 0.16666666666666666,
+        "hybrid": 0.16666666666666666
+      },
+      "game": {
+        "phonetic": 0.16666666666666666,
+        "semantic": 0.16666666666666666,
+        "structural": 0.16666666666666666,
+        "frequency": 0.16666666666666666,
+        "numerological": 0.16666666666666666,
+        "hybrid": 0.16666666666666666
+      }
+    },
+    "by_power_based": {
+      "false": {
+        "phonetic": 0.16666666666666666,
+        "semantic": 0.16666666666666666,
+        "structural": 0.16666666666666666,
+        "frequency": 0.16666666666666666,
+        "numerological": 0.16666666666666666,
+        "hybrid": 0.16666666666666666
+      },
+      "true": {
+        "phonetic": 0.16666666666666666,
+        "semantic": 0.16666666666666666,
+        "structural": 0.16666666666666666,
+        "frequency": 0.16666666666666666,
+        "numerological": 0.16666666666666666,
+        "hybrid": 0.16666666666666666
+      }
+    },
+    "by_requires_memorability": {
+      "true": {
+        "phonetic": 0.16666666666666666,
+        "semantic": 0.16666666666666666,
+        "structural": 0.16666666666666666,
+        "frequency": 0.16666666666666666,
+        "numerological": 0.16666666666666666,
+        "hybrid": 0.16666666666666666
+      },
+      "false": {
+        "phonetic": 0.16666666666666666,
+        "semantic": 0.16666666666666666,
+        "structural": 0.16666666666666666,
+        "frequency": 0.16666666666666666,
+        "numerological": 0.16666666666666666,
+        "hybrid": 0.16666666666666666
+      }
+    },
+    "by_cultural_weight": {
+      "low": {
+        "phonetic": 0.16666666666666666,
+        "semantic": 0.16666666666666666,
+        "structural": 0.16666666666666666,
+        "frequency": 0.16666666666666666,
+        "numerological": 0.16666666666666666,
+        "hybrid": 0.16666666666666666
+      },
+      "high": {
+        "phonetic": 0.16666666666666666,
+        "semantic": 0.16666666666666666,
+        "structural": 0.16666666666666666,
+        "frequency": 0.16666666666666666,
+        "numerological": 0.16666666666666666,
+        "hybrid": 0.16666666666666666
+      },
+      "moderate": {
+        "phonetic": 0.16666666666666666,
+        "semantic": 0.16666666666666666,
+        "structural": 0.16666666666666666,
+        "frequency": 0.16666666666666666,
+        "numerological": 0.16666666666666666,
+        "hybrid": 0.16666666666666666
+      }
+    }
+  },
+  "domain_characteristics": {
+    "crypto": {
+      "type": "market",
+      "outcome_nature": "valuation",
+      "volatility": "high",
+      "requires_memorability": true,
+      "cultural_weight": "low",
+      "power_based": false
+    },
+    "mtg_card": {
+      "type": "game",
+      "outcome_nature": "competitive_value",
+      "volatility": "moderate",
+      "requires_memorability": true,
+      "cultural_weight": "moderate",
+      "power_based": true
+    },
+    "nfl_player": {
+      "type": "sports",
+      "outcome_nature": "athletic_performance",
+      "volatility": "low",
+      "requires_memorability": true,
+      "cultural_weight": "moderate",
+      "power_based": true
+    },
+    "election": {
+      "type": "political",
+      "outcome_nature": "electoral_success",
+      "volatility": "high",
+      "requires_memorability": true,
+      "cultural_weight": "high",
+      "power_based": true
+    },
+    "ship": {
+      "type": "historical",
+      "outcome_nature": "significance",
+      "volatility": "low",
+      "requires_memorability": false,
+      "cultural_weight": "high",
+      "power_based": true
+    },
+    "hurricane": {
+      "type": "natural",
+      "outcome_nature": "destructive_power",
+      "volatility": "moderate",
+      "requires_memorability": false,
+      "cultural_weight": "low",
+      "power_based": true
+    },
+    "film": {
+      "type": "entertainment",
+      "outcome_nature": "box_office",
+      "volatility": "high",
+      "requires_memorability": true,
+      "cultural_weight": "high",
+      "power_based": false
+    },
+    "mlb_player": {
+      "type": "sports",
+      "outcome_nature": "athletic_performance",
+      "volatility": "low",
+      "requires_memorability": true,
+      "cultural_weight": "moderate",
+      "power_based": false
+    },
+    "board_game": {
+      "type": "game",
+      "outcome_nature": "player_rating",
+      "volatility": "moderate",
+      "requires_memorability": true,
+      "cultural_weight": "moderate",
+      "power_based": false
+    },
+    "book": {
+      "type": "cultural",
+      "outcome_nature": "sales_impact",
+      "volatility": "high",
+      "requires_memorability": true,
+      "cultural_weight": "high",
+      "power_based": false
+    }
+  }
+}

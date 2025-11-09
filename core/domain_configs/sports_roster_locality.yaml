@@ -1,0 +1,150 @@
+# Sports Roster Locality & Demographic Composition Analysis
+# Cross-domain analysis examining how professional sports rosters reflect
+# American name demographics and phonetic characteristics
+
+domain: sports_roster_locality
+display_name: "Sports Roster Locality & Demographic Composition Analysis"
+
+research_questions:
+  - "Do professional sports rosters reflect American demographic name distributions, or do they deviate significantly?"
+  - "How does roster 'americanness' (phonetic patterns) vary by sport and team?"
+  - "What is the melodiousness of each roster relative to its sport's characteristics (contact level, pace, precision)?"
+  - "How do teams compare to their league averages and to each other in terms of name composition?"
+  - "Do different sports attract different demographic name patterns?"
+
+# Data collection configuration
+collector_class: "collectors.sports_roster_locality_collector.SportsRosterLocalityCollector"
+collector_params:
+  sports:
+    - nfl
+    - nba
+    - mlb
+  baseline_sample_size: 10000
+  stratified_baseline: true
+  load_sport_characteristics: true
+
+# Analysis configuration
+analyzer_class: "analyzers.sports_roster_locality_analyzer.SportsRosterLocalityAnalyzer"
+analyzer_params:
+  calculate_americanness: true
+  calculate_melodiousness: true
+  sport_adjusted_melodiousness: true
+  demographic_composition: true
+  baseline_comparisons: true
+  multi_level_comparisons: true
+
+# Database models
+models:
+  - SportsRosterAnalysis
+  - NFLPlayer
+  - NBAPlayer
+  - MLBPlayer
+
+# Sample targets
+target_sample_size: 92  # 32 NFL + 30 NBA + 30 MLB teams
+min_sample_size: 60
+
+# Stratification strategy
+stratification:
+  enabled: true
+  field: sport
+  targets:
+    nfl: 32
+    nba: 30
+    mlb: 30
+
+# Primary analysis variables
+primary_outcome_variable: "americanness_score"
+secondary_outcome_variables:
+  - "melodiousness_score"
+  - "melodiousness_sport_adjusted"
+  - "demographic_composition"
+  - "roster_harmony"
+
+key_predictors:
+  - "americanness_score"
+  - "melodiousness_score"
+  - "demo_anglo_pct"
+  - "demo_latino_pct"
+  - "demo_asian_pct"
+  - "roster_harmony"
+  - "mean_syllables"
+
+control_variables:
+  - "sport"
+  - "league"
+  - "division"
+  - "roster_size"
+  - "season"
+
+# Comparison dimensions
+comparison_levels:
+  - "team_vs_baseline"
+  - "team_vs_league"
+  - "team_vs_sport"
+  - "league_vs_baseline"
+  - "sport_vs_sport"
+
+# Baseline configuration
+baseline_demographics:
+  anglo: 0.60
+  latino: 0.18
+  asian: 0.06
+  black: 0.13
+  other: 0.03
+
+# Sport characteristics (for melodiousness adjustment)
+sport_traits_source: "analysis_outputs/sports_meta_analysis/sport_characteristics.json"
+
+# Web interface
+page_template: "sports_roster_locality.html"
+findings_cache_key: "sports_roster_locality_findings"
+api_endpoints:
+  - "/api/sports_roster_locality/stats"
+  - "/api/sports_roster_locality/team-analysis"
+  - "/api/sports_roster_locality/sport-comparison"
+  - "/api/sports_roster_locality/baseline-comparison"
+
+# Expected outcomes
+effect_strength_expected: "large"
+expected_patterns:
+  nfl_americanness: "moderate (55-65)"
+  nba_americanness: "low (40-50, high international)"
+  mlb_americanness: "low-moderate (45-55, Latino influx)"
+  baseball_melodiousness: "highest (precision sport)"
+  football_melodiousness: "lowest (contact sport)"
+
+# Quality thresholds
+quality_checks:
+  min_data_completeness: 0.90
+  max_missing_per_variable: 0.15
+  require_baseline_validation: true
+  require_cross_sport_validation: true
+  require_effect_sizes: true
+
+# Statistical methods
+statistical_tests:
+  - "one_sample_t_test"  # roster vs baseline
+  - "chi_square_test"  # demographic distributions
+  - "anova"  # sport-level differences
+  - "correlation"  # sport characteristics vs composition
+  - "z_score_comparisons"  # team vs league/baseline
+
+# Status
+status: "active"
+innovation_rating: 3
+priority: "high"
+
+notes: |
+  Novel cross-domain analysis combining:
+  - Roster amalgamation methodology (from MLB teams)
+  - Demographic baseline comparisons (Census data)
+  - Sport-specific melodiousness adjustments
+  - Multi-level statistical comparisons
+  
+  Expected findings:
+  - Significant deviations from American baseline demographics
+  - Sport-specific patterns (NBA most international, NFL most American)
+  - Geographic team variations (coastal vs heartland)
+  - Melodiousness correlation with sport precision/contact characteristics
+

@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sports Betting Intelligence - Nominative Determinism Platform</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #ffffff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+        }
+        
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        
+        .subtitle {
+            font-size: 1.1em;
+            color: #a0aec0;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .stat-label {
+            font-size: 0.9em;
+            color: #a0aec0;
+            margin-bottom: 5px;
+        }
+        
+        .stat-value {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .tabs {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .tab {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        
+        .tab:hover {
+            background: rgba(102, 126, 234, 0.2);
+        }
+        
+        .tab.active {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-color: #667eea;
+        }
+        
+        .opportunities-section {
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .section-title {
+            font-size: 1.5em;
+            font-weight: bold;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .btn {
+            padding: 10px 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.9em;
+            transition: transform 0.2s ease;
+        }
+        
+        .btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .btn.secondary {
+            background: rgba(255, 255, 255, 0.1);
+        }
+        
+        .opportunities-grid {
+            display: grid;
+            gap: 15px;
+        }
+        
+        .opportunity-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+        
+        .opportunity-card:hover {
+            background: rgba(255, 255, 255, 0.06);
+            transform: translateX(5px);
+        }
+        
+        .opportunity-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .player-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .player-name {
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+        
+        .sport-badge {
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        
+        .sport-football { background: #ff6b6b; }
+        .sport-basketball { background: #ee5a6f; }
+        .sport-baseball { background: #4ecdc4; }
+        
+        .edge-indicator {
+            font-size: 1.5em;
+            font-weight: bold;
+            padding: 10px 15px;
+            border-radius: 8px;
+            background: rgba(46, 213, 115, 0.2);
+            color: #2ed573;
+        }
+        
+        .edge-negative {
+            background: rgba(255, 107, 107, 0.2);
+            color: #ff6b6b;
+        }
+        
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .metric {
+            text-align: center;
+        }
+        
+        .metric-label {
+            font-size: 0.8em;
+            color: #a0aec0;
+            margin-bottom: 3px;
+        }
+        
+        .metric-value {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #667eea;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: #a0aec0;
+        }
+        
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: #a0aec0;
+        }
+        
+        .empty-state-icon {
+            font-size: 4em;
+            margin-bottom: 20px;
+            opacity: 0.3;
+        }
+        
+        .filters {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+        
+        .filter-label {
+            font-size: 0.85em;
+            color: #a0aec0;
+        }
+        
+        input, select {
+            padding: 8px 12px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 6px;
+            color: white;
+            font-size: 0.9em;
+        }
+        
+        .confidence-bar {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 2px;
+            margin-top: 10px;
+            overflow: hidden;
+        }
+        
+        .confidence-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #2ed573 100%);
+            transition: width 0.3s ease;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🎯 Sports Betting Intelligence</h1>
+            <p class="subtitle">Linguistic Name Pattern Analysis for Betting Edges</p>
+            <p class="subtitle" style="margin-top: 10px;">
+                <strong>Football:</strong> r=0.427 harshness • 
+                <strong>Basketball:</strong> r=0.196 harshness •
+                <strong>Baseball:</strong> r=0.221 harshness
+            </p>
+        </header>
+        
+        <div class="stats-grid" id="statsGrid">
+            <div class="stat-card">
+                <div class="stat-label">Total Opportunities</div>
+                <div class="stat-value" id="totalOpportunities">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Avg Edge</div>
+                <div class="stat-value" id="avgEdge">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Avg Confidence</div>
+                <div class="stat-value" id="avgConfidence">-</div>
+            </div>
+            <div class="stat-card">
+                <div class="stat-label">Best Sport</div>
+                <div class="stat-value" id="bestSport">-</div>
+            </div>
+        </div>
+        
+        <div class="tabs">
+            <div class="tab active" data-sport="all">All Sports</div>
+            <div class="tab" data-sport="football">🏈 Football</div>
+            <div class="tab" data-sport="basketball">🏀 Basketball</div>
+            <div class="tab" data-sport="baseball">⚾ Baseball</div>
+        </div>
+        
+        <div class="opportunities-section">
+            <div class="section-header">
+                <h2 class="section-title">Top Betting Opportunities</h2>
+                <div class="controls">
+                    <button class="btn secondary" onclick="refreshOpportunities()">🔄 Refresh</button>
+                    <button class="btn" onclick="window.location.href='/betting-performance'">📊 View Performance</button>
+                </div>
+            </div>
+            
+            <div class="filters">
+                <div class="filter-group">
+                    <label class="filter-label">Min Score</label>
+                    <input type="number" id="minScore" value="60" min="0" max="100">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Min Confidence</label>
+                    <input type="number" id="minConfidence" value="50" min="0" max="100">
+                </div>
+                <div class="filter-group">
+                    <label class="filter-label">Limit</label>
+                    <input type="number" id="limit" value="20" min="1" max="100">
+                </div>
+                <button class="btn" onclick="applyFilters()" style="align-self: flex-end;">Apply Filters</button>
+            </div>
+            
+            <div id="opportunitiesContainer">
+                <div class="loading">Loading opportunities...</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let currentSport = 'all';
+        
+        // Tab switching
+        document.querySelectorAll('.tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentSport = tab.dataset.sport;
+                loadOpportunities();
+            });
+        });
+        
+        function loadOpportunities() {
+            const minScore = document.getElementById('minScore').value;
+            const minConfidence = document.getElementById('minConfidence').value;
+            const limit = document.getElementById('limit').value;
+            
+            const sportParam = currentSport === 'all' ? '' : currentSport;
+            const url = `/api/betting/opportunities${sportParam ? '/' + sportParam : ''}?min_score=${minScore}&min_confidence=${minConfidence}&limit=${limit}`;
+            
+            fetch(url)
+                .then(response => response.json())
+                .then(data => {
+                    displayOpportunities(data.opportunities || []);
+                    updateStats(data.opportunities || []);
+                })
+                .catch(error => {
+                    console.error('Error loading opportunities:', error);
+                    document.getElementById('opportunitiesContainer').innerHTML = 
+                        `<div class="empty-state">
+                            <div class="empty-state-icon">⚠️</div>
+                            <h3>Error loading opportunities</h3>
+                            <p>${error.message}</p>
+                        </div>`;
+                });
+        }
+        
+        function displayOpportunities(opportunities) {
+            const container = document.getElementById('opportunitiesContainer');
+            
+            if (opportunities.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">🔍</div>
+                        <h3>No opportunities found</h3>
+                        <p>Try adjusting your filters or check back later</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            container.innerHTML = `
+                <div class="opportunities-grid">
+                    ${opportunities.map(opp => `
+                        <div class="opportunity-card">
+                            <div class="opportunity-header">
+                                <div class="player-info">
+                                    <div>
+                                        <div class="player-name">${opp.name}</div>
+                                        <span class="sport-badge sport-${opp.sport}">${opp.sport.toUpperCase()}</span>
+                                    </div>
+                                </div>
+                                <div class="edge-indicator ${opp.edge < 0 ? 'edge-negative' : ''}">
+                                    ${opp.edge > 0 ? '+' : ''}${opp.edge.toFixed(1)}
+                                </div>
+                            </div>
+                            
+                            <div class="metrics">
+                                <div class="metric">
+                                    <div class="metric-label">Predicted Score</div>
+                                    <div class="metric-value">${opp.predicted_score.toFixed(1)}</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-label">Confidence</div>
+                                    <div class="metric-value">${opp.confidence.toFixed(1)}%</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-label">Syllables</div>
+                                    <div class="metric-value">${opp.linguistic_features.syllables}</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-label">Harshness</div>
+                                    <div class="metric-value">${opp.linguistic_features.harshness.toFixed(0)}</div>
+                                </div>
+                                <div class="metric">
+                                    <div class="metric-label">Memorability</div>
+                                    <div class="metric-value">${opp.linguistic_features.memorability.toFixed(0)}</div>
+                                </div>
+                            </div>
+                            
+                            <div class="confidence-bar">
+                                <div class="confidence-fill" style="width: ${opp.confidence}%"></div>
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+        }
+        
+        function updateStats(opportunities) {
+            if (opportunities.length === 0) {
+                document.getElementById('totalOpportunities').textContent = '0';
+                document.getElementById('avgEdge').textContent = '-';
+                document.getElementById('avgConfidence').textContent = '-';
+                document.getElementById('bestSport').textContent = '-';
+                return;
+            }
+            
+            const avgEdge = opportunities.reduce((sum, o) => sum + o.edge, 0) / opportunities.length;
+            const avgConfidence = opportunities.reduce((sum, o) => sum + o.confidence, 0) / opportunities.length;
+            
+            const sportCounts = {};
+            opportunities.forEach(o => {
+                sportCounts[o.sport] = (sportCounts[o.sport] || 0) + 1;
+            });
+            const bestSport = Object.entries(sportCounts).sort((a, b) => b[1] - a[1])[0][0];
+            
+            document.getElementById('totalOpportunities').textContent = opportunities.length;
+            document.getElementById('avgEdge').textContent = avgEdge > 0 ? '+' + avgEdge.toFixed(1) : avgEdge.toFixed(1);
+            document.getElementById('avgConfidence').textContent = avgConfidence.toFixed(1) + '%';
+            document.getElementById('bestSport').textContent = bestSport.toUpperCase();
+        }
+        
+        function applyFilters() {
+            loadOpportunities();
+        }
+        
+        function refreshOpportunities() {
+            loadOpportunities();
+        }
+        
+        // Load on page load
+        loadOpportunities();
+    </script>
+</body>
+</html>
+

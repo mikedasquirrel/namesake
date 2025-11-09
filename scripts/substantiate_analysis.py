@@ -177,7 +177,7 @@ def comprehensive_analysis():
             'r': float(r_compat),
             'p': float(p_compat),
             'd': float(d_compat),
-            'significant': p_compat < 0.05
+            'significant': bool(p_compat < 0.05)
         }
         
         # H2: Phonetic Distance → Divorce
@@ -196,7 +196,7 @@ def comprehensive_analysis():
             'p': float(p_dist),
             'divorced_mean': float(divorced.mean()),
             'married_mean': float(married.mean()),
-            'significant': p_dist < 0.05
+            'significant': bool(p_dist < 0.05)
         }
         
         # H3: Golden Ratio → Duration
@@ -209,7 +209,7 @@ def comprehensive_analysis():
         hypotheses['H3_golden_ratio'] = {
             'r': float(r_golden),
             'p': float(p_golden),
-            'significant': p_golden < 0.05
+            'significant': bool(p_golden < 0.05)
         }
         
         # H4: Vowel Harmony → Duration
@@ -222,7 +222,7 @@ def comprehensive_analysis():
         hypotheses['H4_vowel_harmony'] = {
             'r': float(r_vowel),
             'p': float(p_vowel),
-            'significant': p_vowel < 0.05
+            'significant': bool(p_vowel < 0.05)
         }
         
         # === THEORY COMPARISON ===
@@ -250,13 +250,20 @@ def comprehensive_analysis():
         logger.info("PREDICTIVE MODELS")
         logger.info("-" * 80)
         
-        # Prepare features
+        # Prepare features (only use available columns)
         feature_cols = [
             'compatibility_score', 'phonetic_distance', 'golden_ratio_proximity',
-            'vowel_harmony', 'consonant_compatibility', 'syllable_ratio_to_phi'
+            'vowel_harmony'
         ]
         
-        X = df[feature_cols].fillna(0)
+        # Filter to only existing columns
+        available_features = [col for col in feature_cols if col in df.columns]
+        
+        if len(available_features) == 0:
+            logger.warning("No feature columns available for modeling")
+            return results
+        
+        X = df[available_features].fillna(0)
         y_duration = df['marriage_duration']
         y_divorce = df['is_divorced'].astype(int)
         
@@ -355,7 +362,7 @@ def comprehensive_analysis():
             },
             'power': {
                 'achieved': float(power),
-                'adequate': power >= 0.80
+                'adequate': bool(power >= 0.80)
             }
         }
         

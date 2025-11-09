@@ -4034,4 +4034,2144 @@ class AdultPerformerAnalysis(db.Model):
         return f'<AdultPerformerAnalysis for performer_id={self.performer_id}>'
 
 
+class SportsRosterAnalysis(db.Model):
+    """Cross-domain analysis of professional sports roster composition and demographics
+    
+    Analyzes team-level roster characteristics comparing against American demographic baselines.
+    Multi-level comparisons: team vs baseline, team vs league, sport vs sport.
+    """
+    __tablename__ = 'sports_roster_analyses'
+    __table_args__ = (
+        db.Index('idx_roster_sport', 'sport'),
+        db.Index('idx_roster_team', 'team_id'),
+        db.Index('idx_roster_americanness', 'americanness_score'),
+        db.Index('idx_roster_melodiousness', 'melodiousness_score'),
+        db.Index('idx_roster_season', 'season'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    team_id = db.Column(db.String(50), nullable=False)  # Team identifier (abbrev or ID)
+    team_name = db.Column(db.String(100), nullable=False)
+    sport = db.Column(db.String(20), nullable=False)  # 'nfl', 'nba', 'mlb'
+    league = db.Column(db.String(20))  # 'NFL', 'NBA', 'AL', 'NL'
+    division = db.Column(db.String(50))  # Conference/division info
+    season = db.Column(db.Integer)  # Season year
+    
+    # ===========================================================================
+    # Core Metrics
+    # ===========================================================================
+    
+    # Americanness Score (0-100): Phonetic patterns typical of Anglo-American names
+    americanness_score = db.Column(db.Float, index=True)
+    americanness_component_anglo_phonetics = db.Column(db.Float)
+    americanness_component_intl_markers = db.Column(db.Float)
+    americanness_component_syllable_structure = db.Column(db.Float)
+    americanness_component_name_origin = db.Column(db.Float)
+    
+    # Melodiousness Score (0-100): Phonetic flow and harmony
+    melodiousness_score = db.Column(db.Float, index=True)  # Raw score
+    melodiousness_sport_adjusted = db.Column(db.Float, index=True)  # Adjusted for sport characteristics
+    melodiousness_component_flow = db.Column(db.Float)
+    melodiousness_component_vowel_harmony = db.Column(db.Float)
+    melodiousness_component_rhythm = db.Column(db.Float)
+    melodiousness_component_harshness_inverse = db.Column(db.Float)
+    
+    # ===========================================================================
+    # Demographic Composition (percentages 0-100)
+    # ===========================================================================
+    demo_anglo_pct = db.Column(db.Float)
+    demo_latino_pct = db.Column(db.Float)
+    demo_asian_pct = db.Column(db.Float)
+    demo_black_pct = db.Column(db.Float)
+    demo_other_pct = db.Column(db.Float)
+    
+    # ===========================================================================
+    # Roster Features (from existing player analyses)
+    # ===========================================================================
+    roster_size = db.Column(db.Integer)
+    roster_harmony = db.Column(db.Float)  # Phonetic cohesion (0-100)
+    mean_syllables = db.Column(db.Float)
+    mean_harshness = db.Column(db.Float)
+    mean_memorability = db.Column(db.Float)
+    syllable_stddev = db.Column(db.Float)
+    
+    # ===========================================================================
+    # Baseline Comparisons (Z-scores and statistical tests)
+    # ===========================================================================
+    
+    # Americanness comparisons
+    americanness_vs_random_baseline_zscore = db.Column(db.Float)
+    americanness_vs_stratified_baseline_zscore = db.Column(db.Float)
+    americanness_vs_league_zscore = db.Column(db.Float)
+    americanness_vs_sport_zscore = db.Column(db.Float)
+    
+    # Melodiousness comparisons
+    melodiousness_vs_random_baseline_zscore = db.Column(db.Float)
+    melodiousness_vs_stratified_baseline_zscore = db.Column(db.Float)
+    melodiousness_vs_league_zscore = db.Column(db.Float)
+    melodiousness_vs_sport_zscore = db.Column(db.Float)
+    
+    # Demographic distribution tests
+    demographic_chi_square = db.Column(db.Float)  # vs US Census baseline
+    demographic_chi_square_pvalue = db.Column(db.Float)
+    demographic_effect_size = db.Column(db.Float)  # Cramer's V
+    
+    # T-test results (roster metrics vs baseline)
+    americanness_ttest_statistic = db.Column(db.Float)
+    americanness_ttest_pvalue = db.Column(db.Float)
+    melodiousness_ttest_statistic = db.Column(db.Float)
+    melodiousness_ttest_pvalue = db.Column(db.Float)
+    
+    # ===========================================================================
+    # Rankings (within league and overall)
+    # ===========================================================================
+    americanness_rank_in_league = db.Column(db.Integer)
+    americanness_rank_overall = db.Column(db.Integer)
+    melodiousness_rank_in_league = db.Column(db.Integer)
+    melodiousness_rank_overall = db.Column(db.Integer)
+    demographic_diversity_rank = db.Column(db.Integer)
+    
+    # ===========================================================================
+    # Sport Characteristics (loaded from sport_characteristics.json)
+    # ===========================================================================
+    sport_contact_level = db.Column(db.Integer)  # 0-10 scale
+    sport_action_speed = db.Column(db.Integer)  # 0-10 scale
+    sport_precision_vs_power = db.Column(db.Integer)  # 0-10 scale
+    sport_team_size = db.Column(db.Integer)  # Actual team size
+    
+    # ===========================================================================
+    # Metadata
+    # ===========================================================================
+    analysis_date = db.Column(db.DateTime, default=datetime.utcnow)
+    computed_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def __repr__(self):
+        return f'<SportsRosterAnalysis {self.sport.upper()} {self.team_name}>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'team_id': self.team_id,
+            'team_name': self.team_name,
+            'sport': self.sport,
+            'league': self.league,
+            'division': self.division,
+            'season': self.season,
+            
+            # Core metrics
+            'americanness_score': self.americanness_score,
+            'melodiousness_score': self.melodiousness_score,
+            'melodiousness_sport_adjusted': self.melodiousness_sport_adjusted,
+            
+            # Demographics
+            'demographics': {
+                'anglo_pct': self.demo_anglo_pct,
+                'latino_pct': self.demo_latino_pct,
+                'asian_pct': self.demo_asian_pct,
+                'black_pct': self.demo_black_pct,
+                'other_pct': self.demo_other_pct,
+            },
+            
+            # Roster features
+            'roster': {
+                'size': self.roster_size,
+                'harmony': self.roster_harmony,
+                'mean_syllables': self.mean_syllables,
+                'mean_harshness': self.mean_harshness,
+                'mean_memorability': self.mean_memorability,
+            },
+            
+            # Comparisons
+            'comparisons': {
+                'americanness_vs_baseline_z': self.americanness_vs_random_baseline_zscore,
+                'americanness_vs_league_z': self.americanness_vs_league_zscore,
+                'melodiousness_vs_baseline_z': self.melodiousness_vs_random_baseline_zscore,
+                'demographic_chi_square': self.demographic_chi_square,
+                'demographic_pvalue': self.demographic_chi_square_pvalue,
+            },
+            
+            # Rankings
+            'rankings': {
+                'americanness_in_league': self.americanness_rank_in_league,
+                'americanness_overall': self.americanness_rank_overall,
+                'melodiousness_in_league': self.melodiousness_rank_in_league,
+                'melodiousness_overall': self.melodiousness_rank_overall,
+            },
+            
+            # Metadata
+            'analysis_date': self.analysis_date.isoformat() if self.analysis_date else None,
+        }
+
+
+class LiteraryWork(db.Model):
+    """Literary works for name composition analysis
+    
+    Stores fiction, nonfiction, and gospels with metadata for cross-category comparison.
+    """
+    __tablename__ = 'literary_works'
+    __table_args__ = (
+        db.Index('idx_literary_category', 'category'),
+        db.Index('idx_literary_genre', 'genre'),
+        db.Index('idx_literary_year', 'publication_year'),
+        db.Index('idx_literary_author', 'author'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String(500), nullable=False, index=True)
+    author = db.Column(db.String(200), nullable=False)
+    category = db.Column(db.String(50), nullable=False)  # 'fiction', 'nonfiction', 'gospels'
+    genre = db.Column(db.String(100))  # 'mystery', 'sci-fi', 'biography', etc.
+    publication_year = db.Column(db.Integer)
+    
+    # Source information
+    source = db.Column(db.String(100))  # 'Project Gutenberg', 'canonical text'
+    source_id = db.Column(db.String(100))  # Gutenberg ID or other identifier
+    source_url = db.Column(db.Text)
+    
+    # Text metadata
+    word_count = db.Column(db.Integer)
+    character_count_total = db.Column(db.Integer)  # Total characters extracted
+    place_count = db.Column(db.Integer)  # Place names extracted
+    term_count = db.Column(db.Integer)  # Invented terms extracted
+    
+    # Work-level analysis
+    invented_name_pct = db.Column(db.Float)  # Percentage of invented vs real names
+    mean_name_melodiousness = db.Column(db.Float)
+    mean_name_americanness = db.Column(db.Float)
+    mean_name_commonality = db.Column(db.Float)
+    mean_name_syllables = db.Column(db.Float)
+    
+    # Statistical comparisons
+    melodiousness_vs_baseline_zscore = db.Column(db.Float)
+    commonality_vs_baseline_zscore = db.Column(db.Float)
+    invented_name_ratio = db.Column(db.Float)  # Ratio to baseline
+    
+    # Quality metrics
+    data_completeness_score = db.Column(db.Float)
+    extraction_confidence = db.Column(db.Float)
+    
+    # Metadata
+    collected_at = db.Column(db.DateTime, default=datetime.utcnow)
+    analyzed_at = db.Column(db.DateTime)
+    
+    # Relationships
+    characters = db.relationship('LiteraryCharacter', backref='work', lazy='dynamic', cascade='all, delete-orphan')
+    
+    def __repr__(self):
+        return f'<LiteraryWork {self.title} ({self.category})>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'title': self.title,
+            'author': self.author,
+            'category': self.category,
+            'genre': self.genre,
+            'publication_year': self.publication_year,
+            'source': self.source,
+            'stats': {
+                'word_count': self.word_count,
+                'character_count': self.character_count_total,
+                'place_count': self.place_count,
+                'term_count': self.term_count,
+                'invented_name_pct': self.invented_name_pct,
+            },
+            'means': {
+                'melodiousness': self.mean_name_melodiousness,
+                'americanness': self.mean_name_americanness,
+                'commonality': self.mean_name_commonality,
+                'syllables': self.mean_name_syllables,
+            },
+            'collected_at': self.collected_at.isoformat() if self.collected_at else None,
+            'analyzed_at': self.analyzed_at.isoformat() if self.analyzed_at else None,
+        }
+
+
+class LiteraryCharacter(db.Model):
+    """Characters extracted from literary works
+    
+    Stores character names with roles, outcomes, and importance for predictive analysis.
+    """
+    __tablename__ = 'literary_characters'
+    __table_args__ = (
+        db.Index('idx_character_work', 'work_id'),
+        db.Index('idx_character_role', 'character_role'),
+        db.Index('idx_character_outcome', 'character_outcome'),
+        db.Index('idx_character_importance', 'importance_score'),
+        db.Index('idx_character_name_type', 'name_type'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    work_id = db.Column(db.Integer, db.ForeignKey('literary_works.id'), nullable=False)
+    
+    # Name information
+    full_name = db.Column(db.String(200), nullable=False, index=True)
+    first_name = db.Column(db.String(100))
+    last_name = db.Column(db.String(100))
+    title = db.Column(db.String(50))  # Mr., Dr., Lord, etc.
+    epithet = db.Column(db.String(200))  # "the Great", "the Wise", etc.
+    
+    # Character classification
+    character_role = db.Column(db.String(50))  # 'protagonist', 'antagonist', 'supporting', 'minor'
+    character_outcome = db.Column(db.String(50))  # 'survives', 'dies', 'succeeds', 'fails', 'transforms', 'static'
+    character_importance = db.Column(db.String(50))  # 'major', 'supporting', 'minor'
+    
+    # Name type classification
+    name_type = db.Column(db.String(50))  # 'real_common', 'real_uncommon', 'historical', 'invented_plausible', 'invented_fantastical'
+    is_invented = db.Column(db.Boolean, default=False)
+    is_place_name = db.Column(db.Boolean, default=False)
+    is_invented_term = db.Column(db.Boolean, default=False)
+    
+    # Importance metrics
+    mention_count = db.Column(db.Integer, default=0)  # How many times mentioned
+    speaking_lines = db.Column(db.Integer)  # Dialogue/speaking instances
+    importance_score = db.Column(db.Float)  # Calculated importance (0-100)
+    first_appearance_position = db.Column(db.Float)  # Position in text (0.0-1.0)
+    
+    # Entity extraction metadata
+    entity_type = db.Column(db.String(50))  # 'PERSON', 'GPE', 'LOC', etc. (NER tag)
+    extraction_confidence = db.Column(db.Float)
+    
+    # Role prediction features (computed during analysis)
+    predicted_role = db.Column(db.String(50))  # Model prediction
+    role_prediction_confidence = db.Column(db.Float)
+    predicted_outcome = db.Column(db.String(50))  # Model prediction
+    outcome_prediction_confidence = db.Column(db.Float)
+    
+    # Metadata
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    # Relationships
+    name_analysis = db.relationship('LiteraryNameAnalysis', backref='character', uselist=False, cascade='all, delete-orphan')
+    
+    def __repr__(self):
+        return f'<LiteraryCharacter {self.full_name} ({self.character_role})>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'work_id': self.work_id,
+            'full_name': self.full_name,
+            'first_name': self.first_name,
+            'last_name': self.last_name,
+            'role': self.character_role,
+            'outcome': self.character_outcome,
+            'importance': self.character_importance,
+            'name_type': self.name_type,
+            'is_invented': self.is_invented,
+            'mention_count': self.mention_count,
+            'importance_score': self.importance_score,
+            'predictions': {
+                'predicted_role': self.predicted_role,
+                'role_confidence': self.role_prediction_confidence,
+                'predicted_outcome': self.predicted_outcome,
+                'outcome_confidence': self.outcome_prediction_confidence,
+            },
+            'name_analysis': self.name_analysis.to_dict() if self.name_analysis else None,
+        }
+
+
+class LiteraryNameAnalysis(db.Model):
+    """Phonetic and linguistic analysis of literary character names
+    
+    Comprehensive name analysis for predictive nominative determinism testing.
+    """
+    __tablename__ = 'literary_name_analyses'
+    __table_args__ = (
+        db.Index('idx_literary_character', 'character_id'),
+        db.Index('idx_literary_melodiousness', 'melodiousness_score'),
+        db.Index('idx_literary_americanness', 'americanness_score'),
+        db.Index('idx_literary_commonality', 'commonality_score'),
+        db.Index('idx_literary_valence', 'name_valence'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    character_id = db.Column(db.Integer, db.ForeignKey('literary_characters.id'), nullable=False, unique=True)
+    
+    # ===========================================================================
+    # Core Phonetic Analysis
+    # ===========================================================================
+    
+    # Syllable and structure
+    syllable_count = db.Column(db.Integer)
+    character_length = db.Column(db.Integer)
+    vowel_count = db.Column(db.Integer)
+    consonant_count = db.Column(db.Integer)
+    
+    # Melodiousness (0-100): Phonetic flow and pleasantness
+    melodiousness_score = db.Column(db.Float, index=True)
+    melodiousness_component_flow = db.Column(db.Float)
+    melodiousness_component_vowel_harmony = db.Column(db.Float)
+    melodiousness_component_rhythm = db.Column(db.Float)
+    melodiousness_component_harshness_inverse = db.Column(db.Float)
+    
+    # Americanness (0-100): Anglo-American phonetic patterns
+    americanness_score = db.Column(db.Float, index=True)
+    americanness_component_anglo_phonetics = db.Column(db.Float)
+    americanness_component_intl_markers = db.Column(db.Float)
+    americanness_component_syllable_structure = db.Column(db.Float)
+    americanness_component_name_origin = db.Column(db.Float)
+    
+    # Harshness and phonetic characteristics
+    harshness_score = db.Column(db.Float)
+    plosive_count = db.Column(db.Integer)
+    fricative_count = db.Column(db.Integer)
+    liquid_count = db.Column(db.Integer)
+    nasal_count = db.Column(db.Integer)
+    
+    # ===========================================================================
+    # Name Commonality and Familiarity
+    # ===========================================================================
+    commonality_score = db.Column(db.Float, index=True)  # 0-100: How common/familiar
+    is_in_top_100_names = db.Column(db.Boolean, default=False)
+    is_in_top_1000_names = db.Column(db.Boolean, default=False)
+    census_rank_first = db.Column(db.Integer)  # SSA/Census rank for first name
+    census_rank_last = db.Column(db.Integer)  # Census rank for last name
+    
+    # Historical/cultural context
+    name_origin = db.Column(db.String(100))  # 'anglo', 'latino', 'asian', 'germanic', 'invented', etc.
+    appears_historical = db.Column(db.Boolean)  # Biblical, classical, historical figure
+    appears_modern = db.Column(db.Boolean)
+    
+    # ===========================================================================
+    # Name Valence and Semantic Association
+    # ===========================================================================
+    name_valence = db.Column(db.Float)  # -100 to +100: Negative to positive associations
+    has_positive_meaning = db.Column(db.Boolean)
+    has_negative_meaning = db.Column(db.Boolean)
+    has_neutral_meaning = db.Column(db.Boolean)
+    meaning_strength = db.Column(db.Float)  # How strong the semantic association
+    
+    # Semantic categories
+    suggests_strength = db.Column(db.Boolean)
+    suggests_weakness = db.Column(db.Boolean)
+    suggests_nobility = db.Column(db.Boolean)
+    suggests_commonness = db.Column(db.Boolean)
+    suggests_evil = db.Column(db.Boolean)
+    suggests_goodness = db.Column(db.Boolean)
+    
+    # ===========================================================================
+    # Memorability and Distinctiveness
+    # ===========================================================================
+    memorability_score = db.Column(db.Float)  # 0-100
+    distinctiveness_score = db.Column(db.Float)  # 0-100: How unique/unusual
+    pronounceability_score = db.Column(db.Float)  # 0-100: How easy to pronounce
+    
+    # Phonetic patterns
+    has_alliteration = db.Column(db.Boolean)  # First and last name start same
+    has_rhyme = db.Column(db.Boolean)
+    has_repetition = db.Column(db.Boolean)
+    
+    # ===========================================================================
+    # Cross-linguistic and Ethnic Markers
+    # ===========================================================================
+    has_accent_marks = db.Column(db.Boolean)
+    language_origin_confidence = db.Column(db.Float)
+    appears_anglicized = db.Column(db.Boolean)
+    ethnic_name_strength = db.Column(db.Float)  # How strongly signals ethnicity
+    cross_linguistic_appeal = db.Column(db.Float)  # International accessibility
+    
+    # ===========================================================================
+    # Role/Outcome Prediction Features
+    # ===========================================================================
+    
+    # Protagonist likelihood features
+    protagonist_name_score = db.Column(db.Float)  # 0-100: Likelihood of protagonist
+    hero_name_archetype = db.Column(db.Float)
+    everyman_quality = db.Column(db.Float)
+    
+    # Antagonist likelihood features
+    antagonist_name_score = db.Column(db.Float)  # 0-100: Likelihood of antagonist
+    villain_name_archetype = db.Column(db.Float)
+    threatening_quality = db.Column(db.Float)
+    
+    # Victim/vulnerable features
+    vulnerable_sounding_score = db.Column(db.Float)
+    delicate_quality = db.Column(db.Float)
+    
+    # Power/authority features
+    authority_name_score = db.Column(db.Float)
+    powerful_sounding = db.Column(db.Float)
+    
+    # ===========================================================================
+    # Comparative Scores (vs baselines)
+    # ===========================================================================
+    melodiousness_vs_category_mean_zscore = db.Column(db.Float)
+    americanness_vs_category_mean_zscore = db.Column(db.Float)
+    commonality_vs_category_mean_zscore = db.Column(db.Float)
+    melodiousness_vs_real_names_zscore = db.Column(db.Float)
+    
+    # ===========================================================================
+    # Metadata
+    # ===========================================================================
+    computed_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def __repr__(self):
+        return f'<LiteraryNameAnalysis for character_id={self.character_id}>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'character_id': self.character_id,
+            
+            # Core metrics
+            'syllable_count': self.syllable_count,
+            'character_length': self.character_length,
+            'melodiousness_score': self.melodiousness_score,
+            'americanness_score': self.americanness_score,
+            'commonality_score': self.commonality_score,
+            'harshness_score': self.harshness_score,
+            
+            # Commonality
+            'is_common': self.is_in_top_1000_names,
+            'census_rank_first': self.census_rank_first,
+            
+            # Valence
+            'name_valence': self.name_valence,
+            'has_positive_meaning': self.has_positive_meaning,
+            'has_negative_meaning': self.has_negative_meaning,
+            
+            # Memorability
+            'memorability_score': self.memorability_score,
+            'distinctiveness_score': self.distinctiveness_score,
+            
+            # Prediction scores
+            'protagonist_score': self.protagonist_name_score,
+            'antagonist_score': self.antagonist_name_score,
+            'vulnerable_score': self.vulnerable_sounding_score,
+            
+            # Comparisons
+            'melodiousness_vs_category_z': self.melodiousness_vs_category_mean_zscore,
+            'commonality_vs_category_z': self.commonality_vs_category_mean_zscore,
+            
+            'computed_at': self.computed_at.isoformat() if self.computed_at else None,
+        }
+
+
+class Instrument(db.Model):
+    """Musical instruments for Romance language cross-linguistic analysis
+    
+    Comprehensive dataset of 100+ instruments with names in 5 Romance languages,
+    analyzing phonetic properties and correlating with cultural usage patterns.
+    """
+    __tablename__ = 'instruments'
+    __table_args__ = (
+        db.Index('idx_instrument_category', 'instrument_category'),
+        db.Index('idx_instrument_origin_period', 'origin_period'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Basic Information
+    base_name_english = db.Column(db.String(200), nullable=False, unique=True, index=True)
+    instrument_category = db.Column(db.String(50))  # string, woodwind, brass, percussion, keyboard, folk, modern
+    origin_period = db.Column(db.String(50))  # medieval, baroque, classical, romantic, modern
+    physical_properties = db.Column(db.Text)  # JSON: {size, pitch_range, playing_technique}
+    
+    # Names across Romance Languages
+    spanish_name = db.Column(db.String(200))
+    french_name = db.Column(db.String(200))
+    italian_name = db.Column(db.String(200))
+    portuguese_name = db.Column(db.String(200))
+    romanian_name = db.Column(db.String(200))
+    
+    # IPA Pronunciations
+    spanish_ipa = db.Column(db.String(200))
+    french_ipa = db.Column(db.String(200))
+    italian_ipa = db.Column(db.String(200))
+    portuguese_ipa = db.Column(db.String(200))
+    romanian_ipa = db.Column(db.String(200))
+    
+    # Etymology & Linguistic Properties
+    etymology_by_language = db.Column(db.Text)  # JSON: {spanish: {origin, path}, french: {...}, ...}
+    is_native_word = db.Column(db.Text)  # JSON: {spanish: true/false, french: true/false, ...}
+    descriptive_transparency = db.Column(db.Text)  # JSON: {spanish: score, french: score, ...}
+    
+    # Cultural Associations
+    cultural_associations = db.Column(db.Text)  # Regional significance, symbolic meanings
+    
+    # Metadata
+    source = db.Column(db.String(200))
+    collected_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    # Relationships
+    name_analyses = db.relationship('InstrumentNameAnalysis', backref='instrument', lazy='dynamic', cascade='all, delete-orphan')
+    usage_data = db.relationship('InstrumentUsageData', backref='instrument', lazy='dynamic', cascade='all, delete-orphan')
+    
+    def __repr__(self):
+        return f'<Instrument {self.base_name_english}>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'base_name_english': self.base_name_english,
+            'instrument_category': self.instrument_category,
+            'origin_period': self.origin_period,
+            'physical_properties': json.loads(self.physical_properties) if self.physical_properties else {},
+            'names': {
+                'spanish': self.spanish_name,
+                'french': self.french_name,
+                'italian': self.italian_name,
+                'portuguese': self.portuguese_name,
+                'romanian': self.romanian_name,
+            },
+            'ipa': {
+                'spanish': self.spanish_ipa,
+                'french': self.french_ipa,
+                'italian': self.italian_ipa,
+                'portuguese': self.portuguese_ipa,
+                'romanian': self.romanian_ipa,
+            },
+            'etymology_by_language': json.loads(self.etymology_by_language) if self.etymology_by_language else {},
+            'is_native_word': json.loads(self.is_native_word) if self.is_native_word else {},
+            'descriptive_transparency': json.loads(self.descriptive_transparency) if self.descriptive_transparency else {},
+            'cultural_associations': self.cultural_associations,
+            'source': self.source,
+            'collected_at': self.collected_at.isoformat() if self.collected_at else None,
+        }
+
+
+class InstrumentNameAnalysis(db.Model):
+    """Comprehensive phonetic analysis of instrument names per language
+    
+    Applies love words phonetic framework to each instrument name in each Romance language.
+    Analyzes beauty, melodiousness, harshness, and other phonetic properties.
+    """
+    __tablename__ = 'instrument_name_analysis'
+    __table_args__ = (
+        db.Index('idx_inst_analysis_instrument', 'instrument_id'),
+        db.Index('idx_inst_analysis_language', 'language'),
+        db.Index('idx_inst_analysis_beauty', 'beauty_score'),
+        db.Index('idx_inst_analysis_composite', 'instrument_id', 'language'),  # Composite index
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    instrument_id = db.Column(db.Integer, db.ForeignKey('instruments.id'), nullable=False)
+    language = db.Column(db.String(20), nullable=False)  # spanish, french, italian, portuguese, romanian
+    
+    # ===========================================================================
+    # Core Phonetic Analysis (from CountryNameLinguistics / Love Words)
+    # ===========================================================================
+    
+    # Basic Metrics
+    character_length = db.Column(db.Integer)
+    syllable_count = db.Column(db.Integer)
+    
+    # Sound Counts
+    plosives_count = db.Column(db.Integer)  # p, t, k, b, d, g
+    sibilants_count = db.Column(db.Integer)  # s, z, sh, ch
+    liquids_nasals_count = db.Column(db.Integer)  # l, r, m, n
+    vowels_count = db.Column(db.Integer)  # a, e, i, o, u
+    
+    # Density Ratios
+    vowel_density = db.Column(db.Float)  # Vowels / total length
+    consonant_density = db.Column(db.Float)
+    liquid_density = db.Column(db.Float)  # Soft sounds / total length
+    
+    # Aesthetic Scores (0-100)
+    harshness_score = db.Column(db.Float)  # Plosives + sibilants weighted
+    melodiousness_score = db.Column(db.Float)  # Vowels + liquids + syllable flow
+    beauty_score = db.Column(db.Float)  # melodiousness - (harshness * 0.3)
+    
+    # ===========================================================================
+    # Advanced Phonetic Features
+    # ===========================================================================
+    
+    # Consonant Clusters
+    has_consonant_clusters = db.Column(db.Boolean)
+    max_consonant_cluster_length = db.Column(db.Integer)
+    consonant_cluster_count = db.Column(db.Integer)
+    
+    # Sound Symbolism
+    sharp_sounds_count = db.Column(db.Integer)  # k, t, i, e (angular)
+    round_sounds_count = db.Column(db.Integer)  # b, m, o, u (round)
+    sound_symbolism_ratio = db.Column(db.Float)  # round / sharp
+    
+    # Phonetic Patterns
+    starts_with_liquid = db.Column(db.Boolean)  # l, r, m, n
+    ends_with_vowel = db.Column(db.Boolean)
+    has_repeated_sounds = db.Column(db.Boolean)
+    
+    # Soft vs. Harsh
+    soft_sound_dominance = db.Column(db.Float)  # Ratio of soft to harsh sounds
+    
+    # ===========================================================================
+    # Linguistic Structure
+    # ===========================================================================
+    
+    # Native vs. Borrowed
+    native_word = db.Column(db.Boolean)  # Is this native Romance or borrowed?
+    
+    # Descriptive Transparency
+    descriptive_transparency = db.Column(db.Float)  # 0-100: how descriptive is name?
+    
+    # Word Formation
+    is_compound = db.Column(db.Boolean)  # Multi-morpheme word
+    word_formation_notes = db.Column(db.Text)  # Analysis notes
+    
+    # ===========================================================================
+    # Cross-Linguistic Comparisons
+    # ===========================================================================
+    
+    # Rank within language
+    beauty_rank_in_language = db.Column(db.Integer)
+    
+    # Rank across all instruments in this language
+    beauty_percentile = db.Column(db.Float)  # 0-100
+    
+    # Deviation from means
+    beauty_vs_language_mean_zscore = db.Column(db.Float)
+    beauty_vs_category_mean_zscore = db.Column(db.Float)  # Within instrument category
+    
+    # Cross-language consistency
+    cross_language_beauty_variance = db.Column(db.Float)  # How much does beauty vary across languages for this instrument?
+    
+    # ===========================================================================
+    # Metadata
+    # ===========================================================================
+    
+    analysis_date = db.Column(db.DateTime, default=datetime.utcnow)
+    analysis_version = db.Column(db.String(20), default='1.0')
+    
+    def __repr__(self):
+        return f'<InstrumentNameAnalysis {self.instrument_id} - {self.language}>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'instrument_id': self.instrument_id,
+            'language': self.language,
+            
+            # Core metrics
+            'character_length': self.character_length,
+            'syllable_count': self.syllable_count,
+            
+            # Sound counts
+            'plosives': self.plosives_count,
+            'sibilants': self.sibilants_count,
+            'liquids_nasals': self.liquids_nasals_count,
+            'vowels': self.vowels_count,
+            
+            # Densities
+            'vowel_density': self.vowel_density,
+            'liquid_density': self.liquid_density,
+            
+            # Aesthetic scores
+            'harshness_score': self.harshness_score,
+            'melodiousness_score': self.melodiousness_score,
+            'beauty_score': self.beauty_score,
+            
+            # Advanced features
+            'has_consonant_clusters': self.has_consonant_clusters,
+            'sound_symbolism_ratio': self.sound_symbolism_ratio,
+            'starts_with_liquid': self.starts_with_liquid,
+            'ends_with_vowel': self.ends_with_vowel,
+            'soft_sound_dominance': self.soft_sound_dominance,
+            
+            # Linguistic
+            'native_word': self.native_word,
+            'descriptive_transparency': self.descriptive_transparency,
+            'is_compound': self.is_compound,
+            
+            # Rankings
+            'beauty_rank_in_language': self.beauty_rank_in_language,
+            'beauty_percentile': self.beauty_percentile,
+            
+            # Z-scores
+            'beauty_z_language': self.beauty_vs_language_mean_zscore,
+            'beauty_z_category': self.beauty_vs_category_mean_zscore,
+            
+            'analysis_date': self.analysis_date.isoformat() if self.analysis_date else None,
+        }
+
+
+class InstrumentUsageData(db.Model):
+    """Usage frequency data for instruments by Romance language region
+    
+    Combines multiple data sources: historical compositions, modern recordings,
+    sheet music corpus, cultural surveys, and ensemble configurations to create
+    comprehensive usage frequency metrics per region.
+    """
+    __tablename__ = 'instrument_usage_data'
+    __table_args__ = (
+        db.Index('idx_usage_instrument', 'instrument_id'),
+        db.Index('idx_usage_region', 'language_region'),
+        db.Index('idx_usage_score', 'normalized_usage_score'),
+        db.Index('idx_usage_composite', 'instrument_id', 'language_region'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    instrument_id = db.Column(db.Integer, db.ForeignKey('instruments.id'), nullable=False)
+    language_region = db.Column(db.String(20), nullable=False)  # spain, france, italy, portugal, romania
+    
+    # ===========================================================================
+    # Data Sources (Multiple Frequency Metrics)
+    # ===========================================================================
+    
+    # A. Historical Composition Counts
+    historical_composition_count = db.Column(db.Integer, default=0)  # Total appearances in major works
+    historical_composition_score = db.Column(db.Float)  # Normalized 0-100
+    
+    # B. Modern Recording Frequency (Proxy)
+    modern_recording_frequency = db.Column(db.Float)  # Based on genre popularity + typical instrumentation
+    modern_recording_score = db.Column(db.Float)  # Normalized 0-100
+    
+    # C. Sheet Music Corpus Frequency
+    sheet_music_corpus_frequency = db.Column(db.Integer, default=0)  # Mentions in digitized scores
+    sheet_music_corpus_score = db.Column(db.Float)  # Normalized 0-100
+    
+    # D. Cultural Survey Prominence
+    cultural_survey_prominence = db.Column(db.Float)  # 1-10 scale from ethnomusicology literature
+    cultural_survey_score = db.Column(db.Float)  # Normalized 0-100
+    
+    # E. Ensemble Appearance Rate
+    ensemble_appearance_rate = db.Column(db.Float)  # Percentage of standard ensembles featuring this instrument
+    ensemble_appearance_score = db.Column(db.Float)  # Normalized 0-100
+    
+    # ===========================================================================
+    # Time Period Breakdown
+    # ===========================================================================
+    
+    period_breakdown = db.Column(db.Text)  # JSON: {medieval, baroque, classical, romantic, modern, contemporary}
+    
+    # ===========================================================================
+    # Composite Metrics
+    # ===========================================================================
+    
+    # Normalized Usage Score (0-100)
+    normalized_usage_score = db.Column(db.Float)  # Weighted average of all sources
+    weights_used = db.Column(db.Text)  # JSON: weights applied to each source
+    
+    # Regional Ranking
+    usage_rank_within_region = db.Column(db.Integer)  # Rank among all instruments in this region
+    usage_percentile = db.Column(db.Float)  # 0-100
+    
+    # Cross-regional Comparison
+    usage_vs_global_mean_zscore = db.Column(db.Float)
+    regional_specialization_score = db.Column(db.Float)  # How unique to this region vs. others
+    
+    # ===========================================================================
+    # Data Quality Metrics
+    # ===========================================================================
+    
+    data_completeness_score = db.Column(db.Float)  # 0-100: how many sources have data
+    confidence_level = db.Column(db.String(20))  # high, medium, low
+    sources_used = db.Column(db.Text)  # JSON: list of which sources provided data
+    
+    # ===========================================================================
+    # Notes & Metadata
+    # ===========================================================================
+    
+    usage_notes = db.Column(db.Text)  # Qualitative observations
+    data_collected_at = db.Column(db.DateTime, default=datetime.utcnow)
+    last_updated = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def __repr__(self):
+        return f'<InstrumentUsageData {self.instrument_id} - {self.language_region}>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'instrument_id': self.instrument_id,
+            'language_region': self.language_region,
+            
+            # Data sources
+            'historical_composition_count': self.historical_composition_count,
+            'historical_composition_score': self.historical_composition_score,
+            'modern_recording_score': self.modern_recording_score,
+            'sheet_music_corpus_frequency': self.sheet_music_corpus_frequency,
+            'sheet_music_corpus_score': self.sheet_music_corpus_score,
+            'cultural_survey_prominence': self.cultural_survey_prominence,
+            'cultural_survey_score': self.cultural_survey_score,
+            'ensemble_appearance_rate': self.ensemble_appearance_rate,
+            'ensemble_appearance_score': self.ensemble_appearance_score,
+            
+            # Period breakdown
+            'period_breakdown': json.loads(self.period_breakdown) if self.period_breakdown else {},
+            
+            # Composite metrics
+            'normalized_usage_score': self.normalized_usage_score,
+            'weights_used': json.loads(self.weights_used) if self.weights_used else {},
+            'usage_rank_within_region': self.usage_rank_within_region,
+            'usage_percentile': self.usage_percentile,
+            
+            # Comparisons
+            'usage_z_score': self.usage_vs_global_mean_zscore,
+            'regional_specialization': self.regional_specialization_score,
+            
+            # Data quality
+            'data_completeness': self.data_completeness_score,
+            'confidence_level': self.confidence_level,
+            'sources_used': json.loads(self.sources_used) if self.sources_used else [],
+            
+            'usage_notes': self.usage_notes,
+            'data_collected_at': self.data_collected_at.isoformat() if self.data_collected_at else None,
+        }
+
+
+class InstrumentEnsemble(db.Model):
+    """Standard musical ensembles and their instrument configurations
+    
+    Tracks common ensemble types by region and analyzes phonetic coherence
+    of instrument names within ensembles (e.g., do violino/viola/violoncello
+    sound phonetically similar in Italian?).
+    """
+    __tablename__ = 'instrument_ensembles'
+    __table_args__ = (
+        db.Index('idx_ensemble_type', 'ensemble_type'),
+        db.Index('idx_ensemble_region', 'language_region'),
+        db.Index('idx_ensemble_period', 'time_period'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Ensemble Identification
+    ensemble_type = db.Column(db.String(100), nullable=False)  # string_quartet, brass_quintet, orchestra, folk_band, etc.
+    ensemble_name = db.Column(db.String(200))  # Optional descriptive name
+    language_region = db.Column(db.String(20))  # spain, france, italy, portugal, romania, general
+    time_period = db.Column(db.String(50))  # baroque, classical, romantic, modern, contemporary
+    
+    # Instruments in Ensemble
+    instruments = db.Column(db.Text, nullable=False)  # JSON: [instrument_id1, instrument_id2, ...]
+    instrument_count = db.Column(db.Integer)
+    
+    # Frequency & Prominence
+    frequency_score = db.Column(db.Float)  # 0-100: how common is this ensemble configuration
+    cultural_prominence = db.Column(db.Float)  # 0-100: cultural importance
+    
+    # ===========================================================================
+    # Phonetic Coherence Analysis
+    # ===========================================================================
+    
+    # Do instrument names in this ensemble sound similar?
+    phonetic_coherence_score = db.Column(db.Float)  # 0-100: phonetic similarity of names
+    mean_beauty_score = db.Column(db.Float)  # Average beauty of all instrument names
+    beauty_variance = db.Column(db.Float)  # How much do beauty scores vary?
+    
+    # Dominant phonetic features in ensemble
+    dominant_phonetic_features = db.Column(db.Text)  # JSON: {high_liquid_density, open_vowels, etc.}
+    
+    # ===========================================================================
+    # Ensemble Characteristics
+    # ===========================================================================
+    
+    # Musical characteristics
+    typical_repertoire = db.Column(db.Text)  # Representative works
+    genre_associations = db.Column(db.Text)  # Classical, folk, popular, etc.
+    
+    # Regional variation
+    regional_variants = db.Column(db.Text)  # JSON: How this ensemble differs by region
+    
+    # ===========================================================================
+    # Metadata
+    # ===========================================================================
+    
+    description = db.Column(db.Text)
+    source = db.Column(db.String(200))
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def __repr__(self):
+        return f'<InstrumentEnsemble {self.ensemble_type} - {self.language_region}>'
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'ensemble_type': self.ensemble_type,
+            'ensemble_name': self.ensemble_name,
+            'language_region': self.language_region,
+            'time_period': self.time_period,
+            
+            # Instruments
+            'instruments': json.loads(self.instruments) if self.instruments else [],
+            'instrument_count': self.instrument_count,
+            
+            # Frequency
+            'frequency_score': self.frequency_score,
+            'cultural_prominence': self.cultural_prominence,
+            
+            # Phonetic coherence
+            'phonetic_coherence_score': self.phonetic_coherence_score,
+            'mean_beauty_score': self.mean_beauty_score,
+            'beauty_variance': self.beauty_variance,
+            'dominant_phonetic_features': json.loads(self.dominant_phonetic_features) if self.dominant_phonetic_features else {},
+            
+            # Characteristics
+            'typical_repertoire': self.typical_repertoire,
+            'genre_associations': self.genre_associations,
+            'regional_variants': json.loads(self.regional_variants) if self.regional_variants else {},
+            
+            'description': self.description,
+            'source': self.source,
+            'created_at': self.created_at.isoformat() if self.created_at else None,
+        }
+
+
+# =====================================================
+# FORETOLD NAMING & PROPHETIC ANALYSIS MODELS
+# =====================================================
+
+class NameEtymology(db.Model):
+    """
+    Etymology and prophetic meaning of names across cultures.
+    Maps names to their historical, linguistic, and prophetic significance.
+    """
+    __tablename__ = 'name_etymology'
+    __table_args__ = (
+        db.Index('idx_name_etymology_name', 'name'),
+        db.Index('idx_name_etymology_origin', 'cultural_origin'),
+        db.Index('idx_name_etymology_category', 'destiny_category'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False, unique=True, index=True)
+    
+    # Core meaning
+    literal_meaning = db.Column(db.Text)  # Direct translation/meaning
+    prophetic_meaning = db.Column(db.Text)  # Symbolic/prophetic significance
+    cultural_origin = db.Column(db.String(100))  # hebrew, greek, latin, arabic, etc.
+    
+    # Etymology breakdown
+    etymology = db.Column(db.Text)  # Linguistic derivation
+    name_prefix = db.Column(db.String(100))  # Prefix component
+    name_root = db.Column(db.String(100))  # Root component
+    name_suffix = db.Column(db.String(100))  # Suffix component
+    
+    # Semantic analysis
+    semantic_valence = db.Column(db.String(50))  # positive, negative, neutral, ambiguous
+    destiny_category = db.Column(db.String(100))  # virtue, power, wisdom, warrior, beauty, etc.
+    symbolic_associations = db.Column(db.Text)  # JSON array of symbolic meanings
+    
+    # Historical context
+    historical_figures = db.Column(db.Text)  # JSON array of notable bearers
+    biblical_reference = db.Column(db.String(500))  # Biblical citation if applicable
+    quranic_reference = db.Column(db.String(500))  # Quranic citation if applicable
+    cultural_significance = db.Column(db.Text)  # Historical/cultural importance
+    
+    # Variants & translations
+    variants = db.Column(db.Text)  # JSON array of name variants
+    cross_cultural_equivalents = db.Column(db.Text)  # JSON dict of translations
+    
+    # Metadata
+    gender = db.Column(db.String(20))  # M, F, M/F (unisex)
+    popularity_peak = db.Column(db.String(200))  # Time period of peak usage
+    
+    # Timestamps
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    # Relationships
+    destiny_alignments = db.relationship('DestinyAlignment', backref='name_etymology', lazy='dynamic', cascade='all, delete-orphan')
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'literal_meaning': self.literal_meaning,
+            'prophetic_meaning': self.prophetic_meaning,
+            'cultural_origin': self.cultural_origin,
+            'etymology': self.etymology,
+            'components': {
+                'prefix': self.name_prefix,
+                'root': self.name_root,
+                'suffix': self.name_suffix
+            },
+            'semantic_valence': self.semantic_valence,
+            'destiny_category': self.destiny_category,
+            'symbolic_associations': json.loads(self.symbolic_associations) if self.symbolic_associations else [],
+            'historical_figures': json.loads(self.historical_figures) if self.historical_figures else [],
+            'biblical_reference': self.biblical_reference,
+            'quranic_reference': self.quranic_reference,
+            'cultural_significance': self.cultural_significance,
+            'variants': json.loads(self.variants) if self.variants else [],
+            'cross_cultural_equivalents': json.loads(self.cross_cultural_equivalents) if self.cross_cultural_equivalents else {},
+            'gender': self.gender,
+            'popularity_peak': self.popularity_peak,
+        }
+
+
+class DestinyAlignment(db.Model):
+    """
+    Tracks alignment between name prophetic meaning and actual outcomes.
+    Tests nominative determinism via semantic similarity analysis.
+    """
+    __tablename__ = 'destiny_alignment'
+    __table_args__ = (
+        db.Index('idx_destiny_name_entity', 'name_etymology_id', 'entity_type', 'entity_id'),
+        db.Index('idx_destiny_score', 'alignment_score'),
+        db.Index('idx_destiny_domain', 'domain'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name_etymology_id = db.Column(db.Integer, db.ForeignKey('name_etymology.id'), nullable=False)
+    
+    # Entity being analyzed
+    entity_type = db.Column(db.String(100))  # 'character', 'person', 'cryptocurrency', 'sports_team', etc.
+    entity_id = db.Column(db.String(200))  # ID in respective domain
+    entity_name = db.Column(db.String(500))  # Full name of entity
+    domain = db.Column(db.String(100))  # 'literary', 'crypto', 'sports', 'business', etc.
+    
+    # Outcome data
+    actual_outcome = db.Column(db.Text)  # Description of actual outcome
+    outcome_category = db.Column(db.String(100))  # 'success', 'failure', 'heroic', 'tragic', etc.
+    outcome_metrics = db.Column(db.Text)  # JSON dict of quantitative outcomes
+    
+    # Alignment analysis
+    alignment_score = db.Column(db.Float)  # 0-1 score: how well name predicts outcome
+    alignment_explanation = db.Column(db.Text)  # Textual explanation of alignment
+    semantic_overlap = db.Column(db.Float)  # Word embedding similarity
+    keyword_matches = db.Column(db.Text)  # JSON array of matching keywords
+    
+    # Statistical significance
+    confidence_score = db.Column(db.Float)  # Statistical confidence in alignment
+    sample_size_n = db.Column(db.Integer)  # Sample size for this category
+    
+    # Timestamps
+    analysis_date = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.entity_name,
+            'entity_type': self.entity_type,
+            'domain': self.domain,
+            'actual_outcome': self.actual_outcome,
+            'outcome_category': self.outcome_category,
+            'outcome_metrics': json.loads(self.outcome_metrics) if self.outcome_metrics else {},
+            'alignment_score': self.alignment_score,
+            'alignment_explanation': self.alignment_explanation,
+            'semantic_overlap': self.semantic_overlap,
+            'keyword_matches': json.loads(self.keyword_matches) if self.keyword_matches else [],
+            'confidence_score': self.confidence_score,
+            'analysis_date': self.analysis_date.isoformat() if self.analysis_date else None,
+        }
+
+
+class CulturalNamingPattern(db.Model):
+    """
+    Cultural naming prophecies and expectations by region/era.
+    Tracks hope-based naming patterns and cultural taboos.
+    """
+    __tablename__ = 'cultural_naming_pattern'
+    __table_args__ = (
+        db.Index('idx_cultural_region_era', 'region', 'era'),
+        db.Index('idx_cultural_tradition', 'cultural_tradition'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Geographic/temporal context
+    region = db.Column(db.String(200))  # Geographic region
+    country = db.Column(db.String(200))  # Specific country if applicable
+    cultural_tradition = db.Column(db.String(200))  # hebrew, islamic, christian, buddhist, etc.
+    era = db.Column(db.String(200))  # Time period (e.g., "medieval", "19th century")
+    start_year = db.Column(db.Integer)  # For temporal queries
+    end_year = db.Column(db.Integer)
+    
+    # Naming pattern type
+    pattern_type = db.Column(db.String(100))  # 'hope_based', 'prophetic', 'ancestral', 'religious', 'taboo'
+    pattern_name = db.Column(db.String(300))  # Name of the pattern
+    
+    # Pattern characteristics
+    description = db.Column(db.Text)  # Detailed description
+    common_name_themes = db.Column(db.Text)  # JSON array of common themes
+    example_names = db.Column(db.Text)  # JSON array of example names
+    
+    # Hope/expectation-based naming
+    aspirational_meanings = db.Column(db.Text)  # JSON array: what parents hope for child
+    virtue_emphasis = db.Column(db.Text)  # JSON array: emphasized virtues
+    success_indicators = db.Column(db.Text)  # JSON array: markers of expected success
+    
+    # Taboos and avoidance
+    avoided_meanings = db.Column(db.Text)  # JSON array: avoided name meanings
+    taboo_names = db.Column(db.Text)  # JSON array: specific taboo names
+    taboo_reasons = db.Column(db.Text)  # JSON dict: name -> reason for taboo
+    
+    # Gender patterns
+    male_naming_patterns = db.Column(db.Text)  # JSON dict of male-specific patterns
+    female_naming_patterns = db.Column(db.Text)  # JSON dict of female-specific patterns
+    
+    # Religious/spiritual influence
+    religious_influence_level = db.Column(db.Float)  # 0-1: how much religion influences naming
+    divine_name_usage = db.Column(db.Float)  # 0-1: frequency of divine/religious names
+    saint_prophet_naming = db.Column(db.Float)  # 0-1: frequency of saint/prophet names
+    
+    # Outcome correlation
+    success_correlation = db.Column(db.Float)  # Correlation between pattern and success
+    outcome_data = db.Column(db.Text)  # JSON dict of outcome statistics
+    
+    # Sources and evidence
+    source_documents = db.Column(db.Text)  # JSON array of source citations
+    sample_size = db.Column(db.Integer)  # Number of names in sample
+    confidence_level = db.Column(db.Float)  # Statistical confidence in pattern
+    
+    # Timestamps
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'region': self.region,
+            'country': self.country,
+            'cultural_tradition': self.cultural_tradition,
+            'era': self.era,
+            'time_range': {
+                'start_year': self.start_year,
+                'end_year': self.end_year
+            },
+            'pattern_type': self.pattern_type,
+            'pattern_name': self.pattern_name,
+            'description': self.description,
+            'common_themes': json.loads(self.common_name_themes) if self.common_name_themes else [],
+            'example_names': json.loads(self.example_names) if self.example_names else [],
+            'aspirational': {
+                'meanings': json.loads(self.aspirational_meanings) if self.aspirational_meanings else [],
+                'virtues': json.loads(self.virtue_emphasis) if self.virtue_emphasis else [],
+                'success_indicators': json.loads(self.success_indicators) if self.success_indicators else []
+            },
+            'taboos': {
+                'avoided_meanings': json.loads(self.avoided_meanings) if self.avoided_meanings else [],
+                'taboo_names': json.loads(self.taboo_names) if self.taboo_names else [],
+                'reasons': json.loads(self.taboo_reasons) if self.taboo_reasons else {}
+            },
+            'gender_patterns': {
+                'male': json.loads(self.male_naming_patterns) if self.male_naming_patterns else {},
+                'female': json.loads(self.female_naming_patterns) if self.female_naming_patterns else {}
+            },
+            'religious_influence': {
+                'level': self.religious_influence_level,
+                'divine_usage': self.divine_name_usage,
+                'saint_prophet_usage': self.saint_prophet_naming
+            },
+            'outcomes': {
+                'success_correlation': self.success_correlation,
+                'data': json.loads(self.outcome_data) if self.outcome_data else {}
+            },
+            'metadata': {
+                'sources': json.loads(self.source_documents) if self.source_documents else [],
+                'sample_size': self.sample_size,
+                'confidence': self.confidence_level
+            }
+        }
+
+
+# =====================================================
+# ACOUSTIC ANALYSIS & PHONETIC UNIVERSALS MODELS
+# =====================================================
+
+class AcousticProfile(db.Model):
+    """
+    Deep acoustic analysis of names using signal processing techniques.
+    Includes formant frequencies, spectral energy, prosody analysis.
+    """
+    __tablename__ = 'acoustic_profile'
+    __table_args__ = (
+        db.Index('idx_acoustic_name', 'name'),
+        db.Index('idx_acoustic_harshness', 'harshness_score'),
+        db.Index('idx_acoustic_melodiousness', 'melodiousness_score'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False, unique=True, index=True)
+    
+    # Formant frequencies (vowel quality)
+    mean_f1 = db.Column(db.Float)  # First formant (vowel height)
+    mean_f2 = db.Column(db.Float)  # Second formant (vowel frontness)
+    mean_f3 = db.Column(db.Float)  # Third formant (rhoticity)
+    f1_range = db.Column(db.Float)  # Variability in F1
+    f2_range = db.Column(db.Float)  # Variability in F2
+    
+    # Spectral energy distribution
+    low_frequency_energy = db.Column(db.Float)  # 0-500 Hz
+    mid_frequency_energy = db.Column(db.Float)  # 500-2000 Hz
+    high_frequency_energy = db.Column(db.Float)  # 2000+ Hz
+    spectral_centroid = db.Column(db.Float)  # "Center of mass" of spectrum
+    spectral_flatness = db.Column(db.Float)  # Noisiness vs tonality
+    
+    # Voice onset time (VOT) patterns
+    mean_vot = db.Column(db.Float)  # Average VOT for stops
+    vot_variance = db.Column(db.Float)  # Variability in VOT
+    aspirated_stops_count = db.Column(db.Integer)  # Number of aspirated stops
+    
+    # Prosodic features
+    stress_pattern = db.Column(db.String(100))  # 'initial', 'final', 'penultimate', etc.
+    syllable_duration_mean = db.Column(db.Float)  # Average syllable length
+    syllable_duration_variance = db.Column(db.Float)  # Rhythmic variability
+    pitch_contour = db.Column(db.String(100))  # 'rising', 'falling', 'flat', 'complex'
+    
+    # Acoustic harshness vs softness
+    harshness_score = db.Column(db.Float)  # 0-1: soft to harsh
+    sibilance_score = db.Column(db.Float)  # Frequency of sibilants (s, z, sh)
+    plosive_density = db.Column(db.Float)  # Frequency of stops (p, t, k, b, d, g)
+    fricative_density = db.Column(db.Float)  # Frequency of fricatives
+    sonorant_density = db.Column(db.Float)  # Frequency of resonants (l, r, m, n)
+    
+    # Overall acoustic characteristics
+    melodiousness_score = db.Column(db.Float)  # 0-1: melodic quality
+    rhythmic_regularity = db.Column(db.Float)  # 0-1: rhythmic predictability
+    phonetic_complexity = db.Column(db.Float)  # 0-1: articulatory complexity
+    
+    # Consonant cluster analysis
+    has_initial_clusters = db.Column(db.Boolean)
+    has_final_clusters = db.Column(db.Boolean)
+    max_cluster_size = db.Column(db.Integer)
+    cluster_complexity_score = db.Column(db.Float)  # 0-1
+    
+    # Vowel sequence analysis
+    vowel_sequence_pattern = db.Column(db.String(200))  # Pattern description
+    diphthong_count = db.Column(db.Integer)
+    vowel_harmony = db.Column(db.Float)  # 0-1: vowel similarity
+    
+    # Cross-linguistic pronounceability
+    english_ease = db.Column(db.Float)  # 0-1: ease for English speakers
+    spanish_ease = db.Column(db.Float)
+    mandarin_ease = db.Column(db.Float)
+    arabic_ease = db.Column(db.Float)
+    hindi_ease = db.Column(db.Float)
+    universal_pronounceability = db.Column(db.Float)  # Average across languages
+    
+    # Metadata
+    analysis_method = db.Column(db.String(200))  # Description of analysis approach
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'formants': {
+                'f1': {'mean': self.mean_f1, 'range': self.f1_range},
+                'f2': {'mean': self.mean_f2, 'range': self.f2_range},
+                'f3': {'mean': self.mean_f3}
+            },
+            'spectral': {
+                'low_freq_energy': self.low_frequency_energy,
+                'mid_freq_energy': self.mid_frequency_energy,
+                'high_freq_energy': self.high_frequency_energy,
+                'centroid': self.spectral_centroid,
+                'flatness': self.spectral_flatness
+            },
+            'vot': {
+                'mean': self.mean_vot,
+                'variance': self.vot_variance,
+                'aspirated_stops': self.aspirated_stops_count
+            },
+            'prosody': {
+                'stress_pattern': self.stress_pattern,
+                'syllable_duration_mean': self.syllable_duration_mean,
+                'syllable_duration_variance': self.syllable_duration_variance,
+                'pitch_contour': self.pitch_contour
+            },
+            'harshness': {
+                'overall_score': self.harshness_score,
+                'sibilance': self.sibilance_score,
+                'plosive_density': self.plosive_density,
+                'fricative_density': self.fricative_density,
+                'sonorant_density': self.sonorant_density
+            },
+            'overall': {
+                'melodiousness': self.melodiousness_score,
+                'rhythmic_regularity': self.rhythmic_regularity,
+                'phonetic_complexity': self.phonetic_complexity
+            },
+            'clusters': {
+                'initial': self.has_initial_clusters,
+                'final': self.has_final_clusters,
+                'max_size': self.max_cluster_size,
+                'complexity': self.cluster_complexity_score
+            },
+            'vowels': {
+                'sequence_pattern': self.vowel_sequence_pattern,
+                'diphthong_count': self.diphthong_count,
+                'harmony': self.vowel_harmony
+            },
+            'pronounceability': {
+                'english': self.english_ease,
+                'spanish': self.spanish_ease,
+                'mandarin': self.mandarin_ease,
+                'arabic': self.arabic_ease,
+                'hindi': self.hindi_ease,
+                'universal': self.universal_pronounceability
+            }
+        }
+
+
+class PhoneticUniversals(db.Model):
+    """
+    Cross-linguistic phonetic universal patterns and sound symbolism.
+    Tests Bouba/Kiki effect and other universal sound-meaning associations.
+    """
+    __tablename__ = 'phonetic_universals'
+    __table_args__ = (
+        db.Index('idx_phonetic_name', 'name'),
+        db.Index('idx_phonetic_bouba_kiki', 'bouba_kiki_score'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(200), nullable=False, unique=True, index=True)
+    
+    # Bouba-Kiki effect
+    bouba_kiki_score = db.Column(db.Float)  # -1 (angular/kiki) to +1 (round/bouba)
+    roundness_score = db.Column(db.Float)  # 0-1: perceived roundness
+    angularity_score = db.Column(db.Float)  # 0-1: perceived angularity
+    
+    # Size sound symbolism
+    size_symbolism_score = db.Column(db.Float)  # -1 (small) to +1 (large)
+    high_vowel_frequency = db.Column(db.Float)  # High vowels → smallness
+    low_vowel_frequency = db.Column(db.Float)  # Low vowels → largeness
+    
+    # Speed/motion symbolism
+    speed_symbolism_score = db.Column(db.Float)  # -1 (slow) to +1 (fast)
+    fricative_frequency = db.Column(db.Float)  # Fricatives → speed
+    stop_frequency = db.Column(db.Float)  # Stops → abruptness
+    
+    # Emotional valence (universal)
+    universal_valence = db.Column(db.Float)  # -1 (negative) to +1 (positive)
+    pleasantness_score = db.Column(db.Float)  # 0-1: cross-culturally pleasant
+    harshness_perception = db.Column(db.Float)  # 0-1: cross-culturally harsh
+    
+    # Phoneme-level symbolism
+    sonorant_ratio = db.Column(db.Float)  # Sonorants = positive valence
+    voiceless_ratio = db.Column(db.Float)  # Voiceless = negative valence
+    front_vowel_ratio = db.Column(db.Float)  # Front vowels = smallness, brightness
+    back_vowel_ratio = db.Column(db.Float)  # Back vowels = darkness, largeness
+    
+    # Cross-linguistic semantic associations
+    brightness_score = db.Column(db.Float)  # -1 (dark) to +1 (bright)
+    hardness_score = db.Column(db.Float)  # -1 (soft) to +1 (hard)
+    wetness_score = db.Column(db.Float)  # -1 (dry) to +1 (wet)
+    
+    # Language family patterns
+    germanic_pattern_fit = db.Column(db.Float)  # 0-1: fits Germanic phonology
+    romance_pattern_fit = db.Column(db.Float)  # 0-1: fits Romance phonology
+    slavic_pattern_fit = db.Column(db.Float)  # 0-1: fits Slavic phonology
+    sinitic_pattern_fit = db.Column(db.Float)  # 0-1: fits Chinese phonology
+    semitic_pattern_fit = db.Column(db.Float)  # 0-1: fits Arabic/Hebrew phonology
+    
+    # Phonotactic universals
+    violates_universals = db.Column(db.Boolean)  # Any universal violations?
+    universal_violations = db.Column(db.Text)  # JSON array of violations
+    cross_linguistic_rarity = db.Column(db.Float)  # 0-1: how rare is this pattern?
+    
+    # Iconicity scores
+    onomatopoeia_score = db.Column(db.Float)  # 0-1: sound-imitative quality
+    iconicity_rating = db.Column(db.Float)  # 0-1: form-meaning transparency
+    
+    # Metadata
+    analysis_languages = db.Column(db.Text)  # JSON array of languages analyzed
+    confidence_score = db.Column(db.Float)  # Statistical confidence
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'name': self.name,
+            'bouba_kiki': {
+                'score': self.bouba_kiki_score,
+                'roundness': self.roundness_score,
+                'angularity': self.angularity_score
+            },
+            'size_symbolism': {
+                'score': self.size_symbolism_score,
+                'high_vowel_freq': self.high_vowel_frequency,
+                'low_vowel_freq': self.low_vowel_frequency
+            },
+            'speed_symbolism': {
+                'score': self.speed_symbolism_score,
+                'fricative_freq': self.fricative_frequency,
+                'stop_freq': self.stop_frequency
+            },
+            'emotional_valence': {
+                'universal': self.universal_valence,
+                'pleasantness': self.pleasantness_score,
+                'harshness': self.harshness_perception
+            },
+            'phoneme_ratios': {
+                'sonorant': self.sonorant_ratio,
+                'voiceless': self.voiceless_ratio,
+                'front_vowel': self.front_vowel_ratio,
+                'back_vowel': self.back_vowel_ratio
+            },
+            'semantic_associations': {
+                'brightness': self.brightness_score,
+                'hardness': self.hardness_score,
+                'wetness': self.wetness_score
+            },
+            'language_families': {
+                'germanic': self.germanic_pattern_fit,
+                'romance': self.romance_pattern_fit,
+                'slavic': self.slavic_pattern_fit,
+                'sinitic': self.sinitic_pattern_fit,
+                'semitic': self.semitic_pattern_fit
+            },
+            'universals': {
+                'violates': self.violates_universals,
+                'violations': json.loads(self.universal_violations) if self.universal_violations else [],
+                'rarity': self.cross_linguistic_rarity
+            },
+            'iconicity': {
+                'onomatopoeia': self.onomatopoeia_score,
+                'overall': self.iconicity_rating
+            },
+            'metadata': {
+                'languages_analyzed': json.loads(self.analysis_languages) if self.analysis_languages else [],
+                'confidence': self.confidence_score
+            }
+        }
+
+
+class SoundSymbolism(db.Model):
+    """
+    Phoneme-to-meaning associations across cultures.
+    Documents which sounds carry which meanings universally.
+    """
+    __tablename__ = 'sound_symbolism'
+    __table_args__ = (
+        db.Index('idx_sound_phoneme', 'phoneme'),
+        db.Index('idx_sound_feature', 'phonetic_feature'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Phoneme identification
+    phoneme = db.Column(db.String(20), nullable=False)  # IPA symbol
+    phoneme_type = db.Column(db.String(50))  # 'vowel', 'consonant', 'diphthong'
+    phonetic_feature = db.Column(db.String(100))  # 'front_vowel', 'fricative', 'stop', etc.
+    
+    # Symbolic associations
+    symbolic_meanings = db.Column(db.Text)  # JSON array of associated meanings
+    emotional_valence = db.Column(db.Float)  # -1 (negative) to +1 (positive)
+    
+    # Cross-cultural frequency
+    cultures_observed = db.Column(db.Text)  # JSON array of cultures/languages
+    observation_count = db.Column(db.Integer)  # Number of studies documenting this
+    universality_score = db.Column(db.Float)  # 0-1: how universal is this association?
+    
+    # Specific associations
+    size_association = db.Column(db.String(50))  # 'small', 'large', 'neutral'
+    shape_association = db.Column(db.String(50))  # 'round', 'angular', 'neutral'
+    texture_association = db.Column(db.String(50))  # 'smooth', 'rough', 'neutral'
+    motion_association = db.Column(db.String(50))  # 'fast', 'slow', 'static', 'neutral'
+    
+    # Perceptual qualities
+    brightness_association = db.Column(db.Float)  # -1 (dark) to +1 (bright)
+    hardness_association = db.Column(db.Float)  # -1 (soft) to +1 (hard)
+    temperature_association = db.Column(db.Float)  # -1 (cold) to +1 (warm)
+    
+    # Examples and evidence
+    example_words = db.Column(db.Text)  # JSON array of words exemplifying association
+    source_studies = db.Column(db.Text)  # JSON array of research citations
+    
+    # Statistical support
+    effect_size = db.Column(db.Float)  # Statistical effect size
+    confidence_interval = db.Column(db.String(100))  # CI for effect
+    
+    # Metadata
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'phoneme': self.phoneme,
+            'phoneme_type': self.phoneme_type,
+            'phonetic_feature': self.phonetic_feature,
+            'symbolic_meanings': json.loads(self.symbolic_meanings) if self.symbolic_meanings else [],
+            'emotional_valence': self.emotional_valence,
+            'universality': {
+                'cultures': json.loads(self.cultures_observed) if self.cultures_observed else [],
+                'observation_count': self.observation_count,
+                'score': self.universality_score
+            },
+            'associations': {
+                'size': self.size_association,
+                'shape': self.shape_association,
+                'texture': self.texture_association,
+                'motion': self.motion_association
+            },
+            'perceptual': {
+                'brightness': self.brightness_association,
+                'hardness': self.hardness_association,
+                'temperature': self.temperature_association
+            },
+            'evidence': {
+                'examples': json.loads(self.example_words) if self.example_words else [],
+                'studies': json.loads(self.source_studies) if self.source_studies else [],
+                'effect_size': self.effect_size,
+                'confidence_interval': self.confidence_interval
+            }
+        }
+
+
+# =====================================================
+# GOSPEL SUCCESS & RELIGIOUS TEXT ANALYSIS MODELS
+# =====================================================
+
+class ReligiousText(db.Model):
+    """
+    Religious texts (gospels, sutras, etc.) with metadata and composition analysis.
+    """
+    __tablename__ = 'religious_text'
+    __table_args__ = (
+        db.Index('idx_religious_text_name', 'text_name'),
+        db.Index('idx_religious_tradition', 'religious_tradition'),
+        db.Index('idx_religious_composition_date', 'composition_year'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Identification
+    text_name = db.Column(db.String(300), nullable=False)  # "Gospel of Matthew", "Quran", etc.
+    text_type = db.Column(db.String(100))  # 'gospel', 'sutra', 'surah', 'scripture'
+    religious_tradition = db.Column(db.String(100))  # 'christianity', 'islam', 'buddhism', etc.
+    sub_tradition = db.Column(db.String(200))  # 'catholic', 'orthodox', 'sunni', 'mahayana', etc.
+    
+    # Composition details
+    author_attributed = db.Column(db.String(200))  # Attributed author
+    composition_year = db.Column(db.Integer)  # Approximate year
+    composition_location = db.Column(db.String(200))  # Where composed
+    original_language = db.Column(db.String(100))  # Hebrew, Greek, Arabic, Sanskrit, etc.
+    
+    # Text characteristics
+    total_words = db.Column(db.Integer)
+    total_characters = db.Column(db.Integer)
+    unique_character_names = db.Column(db.Integer)
+    unique_place_names = db.Column(db.Integer)
+    
+    # Linguistic complexity
+    lexical_diversity = db.Column(db.Float)  # Type-token ratio
+    mean_word_length = db.Column(db.Float)
+    mean_sentence_length = db.Column(db.Float)
+    reading_level = db.Column(db.Float)  # Flesch-Kincaid or equivalent
+    
+    # Name composition patterns
+    mean_name_syllables = db.Column(db.Float)
+    mean_name_length = db.Column(db.Float)
+    name_melodiousness = db.Column(db.Float)  # Average across all names
+    name_complexity = db.Column(db.Float)
+    foreign_name_ratio = db.Column(db.Float)  # Ratio of non-native names
+    
+    # Translation history
+    major_translations = db.Column(db.Text)  # JSON array of major translation info
+    translation_count = db.Column(db.Integer)  # Number of languages translated to
+    first_translation_year = db.Column(db.Integer)
+    
+    # Content summary
+    narrative_style = db.Column(db.String(200))  # 'chronological', 'thematic', 'poetic', etc.
+    key_themes = db.Column(db.Text)  # JSON array of major themes
+    miracle_count = db.Column(db.Integer)
+    parable_count = db.Column(db.Integer)
+    
+    # Full text storage (optional)
+    full_text = db.Column(db.Text)  # Complete text if available
+    text_url = db.Column(db.String(500))  # Link to canonical version
+    
+    # Relationships
+    success_metrics = db.relationship('ReligiousTextSuccessMetrics', backref='religious_text', lazy='dynamic', cascade='all, delete-orphan')
+    regional_adoptions = db.relationship('RegionalAdoptionAnalysis', backref='religious_text', lazy='dynamic', cascade='all, delete-orphan')
+    
+    # Metadata
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'text_name': self.text_name,
+            'text_type': self.text_type,
+            'religious_tradition': self.religious_tradition,
+            'sub_tradition': self.sub_tradition,
+            'composition': {
+                'author': self.author_attributed,
+                'year': self.composition_year,
+                'location': self.composition_location,
+                'original_language': self.original_language
+            },
+            'text_stats': {
+                'total_words': self.total_words,
+                'total_characters': self.total_characters,
+                'unique_names': self.unique_character_names,
+                'unique_places': self.unique_place_names
+            },
+            'linguistic': {
+                'lexical_diversity': self.lexical_diversity,
+                'mean_word_length': self.mean_word_length,
+                'mean_sentence_length': self.mean_sentence_length,
+                'reading_level': self.reading_level
+            },
+            'name_patterns': {
+                'mean_syllables': self.mean_name_syllables,
+                'mean_length': self.mean_name_length,
+                'melodiousness': self.name_melodiousness,
+                'complexity': self.name_complexity,
+                'foreign_ratio': self.foreign_name_ratio
+            },
+            'translations': {
+                'major': json.loads(self.major_translations) if self.major_translations else [],
+                'count': self.translation_count,
+                'first_year': self.first_translation_year
+            },
+            'content': {
+                'narrative_style': self.narrative_style,
+                'themes': json.loads(self.key_themes) if self.key_themes else [],
+                'miracles': self.miracle_count,
+                'parables': self.parable_count
+            }
+        }
+
+
+class ReligiousTextSuccessMetrics(db.Model):
+    """
+    Success metrics for religious texts by region and time period.
+    Tracks adherent populations, geographic spread, cultural influence.
+    """
+    __tablename__ = 'religious_text_success_metrics'
+    __table_args__ = (
+        db.Index('idx_success_text_region_year', 'religious_text_id', 'region', 'year'),
+        db.Index('idx_success_adherents', 'adherent_population'),
+        db.Index('idx_success_year', 'year'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    religious_text_id = db.Column(db.Integer, db.ForeignKey('religious_text.id'), nullable=False)
+    
+    # Geographic/temporal context
+    region = db.Column(db.String(200))  # Geographic region
+    country = db.Column(db.String(200))  # Specific country if applicable
+    continent = db.Column(db.String(100))
+    year = db.Column(db.Integer)  # Measurement year
+    century = db.Column(db.Integer)  # For easier temporal queries
+    
+    # Population metrics
+    adherent_population = db.Column(db.BigInteger)  # Number of adherents
+    percentage_of_population = db.Column(db.Float)  # % of regional population
+    growth_rate_annual = db.Column(db.Float)  # Annual growth rate
+    conversion_rate = db.Column(db.Float)  # New conversions per year
+    
+    # Geographic spread
+    geographic_area_km2 = db.Column(db.Float)  # Area where practiced
+    number_of_countries = db.Column(db.Integer)  # How many countries
+    spread_velocity_km_per_year = db.Column(db.Float)  # Speed of geographic expansion
+    persistence_score = db.Column(db.Float)  # 0-1: how long maintained in region
+    
+    # Cultural influence
+    art_influence_score = db.Column(db.Float)  # 0-1: influence on art/architecture
+    literature_influence_score = db.Column(db.Float)  # 0-1: influence on literature
+    legal_influence_score = db.Column(db.Float)  # 0-1: influence on legal systems
+    educational_influence_score = db.Column(db.Float)  # 0-1: influence on education
+    overall_cultural_influence = db.Column(db.Float)  # 0-1: composite score
+    
+    # Linguistic adoption
+    biblical_names_popularity = db.Column(db.Float)  # 0-1: how popular are biblical names
+    liturgical_language_adoption = db.Column(db.Float)  # 0-1: liturgical lang influence
+    vernacular_translations = db.Column(db.Integer)  # Number of vernacular translations
+    
+    # Institutional presence
+    places_of_worship = db.Column(db.Integer)  # Number of churches/mosques/temples
+    religious_schools = db.Column(db.Integer)
+    monasteries_seminaries = db.Column(db.Integer)
+    
+    # Historical events
+    major_events = db.Column(db.Text)  # JSON array of significant events
+    persecution_periods = db.Column(db.Text)  # JSON array of persecution events
+    revival_movements = db.Column(db.Text)  # JSON array of revival movements
+    
+    # Decline/persistence factors
+    is_declining = db.Column(db.Boolean)
+    decline_rate = db.Column(db.Float)  # If declining
+    persistence_factors = db.Column(db.Text)  # JSON array: why it persisted/declined
+    
+    # Data sources
+    data_source = db.Column(db.String(500))  # Citation for data
+    data_quality = db.Column(db.String(50))  # 'high', 'medium', 'low', 'estimated'
+    confidence_score = db.Column(db.Float)  # 0-1: confidence in data
+    
+    # Metadata
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    updated_at = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'location': {
+                'region': self.region,
+                'country': self.country,
+                'continent': self.continent
+            },
+            'time': {
+                'year': self.year,
+                'century': self.century
+            },
+            'population': {
+                'adherents': self.adherent_population,
+                'percentage': self.percentage_of_population,
+                'growth_rate': self.growth_rate_annual,
+                'conversion_rate': self.conversion_rate
+            },
+            'spread': {
+                'area_km2': self.geographic_area_km2,
+                'countries': self.number_of_countries,
+                'velocity': self.spread_velocity_km_per_year,
+                'persistence': self.persistence_score
+            },
+            'cultural_influence': {
+                'art': self.art_influence_score,
+                'literature': self.literature_influence_score,
+                'legal': self.legal_influence_score,
+                'education': self.educational_influence_score,
+                'overall': self.overall_cultural_influence
+            },
+            'linguistic': {
+                'name_popularity': self.biblical_names_popularity,
+                'liturgical_adoption': self.liturgical_language_adoption,
+                'translations': self.vernacular_translations
+            },
+            'institutions': {
+                'worship_places': self.places_of_worship,
+                'schools': self.religious_schools,
+                'monasteries': self.monasteries_seminaries
+            },
+            'history': {
+                'major_events': json.loads(self.major_events) if self.major_events else [],
+                'persecutions': json.loads(self.persecution_periods) if self.persecution_periods else [],
+                'revivals': json.loads(self.revival_movements) if self.revival_movements else []
+            },
+            'trends': {
+                'is_declining': self.is_declining,
+                'decline_rate': self.decline_rate,
+                'persistence_factors': json.loads(self.persistence_factors) if self.persistence_factors else []
+            },
+            'metadata': {
+                'source': self.data_source,
+                'quality': self.data_quality,
+                'confidence': self.confidence_score
+            }
+        }
+
+
+class RegionalAdoptionAnalysis(db.Model):
+    """
+    Correlation analysis between text linguistic features and regional adoption success.
+    Tests whether simpler names, more accessible language leads to faster/wider adoption.
+    """
+    __tablename__ = 'regional_adoption_analysis'
+    __table_args__ = (
+        db.Index('idx_adoption_text_region', 'religious_text_id', 'region'),
+        db.Index('idx_adoption_success', 'adoption_success_score'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    religious_text_id = db.Column(db.Integer, db.ForeignKey('religious_text.id'), nullable=False)
+    
+    # Region details
+    region = db.Column(db.String(200))
+    country = db.Column(db.String(200))
+    dominant_language_family = db.Column(db.String(100))  # What lang family is dominant here?
+    
+    # Adoption success measurement
+    adoption_success_score = db.Column(db.Float)  # 0-1: composite adoption success
+    peak_adherent_percentage = db.Column(db.Float)  # Peak % of population
+    years_to_peak = db.Column(db.Integer)  # How long to reach peak
+    current_adherent_percentage = db.Column(db.Float)  # Current % (if still practiced)
+    
+    # Linguistic compatibility factors
+    name_accessibility_score = db.Column(db.Float)  # 0-1: how accessible are names?
+    phonetic_compatibility = db.Column(db.Float)  # 0-1: text phonology vs local phonology
+    translation_quality = db.Column(db.Float)  # 0-1: quality of local translation
+    linguistic_distance = db.Column(db.Float)  # Edit distance from original language
+    
+    # Cultural fit factors
+    cultural_fit_score = db.Column(db.Float)  # 0-1: how well text fits local culture
+    naming_pattern_similarity = db.Column(db.Float)  # 0-1: text names vs local names
+    conceptual_compatibility = db.Column(db.Float)  # 0-1: concepts match local worldview
+    
+    # Correlation analysis
+    linguistic_success_correlation = db.Column(db.Float)  # Correlation coefficient
+    name_simplicity_effect = db.Column(db.Float)  # Effect of name simplicity on adoption
+    accessibility_effect = db.Column(db.Float)  # Effect of linguistic accessibility
+    
+    # Statistical significance
+    p_value = db.Column(db.Float)
+    confidence_interval = db.Column(db.String(100))
+    sample_size = db.Column(db.Integer)
+    
+    # Confounding factors
+    political_support_level = db.Column(db.Float)  # 0-1: government support
+    missionary_activity_level = db.Column(db.Float)  # 0-1: missionary presence
+    competing_religions = db.Column(db.Text)  # JSON array of competing traditions
+    
+    # Explanation
+    success_factors = db.Column(db.Text)  # JSON array: why it succeeded/failed here
+    linguistic_barriers = db.Column(db.Text)  # JSON array: linguistic obstacles
+    linguistic_advantages = db.Column(db.Text)  # JSON array: linguistic benefits
+    
+    # Case study notes
+    case_study_summary = db.Column(db.Text)  # Detailed analysis
+    notable_examples = db.Column(db.Text)  # JSON array of specific examples
+    
+    # Metadata
+    analysis_date = db.Column(db.DateTime, default=datetime.utcnow)
+    analyst_notes = db.Column(db.Text)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'region': {
+                'name': self.region,
+                'country': self.country,
+                'language_family': self.dominant_language_family
+            },
+            'adoption_success': {
+                'overall_score': self.adoption_success_score,
+                'peak_percentage': self.peak_adherent_percentage,
+                'years_to_peak': self.years_to_peak,
+                'current_percentage': self.current_adherent_percentage
+            },
+            'linguistic_factors': {
+                'name_accessibility': self.name_accessibility_score,
+                'phonetic_compatibility': self.phonetic_compatibility,
+                'translation_quality': self.translation_quality,
+                'linguistic_distance': self.linguistic_distance
+            },
+            'cultural_fit': {
+                'overall': self.cultural_fit_score,
+                'naming_similarity': self.naming_pattern_similarity,
+                'conceptual_compatibility': self.conceptual_compatibility
+            },
+            'correlations': {
+                'linguistic_success': self.linguistic_success_correlation,
+                'name_simplicity_effect': self.name_simplicity_effect,
+                'accessibility_effect': self.accessibility_effect
+            },
+            'statistics': {
+                'p_value': self.p_value,
+                'confidence_interval': self.confidence_interval,
+                'sample_size': self.sample_size
+            },
+            'confounds': {
+                'political_support': self.political_support_level,
+                'missionary_activity': self.missionary_activity_level,
+                'competing': json.loads(self.competing_religions) if self.competing_religions else []
+            },
+            'analysis': {
+                'success_factors': json.loads(self.success_factors) if self.success_factors else [],
+                'barriers': json.loads(self.linguistic_barriers) if self.linguistic_barriers else [],
+                'advantages': json.loads(self.linguistic_advantages) if self.linguistic_advantages else [],
+                'summary': self.case_study_summary,
+                'examples': json.loads(self.notable_examples) if self.notable_examples else []
+            }
+        }
+
+
+# =============================================================================
+# SPORTS BETTING MODELS
+# =============================================================================
+
+class SportsBet(db.Model):
+    """Immutable record of placed bets (like ForwardPrediction)"""
+    __tablename__ = 'sports_bet'
+    __table_args__ = (
+        db.Index('idx_bet_sport', 'sport'),
+        db.Index('idx_bet_status', 'bet_status'),
+        db.Index('idx_bet_date', 'placed_at'),
+        db.Index('idx_bet_sport_type', 'sport', 'bet_type'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Bet identification (LOCKED at creation)
+    bet_id = db.Column(db.String(50), unique=True, nullable=False)
+    sport = db.Column(db.String(50), nullable=False)  # 'football', 'basketball', 'baseball'
+    bet_type = db.Column(db.String(50), nullable=False)  # 'player_prop', 'spread', 'moneyline', 'futures'
+    market_type = db.Column(db.String(100))  # 'rushing_yards', 'points', 'MVP', etc.
+    
+    # Player/team information
+    player_name = db.Column(db.String(200))
+    team_name = db.Column(db.String(200))
+    opponent_name = db.Column(db.String(200))
+    
+    # Bet details (LOCKED)
+    market_line = db.Column(db.Float)  # The line/total
+    bet_side = db.Column(db.String(20))  # 'over', 'under', 'home', 'away', etc.
+    odds = db.Column(db.Integer)  # American odds
+    stake = db.Column(db.Float, nullable=False)  # Bet amount
+    
+    # Prediction at bet time (LOCKED)
+    predicted_value = db.Column(db.Float)
+    confidence_score = db.Column(db.Float)  # 0-100
+    expected_value = db.Column(db.Float)  # EV at time of bet
+    linguistic_score = db.Column(db.Float)  # Name pattern score
+    
+    # Linguistic features (for analysis)
+    syllables = db.Column(db.Float)
+    harshness = db.Column(db.Float)
+    memorability = db.Column(db.Float)
+    name_length = db.Column(db.Integer)
+    
+    # Bankroll management
+    bankroll_at_bet = db.Column(db.Float)
+    bet_percentage = db.Column(db.Float)  # % of bankroll
+    kelly_fraction = db.Column(db.Float)  # Kelly sizing used
+    
+    # Bet metadata
+    placed_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    game_date = db.Column(db.DateTime)  # When game occurs
+    is_locked = db.Column(db.Boolean, default=True)  # Cannot modify after creation
+    
+    # Outcome (filled in after game)
+    actual_result = db.Column(db.Float)  # Actual stat value
+    bet_status = db.Column(db.String(20), default='pending')  # 'pending', 'won', 'lost', 'push', 'cancelled'
+    payout = db.Column(db.Float)  # Total payout if won (including stake)
+    profit = db.Column(db.Float)  # Net profit/loss
+    roi = db.Column(db.Float)  # Return on investment %
+    
+    # Result metadata
+    settled_at = db.Column(db.DateTime)
+    closing_line = db.Column(db.Float)  # Line at game time (for CLV)
+    closing_odds = db.Column(db.Integer)  # Odds at close
+    clv = db.Column(db.Float)  # Closing Line Value (our line vs closing line)
+    
+    # Analysis
+    edge_realized = db.Column(db.Boolean)  # Did predicted edge materialize?
+    prediction_error = db.Column(db.Float)  # Predicted vs actual
+    notes = db.Column(db.Text)
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'bet_id': self.bet_id,
+            'sport': self.sport,
+            'bet_type': self.bet_type,
+            'market_type': self.market_type,
+            'player_name': self.player_name,
+            'team_name': self.team_name,
+            'market_line': self.market_line,
+            'bet_side': self.bet_side,
+            'odds': self.odds,
+            'stake': self.stake,
+            'predicted_value': self.predicted_value,
+            'confidence_score': self.confidence_score,
+            'expected_value': self.expected_value,
+            'linguistic_score': self.linguistic_score,
+            'placed_at': self.placed_at.isoformat() if self.placed_at else None,
+            'game_date': self.game_date.isoformat() if self.game_date else None,
+            'bet_status': self.bet_status,
+            'actual_result': self.actual_result,
+            'payout': self.payout,
+            'profit': self.profit,
+            'roi': self.roi,
+            'settled_at': self.settled_at.isoformat() if self.settled_at else None,
+            'clv': self.clv
+        }
+
+
+class BankrollHistory(db.Model):
+    """Track bankroll over time"""
+    __tablename__ = 'bankroll_history'
+    __table_args__ = (
+        db.Index('idx_bankroll_timestamp', 'timestamp'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    timestamp = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    
+    # Bankroll state
+    balance = db.Column(db.Float, nullable=False)
+    allocated_capital = db.Column(db.Float, default=0)
+    available_capital = db.Column(db.Float)
+    peak_balance = db.Column(db.Float)
+    
+    # Performance metrics
+    total_roi = db.Column(db.Float)  # Overall ROI %
+    current_drawdown = db.Column(db.Float)  # Current drawdown %
+    total_bets = db.Column(db.Integer, default=0)
+    consecutive_losses = db.Column(db.Integer, default=0)
+    
+    # Risk status
+    is_halted = db.Column(db.Boolean, default=False)  # Trading halted due to drawdown
+    
+    # Trigger event (what caused this snapshot)
+    event_type = db.Column(db.String(50))  # 'bet_placed', 'bet_settled', 'deposit', 'withdrawal'
+    event_id = db.Column(db.String(100))  # Reference to bet_id or transaction
+    
+    def to_dict(self):
+        return {
+            'timestamp': self.timestamp.isoformat() if self.timestamp else None,
+            'balance': self.balance,
+            'allocated_capital': self.allocated_capital,
+            'available_capital': self.available_capital,
+            'total_roi': self.total_roi,
+            'current_drawdown': self.current_drawdown,
+            'total_bets': self.total_bets,
+            'is_halted': self.is_halted
+        }
+
+
+class BettingPerformance(db.Model):
+    """Aggregate performance statistics"""
+    __tablename__ = 'betting_performance'
+    __table_args__ = (
+        db.Index('idx_performance_sport_market', 'sport', 'market_type'),
+    )
+    
+    id = db.Column(db.Integer, primary_key=True)
+    
+    # Dimension of analysis
+    sport = db.Column(db.String(50))  # NULL = overall
+    market_type = db.Column(db.String(100))  # NULL = all markets
+    time_period = db.Column(db.String(50))  # 'all_time', 'last_30_days', 'last_90_days', 'ytd'
+    
+    # Volume metrics
+    total_bets = db.Column(db.Integer, default=0)
+    total_staked = db.Column(db.Float, default=0)
+    total_returned = db.Column(db.Float, default=0)
+    
+    # Win/loss record
+    wins = db.Column(db.Integer, default=0)
+    losses = db.Column(db.Integer, default=0)
+    pushes = db.Column(db.Integer, default=0)
+    win_rate = db.Column(db.Float)  # Decimal
+    
+    # Profitability
+    net_profit = db.Column(db.Float, default=0)
+    roi = db.Column(db.Float)  # %
+    avg_profit_per_bet = db.Column(db.Float)
+    
+    # Expected value tracking
+    avg_ev = db.Column(db.Float)  # Average EV of bets
+    avg_clv = db.Column(db.Float)  # Average closing line value
+    positive_clv_rate = db.Column(db.Float)  # % of bets with +CLV
+    
+    # Risk metrics
+    sharpe_ratio = db.Column(db.Float)
+    max_drawdown = db.Column(db.Float)  # Worst drawdown %
+    longest_losing_streak = db.Column(db.Integer)
+    largest_loss = db.Column(db.Float)
+    
+    # Bet sizing
+    avg_bet_size = db.Column(db.Float)
+    avg_bet_percentage = db.Column(db.Float)  # % of bankroll
+    
+    # Last updated
+    calculated_at = db.Column(db.DateTime, default=datetime.utcnow)
+    last_bet_date = db.Column(db.DateTime)
+    
+    def to_dict(self):
+        return {
+            'sport': self.sport,
+            'market_type': self.market_type,
+            'time_period': self.time_period,
+            'total_bets': self.total_bets,
+            'win_rate': round(self.win_rate * 100, 2) if self.win_rate else 0,
+            'roi': round(self.roi, 2) if self.roi else 0,
+            'net_profit': self.net_profit,
+            'avg_ev': self.avg_ev,
+            'avg_clv': self.avg_clv,
+            'positive_clv_rate': round(self.positive_clv_rate * 100, 2) if self.positive_clv_rate else 0,
+            'sharpe_ratio': self.sharpe_ratio,
+            'max_drawdown': self.max_drawdown,
+            'calculated_at': self.calculated_at.isoformat() if self.calculated_at else None
+        }
+
 

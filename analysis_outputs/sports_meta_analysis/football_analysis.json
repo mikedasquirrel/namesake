@@ -1,0 +1,29 @@
+{
+  "results": {
+    "sport": "football",
+    "n_athletes": 2000,
+    "avg_success": 56.17,
+    "correlations": {
+      "syllables": {
+        "r": -0.418,
+        "p": 0.0,
+        "n": 2000
+      },
+      "length": {
+        "r": -0.2752,
+        "p": 0.0,
+        "n": 2000
+      },
+      "harshness": {
+        "r": 0.4269,
+        "p": 0.0,
+        "n": 2000
+      },
+      "memorability": {
+        "r": 0.406,
+        "p": 0.0,
+        "n": 2000
+      }
+    }
+  }
+}

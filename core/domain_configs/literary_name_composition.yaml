@@ -1,0 +1,225 @@
+# Literary Name Composition Analysis
+# Cross-domain analysis examining how fictional naming patterns differ between
+# modern fiction, nonfiction, and synoptic gospels, and whether name characteristics
+# predict character roles, behaviors, and narrative outcomes
+
+domain: literary_name_composition
+display_name: "Literary Name Composition & Predictive Nominative Analysis"
+
+research_questions:
+  - "Do fictional character names differ systematically from nonfiction person names in melodiousness, commonality, and phonetic structure?"
+  - "Can character roles (protagonist, antagonist, supporting) be predicted from name characteristics alone?"
+  - "Do synoptic gospels follow distinct naming patterns compared to modern fiction and nonfiction?"
+  - "What proportion of names in each category are invented vs. historically/culturally real?"
+  - "Do character outcomes (survival, success, transformation) correlate with specific name phonetic patterns?"
+  - "How do place names and invented terminology differ across literary categories?"
+
+# Data collection configuration
+collector_class: "collectors.literary_name_collector.LiteraryNameCollector"
+collector_params:
+  categories:
+    - fiction
+    - nonfiction
+    - gospels
+  target_works_fiction: 50
+  target_works_nonfiction: 30
+  target_works_gospels: 3  # Matthew, Mark, Luke
+  baseline_sample_size: 10000
+  use_ner_extraction: true
+  extract_place_names: true
+  extract_invented_terms: true
+  min_character_mentions: 2  # Minimum mentions to be included
+
+# Analysis configuration
+analyzer_class: "analyzers.literary_name_analyzer.LiteraryNameAnalyzer"
+analyzer_params:
+  calculate_americanness: true
+  calculate_melodiousness: true
+  calculate_name_valence: true
+  calculate_commonality: true
+  predict_character_roles: true
+  predict_character_outcomes: true
+  baseline_comparisons: true
+  cross_category_comparisons: true
+
+# Database models
+models:
+  - LiteraryWork
+  - LiteraryCharacter
+  - LiteraryNameAnalysis
+
+# Sample targets
+target_sample_size: 83  # 50 fiction + 30 nonfiction + 3 gospels
+min_sample_size: 40
+min_characters_per_work: 5
+
+# Stratification strategy
+stratification:
+  enabled: true
+  field: category
+  targets:
+    fiction: 50
+    nonfiction: 30
+    gospels: 3
+
+# Primary analysis variables
+primary_outcome_variable: "character_role"
+secondary_outcome_variables:
+  - "character_outcome"
+  - "character_importance"
+  - "name_type"  # real, invented, historical
+  - "melodiousness_score"
+  - "commonality_score"
+
+key_predictors:
+  - "melodiousness_score"
+  - "americanness_score"
+  - "commonality_score"
+  - "name_valence"
+  - "syllable_count"
+  - "harshness_score"
+  - "name_type"
+  - "is_invented"
+
+control_variables:
+  - "category"  # fiction, nonfiction, gospels
+  - "genre"
+  - "publication_year"
+  - "author"
+  - "work_length"
+
+# Character role classification
+character_roles:
+  protagonist: "Main character, hero, central figure"
+  antagonist: "Villain, opponent, opposing force"
+  supporting: "Secondary characters with significant roles"
+  minor: "Background characters, mentioned briefly"
+
+# Character outcome classification
+character_outcomes:
+  survives: "Character lives through narrative"
+  dies: "Character dies in narrative"
+  succeeds: "Achieves goals, positive outcome"
+  fails: "Fails to achieve goals, negative outcome"
+  transforms: "Undergoes significant change"
+  static: "No significant change"
+  unknown: "Outcome unclear or not specified"
+
+# Name type classification
+name_types:
+  real_common: "Common real-world name (top 1000)"
+  real_uncommon: "Uncommon real-world name"
+  historical: "Historical/biblical name"
+  invented_plausible: "Invented but follows real phonetic patterns"
+  invented_fantastical: "Clearly invented, unusual phonetics"
+
+# Comparison dimensions
+comparison_levels:
+  - "character_vs_baseline"
+  - "work_vs_category"
+  - "category_vs_category"
+  - "role_vs_role"
+  - "outcome_vs_outcome"
+
+# Baseline configuration
+baseline_name_sources:
+  - "US Census common names (2000-2020)"
+  - "Historical names database"
+  - "SSA baby names top 1000"
+
+# Predictive modeling
+predictive_tests:
+  role_prediction:
+    method: "logistic_regression"
+    features: ["melodiousness", "commonality", "harshness", "syllables"]
+    target: "character_role"
+  outcome_prediction:
+    method: "logistic_regression"
+    features: ["melodiousness", "name_valence", "americanness"]
+    target: "character_outcome"
+  importance_prediction:
+    method: "linear_regression"
+    features: ["commonality", "syllables", "memorability"]
+    target: "mention_count"
+
+# Web interface
+page_template: "literary_name_composition.html"
+findings_cache_key: "literary_name_composition_findings"
+api_endpoints:
+  - "/api/literary_name_composition/stats"
+  - "/api/literary_name_composition/work-analysis"
+  - "/api/literary_name_composition/category-comparison"
+  - "/api/literary_name_composition/role-prediction"
+  - "/api/literary_name_composition/character-lookup"
+
+# Expected outcomes
+effect_strength_expected: "medium_to_large"
+expected_patterns:
+  fiction_melodiousness: "high (60-70)"
+  nonfiction_melodiousness: "moderate (50-60, real names)"
+  gospels_melodiousness: "moderate (45-55, aramaic/hebrew)"
+  fiction_invented_pct: "20-40%"
+  nonfiction_invented_pct: "0-5%"
+  gospels_invented_pct: "5-10%"
+  protagonist_vs_antagonist: "protagonists more melodious"
+  survival_correlation: "melodious names survive more"
+
+# Quality thresholds
+quality_checks:
+  min_data_completeness: 0.85
+  max_missing_per_variable: 0.20
+  require_baseline_validation: true
+  require_cross_category_validation: true
+  require_effect_sizes: true
+  require_predictive_accuracy: true
+  min_prediction_accuracy: 0.60  # Better than chance (0.50)
+
+# Statistical methods
+statistical_tests:
+  - "one_way_anova"  # category differences
+  - "logistic_regression"  # role/outcome prediction
+  - "chi_square_test"  # name type distributions
+  - "t_test"  # role comparisons
+  - "correlation"  # name metrics vs outcomes
+  - "linear_regression"  # importance prediction
+  - "confusion_matrix"  # prediction accuracy
+
+# Status
+status: "active"
+innovation_rating: 4
+priority: "high"
+
+notes: |
+  Novel cross-domain analysis combining:
+  - Literary character role classification
+  - NLP entity extraction for name identification
+  - Predictive nominative determinism testing
+  - Cross-category comparisons (fiction/nonfiction/gospels)
+  - Invented vs real name phonetic patterns
+  
+  Key innovations:
+  - First systematic test of whether character roles can be predicted from names
+  - Comparison of gospels to modern literature (historical benchmark)
+  - Quantification of invented name proportion by category
+  - Character outcome prediction from name phonetics
+  
+  Expected findings:
+  - Fiction: Higher melodiousness, more invented names
+  - Protagonists: More melodious, common names than antagonists
+  - Gospels: Middle ground between fiction and nonfiction
+  - Predictive accuracy: 60-70% for role classification
+  - Survival: Positively correlated with melodiousness
+
+text_sources:
+  fiction:
+    - "Project Gutenberg contemporary fiction"
+    - "Mix of genres: literary, mystery, sci-fi, fantasy, romance"
+    - "Time range: 1900-present"
+  nonfiction:
+    - "Project Gutenberg biographies, memoirs, histories"
+    - "Real person names only"
+  gospels:
+    - "Matthew (canonical text)"
+    - "Mark (canonical text)"
+    - "Luke (canonical text)"
+

@@ -1,0 +1,29 @@
+{
+  "results": {
+    "sport": "basketball",
+    "n_athletes": 2000,
+    "avg_success": 53.92,
+    "correlations": {
+      "syllables": {
+        "r": -0.1909,
+        "p": 0.0,
+        "n": 2000
+      },
+      "length": {
+        "r": -0.1204,
+        "p": 0.0,
+        "n": 2000
+      },
+      "harshness": {
+        "r": 0.1964,
+        "p": 0.0,
+        "n": 2000
+      },
+      "memorability": {
+        "r": 0.1819,
+        "p": 0.0,
+        "n": 2000
+      }
+    }
+  }
+}

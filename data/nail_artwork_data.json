@@ -1,11 +1,11 @@
 {
   "metadata": {
     "title": "The Nail - Nominative Determinism Research Visualization",
-    "version": "1.0",
-    "domains_count": 17,
-    "total_entities": 847293,
+    "version": "1.1",
+    "domains_count": 18,
+    "total_entities": 848305,
     "generated_date": "2025-11-08",
-    "philosophical_statement": "Names pin fluid consciousness into fixed identity. From consensus view: beauty. From the angle of dissolution: the instrument of crucifixion."
+    "philosophical_statement": "Names shape reality through domain-specific formulas. From consensus view: beauty. From the angle of dissolution: complex cohort fractures."
   },
   "domains": [
     {
@@ -228,6 +228,19 @@
       "mechanism": "Media amplification bias",
       "nail_position": "vertical_mid",
       "violence_type": "resource_rationing"
+    },
+    {
+      "id": 18,
+      "name": "Adult Film (Visual)",
+      "category": "social_artistic",
+      "effect_size_r": 0.22,
+      "p_value": 0.001,
+      "sample_size": 1012,
+      "key_metric": "Genre×Name interactions: MILF 2.12 syl (-41%)",
+      "primary_names": ["Lisa Ann", "Brandi Love", "Riley Reid", "Asa Akira", "Angela White"],
+      "mechanism": "Domain-specific formula: Genre×Syllables cohort effects",
+      "nail_position": "heart_genre_fracture",
+      "violence_type": "cohort_differentiation"
     }
   ],
   "composition_rules": {

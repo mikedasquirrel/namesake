@@ -146,7 +146,7 @@ class FormulaEvolution:
         
         logger.info(f"Starting evolution of {formula_type} formulas")
         logger.info(f"Population: {self.population_size}, Generations: {self.n_generations}")
-        logger.info(f"Testing on domains: {[d.value for d in domains]}")
+        logger.info(f"Testing on domains: {[d.value if hasattr(d, 'value') else d for d in domains]}")
         
         history = EvolutionHistory(
             formula_type=formula_type,

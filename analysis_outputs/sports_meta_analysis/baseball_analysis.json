@@ -1,0 +1,29 @@
+{
+  "results": {
+    "sport": "baseball",
+    "n_athletes": 2000,
+    "avg_success": 52.86,
+    "correlations": {
+      "syllables": {
+        "r": -0.2297,
+        "p": 0.0,
+        "n": 2000
+      },
+      "length": {
+        "r": -0.1676,
+        "p": 0.0,
+        "n": 2000
+      },
+      "harshness": {
+        "r": 0.2206,
+        "p": 0.0,
+        "n": 2000
+      },
+      "memorability": {
+        "r": 0.2299,
+        "p": 0.0,
+        "n": 2000
+      }
+    }
+  }
+}

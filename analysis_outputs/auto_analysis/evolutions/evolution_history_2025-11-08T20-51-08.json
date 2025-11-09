@@ -1,0 +1,240 @@
+{
+  "formula_type": "phonetic",
+  "population_size": 50,
+  "n_generations": 50,
+  "mutation_rate": 0.1,
+  "generations": [
+    {
+      "generation_number": 0,
+      "population_size": 50,
+      "best_fitness": 0.29255822616802457,
+      "mean_fitness": 0.2753784661804083,
+      "fitness_std": 0.006071019712401465,
+      "best_individual": {
+        "formula_id": "phonetic_random_9102",
+        "weights": {
+          "harshness_to_angular": 1.0673638557428649,
+          "vowel_ratio_to_curves": 0.6168885803521564,
+          "plosive_to_hue": 0.6885340550873065,
+          "smoothness_to_symmetry": 0.9419441374982782,
+          "complexity_to_fractal": 0.9796501199554218,
+          "power_to_brightness": 1.052665896987351
+        },
+        "fitness": 0.29255822616802457,
+        "generation": 0,
+        "parent_ids": []
+      }
+    },
+    {
+      "generation_number": 1,
+      "population_size": 50,
+      "best_fitness": 0.2927242683738308,
+      "mean_fitness": 0.2813500621354178,
+      "fitness_std": 0.004409717922726125,
+      "best_individual": {
+        "formula_id": "phonetic_random_3795_x_phonetic_random_9102",
+        "weights": {
+          "harshness_to_angular": 1.0673638557428649,
+          "vowel_ratio_to_curves": 1.0919461834129713,
+          "plosive_to_hue": 1.4938026880665367,
+          "smoothness_to_symmetry": 0.9419441374982782,
+          "complexity_to_fractal": 0.9796501199554218,
+          "power_to_brightness": 0.8584306746283697
+        },
+        "fitness": 0.2927242683738308,
+        "generation": 1,
+        "parent_ids": [
+          "phonetic_random_3795",
+          "phonetic_random_9102"
+        ]
+      }
+    },
+    {
+      "generation_number": 2,
+      "population_size": 50,
+      "best_fitness": 0.2942437412334462,
+      "mean_fitness": 0.2855611609917234,
+      "fitness_std": 0.004620497167701807,
+      "best_individual": {
+        "formula_id": "phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_9102",
+        "weights": {
+          "harshness_to_angular": 1.0673638557428649,
+          "vowel_ratio_to_curves": 1.0919461834129713,
+          "plosive_to_hue": 0.6885340550873065,
+          "smoothness_to_symmetry": 0.9419441374982782,
+          "complexity_to_fractal": 0.9796501199554218,
+          "power_to_brightness": 0.8584306746283697
+        },
+        "fitness": 0.2942437412334462,
+        "generation": 2,
+        "parent_ids": [
+          "phonetic_random_3795_x_phonetic_random_9102",
+          "phonetic_random_9102"
+        ]
+      }
+    },
+    {
+      "generation_number": 3,
+      "population_size": 50,
+      "best_fitness": 0.29612913128969265,
+      "mean_fitness": 0.28947264033005454,
+      "fitness_std": 0.0034993242577141185,
+      "best_individual": {
+        "formula_id": "phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102",
+        "weights": {
+          "harshness_to_angular": 0.9569952840695001,
+          "vowel_ratio_to_curves": 1.0919461834129713,
+          "plosive_to_hue": 1.109578277975479,
+          "smoothness_to_symmetry": 0.9419441374982782,
+          "complexity_to_fractal": 0.9796501199554218,
+          "power_to_brightness": 0.8584306746283697
+        },
+        "fitness": 0.29612913128969265,
+        "generation": 3,
+        "parent_ids": [
+          "phonetic_random_3795_x_phonetic_random_9102",
+          "phonetic_random_6965_x_phonetic_random_9102"
+        ]
+      }
+    },
+    {
+      "generation_number": 4,
+      "population_size": 50,
+      "best_fitness": 0.296869993192895,
+      "mean_fitness": 0.29235397579725225,
+      "fitness_std": 0.002482670519985379,
+      "best_individual": {
+        "formula_id": "phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102",
+        "weights": {
+          "harshness_to_angular": 0.9569952840695001,
+          "vowel_ratio_to_curves": 1.0919461834129713,
+          "plosive_to_hue": 1.109578277975479,
+          "smoothness_to_symmetry": 0.9419441374982782,
+          "complexity_to_fractal": 0.9796501199554218,
+          "power_to_brightness": 1.052665896987351
+        },
+        "fitness": 0.296869993192895,
+        "generation": 4,
+        "parent_ids": [
+          "phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102",
+          "phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102"
+        ]
+      }
+    },
+    {
+      "generation_number": 5,
+      "population_size": 50,
+      "best_fitness": 0.2975773036392718,
+      "mean_fitness": 0.29473374168823957,
+      "fitness_std": 0.0014770145547850237,
+      "best_individual": {
+        "formula_id": "phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated",
+        "weights": {
+          "harshness_to_angular": 1.0673638557428649,
+          "vowel_ratio_to_curves": 0.97680522607166,
+          "plosive_to_hue": 1.109578277975479,
+          "smoothness_to_symmetry": 0.9672598839209474,
+          "complexity_to_fractal": 1.0051806425743,
+          "power_to_brightness": 1.052665896987351
+        },
+        "fitness": 0.2975773036392718,
+        "generation": 5,
+        "parent_ids": [
+          "phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated",
+          "phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102"
+        ]
+      }
+    },
+    {
+      "generation_number": 6,
+      "population_size": 50,
+      "best_fitness": 0.2975773036392718,
+      "mean_fitness": 0.29631048985600644,
+      "fitness_std": 0.0008104854211502574,
+      "best_individual": {
+        "formula_id": "phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated",
+        "weights": {
+          "harshness_to_angular": 1.0673638557428649,
+          "vowel_ratio_to_curves": 0.97680522607166,
+          "plosive_to_hue": 1.109578277975479,
+          "smoothness_to_symmetry": 0.9672598839209474,
+          "complexity_to_fractal": 1.0051806425743,
+          "power_to_brightness": 1.052665896987351
+        },
+        "fitness": 0.2975773036392718,
+        "generation": 6,
+        "parent_ids": [
+          "phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated"
+        ]
+      }
+    },
+    {
+      "generation_number": 7,
+      "population_size": 50,
+      "best_fitness": 0.2975773036392718,
+      "mean_fitness": 0.2970146056612559,
+      "fitness_std": 0.00047057370145825374,
+      "best_individual": {
+        "formula_id": "phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated",
+        "weights": {
+          "harshness_to_angular": 1.0673638557428649,
+          "vowel_ratio_to_curves": 0.97680522607166,
+          "plosive_to_hue": 1.109578277975479,
+          "smoothness_to_symmetry": 0.9672598839209474,
+          "complexity_to_fractal": 1.0051806425743,
+          "power_to_brightness": 1.052665896987351
+        },
+        "fitness": 0.2975773036392718,
+        "generation": 7,
+        "parent_ids": [
+          "phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated"
+        ]
+      }
+    },
+    {
+      "generation_number": 8,
+      "population_size": 50,
+      "best_fitness": 0.29784504217556307,
+      "mean_fitness": 0.29737913516586756,
+      "fitness_std": 0.00031157129862481066,
+      "best_individual": {
+        "formula_id": "phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_9102_x_phonetic_random_8576_x_phonetic_random_7697_mutated_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_3795_x_phonetic_random_9102_mutated_x_phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_x_phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated",
+        "weights": {
+          "harshness_to_angular": 1.0200659939176364,
+          "vowel_ratio_to_curves": 0.97680522607166,
+          "plosive_to_hue": 1.109578277975479,
+          "smoothness_to_symmetry": 0.9672598839209474,
+          "complexity_to_fractal": 0.9796501199554218,
+          "power_to_brightness": 1.052665896987351
+        },
+        "fitness": 0.29784504217556307,
+        "generation": 8,
+        "parent_ids": [
+          "phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_9102_x_phonetic_random_8576_x_phonetic_random_7697_mutated_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_3795_x_phonetic_random_9102_mutated",
+          "phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_x_phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated"
+        ]
+      }
+    }
+  ],
+  "converged": true,
+  "convergence_generation": 9,
+  "final_best_fitness": 0.29784504217556307,
+  "best_formula": {
+    "formula_id": "phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_9102_x_phonetic_random_8576_x_phonetic_random_7697_mutated_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_3795_x_phonetic_random_9102_mutated_x_phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_x_phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated",
+    "weights": {
+      "harshness_to_angular": 1.0200659939176364,
+      "vowel_ratio_to_curves": 0.97680522607166,
+      "plosive_to_hue": 1.109578277975479,
+      "smoothness_to_symmetry": 0.9672598839209474,
+      "complexity_to_fractal": 0.9796501199554218,
+      "power_to_brightness": 1.052665896987351
+    },
+    "fitness": 0.29784504217556307,
+    "generation": 8,
+    "parent_ids": [
+      "phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_9102_x_phonetic_random_8576_x_phonetic_random_7697_mutated_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_3795_x_phonetic_random_9102_mutated",
+      "phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_x_phonetic_random_4975_x_phonetic_random_1477_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_5124_x_phonetic_random_8973_x_phonetic_random_8693_x_phonetic_random_6965_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated_x_phonetic_random_3795_x_phonetic_random_9102_x_phonetic_random_6965_x_phonetic_random_9102_x_phonetic_random_1395_x_phonetic_random_9518_x_phonetic_random_9102_mutated"
+    ]
+  },
+  "timestamp": "2025-11-08T20:51:08.263971"
+}
