@@ -22,9 +22,11 @@ This guide will help you deploy the Flask application to PythonAnywhere.
 
 ```bash
 cd ~
-git clone https://github.com/yourusername/FlaskProject.git
+git clone https://github.com/mikedasquirrel/namesake.git FlaskProject
 cd FlaskProject
 ```
+
+Note: We clone as "FlaskProject" locally but the GitHub repo is "namesake"
 
 ---
 

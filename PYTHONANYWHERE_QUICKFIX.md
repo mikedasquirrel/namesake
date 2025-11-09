@@ -3,7 +3,11 @@
 ## 🚀 Pull Latest Fixes and Deploy
 
 ```bash
-# 1. Pull the fixes from git
+# 1. If you haven't cloned yet:
+cd ~
+git clone https://github.com/mikedasquirrel/namesake.git FlaskProject
+
+# 2. Or if already cloned, pull the fixes:
 cd ~/FlaskProject
 git pull origin main
 
