@@ -28,6 +28,11 @@ if project_home not in sys.path:
 os.environ['FLASK_ENV'] = 'production'
 os.environ['FLASK_DEBUG'] = '0'
 
+# Create logs directory if it doesn't exist (MUST be before logging setup)
+logs_dir = os.path.join(project_home, 'logs')
+if not os.path.exists(logs_dir):
+    os.makedirs(logs_dir)
+
 # Import the Flask app
 from app import app as application
 
@@ -41,11 +46,6 @@ logging.basicConfig(
         logging.StreamHandler()
     ]
 )
-
-# Create logs directory if it doesn't exist
-logs_dir = os.path.join(project_home, 'logs')
-if not os.path.exists(logs_dir):
-    os.makedirs(logs_dir)
 
 # Initialize database if needed (for first run)
 with application.app_context():

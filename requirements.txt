@@ -35,11 +35,13 @@ nltk==3.8.1
 # Using direct HTTP requests to Project Gutenberg instead
 
 # Advanced Nominative Traits - Research Excellence Dependencies
-pymc3==3.11.5
+# pymc3 removed due to numpy version conflicts - upgrade to pymc>=5.0 if needed
+# pymc3==3.11.5  # Requires numpy<1.22.2, incompatible with other packages
 arviz==0.16.1
-transformers==4.35.2
-torch==2.1.1
-torchvision==0.16.1
+# transformers, torch, torchvision commented out for faster deployment - uncomment if ML features needed
+# transformers==4.35.2
+# torch==2.1.1
+# torchvision==0.16.1
 xgboost==2.0.2
 shap==0.43.0
 lime==0.2.0.1
