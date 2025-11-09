@@ -615,8 +615,8 @@ def get_live_recommendations():
                     if not score_result or 'overall_score' not in score_result:
                         continue
                     
-                    # Only include if meets threshold
-                    if score_result['overall_score'] >= 60:
+                    # Only include if meets threshold (lowered to capture more opportunities)
+                    if score_result['overall_score'] >= 45:
                         # Determine priority
                         if score_result['overall_score'] >= 80 and score_result['confidence'] >= 80:
                             priority = 5
