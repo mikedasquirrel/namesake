@@ -1,0 +1,133 @@
+{
+  "routes": {
+    "total": 332,
+    "by_category": {
+      "Core": 2,
+      "Other Research": 56,
+      "Markets": 4,
+      "Sports": 9,
+      "API": 256,
+      "Betting": 2,
+      "Natural Events": 3
+    }
+  },
+  "templates": {
+    "total": 76,
+    "used": 76,
+    "unused": [
+      "404.html",
+      "500.html",
+      "base.html",
+      "betting_performance.html",
+      "literary_name_composition.html",
+      "nba_findings.html",
+      "research_overview.html",
+      "sports_roster_locality.html",
+      "synchronicity_findings.html"
+    ],
+    "missing": [
+      "bands_lineage_theory.html",
+      "bands_master_synthesis.html",
+      "bands_phonetic_diplomacy.html",
+      "bands_stats_guide.html",
+      "error.html",
+      "mission_insights.html",
+      "portfolio.html",
+      "system.html",
+      "tools.html"
+    ]
+  },
+  "analyzers": {
+    "total": 148,
+    "used_in_app": 58,
+    "unused_in_app": 90,
+    "unused_list": [
+      "adult_film_interaction_analyzer",
+      "adult_film_outcome_predictor",
+      "advanced_analyzer",
+      "band_cross_cultural_analyzer",
+      "band_exonym_pronunciation_analyzer",
+      "band_iatrogenic_effects_analyzer",
+      "band_members_statistical_analyzer",
+      "bayesian_live_updater",
+      "betting_ev_calculator",
+      "betting_market_features",
+      "biblical_genre_discriminator",
+      "blind_classifier",
+      "causal_mechanism_tester",
+      "character_ensemble_analyzer",
+      "cognomen_analyzer",
+      "comparative_analyzer",
+      "contextual_amplifiers",
+      "contextual_factors_analyzer",
+      "convergence_analyzer",
+      "cross_domain_meta_analyzer"
+    ]
+  },
+  "data": {
+    "raw_files": 172,
+    "processed_files": 18,
+    "json_files": 27,
+    "csv_files": 33,
+    "parquet_files": 10,
+    "directories": [
+      "etymology",
+      "demographic_data",
+      "crypto_trial",
+      "international_relations",
+      "mental_health_nomenclature",
+      "cross_linguistic",
+      "cultural_commonality",
+      "silence_test",
+      "rebrand_experiments",
+      "surveys",
+      "media_naming",
+      "predictions_2026",
+      "ancient_texts",
+      "processed",
+      "synchronicity",
+      "raw"
+    ]
+  },
+  "database": {
+    "sqlite_instance": false,
+    "duckdb": true,
+    "sqlite_size_mb": 0
+  },
+  "documentation": {
+    "root_md_files": 76,
+    "organized_md_files": 241,
+    "root_files": [
+      "LIVE_BETTING_COMPLETE_GUIDE.md",
+      "REAL_DATA_NOW_LIVE.md",
+      "NAVIGATION_GUIDE.md",
+      "NEXT_STEPS_WORLD_CUP_HORSE_RACING.md",
+      "EXTRAORDINARY_SESSION_FINALE.md",
+      "SESSION_COMPLETE_STATUS.md",
+      "MICRO_SUBDOMAIN_COMPLETE.md",
+      "EXECUTE_LABEL_NOMINATIVE.md",
+      "MISSING_NOMINATIVE_ELEMENTS_COMPLETE.md",
+      "CONTEXTUAL_NOMINATIVE_BREAKTHROUGH.md",
+      "LABEL_NOMINATIVE_COMPLETE_SUMMARY.md",
+      "LABEL_NOMINATIVE_README.md",
+      "VISIBILITY_RECOGNITION_FRAMEWORK.md",
+      "FINAL_SYSTEM_WITH_SOCCER_VISIBILITY.md",
+      "NOMINATIVE_ENSEMBLE_COMPLETE.md",
+      "NAVIGATION_INDEX.md",
+      "CROSS_SPORT_RELATIONAL_COMPLETE.md",
+      "ALL_COMPLETE_FINAL.md",
+      "RELATIONAL_FRAMEWORK_COMPLETE.md",
+      "ABSOLUTE_FINAL_SYSTEM.md",
+      "README_FINAL.md",
+      "FINAL_COMPLETE_SYSTEM_SUMMARY.md",
+      "REPRODUCIBLE_METHODOLOGY.md",
+      "START_HERE_NOW.md",
+      "ADAPTIVE_FORMULA_FRAMEWORK.md",
+      "MMA_TENNIS_VALIDATION_COMPLETE.md",
+      "LIVE_SYSTEM_QUICKSTART.md",
+      "THE_COMPLETE_SYSTEM.md",
+      "LIVE_BETTING_SYSTEM_COMPLETE.md",
+      "RIGOR_ENHANCEMENTS_COMPLETE.md"
+    ]
+  }
+}

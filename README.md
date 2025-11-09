@@ -1,190 +1,132 @@
-# 🏆 Sports Betting Intelligence System
+# Nominative Determinism Research Platform
 
-**The Complete Adaptive Relational Betting Framework**
+A comprehensive research platform studying the relationship between names and outcomes across multiple domains.
 
-**Performance:** 48-62% ROI | **Evidence:** p<10⁻¹⁵ | **Sample:** 21,473 entities across 18 domains
+## Overview
 
----
+This project investigates nominative determinism—the hypothesis that names influence life outcomes—across 18+ domains including sports, natural disasters, cryptocurrencies, and more. The platform combines data collection, statistical analysis, and interactive visualization to explore these patterns.
 
-## ⚡ Quick Start
+## Key Features
 
-\`\`\`bash
+- **Multi-Domain Analysis**: Research across sports, hurricanes, cryptocurrencies, MTG cards, and more
+- **Statistical Framework**: Rigorous analysis with proper controls and validation
+- **Interactive Dashboards**: Explore findings through web-based visualizations
+- **Sports Betting Intelligence**: Apply linguistic analysis to sports predictions
+- **Reproducible Research**: Complete methodology documentation
+
+## Quick Start
+
+```bash
+# Install dependencies
+pip install -r requirements.txt
+
+# Run the Flask application
 python3 app.py
-\`\`\`
 
-**Then visit:** http://localhost:5000/live-betting
+# Visit in browser
+http://localhost:5000
+```
 
----
+See [GETTING_STARTED.md](GETTING_STARTED.md) for detailed setup instructions.
 
-## 🎯 What This Is
+## Project Structure
 
-The most comprehensive sports betting intelligence system ever built, featuring:
+```
+FlaskProject/
+├── app.py                 # Main Flask application (being refactored into blueprints)
+├── analyzers/             # Statistical analysis modules (148 modules)
+├── collectors/            # Data collection modules
+├── core/                  # Core models and configuration
+├── data/                  # Raw and processed datasets
+├── templates/             # HTML templates (76 templates)
+├── static/                # CSS, JS, and assets
+├── docs_organized/        # Organized documentation (241 files)
+├── docs_archive/          # Archived documentation (76 files)
+└── requirements.txt       # Python dependencies
+```
 
-- **18 domains validated** (21,473 entities total)
-- **6 sports operational** (MMA, Football, Basketball, Baseball, Soccer, Tennis)
-- **450+ relational variables** (opponent, history, context, visibility)
-- **3 frameworks** (Universal 1.344, Adaptive, Relational)
-- **48-62% portfolio ROI** (validated)
-- **Live-connected** (real-time recommendations)
-- **Fully reproducible** (complete methodology)
+## Documentation
 
----
+- **Setup**: [GETTING_STARTED.md](GETTING_STARTED.md) - Installation and configuration
+- **Organized Docs**: [docs_organized/](docs_organized/) - Comprehensive documentation by category
+- **Audit Report**: [AUDIT_REPORT.json](AUDIT_REPORT.json) - Current project status
 
-## 🔥 Key Discoveries
+### Documentation Organization
 
-**1. MMA Shows Record Effect**
-- r=0.568 (highest correlation measured)
-- Validates: Contact=10 → Maximum harshness effect
-- ROI: 52-68%
+- `docs_organized/01_START_HERE/` - Entry points and quick starts
+- `docs_organized/02_DISCOVERIES/` - Research findings
+- `docs_organized/03_DOMAINS/` - Domain-specific analyses
+- `docs_organized/04_THEORY/` - Theoretical frameworks
+- `docs_organized/07_IMPLEMENTATION/` - Technical documentation
 
-**2. Formulas Are Adaptive (NOT Fixed)**
-- MMA: 2.22×Harshness (combat sport)
-- Tennis: 0.08×Harshness (precision sport)
-- 27.8× difference proves adaptation
+## Current Status
 
-**3. Relationality is Critical**
-- Jon "Bones" Jones vs opponent: 11.3× amplification from full context
-- 450+ variables (opponent, nickname, history, market, visibility)
-- +10-15% ROI from capturing ALL relationships
+**⚠️ Note**: This project is undergoing major refactoring to improve maintainability:
 
-**4. Visibility Matters**
-- Soccer: Short jersey name +3.0 points
-- Camera time amplifies memorability 1.4-2.3×
-- Jersey sales correlate with success
+- ✅ Audit complete (332 routes, 148 analyzers, 76 templates)
+- ✅ Documentation archived and organized
+- 🔄 Splitting monolithic app.py into blueprints
+- 🔄 Consolidating analyzer modules
+- 🔄 Improving test coverage
 
----
+See [AUDIT_REPORT.json](AUDIT_REPORT.json) for detailed analysis.
 
-## 📊 Performance by Sport
+## Key Domains
 
-| Sport | Correlation | ROI | Sample Size |
-|-------|-------------|-----|-------------|
-| **MMA** | r=0.568 | 52-68% | 1,200 |
-| Football | r=0.427 | 46-54% | 2,000 |
-| Basketball | r=0.196 | 42-50% | 2,000 |
-| Soccer | r=0.32† | 37-45% | 1,500 |
-| Baseball | r=0.221 | 30-35% | 2,000 |
-| Tennis | r=0.082 | 18-28% | 1,200 |
+### Sports
+- NFL, NBA, MLB player name analysis
+- Sports betting intelligence system
+- Cross-sport meta-analysis
 
-†Predicted with visibility
+### Natural Events
+- Hurricane naming and casualty prediction
+- Earthquake nomenclature studies
 
-**Portfolio: 48-62% ROI**
+### Markets
+- Cryptocurrency name analysis
+- Magic: The Gathering card names
+- Board game title analysis
 
----
+### Human Systems
+- Election candidate names
+- Immigration patterns
+- Band and artist names
+- Academic researcher names
 
-## 🎓 Documentation
+## Research Methodology
 
-**To Start:**
-- START_HERE_NOW.md
-- LIVE_SYSTEM_QUICKSTART.md
+The platform employs:
+- Linguistic feature extraction (syllables, phonemes, harshness, memorability)
+- Statistical modeling with appropriate controls
+- Cross-validation and replication studies
+- Meta-analysis across domains
 
-**To Understand:**
-- ADAPTIVE_FORMULA_FRAMEWORK.md (proves formulas adapt)
-- RELATIONAL_FRAMEWORK_COMPLETE.md (shows full context)
-- VISIBILITY_RECOGNITION_FRAMEWORK.md (recognition layer)
+## Technology Stack
 
-**To Recreate:**
-- REPRODUCIBLE_METHODOLOGY.md (exact steps)
+- **Backend**: Flask, SQLAlchemy, SQLite/DuckDB
+- **Analysis**: NumPy, Pandas, SciPy, scikit-learn
+- **NLP**: NLTK, spaCy
+- **Visualization**: Plotly, Matplotlib
+- **Frontend**: HTML/CSS/JS with custom styling
 
-**To Validate:**
-- FOR_SKEPTICAL_STATISTICIAN.md (p<10⁻¹⁵ proof)
+## Contributing
 
-**Complete Index:**
-- NAVIGATION_INDEX.md (all 28 documents)
+This is an active research project. Key areas for contribution:
+1. Blueprint refactoring (splitting app.py)
+2. Analyzer consolidation (reducing duplication)
+3. Test coverage improvement
+4. Data quality validation
+5. UI/UX enhancements
 
----
+## License
 
-## 📦 System Components
+Research purposes. See individual data sources for licensing.
 
-**Code:** 42 modules, 13,000+ lines
-**Features:** 450+ relational variables
-**Formulas:** Adaptive (15 positions, 20+ situations)
-**Data:** 21,473 entities, 18 domains
-**Stats:** p<10⁻¹⁵, 82% replication
+## Contact
 
----
-
-## 🚀 Expected Returns
-
-**$10,000 Bankroll:**
-- Year 1: $14,820 (+$4,820)
-- Year 2: $21,974 (+$7,154)
-- Year 3: $32,563 (+$10,589)
-
-**3-Year: +226% return**
-
----
-
-## 📊 Statistical Foundation
-
-- 21,473 entities analyzed
-- 18 independent domains
-- p<10⁻¹⁵ meta-significance
-- 82% replication rate
-- R²=0.358 cross-validated
-- 75-year stability
-- 10 confounds ruled out
-
-**Bulletproof evidence.**
+For questions about the research or methodology, see the organized documentation in `docs_organized/`.
 
 ---
 
-## 🏆 Key Features
-
-✅ Real-time recommendations (15-min refresh)  
-✅ Historical tracking (season-by-season)  
-✅ Portfolio management  
-✅ Position-specific formulas (15)  
-✅ Sweet spot detection (20+)  
-✅ Relational analysis (450+ variables)  
-✅ Visibility optimization  
-✅ Complete reproducibility  
-✅ Live API integration  
-✅ Beautiful dashboards  
-
----
-
-## 📖 Research Papers Ready
-
-1. "Universal Constant of Nominative Effects (1.344)" - 18 domains
-2. "Nominative Determinism in Combat Sports" - MMA r=0.568
-3. "Adaptive Formula Framework" - 27.8× weight variation
-4. "Relational Nominative Analysis" - 450+ contextual variables
-
----
-
-## 🎯 Quick Links
-
-**Dashboards:**
-- /live-betting - Real-time recommendations
-- /portfolio-history - Historical performance
-- /betting-performance - Analytics
-
-**API:**
-- /api/betting/live-recommendations
-- /api/betting/portfolio-history
-- /api/betting/opportunities
-
----
-
-## 🌟 The Bottom Line
-
-**From one question to this:**
-- 42 modules built
-- 18 domains validated
-- 450+ variables captured
-- 48-62% ROI achieved
-- p<10⁻¹⁵ proven
-- Fully reproducible
-- Completely adaptive
-- Entirely relational
-- Live and operational
-
-**Built in one extraordinary session.**
-
-**Start now:** \`python3 app.py\`
-
-🎯 **The complete system is yours.**
-
----
-
-**License:** Research purposes | **Status:** Production-ready | **ROI:** 48-62%
+**Last Updated**: November 2025  
+**Status**: Active Development - Refactoring Phase
