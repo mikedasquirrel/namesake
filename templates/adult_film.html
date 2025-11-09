@@ -313,6 +313,179 @@
     </div>
 </div>
 
+<!-- Comprehensive Interpretations -->
+{% if interpretations %}
+<div class="glass card" style="padding: 2.5rem; margin-top: 2rem; background: linear-gradient(135deg, rgba(168, 85, 247, 0.05), rgba(236, 72, 153, 0.05));">
+    <h2 style="margin-top: 0; color: #a855f7; margin-bottom: 2rem;">📊 Comprehensive Analysis & Interpretations</h2>
+    
+    <!-- Primary Finding -->
+    <div style="background: rgba(239, 68, 68, 0.1); padding: 2rem; border-radius: 8px; border-left: 4px solid #ef4444; margin-bottom: 2rem;">
+        <h3 style="color: #ef4444; margin-top: 0; font-size: 1.25rem;">{{ interpretations.primary_finding.title }}</h3>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+            <div>
+                <div style="font-size: 2rem; font-weight: 700; color: #ef4444;">r = {{ interpretations.primary_finding.correlation }}</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">Correlation</div>
+            </div>
+            <div>
+                <div style="font-size: 2rem; font-weight: 700; color: #ef4444;">p = {{ interpretations.primary_finding.p_value }}</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">Significance</div>
+            </div>
+            <div>
+                <div style="font-size: 2rem; font-weight: 700; color: #ef4444;">{{ interpretations.primary_finding.sample }}</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">Performers</div>
+            </div>
+        </div>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin: 0;">
+            <strong>Interpretation:</strong> {{ interpretations.primary_finding.interpretation }}
+        </p>
+    </div>
+    
+    <!-- Visibility Hypothesis -->
+    <div style="background: rgba(168, 85, 247, 0.08); padding: 2rem; border-radius: 8px; margin-bottom: 2rem;">
+        <h3 style="color: #a855f7; margin-top: 0; font-size: 1.25rem;">{{ interpretations.visibility_hypothesis.title }}</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem;">{{ interpretations.visibility_hypothesis.description }}</p>
+        
+        <div style="background: rgba(0, 0, 0, 0.2); padding: 1rem; border-radius: 6px; font-family: 'Courier New', monospace; margin-bottom: 1.5rem;">
+            <code style="color: #a855f7;">{{ interpretations.visibility_hypothesis.formula }}</code>
+        </div>
+        
+        <table style="width: 100%; border-collapse: collapse;">
+            <thead>
+                <tr style="border-bottom: 2px solid #a855f7;">
+                    <th style="padding: 0.75rem; text-align: left; color: #a855f7;">Domain</th>
+                    <th style="padding: 0.75rem; text-align: center; color: #a855f7;">Visibility</th>
+                    <th style="padding: 0.75rem; text-align: center; color: #a855f7;">Effect (r)</th>
+                    <th style="padding: 0.75rem; text-align: left; color: #a855f7;">Interpretation</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for evidence in interpretations.visibility_hypothesis.evidence %}
+                <tr style="border-bottom: 1px solid rgba(168, 85, 247, 0.2);">
+                    <td style="padding: 0.75rem;"><strong>{{ evidence.domain }}</strong></td>
+                    <td style="padding: 0.75rem; text-align: center;">{{ evidence.visibility }}</td>
+                    <td style="padding: 0.75rem; text-align: center; font-weight: 700; {% if evidence.effect_size == 0.00 %}color: #ef4444;{% else %}color: #10b981;{% endif %}">{{ evidence.effect_size }}</td>
+                    <td style="padding: 0.75rem; font-size: 0.9rem;">{{ evidence.interpretation }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    
+    <!-- Genre Clustering Details -->
+    <div style="background: rgba(16, 185, 129, 0.08); padding: 2rem; border-radius: 8px; margin-bottom: 2rem;">
+        <h3 style="color: #10b981; margin-top: 0; font-size: 1.25rem;">{{ interpretations.genre_clustering.title }}</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem;">{{ interpretations.genre_clustering.description }}</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+            {% for genre in interpretations.genre_clustering.genres %}
+            <div style="background: rgba({% if loop.index <= 3 %}16, 185, 129{% else %}107, 114, 128{% endif %}, 0.1); padding: 1.25rem; border-radius: 8px; border-left: 3px solid {% if loop.index <= 3 %}#10b981{% else %}#6b7280{% endif %};">
+                <h4 style="color: {% if loop.index <= 3 %}#10b981{% else %}#6b7280{% endif %}; margin: 0 0 0.75rem 0; font-size: 1.05rem;">{{ genre.name }}</h4>
+                <div style="font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">
+                    <p style="margin: 0.25rem 0;"><strong>N:</strong> {{ genre.n }} performers</p>
+                    <p style="margin: 0.25rem 0;"><strong>Mean Syllables:</strong> {{ "%.2f"|format(genre.mean_syllables) }}</p>
+                    {% if genre.career_years %}
+                    <p style="margin: 0.25rem 0;"><strong>Career:</strong> {{ "%.1f"|format(genre.career_years) }} years</p>
+                    {% endif %}
+                    <p style="margin: 0.25rem 0;"><strong>Pattern:</strong> {{ genre.pattern }}</p>
+                    {% if genre.examples %}
+                    <p style="margin: 0.25rem 0;"><strong>Examples:</strong> {{ genre.examples|join(', ') }}</p>
+                    {% endif %}
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div style="background: rgba(168, 85, 247, 0.05); padding: 1.25rem; border-radius: 8px; border-left: 3px solid #a855f7;">
+            <p style="margin: 0; color: var(--text-secondary); line-height: 1.7;"><strong>Interpretation:</strong> {{ interpretations.genre_clustering.interpretation }}</p>
+        </div>
+    </div>
+    
+    <!-- Tragic Outcomes Analysis -->
+    <div style="background: rgba(239, 68, 68, 0.05); padding: 2rem; border-radius: 8px; margin-bottom: 2rem;">
+        <h3 style="color: #ef4444; margin-top: 0; font-size: 1.25rem;">{{ interpretations.tragic_outcomes.title }}</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1rem;">{{ interpretations.tragic_outcomes.description }}</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+            <div style="text-align: center; padding: 1rem; background: rgba(0, 0, 0, 0.2); border-radius: 6px;">
+                <div style="font-size: 1.75rem; font-weight: 700; color: #ef4444;">{{ interpretations.tragic_outcomes.cases_tracked }}</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">Cases Tracked</div>
+            </div>
+            <div style="text-align: center; padding: 1rem; background: rgba(0, 0, 0, 0.2); border-radius: 6px;">
+                <div style="font-size: 1.75rem; font-weight: 700; color: #ef4444;">{{ "%.2f"|format(interpretations.tragic_outcomes.analysis.tragic_syllables) }}</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">Tragic Syllables</div>
+            </div>
+            <div style="text-align: center; padding: 1rem; background: rgba(0, 0, 0, 0.2); border-radius: 6px;">
+                <div style="font-size: 1.75rem; font-weight: 700; color: #10b981;">Not Sig</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">Statistical Test</div>
+            </div>
+        </div>
+        
+        <div style="background: rgba(16, 185, 129, 0.1); padding: 1.25rem; border-radius: 8px; border-left: 3px solid #10b981;">
+            <p style="margin: 0; font-weight: 700; color: #10b981; margin-bottom: 0.5rem;">Reassuring Finding</p>
+            <p style="margin: 0; color: var(--text-secondary); line-height: 1.7;">{{ interpretations.tragic_outcomes.interpretation }}</p>
+        </div>
+    </div>
+    
+    <!-- Language & Authenticity -->
+    <div style="background: rgba(99, 102, 241, 0.08); padding: 2rem; border-radius: 8px; margin-bottom: 2rem;">
+        <h3 style="color: #6366f1; margin-top: 0; font-size: 1.25rem;">{{ interpretations.language_authenticity.title }}</h3>
+        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem;">{{ interpretations.language_authenticity.description }}</p>
+        
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.5rem;">
+            {% for lang, pct in interpretations.language_authenticity.distribution.items() %}
+            <div style="text-align: center; padding: 1rem; background: rgba(99, 102, 241, 0.1); border-radius: 6px;">
+                <div style="font-size: 2rem; font-weight: 700; color: #6366f1;">{{ pct }}%</div>
+                <div style="font-size: 0.85rem; color: var(--text-muted);">{{ lang }}</div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <ul style="margin-left: 1.5rem; color: var(--text-secondary); line-height: 1.8;">
+            {% for insight in interpretations.language_authenticity.insights %}
+            <li>{{ insight }}</li>
+            {% endfor %}
+        </ul>
+        
+        <div style="background: rgba(168, 85, 247, 0.08); padding: 1.25rem; border-radius: 8px; border-left: 3px solid #a855f7; margin-top: 1rem;">
+            <p style="margin: 0; color: var(--text-secondary); line-height: 1.7;"><strong>Hypothesis:</strong> {{ interpretations.language_authenticity.hypothesis }}</p>
+        </div>
+    </div>
+    
+    <!-- Syllable Distribution Breakdown -->
+    <div style="background: rgba(236, 72, 153, 0.08); padding: 2rem; border-radius: 8px; margin-bottom: 2rem;">
+        <h3 style="color: #ec4899; margin-top: 0; font-size: 1.25rem;">{{ interpretations.syllable_distribution.title }}</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
+            {% for item in interpretations.syllable_distribution.breakdown %}
+            <div style="text-align: center; padding: 1.25rem; background: rgba(236, 72, 153, 0.1); border-radius: 8px; {% if item.note %}border: 2px solid #ec4899;{% endif %}">
+                <div style="font-size: 2rem; font-weight: 700; color: #ec4899;">{{ "%.1f"|format(item.percentage) }}%</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">{{ item.syllables }} Syllable{% if item.syllables != 1 %}s{% endif %}</div>
+                <div style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.25rem;">{{ item.count }} performers</div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <p style="color: var(--text-secondary); margin: 0; line-height: 1.7;">{{ interpretations.syllable_distribution.interpretation }}</p>
+    </div>
+    
+    <!-- Data Substantiation -->
+    <div style="background: rgba(16, 185, 129, 0.05); padding: 2rem; border-radius: 8px;">
+        <h3 style="color: #10b981; margin-top: 0; font-size: 1.25rem;">{{ interpretations.data_substantiation.title }}</h3>
+        
+        <div style="line-height: 1.8; color: var(--text-secondary);">
+            <p><strong>Source:</strong> {{ interpretations.data_substantiation.source }}</p>
+            <p><strong>Collection method:</strong> {{ interpretations.data_substantiation.collection_method }}</p>
+            <p><strong>Metrics:</strong> {{ interpretations.data_substantiation.metrics }}</p>
+            <p><strong>Sample:</strong> {{ interpretations.data_substantiation.sample }}</p>
+            <p><strong>Coverage:</strong> {{ interpretations.data_substantiation.coverage }}</p>
+            <p><strong>Total reach:</strong> {{ interpretations.data_substantiation.total_reach }}</p>
+            <p><strong>Statistical power:</strong> {{ interpretations.data_substantiation.statistical_power }}</p>
+            <p style="margin-bottom: 0;"><strong>Conclusion:</strong> {{ interpretations.data_substantiation.conclusion }}</p>
+        </div>
+    </div>
+</div>
+{% endif %}
+
 </div>
 
 {% endblock %}
