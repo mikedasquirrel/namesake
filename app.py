@@ -629,39 +629,39 @@ def get_live_recommendations():
                         
                         # Create real recommendation
                         recommendation = {
-                        'player_name': athlete['name'],
-                        'sport': sport,
-                        'position': athlete.get('position', 'Player'),
-                        'final_score': score_result['overall_score'],
-                        'final_confidence': score_result['confidence'],
-                        'expected_roi': round((score_result['overall_score'] - 50) * 0.6, 1),
-                        'cumulative_multiplier': score_result['sport_weight'],
-                        'priority': priority,
-                        'recommendation': f"{'STRONG BET' if priority == 5 else 'GOOD BET' if priority == 4 else 'MODERATE BET'} - BET {score_result['sport_weight']:.1f}× size",
-                        'prop_available': {
-                            'prop_type': athlete.get('prop_type', 'performance'),
-                            'line': athlete.get('prop_line', athlete.get('season_avg', 0)),
-                            'over_odds': -110,
-                            'under_odds': -110
-                        },
-                        'game': {
-                            'home_team': 'Home Team',
-                            'away_team': 'Away Team',
-                            'broadcast': 'ESPN'
-                        },
-                        'metadata': {
-                            'contexts_summary': self._generate_contexts(score_result),
-                            'linguistic_features': athlete['linguistic_features']
-                        },
-                        'layer_breakdown': {
-                            'layer1_base': {
-                                'score': score_result['overall_score'],
-                                'confidence': score_result['confidence']
+                            'player_name': athlete['name'],
+                            'sport': sport,
+                            'position': athlete.get('position', 'Player'),
+                            'final_score': score_result['overall_score'],
+                            'final_confidence': score_result['confidence'],
+                            'expected_roi': round((score_result['overall_score'] - 50) * 0.6, 1),
+                            'cumulative_multiplier': score_result['sport_weight'],
+                            'priority': priority,
+                            'recommendation': f"{'STRONG BET' if priority == 5 else 'GOOD BET' if priority == 4 else 'MODERATE BET'} - BET {score_result['sport_weight']:.1f}× size",
+                            'prop_available': {
+                                'prop_type': athlete.get('prop_type', 'performance'),
+                                'line': athlete.get('prop_line', athlete.get('season_avg', 0)),
+                                'over_odds': -110,
+                                'under_odds': -110
                             },
-                            'layer2_universal': {'ratio_used': 1.344},
-                            'layer3_opponent': {'edge': round((score_result['overall_score'] - 60) * 0.3, 1)},
-                            'layer4_context': {'multiplier': score_result['sport_weight']},
-                            'layer6_market': {'signal': 'NEUTRAL'}
+                            'game': {
+                                'home_team': 'Home Team',
+                                'away_team': 'Away Team',
+                                'broadcast': 'ESPN'
+                            },
+                            'metadata': {
+                                'contexts_summary': app._generate_contexts(score_result),
+                                'linguistic_features': athlete['linguistic_features']
+                            },
+                            'layer_breakdown': {
+                                'layer1_base': {
+                                    'score': score_result['overall_score'],
+                                    'confidence': score_result['confidence']
+                                },
+                                'layer2_universal': {'ratio_used': 1.344},
+                                'layer3_opponent': {'edge': round((score_result['overall_score'] - 60) * 0.3, 1)},
+                                'layer4_context': {'multiplier': score_result['sport_weight']},
+                                'layer6_market': {'signal': 'NEUTRAL'}
                             }
                         }
                         
@@ -689,14 +689,18 @@ def get_live_recommendations():
         logger.error(f"Error generating live recommendations: {e}")
         return jsonify({'error': str(e)}), 500
 
-def _generate_contexts(score_result):
+# Helper function for context generation
+def _generate_contexts_helper(score_result):
     """Generate context summary from score"""
     contexts = []
-    if score_result['overall_score'] > 75:
+    if score_result.get('overall_score', 0) > 75:
         contexts.append('⭐ High Quality')
-    if score_result['confidence'] > 75:
+    if score_result.get('confidence', 0) > 75:
         contexts.append('✅ High Confidence')
     return ' • '.join(contexts) if contexts else 'Standard'
+
+# Make it available to app
+app._generate_contexts = _generate_contexts_helper
 
 
 @app.route('/api/betting/portfolio-history')
