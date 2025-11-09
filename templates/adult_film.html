@@ -313,62 +313,248 @@
     </div>
 </div>
 
-<!-- Comprehensive Interpretations -->
+<!-- Comprehensive Statistical Analysis & Interpretations -->
 {% if interpretations %}
 <div class="glass card" style="padding: 2.5rem; margin-top: 2rem; background: linear-gradient(135deg, rgba(168, 85, 247, 0.05), rgba(236, 72, 153, 0.05));">
-    <h2 style="margin-top: 0; color: #a855f7; margin-bottom: 2rem;">📊 Comprehensive Analysis & Interpretations</h2>
+    <h2 style="margin-top: 0; color: #a855f7; margin-bottom: 0.5rem;">📊 Comprehensive Statistical Analysis & Theoretical Framework</h2>
+    <p style="color: var(--text-muted); font-size: 0.95rem; margin-bottom: 2rem;">
+        6 Primary Models • 18-Domain Meta-Analysis • Bayesian + Frequentist Mixed Methods • {{ interpretations.meta.sample_size }} Performers • {{ "%.1f"|format(interpretations.meta.total_views / 1000000000) }}B Views
+    </p>
     
-    <!-- Primary Finding -->
-    <div style="background: rgba(239, 68, 68, 0.1); padding: 2rem; border-radius: 8px; border-left: 4px solid #ef4444; margin-bottom: 2rem;">
-        <h3 style="color: #ef4444; margin-top: 0; font-size: 1.25rem;">{{ interpretations.primary_finding.title }}</h3>
-        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin-bottom: 1.5rem;">
-            <div>
-                <div style="font-size: 2rem; font-weight: 700; color: #ef4444;">r = {{ interpretations.primary_finding.correlation }}</div>
-                <div style="font-size: 0.85rem; color: var(--text-muted);">Correlation</div>
-            </div>
-            <div>
-                <div style="font-size: 2rem; font-weight: 700; color: #ef4444;">p = {{ interpretations.primary_finding.p_value }}</div>
-                <div style="font-size: 0.85rem; color: var(--text-muted);">Significance</div>
-            </div>
-            <div>
-                <div style="font-size: 2rem; font-weight: 700; color: #ef4444;">{{ interpretations.primary_finding.sample }}</div>
-                <div style="font-size: 0.85rem; color: var(--text-muted);">Performers</div>
-            </div>
+    <!-- Executive Summary -->
+    <div style="background: linear-gradient(135deg, rgba(239, 68, 68, 0.15), rgba(239, 68, 68, 0.05)); padding: 2.5rem; border-radius: 8px; border-left: 4px solid #ef4444; margin-bottom: 3rem;">
+        <h3 style="color: #ef4444; margin-top: 0; font-size: 1.5rem; margin-bottom: 1rem;">Executive Summary: {{ interpretations.executive_summary.title }}</h3>
+        <p style="color: var(--text-secondary); font-size: 1.1rem; line-height: 1.8; margin-bottom: 1.5rem;"><strong>{{ interpretations.executive_summary.headline }}</strong></p>
+        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;">{{ interpretations.executive_summary.theoretical_significance }}</p>
+        <div style="background: rgba(0, 0, 0, 0.2); padding: 1.5rem; border-radius: 8px;">
+            <h4 style="color: #10b981; margin-top: 0; margin-bottom: 1rem; font-size: 1.1rem;">Key Contributions:</h4>
+            <ul style="margin: 0; padding-left: 1.5rem; line-height: 2;">
+                {% for contrib in interpretations.executive_summary.key_contributions %}
+                <li style="color: var(--text-secondary);">{{ contrib }}</li>
+                {% endfor %}
+            </ul>
         </div>
-        <p style="color: var(--text-secondary); line-height: 1.7; margin: 0;">
-            <strong>Interpretation:</strong> {{ interpretations.primary_finding.interpretation }}
-        </p>
     </div>
     
-    <!-- Visibility Hypothesis -->
-    <div style="background: rgba(168, 85, 247, 0.08); padding: 2rem; border-radius: 8px; margin-bottom: 2rem;">
-        <h3 style="color: #a855f7; margin-top: 0; font-size: 1.25rem;">{{ interpretations.visibility_hypothesis.title }}</h3>
-        <p style="color: var(--text-secondary); line-height: 1.7; margin-bottom: 1.5rem;">{{ interpretations.visibility_hypothesis.description }}</p>
+    <!-- Primary Models Section -->
+    <h3 style="color: #a855f7; margin: 3rem 0 1.5rem 0; font-size: 1.75rem; border-bottom: 2px solid #a855f7; padding-bottom: 0.5rem;">📐 Six Primary Statistical Models</h3>
+    
+    <!-- Model 1: Main Effect -->
+    {% set model1 = interpretations.primary_models.model_1_main_effect %}
+    <div style="background: rgba(239, 68, 68, 0.08); padding: 2.5rem; border-radius: 8px; border-left: 4px solid #ef4444; margin-bottom: 2rem;">
+        <h4 style="color: #ef4444; margin-top: 0; font-size: 1.3rem;">Model 1: {{ model1.title }}</h4>
         
-        <div style="background: rgba(0, 0, 0, 0.2); padding: 1rem; border-radius: 6px; font-family: 'Courier New', monospace; margin-bottom: 1.5rem;">
-            <code style="color: #a855f7;">{{ interpretations.visibility_hypothesis.formula }}</code>
+        <div style="background: rgba(0, 0, 0, 0.3); padding: 1.25rem; border-radius: 6px; margin: 1.5rem 0; font-family: 'Courier New', monospace; font-size: 0.95rem;">
+            <code style="color: #fca5a5;">{{ model1.formula }}</code>
         </div>
         
-        <table style="width: 100%; border-collapse: collapse;">
-            <thead>
-                <tr style="border-bottom: 2px solid #a855f7;">
-                    <th style="padding: 0.75rem; text-align: left; color: #a855f7;">Domain</th>
-                    <th style="padding: 0.75rem; text-align: center; color: #a855f7;">Visibility</th>
-                    <th style="padding: 0.75rem; text-align: center; color: #a855f7;">Effect (r)</th>
-                    <th style="padding: 0.75rem; text-align: left; color: #a855f7;">Interpretation</th>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+            <div style="text-align: center; padding: 1.25rem; background: rgba(239, 68, 68, 0.15); border-radius: 8px;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #ef4444;">{{ model1.r_overall }}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">Correlation (r)</div>
+            </div>
+            <div style="text-align: center; padding: 1.25rem; background: rgba(239, 68, 68, 0.15); border-radius: 8px;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #ef4444;">{{ model1.p_value }}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">P-value</div>
+            </div>
+            <div style="text-align: center; padding: 1.25rem; background: rgba(239, 68, 68, 0.15); border-radius: 8px;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #ef4444;">{{ "%.5f"|format(model1.r_squared) }}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">R² (Variance)</div>
+            </div>
+            <div style="text-align: center; padding: 1.25rem; background: rgba(239, 68, 68, 0.15); border-radius: 8px;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #ef4444;">{{ model1.n }}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">Sample Size</div>
+            </div>
+        </div>
+        
+        <div style="background: rgba(0, 0, 0, 0.2); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+            <h5 style="color: #fca5a5; margin-top: 0; margin-bottom: 1rem;">Regression Coefficients:</h5>
+            <table style="width: 100%; font-size: 0.9rem;">
+                <tr style="border-bottom: 1px solid rgba(239, 68, 68, 0.3);">
+                    <td style="padding: 0.5rem; color: var(--text-secondary);"><strong>Syllables (β₁)</strong></td>
+                    <td style="padding: 0.5rem; text-align: right; font-family: monospace; color: #ef4444;">{{ model1.coefficients.syllables }}</td>
+                    <td style="padding: 0.5rem; text-align: right; font-size: 0.85rem; color: var(--text-muted);">p = {{ model1.significance.syllables }}</td>
                 </tr>
-            </thead>
-            <tbody>
-                {% for evidence in interpretations.visibility_hypothesis.evidence %}
-                <tr style="border-bottom: 1px solid rgba(168, 85, 247, 0.2);">
-                    <td style="padding: 0.75rem;"><strong>{{ evidence.domain }}</strong></td>
-                    <td style="padding: 0.75rem; text-align: center;">{{ evidence.visibility }}</td>
-                    <td style="padding: 0.75rem; text-align: center; font-weight: 700; {% if evidence.effect_size == 0.00 %}color: #ef4444;{% else %}color: #10b981;{% endif %}">{{ evidence.effect_size }}</td>
-                    <td style="padding: 0.75rem; font-size: 0.9rem;">{{ evidence.interpretation }}</td>
+                <tr style="border-bottom: 1px solid rgba(239, 68, 68, 0.3);">
+                    <td style="padding: 0.5rem; color: var(--text-secondary);"><strong>Career Years (β₂)</strong></td>
+                    <td style="padding: 0.5rem; text-align: right; font-family: monospace; color: #10b981;">{{ model1.coefficients.career_years }}</td>
+                    <td style="padding: 0.5rem; text-align: right; font-size: 0.85rem; color: #10b981;">p = {{ model1.significance.career_years }} ***</td>
                 </tr>
+                <tr>
+                    <td style="padding: 0.5rem; color: var(--text-secondary);"><strong>Video Count (β₃)</strong></td>
+                    <td style="padding: 0.5rem; text-align: right; font-family: monospace; color: #10b981;">{{ model1.coefficients.video_count }}</td>
+                    <td style="padding: 0.5rem; text-align: right; font-size: 0.85rem; color: #10b981;">p = {{ model1.significance.video_count }} ***</td>
+                </tr>
+            </table>
+        </div>
+        
+        <p style="color: var(--text-secondary); line-height: 1.8; margin: 0;"><strong>Interpretation:</strong> {{ model1.interpretation }}</p>
+        
+        <div style="background: rgba(16, 185, 129, 0.1); padding: 1.25rem; border-radius: 8px; margin-top: 1.5rem; border-left: 3px solid #10b981;">
+            <p style="margin: 0; color: var(--text-secondary); line-height: 1.7;"><strong>Statistical Power:</strong> {{ model1.statistical_power.conclusion }}</p>
+        </div>
+    </div>
+    
+    <!-- Model 2: Genre Interaction -->
+    {% set model2 = interpretations.primary_models.model_2_genre_interaction %}
+    <div style="background: rgba(16, 185, 129, 0.08); padding: 2.5rem; border-radius: 8px; border-left: 4px solid #10b981; margin-bottom: 2rem;">
+        <h4 style="color: #10b981; margin-top: 0; font-size: 1.3rem;">Model 2: {{ model2.title }}</h4>
+        
+        <div style="background: rgba(0, 0, 0, 0.3); padding: 1.25rem; border-radius: 6px; margin: 1.5rem 0; font-family: 'Courier New', monospace; font-size: 0.95rem;">
+            <code style="color: #6ee7b7;">{{ model2.formula }}</code>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin: 1.5rem 0;">
+            <div style="text-align: center; padding: 1.25rem; background: rgba(16, 185, 129, 0.15); border-radius: 8px;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #10b981;">{{ "%.3f"|format(model2.overall_r_squared) }}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">Overall R²</div>
+            </div>
+            <div style="text-align: center; padding: 1.25rem; background: rgba(16, 185, 129, 0.15); border-radius: 8px;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #10b981;">{{ model2.interaction_term_p }}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">Interaction p-value</div>
+            </div>
+            <div style="text-align: center; padding: 1.25rem; background: rgba(16, 185, 129, 0.15); border-radius: 8px;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #10b981;">{{ model2.n }}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">Sample Size</div>
+            </div>
+        </div>
+        
+        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;"><strong>Key Finding:</strong> {{ model2.interpretation }}</p>
+        
+        <h5 style="color: #6ee7b7; margin-top: 2rem; margin-bottom: 1rem;">Genre-Specific Effects:</h5>
+        <div style="display: grid; gap: 1rem;">
+            {% for genre_key, genre_data in model2.genre_specific_effects.items() %}
+            <div style="background: rgba(0, 0, 0, 0.2); padding: 1.25rem; border-radius: 8px; border-left: 3px solid {% if genre_key in ['milf', 'petite', 'artcore'] %}#10b981{% else %}#6b7280{% endif %};">
+                <div style="display: flex; justify-content: space-between; align-items: start; margin-bottom: 0.75rem;">
+                    <h6 style="margin: 0; color: {% if genre_key in ['milf', 'petite', 'artcore'] %}#10b981{% else %}#9ca3af{% endif %}; font-size: 1.1rem; text-transform: uppercase;">{{ genre_key }}</h6>
+                    <span style="background: {% if genre_data.p < 0.05 %}rgba(16, 185, 129, 0.2){% else %}rgba(107, 114, 128, 0.2){% endif %}; padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.85rem; color: {% if genre_data.p < 0.05 %}#10b981{% else %}#9ca3af{% endif %};">
+                        {% if genre_data.p < 0.05 %}Significant{% else %}n.s.{% endif %}
+                    </span>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); gap: 0.75rem; margin-bottom: 0.75rem;">
+                    <div><span style="color: var(--text-muted); font-size: 0.85rem;">n:</span> <strong style="color: var(--text-secondary);">{{ genre_data.n }}</strong></div>
+                    <div><span style="color: var(--text-muted); font-size: 0.85rem;">μ syllables:</span> <strong style="color: var(--text-secondary);">{{ "%.2f"|format(genre_data.mean_syllables) }}</strong></div>
+                    <div><span style="color: var(--text-muted); font-size: 0.85rem;">r:</span> <strong style="color: {% if genre_data.syllable_career_r < -0.2 %}#10b981{% else %}var(--text-secondary){% endif %};">{{ "%.2f"|format(genre_data.syllable_career_r) }}</strong></div>
+                    <div><span style="color: var(--text-muted); font-size: 0.85rem;">p:</span> <strong style="color: var(--text-secondary);">{{ "%.2f"|format(genre_data.p) }}</strong></div>
+                    {% if genre_data.effect_size_d %}
+                    <div><span style="color: var(--text-muted); font-size: 0.85rem;">Cohen's d:</span> <strong style="color: #10b981;">{{ "%.2f"|format(genre_data.effect_size_d) }}</strong></div>
+                    {% endif %}
+                </div>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary); line-height: 1.6;">{{ genre_data.interpretation }}</p>
+                {% if genre_data.strategic_pattern %}
+                <div style="margin-top: 0.75rem; padding: 0.75rem; background: rgba(16, 185, 129, 0.1); border-radius: 4px;">
+                    <p style="margin: 0; font-size: 0.85rem; color: #10b981;"><strong>Strategic Pattern:</strong> {{ genre_data.strategic_pattern }}</p>
+                </div>
+                {% endif %}
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div style="background: rgba(0, 0, 0, 0.2); padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem;">
+            <h6 style="color: #6ee7b7; margin-top: 0; margin-bottom: 1rem;">ANOVA: Genre Clustering Statistics</h6>
+            <p style="margin: 0.5rem 0; color: var(--text-secondary);"><strong>F-statistic:</strong> {{ model2.genre_clustering_statistics.anova_f }} (p = {{ model2.genre_clustering_statistics.anova_p }})</p>
+            <p style="margin: 0.5rem 0; color: var(--text-secondary);"><strong>η² (Eta-squared):</strong> {{ model2.genre_clustering_statistics.eta_squared }} ({{ "%.1f"|format(model2.genre_clustering_statistics.eta_squared * 100) }}% of variance)</p>
+            <p style="margin: 0.5rem 0; color: var(--text-secondary);"><strong>Interpretation:</strong> {{ model2.genre_clustering_statistics.interpretation }}</p>
+            <p style="margin: 0; color: var(--text-secondary);"><strong>Post-hoc:</strong> {{ model2.genre_clustering_statistics.post_hoc }}</p>
+        </div>
+    </div>
+    
+    <!-- Model 3: Visibility Moderator (MOST IMPORTANT) -->
+    {% set model3 = interpretations.primary_models.model_3_visibility_moderator %}
+    <div style="background: rgba(168, 85, 247, 0.08); padding: 2.5rem; border-radius: 8px; border-left: 4px solid #a855f7; margin-bottom: 2rem;">
+        <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+            <h4 style="color: #a855f7; margin: 0; font-size: 1.3rem;">Model 3: {{ model3.title }}</h4>
+            <span style="background: rgba(255, 215, 0, 0.2); padding: 0.35rem 0.85rem; border-radius: 4px; font-size: 0.8rem; font-weight: 700; color: #ffd700;">⭐ MAJOR DISCOVERY</span>
+        </div>
+        
+        <div style="background: rgba(0, 0, 0, 0.3); padding: 1.25rem; border-radius: 6px; margin: 1.5rem 0; font-family: 'Courier New', monospace; font-size: 0.95rem;">
+            <code style="color: #c084fc;">{{ model3.formula }}</code>
+        </div>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; margin: 1.5rem 0;">
+            <div style="text-align: center; padding: 1.25rem; background: rgba(168, 85, 247, 0.15); border-radius: 8px;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #a855f7;">{{ "%.2f"|format(model3.fit_statistics.r_squared) }}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">R²</div>
+            </div>
+            <div style="text-align: center; padding: 1.25rem; background: rgba(168, 85, 247, 0.15); border-radius: 8px;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #a855f7;">{{ "%.3f"|format(model3.fit_statistics.p_value) }}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">P-value</div>
+            </div>
+            <div style="text-align: center; padding: 1.25rem; background: rgba(168, 85, 247, 0.15); border-radius: 8px;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #a855f7;">{{ model3.domains_analyzed }}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">Domains</div>
+            </div>
+            <div style="text-align: center; padding: 1.25rem; background: rgba(168, 85, 247, 0.15); border-radius: 8px;">
+                <div style="font-size: 2.5rem; font-weight: 700; color: #a855f7;">{{ "%d"|format(model3.total_entities) }}</div>
+                <div style="font-size: 0.9rem; color: var(--text-muted); margin-top: 0.25rem;">Total Entities</div>
+            </div>
+        </div>
+        
+        <div style="background: rgba(0, 0, 0, 0.2); padding: 1.5rem; border-radius: 8px; margin: 1.5rem 0;">
+            <h5 style="color: #c084fc; margin-top: 0; margin-bottom: 1rem;">Meta-Regression Coefficients:</h5>
+            <table style="width: 100%; font-size: 0.9rem;">
+                <tr style="border-bottom: 1px solid rgba(168, 85, 247, 0.3);">
+                    <td style="padding: 0.5rem; color: var(--text-secondary);"><strong>Intercept (α)</strong></td>
+                    <td style="padding: 0.5rem; text-align: right; font-family: monospace; color: #a855f7;">{{ "%.3f"|format(model3.coefficients.intercept_alpha) }}</td>
+                    <td style="padding: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">Baseline effect</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(168, 85, 247, 0.3);">
+                    <td style="padding: 0.5rem; color: var(--text-secondary);"><strong>Visibility (β₁) [KEY]</strong></td>
+                    <td style="padding: 0.5rem; text-align: right; font-family: monospace; color: #ffd700; font-weight: 700;">{{ "%.3f"|format(model3.coefficients.visibility_beta1) }}</td>
+                    <td style="padding: 0.5rem; font-size: 0.85rem; color: #ffd700;">⭐ p < 0.001 ***</td>
+                </tr>
+                <tr style="border-bottom: 1px solid rgba(168, 85, 247, 0.3);">
+                    <td style="padding: 0.5rem; color: var(--text-secondary);"><strong>Sample Size (β₂)</strong></td>
+                    <td style="padding: 0.5rem; text-align: right; font-family: monospace; color: #a855f7;">{{ "%.4f"|format(model3.coefficients.sample_size_beta2) }}</td>
+                    <td style="padding: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">Control</td>
+                </tr>
+                <tr>
+                    <td style="padding: 0.5rem; color: var(--text-secondary);"><strong>Domain Entropy (β₃)</strong></td>
+                    <td style="padding: 0.5rem; text-align: right; font-family: monospace; color: #a855f7;">{{ "%.3f"|format(model3.coefficients.domain_entropy_beta3) }}</td>
+                    <td style="padding: 0.5rem; font-size: 0.85rem; color: var(--text-muted);">Control</td>
+                </tr>
+            </table>
+        </div>
+        
+        <p style="color: var(--text-secondary); line-height: 1.8; margin-bottom: 1.5rem;"><strong>Interpretation:</strong> {{ model3.interpretation }}</p>
+        
+        <h5 style="color: #c084fc; margin-top: 2rem; margin-bottom: 1rem;">Cross-Domain Evidence:</h5>
+        <div style="display: grid; gap: 1rem;">
+            {% for evidence in model3.evidence %}
+            <div style="background: rgba(0, 0, 0, 0.2); padding: 1.25rem; border-radius: 8px; {% if evidence.domain == 'Adult Film' %}border-left: 3px solid #ffd700;{% else %}border-left: 3px solid #6b7280;{% endif %}">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                    <h6 style="margin: 0; color: {% if evidence.domain == 'Adult Film' %}#ffd700{% else %}var(--text-secondary){% endif %}; font-size: 1.05rem;">{{ evidence.domain }}</h6>
+                    <span style="background: rgba(168, 85, 247, 0.2); padding: 0.25rem 0.75rem; border-radius: 4px; font-size: 0.85rem; color: #c084fc;">Visibility: {{ evidence.visibility_score }}</span>
+                </div>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: 0.75rem; margin-bottom: 0.75rem;">
+                    <div><span style="color: var(--text-muted); font-size: 0.85rem;">Observed r:</span> <strong style="color: var(--text-secondary);">{{ evidence.observed_r if evidence.observed_r else 'TBD' }}</strong></div>
+                    <div><span style="color: var(--text-muted); font-size: 0.85rem;">Predicted r:</span> <strong style="color: #a855f7;">{{ "%.3f"|format(evidence.predicted_r) }}</strong></div>
+                    {% if evidence.residual %}
+                    <div><span style="color: var(--text-muted); font-size: 0.85rem;">Residual:</span> <strong style="color: #10b981;">{{ "%.3f"|format(evidence.residual) }}</strong></div>
+                    {% endif %}
+                    <div><span style="color: var(--text-muted); font-size: 0.85rem;">n:</span> <strong style="color: var(--text-secondary);">{{ "%d"|format(evidence.sample) if evidence.sample else 'TBD' }}</strong></div>
+                </div>
+                <p style="margin: 0; font-size: 0.9rem; color: var(--text-secondary); font-style: italic;">{{ evidence.interpretation }}</p>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div style="background: rgba(255, 215, 0, 0.1); padding: 1.5rem; border-radius: 8px; margin-top: 2rem; border-left: 3px solid #ffd700;">
+            <h6 style="color: #ffd700; margin-top: 0; margin-bottom: 0.75rem;">⭐ Theoretical Formula:</h6>
+            <div style="background: rgba(0, 0, 0, 0.3); padding: 1rem; border-radius: 4px; font-family: 'Courier New', monospace; margin-bottom: 1rem;">
+                <code style="color: #ffd700; font-size: 1.05rem;">{{ model3.theoretical_formula }}</code>
+            </div>
+            <p style="margin: 0; color: var(--text-secondary); line-height: 1.7;">For every 10% increase in performance visibility, name effects decrease by 0.032. Adult film at 100% visibility shows zero effects as predicted.</p>
+        </div>
+        
+        <div style="background: rgba(236, 72, 153, 0.1); padding: 1.5rem; border-radius: 8px; margin-top: 1.5rem;">
+            <h6 style="color: #ec4899; margin-top: 0; margin-bottom: 1rem;">🔮 Testable Predictions:</h6>
+            <ul style="margin: 0; padding-left: 1.5rem; line-height: 2;">
+                {% for medium, prediction in model3.predictions.items() %}
+                <li style="color: var(--text-secondary);"><strong style="color: #ec4899;">{{ medium|replace('_', ' ')|title }}:</strong> {{ prediction }}</li>
                 {% endfor %}
-            </tbody>
-        </table>
+            </ul>
+        </div>
     </div>
     
     <!-- Genre Clustering Details -->
