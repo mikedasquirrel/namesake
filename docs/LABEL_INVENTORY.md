@@ -496,7 +496,60 @@
 
 ---
 
-**Last Updated:** November 9, 2025
-**Total Labels Inventoried:** 450+
+---
+
+## 🆕 CONTEXTUAL/META LABELS (Critical Addition)
+
+### Sport Meta-Labels (15+ labels)
+
+**Sport Names Themselves:**
+- Soccer, Football (American), Hockey, Basketball, Baseball
+- Tennis, Golf, Cricket, Rugby, Boxing, MMA
+- **Analysis:** Sport name harshness predicts nominative effect strength
+- Example: "Soccer" (harsh:72) vs "Tennis" (harsh:65)
+
+**League Names:**
+- Premier League, La Liga, Serie A, Bundesliga, MLS
+- NFL, NBA, MLB, NHL
+- UFC, ATP, WTA, PGA
+- **Analysis:** League prestige interacts with player memorability
+
+### Commercial/Sponsor Labels (100+ labels)
+
+**Jersey Sponsors (Major Examples):**
+- Soccer: Etihad, Emirates, Chevrolet, Rakuten, Spotify, Three
+- Other sports: State Farm, Nike, Gatorade, FedEx, Geico
+- **Analysis:** Sponsor-team-player 3-way nominative alignment
+- **Hypothesis:** Sponsor name harshness interacts with team name
+
+**Sponsor Industry Categories:**
+- Automotive, Airlines, Energy, Finance, Tech, Telecommunications, Charity
+- **Analysis:** Industry harshness profiles (e.g., Energy harsh, Charity soft)
+
+### Visual Context Labels (20+ labels)
+
+**Jersey Name Display:**
+- Display status: Yes/No/Back-only
+- Name size: Large/Medium/Small  
+- Font style: Bold/Italic/Standard
+- **Analysis:** Name visibility moderates nominative effects (30-50% reduction if hidden)
+
+**Advertisement Context:**
+- Ad presence: Yes/No (binary)
+- Ad count: 0-5 placements
+- Ad locations: Chest, Back, Sleeves
+- Ad prominence: 0-100 score
+- **Analysis:** Visual crowding reduces player name salience
+
+**Kit Visual Characteristics:**
+- Primary color harshness (Red vs Blue)
+- Design complexity (Stripes vs Solid)
+- Pattern types (Horizontal/Vertical/Diagonal)
+- **Analysis:** Visual nominative environment
+
+---
+
+**Last Updated:** November 9, 2025 (Updated with contextual labels)
+**Total Labels Inventoried:** 585+ (450 base + 135 contextual)
 **Status:** Phase 1 Complete - Ready for extraction framework
 

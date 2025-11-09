@@ -427,14 +427,17 @@ base_prediction *= prop_ensemble['prop_amplifier']  # 1.0-1.3×
 
 ### Phase 1: Infrastructure (✅ COMPLETE)
 
-- [x] Label inventory (450+ labels)
+- [x] Label inventory (585+ labels including contextual)
 - [x] `LabelNominativeExtractor` class
 - [x] `NominativeEnsembleGenerator` class  
 - [x] Database schema (6 new tables)
 - [x] Population script (teams, venues, props)
-- [x] Comprehensive documentation (4 docs)
+- [x] Comprehensive documentation (5 docs)
+- [x] **BONUS:** Contextual nominative layer identified (sport names, sponsors, visual context)
 
 **Status:** Ready for data population and analysis
+
+**Latest Discovery:** Contextual nominative labels (sport names, sponsor names, jersey display, ads) create an additional layer affecting how person names operate. See `docs/CONTEXTUAL_NOMINATIVE_LABELS.md` for complete framework.
 
 ### Phase 2: Data Population (Ready to Execute)
 
