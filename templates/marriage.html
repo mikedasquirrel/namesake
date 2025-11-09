@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+
+{% block title %}Nominative Matchmaker - Marriage Prediction{% endblock %}
+
+{% block content %}
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mb-4">💑 Nominative Matchmaker: Marriage Prediction</h1>
+            <p class="lead">Test whether name compatibility predicts relationship outcomes</p>
+        </div>
+    </div>
+
+    <!-- Study Status -->
+    <div class="row mb-4">
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3 class="text-primary">{{ total_couples }}</h3>
+                    <p class="mb-0">Total Couples</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3 class="text-success">{{ analyzed_couples }}</h3>
+                    <p class="mb-0">Analyzed</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3 class="text-danger">{{ (divorce_rate * 100)|round(1) }}%</h3>
+                    <p class="mb-0">Divorce Rate</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body text-center">
+                    <h3 class="text-info">Demo</h3>
+                    <p class="mb-0">Study Status</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Name Compatibility Analyzer -->
+    <div class="row mb-4">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h4 class="mb-0">Test Name Compatibility</h4>
+                </div>
+                <div class="card-body">
+                    <form id="compatibilityForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label for="name1" class="form-label">Partner 1 Name</label>
+                                <input type="text" class="form-control form-control-lg" 
+                                       id="name1" name="name1" 
+                                       placeholder="e.g., Michael" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label for="name2" class="form-label">Partner 2 Name</label>
+                                <input type="text" class="form-control form-control-lg" 
+                                       id="name2" name="name2" 
+                                       placeholder="e.g., Jennifer" required>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-lg w-100">
+                            🔮 Analyze Compatibility
+                        </button>
+                    </form>
+
+                    <!-- Results -->
+                    <div id="results" class="mt-4" style="display: none;">
+                        <hr>
+                        <h5>Results:</h5>
+                        
+                        <div class="row text-center mb-3">
+                            <div class="col-md-4">
+                                <div class="p-3 bg-light rounded">
+                                    <h6>Compatibility</h6>
+                                    <h3 id="compatScore" class="mb-0">-</h3>
+                                    <small class="text-muted">0-1 scale</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 bg-light rounded">
+                                    <h6>Divorce Risk</h6>
+                                    <h3 id="divorceRisk" class="mb-0">-</h3>
+                                    <small class="text-muted">0-1 scale</small>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="p-3 bg-light rounded">
+                                    <h6>Predicted Years</h6>
+                                    <h3 id="predYears" class="mb-0">-</h3>
+                                    <small class="text-muted">together</small>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="alert alert-info">
+                            <strong>Relationship Type:</strong> <span id="relType">-</span><br>
+                            <strong>Dominant Theory:</strong> <span id="domTheory">-</span><br>
+                            <strong>Confidence:</strong> <span id="confidence">-</span>
+                        </div>
+
+                        <h6>Theory Scores:</h6>
+                        <div id="theoryScores"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Study Information -->
+    <div class="row mb-4">
+        <div class="col-lg-8 mx-auto">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="mb-0">About This Study</h4>
+                </div>
+                <div class="card-body">
+                    <h5>Research Question</h5>
+                    <p>Do phonetic, semantic, and structural interactions between partners' names predict relationship outcomes?</p>
+
+                    <h5>Four Theories Tested</h5>
+                    <ul>
+                        <li><strong>Similarity:</strong> Similar names → compatible relationships</li>
+                        <li><strong>Complementarity:</strong> Opposite names → balanced partnerships</li>
+                        <li><strong>Golden Ratio (φ):</strong> Names with syllable ratio ≈ 1.618 → harmony</li>
+                        <li><strong>Resonance:</strong> Harmonic frequency patterns → success</li>
+                    </ul>
+
+                    <h5>Name Interaction Metrics</h5>
+                    <ul>
+                        <li>Phonetic Distance (edit distance)</li>
+                        <li>Vowel Harmony (front/central/back vowels)</li>
+                        <li>Consonant Compatibility</li>
+                        <li>Syllable Ratio</li>
+                        <li>Golden Ratio Proximity</li>
+                    </ul>
+
+                    <div class="alert alert-warning">
+                        <strong>⚠️ Research Context:</strong> This is a demonstration of the analysis framework. 
+                        Effects shown are based on sample data and should not be used for individual predictions.
+                        The full study requires 5,000+ couples for statistical power.
+                    </div>
+
+                    <div class="alert alert-success">
+                        <strong>✅ System Status:</strong> 
+                        <ul class="mb-0">
+                            <li>Database initialized ✓</li>
+                            <li>{{ total_couples }} couples collected ✓</li>
+                            <li>{{ analyzed_couples }} couples analyzed ✓</li>
+                            <li>Analysis pipeline operational ✓</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+document.getElementById('compatibilityForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const formData = new FormData(this);
+    const resultsDiv = document.getElementById('results');
+    
+    try {
+        const response = await fetch('/marriage/analyze', {
+            method: 'POST',
+            body: formData
+        });
+        
+        if (!response.ok) {
+            throw new Error('Analysis failed');
+        }
+        
+        const data = await response.json();
+        
+        // Display results
+        document.getElementById('compatScore').textContent = data.compatibility.toFixed(3);
+        document.getElementById('divorceRisk').textContent = data.divorce_risk.toFixed(3);
+        document.getElementById('predYears').textContent = data.predicted_years.toFixed(1);
+        document.getElementById('relType').textContent = data.relationship_type;
+        document.getElementById('domTheory').textContent = data.dominant_theory;
+        document.getElementById('confidence').textContent = (data.confidence * 100).toFixed(0) + '%';
+        
+        // Theory scores
+        let theoryHTML = '<div class="row">';
+        for (const [theory, score] of Object.entries(data.theory_scores)) {
+            const percentage = (score * 100).toFixed(0);
+            theoryHTML += `
+                <div class="col-md-6 mb-2">
+                    <strong>${theory}:</strong>
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" 
+                             style="width: ${percentage}%" 
+                             aria-valuenow="${percentage}" 
+                             aria-valuemin="0" aria-valuemax="100">
+                            ${score.toFixed(3)}
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+        theoryHTML += '</div>';
+        document.getElementById('theoryScores').innerHTML = theoryHTML;
+        
+        resultsDiv.style.display = 'block';
+        resultsDiv.scrollIntoView({ behavior: 'smooth' });
+        
+    } catch (error) {
+        alert('Error analyzing compatibility: ' + error.message);
+    }
+});
+</script>
+{% endblock %}
+
