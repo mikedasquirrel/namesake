@@ -713,6 +713,209 @@ def get_season_performance(year):
         return jsonify({'error': str(e)}), 500
 
 
+# =============================================================================
+# LABEL NOMINATIVE API ENDPOINTS - New ensemble features
+# =============================================================================
+
+@app.route('/api/label-nominative/teams')
+def get_team_profiles():
+    """API: Get all team nominative profiles"""
+    try:
+        from core.models import TeamProfile, LabelNominativeProfile
+        
+        sport = request.args.get('sport')  # Optional filter
+        
+        query = TeamProfile.query.join(LabelNominativeProfile)
+        
+        if sport:
+            query = query.filter(TeamProfile.sport == sport)
+        
+        teams = query.all()
+        
+        return jsonify({
+            'status': 'success',
+            'count': len(teams),
+            'teams': [t.to_dict() for t in teams]
+        })
+    except Exception as e:
+        logger.error(f"Error getting team profiles: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/label-nominative/venues')
+def get_venue_profiles():
+    """API: Get all venue nominative profiles"""
+    try:
+        from core.models import VenueProfile, LabelNominativeProfile
+        
+        sport = request.args.get('sport')
+        
+        query = VenueProfile.query.join(LabelNominativeProfile)
+        
+        if sport:
+            query = query.filter(VenueProfile.sport == sport)
+        
+        venues = query.all()
+        
+        return jsonify({
+            'status': 'success',
+            'count': len(venues),
+            'venues': [v.to_dict() for v in venues]
+        })
+    except Exception as e:
+        logger.error(f"Error getting venue profiles: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/label-nominative/analyze-ensemble', methods=['POST'])
+def analyze_ensemble_prediction():
+    """API: Analyze ensemble nominative prediction for a player + context"""
+    try:
+        from analyzers.enhanced_predictor import EnhancedNominativePredictor
+        
+        data = request.get_json()
+        
+        player_data = data.get('player_data', {})
+        game_context = data.get('game_context', {})
+        market_data = data.get('market_data', {})
+        opponent_data = data.get('opponent_data')
+        
+        predictor = EnhancedNominativePredictor()
+        result = predictor.predict(player_data, game_context, market_data, opponent_data)
+        
+        return jsonify({
+            'status': 'success',
+            'prediction': result
+        })
+    except Exception as e:
+        logger.error(f"Error analyzing ensemble: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/label-nominative/team-stats')
+def get_team_nominative_stats():
+    """API: Get team nominative statistics and rankings"""
+    try:
+        from core.models import TeamProfile, LabelNominativeProfile
+        
+        teams = TeamProfile.query.join(LabelNominativeProfile).all()
+        
+        # Calculate rankings
+        teams_data = []
+        for team in teams:
+            if team.label_profile:
+                teams_data.append({
+                    'team_name': team.team_full_name,
+                    'sport': team.sport,
+                    'harshness': team.label_profile.harshness,
+                    'aggression': team.team_aggression_score,
+                    'memorability': team.label_profile.memorability,
+                    'power_phonemes': team.label_profile.power_phoneme_count
+                })
+        
+        # Sort by harshness
+        teams_data_sorted = sorted(teams_data, key=lambda x: x['harshness'], reverse=True)
+        
+        return jsonify({
+            'status': 'success',
+            'total_teams': len(teams_data),
+            'teams': teams_data_sorted,
+            'rankings': {
+                'harshest': teams_data_sorted[:5],
+                'most_memorable': sorted(teams_data, key=lambda x: x['memorability'], reverse=True)[:5],
+                'most_aggressive': sorted(teams_data, key=lambda x: x['aggression'], reverse=True)[:5]
+            }
+        })
+    except Exception as e:
+        logger.error(f"Error getting team stats: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
+@app.route('/api/label-nominative/filter-by-alignment')
+def filter_by_alignment():
+    """API: Filter players by alignment with team/venue"""
+    try:
+        from core.models import TeamProfile, LabelNominativeProfile
+        from analyzers.nominative_ensemble_generator import NominativeEnsembleGenerator
+        
+        team_name = request.args.get('team')
+        min_alignment = float(request.args.get('min_alignment', 70))
+        
+        # Get team profile
+        team = TeamProfile.query.filter_by(team_full_name=team_name).first()
+        
+        if not team or not team.label_profile:
+            return jsonify({'error': 'Team not found'}), 404
+        
+        # Get team features
+        team_features = {
+            'label': team.team_full_name,
+            'harshness': team.label_profile.harshness,
+            'memorability': team.label_profile.memorability,
+            'syllables': team.label_profile.syllables,
+            'power_phoneme_count': team.label_profile.power_phoneme_count,
+            'speed_phoneme_count': team.label_profile.speed_phoneme_count,
+            'front_vowel_count': team.label_profile.front_vowel_count,
+            'back_vowel_count': team.label_profile.back_vowel_count,
+            'plosive_count': team.label_profile.plosive_count,
+            'fricative_count': team.label_profile.fricative_count,
+            'consonant_clusters': team.label_profile.consonant_clusters,
+            'sonority_score': team.label_profile.sonority_score,
+            'team_aggression_score': team.team_aggression_score,
+            'team_tradition_score': team.team_tradition_score,
+            'team_geographic_strength': team.geographic_prominence,
+        }
+        
+        # Mock player data - in production would query actual players
+        mock_players = [
+            {'name': 'Player A', 'harshness': 75, 'memorability': 70},
+            {'name': 'Player B', 'harshness': 50, 'memorability': 60},
+            {'name': 'Player C', 'harshness': 72, 'memorability': 68},
+        ]
+        
+        generator = NominativeEnsembleGenerator()
+        filtered_players = []
+        
+        for player in mock_players:
+            player_features = {
+                'name': player['name'],
+                'harshness': player['harshness'],
+                'memorability': player['memorability'],
+                'syllables': 2,
+                'power_phoneme_count': 3,
+                'speed_phoneme_count': 1,
+                'front_vowel_count': 1,
+                'back_vowel_count': 1,
+                'plosive_count': 2,
+                'fricative_count': 1,
+                'consonant_clusters': 1,
+                'sonority_score': 60,
+            }
+            
+            ensemble = generator.generate_ensemble_features(
+                player_features, team_features, 'team'
+            )
+            
+            if ensemble['overall_alignment'] >= min_alignment:
+                filtered_players.append({
+                    'player': player['name'],
+                    'alignment': ensemble['overall_alignment'],
+                    'synergy': ensemble['harsh_synergy'],
+                    'amplifier': ensemble.get('home_field_amplifier', 1.0)
+                })
+        
+        return jsonify({
+            'status': 'success',
+            'team': team_name,
+            'min_alignment': min_alignment,
+            'matched_players': len(filtered_players),
+            'players': sorted(filtered_players, key=lambda x: x['alignment'], reverse=True)
+        })
+    except Exception as e:
+        logger.error(f"Error filtering by alignment: {e}")
+        return jsonify({'error': str(e)}), 500
+
+
 # Disabled routes - streamlined to overview + analysis only
 # @app.route('/portfolio')
 # def portfolio():

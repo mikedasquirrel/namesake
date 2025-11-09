@@ -1,0 +1,178 @@
+{
+  "football": {
+    "offensive_runs": [
+      {"name": "Power I", "category": "run", "type": "power", "formation": "I-formation"},
+      {"name": "Iso", "category": "run", "type": "power", "formation": "various"},
+      {"name": "Trap", "category": "run", "type": "power", "formation": "various"},
+      {"name": "Counter", "category": "run", "type": "speed", "formation": "various"},
+      {"name": "Sweep", "category": "run", "type": "speed", "formation": "various"},
+      {"name": "Toss", "category": "run", "type": "speed", "formation": "various"},
+      {"name": "Dive", "category": "run", "type": "power", "formation": "various"},
+      {"name": "Blast", "category": "run", "type": "power", "formation": "various"},
+      {"name": "Lead", "category": "run", "type": "power", "formation": "various"},
+      {"name": "Zone", "category": "run", "type": "speed", "formation": "various"},
+      {"name": "Stretch", "category": "run", "type": "speed", "formation": "zone"},
+      {"name": "Jet Sweep", "category": "run", "type": "speed", "formation": "various"},
+      {"name": "Wildcat", "category": "run", "type": "trick", "formation": "wildcat"}
+    ],
+    "offensive_passes": [
+      {"name": "Slant", "category": "pass", "type": "quick", "depth": "short"},
+      {"name": "Out", "category": "pass", "type": "quick", "depth": "short"},
+      {"name": "Hitch", "category": "pass", "type": "quick", "depth": "short"},
+      {"name": "Go", "category": "pass", "type": "deep", "depth": "deep"},
+      {"name": "Post", "category": "pass", "type": "deep", "depth": "deep"},
+      {"name": "Corner", "category": "pass", "type": "deep", "depth": "deep"},
+      {"name": "Fade", "category": "pass", "type": "deep", "depth": "deep"},
+      {"name": "Dig", "category": "pass", "type": "intermediate", "depth": "intermediate"},
+      {"name": "Curl", "category": "pass", "type": "intermediate", "depth": "intermediate"},
+      {"name": "Comeback", "category": "pass", "type": "intermediate", "depth": "intermediate"},
+      {"name": "Seam", "category": "pass", "type": "deep", "depth": "deep"},
+      {"name": "Wheel", "category": "pass", "type": "deep", "depth": "deep"},
+      {"name": "Flat", "category": "pass", "type": "quick", "depth": "short"},
+      {"name": "Screen", "category": "pass", "type": "trick", "depth": "short"},
+      {"name": "Spider 2 Y Banana", "category": "pass", "type": "trick", "depth": "intermediate"}
+    ],
+    "pass_concepts": [
+      {"name": "Mesh", "category": "concept", "type": "quick", "receivers": 2},
+      {"name": "Levels", "category": "concept", "type": "intermediate", "receivers": 3},
+      {"name": "Sail", "category": "concept", "type": "intermediate", "receivers": 3},
+      {"name": "Flood", "category": "concept", "type": "intermediate", "receivers": 3},
+      {"name": "Smash", "category": "concept", "type": "intermediate", "receivers": 2},
+      {"name": "Snag", "category": "concept", "type": "quick", "receivers": 3},
+      {"name": "Drive", "category": "concept", "type": "intermediate", "receivers": 2},
+      {"name": "Stick", "category": "concept", "type": "quick", "receivers": 3},
+      {"name": "Four Verticals", "category": "concept", "type": "deep", "receivers": 4},
+      {"name": "All Go", "category": "concept", "type": "deep", "receivers": 4}
+    ],
+    "formations": [
+      {"name": "Shotgun", "category": "formation", "type": "pass_heavy"},
+      {"name": "Pistol", "category": "formation", "type": "balanced"},
+      {"name": "I-Formation", "category": "formation", "type": "run_heavy"},
+      {"name": "Single Back", "category": "formation", "type": "balanced"},
+      {"name": "Wildcat", "category": "formation", "type": "run_heavy"},
+      {"name": "Empty Set", "category": "formation", "type": "pass_heavy"},
+      {"name": "Trips", "category": "formation", "type": "pass_heavy"},
+      {"name": "Bunch", "category": "formation", "type": "pass_heavy"},
+      {"name": "Ace", "category": "formation", "type": "balanced"},
+      {"name": "Spread", "category": "formation", "type": "pass_heavy"}
+    ],
+    "schemes_offensive": [
+      {"name": "West Coast", "category": "scheme", "type": "pass_focused"},
+      {"name": "Air Raid", "category": "scheme", "type": "pass_focused"},
+      {"name": "Spread Option", "category": "scheme", "type": "balanced"},
+      {"name": "Pro Style", "category": "scheme", "type": "balanced"},
+      {"name": "Run and Shoot", "category": "scheme", "type": "pass_focused"},
+      {"name": "Power Run", "category": "scheme", "type": "run_focused"},
+      {"name": "Zone Blocking", "category": "scheme", "type": "run_focused"},
+      {"name": "Smashmouth", "category": "scheme", "type": "run_focused"}
+    ],
+    "schemes_defensive": [
+      {"name": "4-3", "category": "scheme", "type": "balanced"},
+      {"name": "3-4", "category": "scheme", "type": "balanced"},
+      {"name": "46 Defense", "category": "scheme", "type": "aggressive"},
+      {"name": "Tampa 2", "category": "scheme", "type": "coverage"},
+      {"name": "Cover 2", "category": "scheme", "type": "coverage"},
+      {"name": "Cover 3", "category": "scheme", "type": "coverage"},
+      {"name": "Quarters", "category": "scheme", "type": "coverage"},
+      {"name": "Nickel", "category": "scheme", "type": "pass_defense"},
+      {"name": "Dime", "category": "scheme", "type": "pass_defense"},
+      {"name": "Bear Front", "category": "scheme", "type": "run_defense"}
+    ]
+  },
+  "basketball": {
+    "offensive_sets": [
+      {"name": "Pick and Roll", "category": "play", "type": "fundamental"},
+      {"name": "Isolation", "category": "play", "type": "individual"},
+      {"name": "Post Up", "category": "play", "type": "power"},
+      {"name": "Motion Offense", "category": "play", "type": "team"},
+      {"name": "Triangle", "category": "play", "type": "team"},
+      {"name": "Horns", "category": "play", "type": "set"},
+      {"name": "Flex", "category": "play", "type": "set"},
+      {"name": "Princeton", "category": "play", "type": "team"},
+      {"name": "Drive and Kick", "category": "play", "type": "fundamental"},
+      {"name": "High Low", "category": "play", "type": "power"}
+    ],
+    "defensive_schemes": [
+      {"name": "Man to Man", "category": "defense", "type": "individual"},
+      {"name": "Zone Defense", "category": "defense", "type": "team"},
+      {"name": "2-3 Zone", "category": "defense", "type": "team"},
+      {"name": "1-3-1 Zone", "category": "defense", "type": "team"},
+      {"name": "Box and One", "category": "defense", "type": "hybrid"},
+      {"name": "Triangle and Two", "category": "defense", "type": "hybrid"},
+      {"name": "Press", "category": "defense", "type": "aggressive"},
+      {"name": "Trap", "category": "defense", "type": "aggressive"}
+    ]
+  },
+  "baseball": {
+    "pitch_types": [
+      {"name": "Fastball", "category": "pitch", "type": "power", "velocity": "high"},
+      {"name": "Curveball", "category": "pitch", "type": "breaking", "velocity": "medium"},
+      {"name": "Slider", "category": "pitch", "type": "breaking", "velocity": "medium-high"},
+      {"name": "Changeup", "category": "pitch", "type": "offspeed", "velocity": "low"},
+      {"name": "Sinker", "category": "pitch", "type": "movement", "velocity": "high"},
+      {"name": "Cutter", "category": "pitch", "type": "movement", "velocity": "high"},
+      {"name": "Knuckleball", "category": "pitch", "type": "trick", "velocity": "low"},
+      {"name": "Splitter", "category": "pitch", "type": "offspeed", "velocity": "medium"},
+      {"name": "Screwball", "category": "pitch", "type": "breaking", "velocity": "medium"}
+    ],
+    "offensive_plays": [
+      {"name": "Hit and Run", "category": "play", "type": "aggressive"},
+      {"name": "Steal", "category": "play", "type": "speed"},
+      {"name": "Bunt", "category": "play", "type": "sacrifice"},
+      {"name": "Squeeze Play", "category": "play", "type": "aggressive"},
+      {"name": "Double Steal", "category": "play", "type": "trick"}
+    ]
+  },
+  "soccer": {
+    "formations": [
+      {"name": "4-4-2", "category": "formation", "type": "balanced"},
+      {"name": "4-3-3", "category": "formation", "type": "attacking"},
+      {"name": "3-5-2", "category": "formation", "type": "defensive"},
+      {"name": "4-2-3-1", "category": "formation", "type": "balanced"},
+      {"name": "4-1-4-1", "category": "formation", "type": "defensive"},
+      {"name": "3-4-3", "category": "formation", "type": "attacking"}
+    ],
+    "tactics": [
+      {"name": "Tiki Taka", "category": "tactic", "type": "possession"},
+      {"name": "Counter Attack", "category": "tactic", "type": "speed"},
+      {"name": "High Press", "category": "tactic", "type": "aggressive"},
+      {"name": "Park the Bus", "category": "tactic", "type": "defensive"},
+      {"name": "Wing Play", "category": "tactic", "type": "attacking"},
+      {"name": "Direct Play", "category": "tactic", "type": "power"}
+    ],
+    "set_pieces": [
+      {"name": "Corner Kick", "category": "set_piece", "type": "aerial"},
+      {"name": "Free Kick", "category": "set_piece", "type": "precision"},
+      {"name": "Penalty", "category": "set_piece", "type": "pressure"},
+      {"name": "Throw In", "category": "set_piece", "type": "simple"}
+    ]
+  },
+  "tennis": {
+    "shots": [
+      {"name": "Serve", "category": "shot", "type": "power"},
+      {"name": "Ace", "category": "shot", "type": "power"},
+      {"name": "Forehand", "category": "shot", "type": "fundamental"},
+      {"name": "Backhand", "category": "shot", "type": "fundamental"},
+      {"name": "Volley", "category": "shot", "type": "precision"},
+      {"name": "Smash", "category": "shot", "type": "power"},
+      {"name": "Drop Shot", "category": "shot", "type": "finesse"},
+      {"name": "Lob", "category": "shot", "type": "finesse"},
+      {"name": "Slice", "category": "shot", "type": "finesse"},
+      {"name": "Topspin", "category": "shot", "type": "power"}
+    ]
+  },
+  "mma": {
+    "techniques": [
+      {"name": "Jab", "category": "strike", "type": "fundamental"},
+      {"name": "Cross", "category": "strike", "type": "power"},
+      {"name": "Hook", "category": "strike", "type": "power"},
+      {"name": "Uppercut", "category": "strike", "type": "power"},
+      {"name": "Kick", "category": "strike", "type": "power"},
+      {"name": "Takedown", "category": "grappling", "type": "control"},
+      {"name": "Submission", "category": "grappling", "type": "finish"},
+      {"name": "Ground and Pound", "category": "grappling", "type": "power"},
+      {"name": "Clinch", "category": "grappling", "type": "control"}
+    ]
+  }
+}
+
