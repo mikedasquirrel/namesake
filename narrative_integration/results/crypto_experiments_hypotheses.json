@@ -1,0 +1,26 @@
+{
+  "H1": {
+    "hypothesis": "H1: Story quality predicts better than demographics",
+    "narrative_pipeline": "statistical_baseline",
+    "baseline_pipeline": "statistical_baseline",
+    "metric": "f1_macro",
+    "narrative_score": 0.9973521588696397,
+    "baseline_score": 0.9973521588696397,
+    "improvement": 0.0,
+    "improvement_pct": 0.0,
+    "threshold": 0.05,
+    "statistical_test": {
+      "pipeline1": "statistical_baseline",
+      "pipeline2": "statistical_baseline",
+      "metric": "f1_macro",
+      "mean_diff": 0.0,
+      "t_statistic": NaN,
+      "p_value": NaN,
+      "cohens_d": 0.0,
+      "significant": "False",
+      "interpretation": "not significant (p \u2265 0.05) with negligible effect size (decline)"
+    },
+    "validated": "False",
+    "interpretation": "\u2717 NOT VALIDATED: Narrative improvement of 0.0000 does not meet threshold or significance criteria. Baseline may be sufficient or narrative encoding needs refinement."
+  }
+}

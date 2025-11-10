@@ -1,0 +1,303 @@
+{
+  "domain_name": "cryptocurrency_market_performance",
+  "domain_description": "Cryptocurrency naming and market performance prediction using narrative advantage theory",
+  
+  "data_format": "C",
+  
+  "input_schema": {
+    "format_type": "mixed",
+    "features": {
+      "text_fields": ["narrative_description"],
+      "numerical_fields": [
+        "harshness", "syllables", "length", "memorability", "vowel_ratio",
+        "is_monosyllabic", "is_short",
+        "relative_harshness", "relative_syllables", "relative_length", "relative_memorability",
+        "zscore_harshness", "zscore_syllables", "zscore_length", "zscore_memorability",
+        "market_saturation", "cohort_size_normalized", "log_rank",
+        "tech_morpheme_count",
+        "strategy_technical", "strategy_playful", "strategy_financial", 
+        "strategy_abstract", "strategy_descriptive"
+      ],
+      "metadata_fields": [
+        "coin_id", "name", "symbol", "rank", "market_cap", "created_date",
+        "cohort_key", "cohort_size", "cohort_mean_outcome", "cohort_std_outcome"
+      ]
+    },
+    "labels": {
+      "field_binary": "top_25_percent",
+      "field_regression": "log_market_cap",
+      "type": "binary_and_regression",
+      "classes": ["bottom_75_percent", "top_25_percent"]
+    },
+    "validation": {
+      "required_fields": ["narrative_description", "name", "market_cap"],
+      "min_samples": 100,
+      "allow_missing": false
+    }
+  },
+  
+  "recommended_transformers": [
+    {
+      "transformer": "NominativeAnalysisTransformer",
+      "params": {
+        "n_semantic_fields": 10,
+        "track_proper_nouns": false,
+        "track_categories": true,
+        "crypto_specific": true
+      },
+      "rationale": "Crypto names encode technical identity through morpheme selection and naming conventions. Analysis of semantic fields (technical, financial, conceptual) reveals narrative positioning strategy",
+      "priority": 1,
+      "expected_features": 30
+    },
+    {
+      "transformer": "NarrativePotentialTransformer",
+      "params": {
+        "track_modality": true,
+        "track_flexibility": true,
+        "track_arc_position": true,
+        "innovation_markers": true
+      },
+      "rationale": "Growth and innovation-oriented language in crypto names predicts investment appeal. Future-oriented narratives attract capital in speculative markets",
+      "priority": 2,
+      "expected_features": 28
+    },
+    {
+      "transformer": "EnsembleNarrativeTransformer",
+      "params": {
+        "n_top_terms": 50,
+        "min_cooccurrence": 2,
+        "network_metrics": true,
+        "diversity_metrics": true
+      },
+      "rationale": "Cryptocurrency ecosystem effects: coins gain meaning through co-occurrence patterns with Bitcoin, Ethereum, and category leaders. Network positioning predicts survival",
+      "priority": 3,
+      "expected_features": 11
+    },
+    {
+      "transformer": "RelationalValueTransformer",
+      "params": {
+        "n_features": 100,
+        "complementarity_threshold": 0.3,
+        "synergy_window": 3
+      },
+      "rationale": "Portfolio complementarity: successful crypto names differentiate through non-overlapping semantic territory while maintaining category coherence",
+      "priority": 4,
+      "expected_features": 9
+    },
+    {
+      "transformer": "SemanticNarrativeTransformer",
+      "params": {
+        "n_components": 50,
+        "n_clusters": 10,
+        "max_features": 5000
+      },
+      "rationale": "Semantic clustering reveals narrative categories in crypto naming (DeFi, memecoins, enterprise blockchain, etc.). Cluster membership predicts market behavior",
+      "priority": 5,
+      "expected_features": 70
+    },
+    {
+      "transformer": "StatisticalTransformer",
+      "params": {
+        "max_features": 1000,
+        "ngram_range": [1, 2],
+        "min_df": 2,
+        "max_df": 0.8
+      },
+      "rationale": "TF-IDF baseline for comparison. Pure frequency statistics without narrative interpretation",
+      "priority": 6,
+      "expected_features": 1000
+    }
+  ],
+  
+  "hypotheses_to_test": [
+    {
+      "id": "H1",
+      "name": "Story quality predicts better than demographics",
+      "relevance": "Test if narrative features in crypto names outperform basic phonetic features alone",
+      "test_method": "Compare narrative transformers vs statistical baseline",
+      "success_criteria": "Narrative F1 > Baseline F1 by at least 5 percentage points"
+    },
+    {
+      "id": "H2",
+      "name": "Character role complementarity",
+      "relevance": "Test if crypto names with complementary semantic profiles predict portfolio diversity and survival",
+      "test_method": "RelationalValueTransformer features correlation with market cap",
+      "success_criteria": "Complementarity score positively correlates with success (r > 0.10, p < 0.05)"
+    },
+    {
+      "id": "H4",
+      "name": "Ensemble diversity predicts openness",
+      "relevance": "Test if coins with diverse semantic elements and network positioning show better market performance",
+      "test_method": "EnsembleNarrativeTransformer diversity metrics vs market cap",
+      "success_criteria": "Diversity score positively predicts top 25% membership (AUC improvement > 0.03)"
+    },
+    {
+      "id": "H5",
+      "name": "Omissions more predictive than inclusions",
+      "relevance": "Test if what crypto names AVOID (e.g., scam markers, complexity) matters more than what they include",
+      "test_method": "Ablation studies removing positive vs negative features",
+      "success_criteria": "Negative feature set explains more variance than positive feature set"
+    },
+    {
+      "id": "H6",
+      "name": "Context-dependent weights outperform static",
+      "relevance": "Test if relative features (vs cohort) predict better than absolute features",
+      "test_method": "Compare models with relative_* features vs absolute features only",
+      "success_criteria": "Relative features improve F1 by at least 3 percentage points"
+    }
+  ],
+  
+  "pipeline_config": {
+    "narrative_name": "Crypto Narrative Advantage Analysis",
+    "hypothesis": "Narrative quality in cryptocurrency names—measured through nominative analysis, narrative potential, ensemble effects, relational value, and semantic coherence—predicts market capitalization success better than statistical baselines or demographic features alone",
+    "expected_outcome": "Narrative features achieve F1 > 0.70 on top 25% prediction, outperforming TF-IDF baseline (expected ~0.60) and demographic-only features (~0.55)",
+    "domain_assumptions": [
+      "Crypto names are chosen strategically to signal quality and category membership",
+      "Market participants (investors, traders) respond to narrative signals in names",
+      "Technical sophistication in naming correlates with project legitimacy",
+      "Meme-oriented names appeal to retail but may limit institutional adoption",
+      "Network effects in crypto mean ecosystem positioning matters",
+      "Competitive context (cohort performance) moderates name effects"
+    ],
+    "steps": [
+      {
+        "name": "nominative_analysis",
+        "transformer": "NominativeAnalysisTransformer",
+        "params": {
+          "n_semantic_fields": 10,
+          "track_categories": true,
+          "crypto_specific": true
+        },
+        "rationale": "Extract semantic fields and naming conventions that reveal technical vs playful vs financial positioning"
+      },
+      {
+        "name": "narrative_potential",
+        "transformer": "NarrativePotentialTransformer",
+        "params": {
+          "track_modality": true,
+          "track_flexibility": true,
+          "innovation_markers": true
+        },
+        "rationale": "Measure future-orientation, innovation language, and growth narrative strength"
+      },
+      {
+        "name": "ensemble_effects",
+        "transformer": "EnsembleNarrativeTransformer",
+        "params": {
+          "n_top_terms": 50,
+          "network_metrics": true,
+          "diversity_metrics": true
+        },
+        "rationale": "Capture ecosystem positioning and network effects through co-occurrence analysis"
+      },
+      {
+        "name": "relational_value",
+        "transformer": "RelationalValueTransformer",
+        "params": {
+          "n_features": 100,
+          "complementarity_threshold": 0.3
+        },
+        "rationale": "Assess portfolio complementarity and differentiation strategies"
+      },
+      {
+        "name": "semantic_clustering",
+        "transformer": "SemanticNarrativeTransformer",
+        "params": {
+          "n_components": 50,
+          "n_clusters": 10
+        },
+        "rationale": "Reveal latent semantic categories through dimensionality reduction and clustering"
+      },
+      {
+        "name": "classifier",
+        "transformer": "GradientBoostingClassifier",
+        "params": {
+          "n_estimators": 100,
+          "learning_rate": 0.1,
+          "max_depth": 5,
+          "random_state": 42
+        },
+        "rationale": "Gradient boosting handles mixed feature types well and provides feature importance"
+      }
+    ]
+  },
+  
+  "experiment_config": {
+    "experiment_id": "crypto_narrative_advantage_v1",
+    "description": "Comprehensive test of narrative advantage theory on cryptocurrency market capitalization prediction",
+    "metrics": [
+      "f1_macro",
+      "f1_weighted",
+      "accuracy",
+      "roc_auc",
+      "precision_macro",
+      "recall_macro",
+      "matthews_corrcoef"
+    ],
+    "primary_metric": "f1_macro",
+    "cv_strategy": "StratifiedKFold",
+    "cv_splits": 5,
+    "random_seed": 42,
+    "baselines": [
+      {
+        "name": "Demographics Only",
+        "description": "Use only pre-extracted phonetic and competitive context features (24 features)",
+        "features": "existing_features_only",
+        "rationale": "Test if narrative extraction adds value beyond existing features"
+      },
+      {
+        "name": "Statistical TF-IDF",
+        "description": "Pure TF-IDF on narrative descriptions without semantic interpretation",
+        "transformer": "StatisticalTransformer",
+        "rationale": "Test if narrative semantics outperform frequency statistics"
+      },
+      {
+        "name": "Random Classifier",
+        "description": "Stratified random predictions for chance performance baseline",
+        "rationale": "Establish minimum performance threshold"
+      }
+    ],
+    "ablation_studies": [
+      {
+        "name": "Remove Competitive Context",
+        "description": "Remove all relative_* and zscore_* features to test competitive effect",
+        "features_to_remove": ["relative_harshness", "relative_syllables", "relative_length", "relative_memorability", "zscore_harshness", "zscore_syllables", "zscore_length", "zscore_memorability"]
+      },
+      {
+        "name": "Remove Phonetic Features",
+        "description": "Test narrative transformers without phonetic features",
+        "features_to_remove": ["harshness", "syllables", "length", "memorability", "vowel_ratio", "is_monosyllabic", "is_short"]
+      },
+      {
+        "name": "Remove Strategy Encoding",
+        "description": "Test without naming strategy classification",
+        "features_to_remove": ["strategy_technical", "strategy_playful", "strategy_financial", "strategy_abstract", "strategy_descriptive"]
+      }
+    ]
+  },
+  
+  "output_config": {
+    "export_format": ["json", "markdown", "pickle", "csv"],
+    "save_models": true,
+    "save_visualizations": true,
+    "interpretability_report": true,
+    "destination": "./narrative_integration/results/",
+    "visualization_types": [
+      "performance_comparison",
+      "feature_importance",
+      "hypothesis_validation",
+      "confusion_matrix",
+      "roc_curve",
+      "learning_curve",
+      "calibration_curve"
+    ]
+  },
+  
+  "computational_config": {
+    "n_jobs": -1,
+    "verbose": 1,
+    "memory": null,
+    "cache_transformers": true
+  }
+}
+

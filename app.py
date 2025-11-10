@@ -598,12 +598,12 @@ def get_live_recommendations():
         # Get real opportunities from all databases
         real_opportunities = []
         
-        # Load from each sport
+        # Load from each sport - GET ALL DATA!
         for sport in ['football', 'basketball', 'baseball', 'mma']:
-            # Get top athletes from database
-            athletes = db_loader.load_athletes(sport, limit=50)
+            # Get ALL athletes from database (not just 50!)
+            athletes = db_loader.load_athletes(sport, limit=1000)  # Load 1000 per sport = 4,000 total!
             
-            for athlete in athletes[:20]:  # Top 20 per sport
+            for athlete in athletes:  # Process ALL athletes, not just 20!
                 try:
                     # Calculate betting score using real linguistic features
                     score_result = analyzer.calculate_player_score(
@@ -676,14 +676,23 @@ def get_live_recommendations():
         
         logger.info(f"Generated {len(real_opportunities)} REAL opportunities from databases")
         
+        # Return ALL opportunities with pagination info
+        page = int(request.args.get('page', 1))
+        per_page = int(request.args.get('per_page', 100))
+        start = (page - 1) * per_page
+        end = start + per_page
+        
         return jsonify({
             'status': 'success',
-            'recommendations': real_opportunities[:50],
+            'recommendations': real_opportunities[start:end],
             'total_opportunities': len(real_opportunities),
+            'page': page,
+            'per_page': per_page,
+            'total_pages': (len(real_opportunities) + per_page - 1) // per_page,
             'games_today': len(real_opportunities),
             'last_update': datetime.now().isoformat(),
             'next_update': (datetime.now() + timedelta(minutes=15)).isoformat(),
-            'note': 'Real athletes from databases - 9,900 total athletes available'
+            'note': f'Showing ALL {len(real_opportunities)} real opportunities from 9,900-athlete database'
         })
     except Exception as e:
         logger.error(f"Error generating live recommendations: {e}")
@@ -9000,6 +9009,47 @@ def personal_name_analyzer():
 def research_dashboard():
     """Comprehensive Research Dashboard with All Visualizations"""
     return render_template('research_dashboard.html')
+
+
+@app.route('/narrative-optimization')
+def narrative_optimization():
+    """Cryptocurrency Narrative Optimization Results Dashboard"""
+    return render_template('narrative_optimization.html')
+
+
+@app.route('/api/narrative-optimization/results')
+def api_narrative_optimization_results():
+    """API endpoint for narrative optimization experiment results"""
+    try:
+        import json
+        from pathlib import Path
+        
+        results_path = Path(__file__).parent / 'narrative_integration' / 'results' / 'crypto_experiments_results.json'
+        comparison_path = Path(__file__).parent / 'narrative_integration' / 'results' / 'crypto_experiments_comparison.csv'
+        
+        # Load results
+        if results_path.exists():
+            with open(results_path, 'r') as f:
+                results = json.load(f)
+        else:
+            results = {}
+        
+        # Load comparison
+        if comparison_path.exists():
+            import pandas as pd
+            comparison_df = pd.read_csv(comparison_path)
+            comparison = comparison_df.to_dict('records')
+        else:
+            comparison = []
+        
+        return jsonify({
+            'status': 'success',
+            'results': results,
+            'comparison': comparison
+        })
+    except Exception as e:
+        logger.error(f"Error loading narrative optimization results: {e}")
+        return jsonify({'error': str(e)}), 500
 
 
 @app.route('/brand-optimizer')

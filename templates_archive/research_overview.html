@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Programs | Nominative Determinism</title>
+    <style>
+        body {
+            background: linear-gradient(to bottom, #000000, #050505);
+            color: rgba(255, 255, 255, 0.9);
+            font-family: 'Inter', sans-serif;
+            font-weight: 400;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 4rem 2rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Ambient background */
+        .wave-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 0;
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .wave-layer {
+            position: absolute;
+            width: 200%;
+            height: 100%;
+            opacity: 0.03;
+            filter: blur(80px);
+        }
+
+        .wave-layer:nth-child(1) {
+            background: radial-gradient(ellipse at 30% 40%, #06b6d4 0%, transparent 60%);
+            animation: wave 25s ease-in-out infinite;
+        }
+
+        .wave-layer:nth-child(2) {
+            background: radial-gradient(ellipse at 70% 60%, #9333ea 0%, transparent 60%);
+            animation: wave 30s ease-in-out infinite reverse;
+        }
+
+        .wave-layer:nth-child(3) {
+            background: radial-gradient(ellipse at 50% 50%, #ec4899 0%, transparent 60%);
+            animation: wave 35s ease-in-out infinite;
+        }
+
+        @keyframes wave {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            33% { transform: translate(-15%, 10%) scale(1.05); }
+            66% { transform: translate(15%, -10%) scale(0.95); }
+        }
+
+        .page-title {
+            font-size: 3rem;
+            font-weight: 200;
+            color: #ffffff;
+            text-align: center;
+            margin: 0 0 1rem 0;
+            letter-spacing: -0.02em;
+        }
+
+        .page-subtitle {
+            font-size: 1.125rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-align: center;
+            font-weight: 300;
+            margin: 0 0 4rem 0;
+        }
+
+        .program-card {
+            background: rgba(255, 255, 255, 0.02);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .program-card:hover {
+            background: rgba(255, 255, 255, 0.05);
+            border-color: rgba(255, 255, 255, 0.15);
+            transform: translateY(-2px);
+        }
+
+        .program-title {
+            font-size: 1.75rem;
+            font-weight: 300;
+            color: #ffffff;
+            margin: 0 0 1rem 0;
+        }
+
+        .program-meta {
+            color: rgba(255, 255, 255, 0.5);
+            font-size: 0.875rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .program-description {
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .findings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .finding-item {
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 12px;
+        }
+
+        .finding-title {
+            font-size: 1rem;
+            font-weight: 500;
+            color: #06b6d4;
+            margin-bottom: 0.5rem;
+        }
+
+        .finding-stat {
+            font-size: 1.75rem;
+            font-weight: 200;
+            color: rgba(255, 255, 255, 0.9);
+            margin-bottom: 0.5rem;
+        }
+
+        .finding-desc {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.6);
+            line-height: 1.5;
+        }
+
+        .action-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: rgba(255, 255, 255, 0.9);
+            text-decoration: none;
+            font-size: 0.9375rem;
+            transition: all 0.2s ease;
+        }
+
+        .action-link:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        .action-link.primary {
+            background: linear-gradient(135deg, #9333ea 0%, #ec4899 100%);
+            border: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="wave-background">
+        <div class="wave-layer"></div>
+        <div class="wave-layer"></div>
+        <div class="wave-layer"></div>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1 class="page-title">research programs</h1>
+            <p class="page-subtitle">investigating nominative effects across contexts</p>
+        </header>
+
+        <!-- Program 1: Determinism -->
+        <article class="program-card">
+            <h2 class="program-title">nominative determinism</h2>
+            <p class="program-meta">predictive effects across domains</p>
+            <p class="program-description">
+                Examines whether name features predict outcomes in specific contexts. Analysis of 236 hurricanes demonstrates phonetic features predict casualties with ROC AUC 0.916. Magic card names predict value for spells but not creatures, indicating context-specific formulas rather than universal laws.
+            </p>
+            
+            <div class="findings-grid">
+                <div class="finding-item">
+                    <div class="finding-title">hurricanes</div>
+                    <div class="finding-stat">0.916</div>
+                    <div class="finding-desc">cross-validated roc auc for casualty prediction</div>
+                </div>
+                <div class="finding-item">
+                    <div class="finding-title">mtg cards</div>
+                    <div class="finding-stat">0.262</div>
+                    <div class="finding-desc">cv r² for instant/sorcery value</div>
+                </div>
+                <div class="finding-item">
+                    <div class="finding-title">name diversity</div>
+                    <div class="finding-stat">14.96</div>
+                    <div class="finding-desc">u.s. shannon entropy (exceptional)</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 2rem;">
+                <a href="/hurricanes" class="action-link">hurricane findings</a>
+                <a href="/mtg" class="action-link">mtg analysis</a>
+            </div>
+        </article>
+
+        <!-- Program 2: Synchronicity -->
+        <article class="program-card">
+            <h2 class="program-title">nominative synchronicity</h2>
+            <p class="program-meta">historical name-destiny alignments</p>
+            <p class="program-description">
+                Quantifies whether historical coincidences (Darwin aboard HMS Beagle, revolutionaries' names) represent statistical patterns. Analysis of scientific expeditions, revolutionary leaders, and medical careers indicates alignments occur at approximately 2-fold baseline rates, with 90% attributable to self-selection and deliberate choice.
+            </p>
+            
+            <div class="findings-grid">
+                <div class="finding-item">
+                    <div class="finding-title">scientific ships</div>
+                    <div class="finding-stat">75%</div>
+                    <div class="finding-desc">name-discovery alignment (3x baseline)</div>
+                </div>
+                <div class="finding-item">
+                    <div class="finding-title">revolutionaries</div>
+                    <div class="finding-stat">100%</div>
+                    <div class="finding-desc">high-synchronicity names succeeded</div>
+                </div>
+                <div class="finding-item">
+                    <div class="finding-title">mechanism</div>
+                    <div class="finding-stat">90%</div>
+                    <div class="finding-desc">explained by human agency</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 2rem;">
+                <a href="/synchronicity-findings" class="action-link">explore cases</a>
+            </div>
+        </article>
+
+        <!-- Program 3: Meta-Nominative -->
+        <article class="program-card">
+            <h2 class="program-title">meta-nominative determinism</h2>
+            <p class="program-meta">disorder names affect clinical outcomes</p>
+            <p class="program-description">
+                Investigates whether psychiatric disorder names themselves influence treatment seeking, funding, and survival. Analysis of 50 disorders indicates name harshness correlates with stigma (r = 0.68) and treatment rates (r = −0.52). Historical evidence: PTSD nomenclature change associated with 625% treatment increase. Proposes evidence-based naming principles for DSM-6.
+            </p>
+            
+            <div class="findings-grid">
+                <div class="finding-item">
+                    <div class="finding-title">harshness-stigma</div>
+                    <div class="finding-stat">r = 0.68</div>
+                    <div class="finding-desc">harsh names predict high stigma</div>
+                </div>
+                <div class="finding-item">
+                    <div class="finding-title">ptsd transformation</div>
+                    <div class="finding-stat">625%</div>
+                    <div class="finding-desc">treatment rate increase post-rename</div>
+                </div>
+                <div class="finding-item">
+                    <div class="finding-title">mediation</div>
+                    <div class="finding-stat">87%</div>
+                    <div class="finding-desc">operates through stigma pathway</div>
+                </div>
+            </div>
+            
+            <div style="margin-top: 2rem;">
+                <a href="/disorder-nomenclature" class="action-link primary">disorder names research</a>
+            </div>
+        </article>
+
+        <!-- Publications -->
+        <section style="margin-top: 4rem; text-align: center;">
+            <h2 style="font-size: 2rem; font-weight: 300; color: rgba(255,255,255,0.9); margin-bottom: 2rem;">publications in development</h2>
+            <p style="color: rgba(255,255,255,0.6); margin-bottom: 2rem;">manuscripts prepared for lancet psychiatry, weather climate & society, jama psychiatry</p>
+            <a href="/" class="action-link">return to overview</a>
+        </section>
+    </div>
+</body>
+</html>
+

@@ -1,0 +1,129 @@
+{
+  "timestamp": "2025-11-09T02:10:41.246925",
+  "databases": {
+    "sqlite": {
+      "exists": false,
+      "size_mb": 0,
+      "path": "instance/namesake.db"
+    },
+    "duckdb": {
+      "exists": true,
+      "size_mb": 1.01171875,
+      "path": "name_study.duckdb"
+    }
+  },
+  "data_files": {
+    "raw_files": 172,
+    "processed_files": 18,
+    "json_files": 27,
+    "csv_files": 33,
+    "parquet_files": 10,
+    "total_size_mb": 70.38
+  },
+  "domains": {
+    "crypto": {
+      "path": "Auto-collected on startup",
+      "exists": false,
+      "type": "missing"
+    },
+    "hurricanes": {
+      "path": "data/predictions_2026/hurricane_predictions_2026.csv",
+      "exists": true,
+      "type": "file"
+    },
+    "mental_health": {
+      "path": "data/mental_health_nomenclature/",
+      "exists": true,
+      "type": "directory"
+    },
+    "ships": {
+      "path": "data/famous_ships_extended.json",
+      "exists": true,
+      "type": "file"
+    },
+    "adult_film": {
+      "path": "data/pornhub_performers.json",
+      "exists": true,
+      "type": "file"
+    },
+    "elections": {
+      "path": "data/international_relations/",
+      "exists": true,
+      "type": "directory"
+    },
+    "names_usa": {
+      "path": "data/raw/usa_ssa_names/",
+      "exists": true,
+      "type": "directory"
+    },
+    "names_processed": {
+      "path": "data/processed/",
+      "exists": true,
+      "type": "directory"
+    }
+  },
+  "collectors": {
+    "total": 54,
+    "collectors": [
+      "academic_collector",
+      "adult_film_collector",
+      "band_collector",
+      "band_members_collector",
+      "baseball_reference_collector",
+      "basketball_collector",
+      "board_game_collector",
+      "book_collector",
+      "census_demographic_collector",
+      "combat_sports_collector",
+      "complete_stock_collector",
+      "cricket_collector",
+      "darwin_corpus_collector",
+      "data_collector",
+      "domain_data_collector",
+      "earthquake_collector",
+      "election_collector",
+      "fema_collector",
+      "fema_individual_assistance_collector",
+      "film_collector",
+      "football_collector",
+      "gdelt_collector",
+      "hurricane_collector",
+      "immigration_collector",
+      "instrument_usage_collector",
+      "literary_name_collector",
+      "love_words_collector",
+      "marriage_collector",
+      "max_crypto_collector",
+      "mental_health_collector",
+      "mental_health_records_collector",
+      "mlb_collector",
+      "mlb_team_collector",
+      "mtg_collector",
+      "nba_collector",
+      "nfl_collector",
+      "noaa_storm_events_collector",
+      "noaa_storm_events_demographic_collector",
+      "people_collector",
+      "podcast_collector",
+      "pornhub_data_collector",
+      "religious_text_collector",
+      "romance_instrument_collector",
+      "ship_collector",
+      "soccer_collector",
+      "sound_symbolism_collector",
+      "sports_roster_locality_collector",
+      "stock_collector",
+      "stratified_domain_collector",
+      "tennis_collector",
+      "ufc_mma_collector",
+      "unified_sports_collector",
+      "world_cup_collector",
+      "youtube_collector"
+    ]
+  },
+  "sqlite_tables": null,
+  "issues": [
+    "\ud83d\udd34 SQLite database missing - run: python3 app.py",
+    "\ud83d\udfe1 1 domains missing data files"
+  ]
+}
