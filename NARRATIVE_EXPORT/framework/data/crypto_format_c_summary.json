@@ -1,0 +1,137 @@
+{
+  "schema": {
+    "text_field": "narrative_description",
+    "feature_fields": [
+      "harshness",
+      "syllables",
+      "length",
+      "memorability",
+      "vowel_ratio",
+      "is_monosyllabic",
+      "is_short",
+      "relative_harshness",
+      "relative_syllables",
+      "relative_length",
+      "relative_memorability",
+      "zscore_harshness",
+      "zscore_syllables",
+      "zscore_length",
+      "zscore_memorability",
+      "market_saturation",
+      "cohort_size_normalized",
+      "log_rank",
+      "tech_morpheme_count",
+      "strategy_technical",
+      "strategy_playful",
+      "strategy_financial",
+      "strategy_abstract",
+      "strategy_descriptive"
+    ],
+    "metadata_fields": [
+      "coin_id",
+      "name",
+      "symbol",
+      "rank",
+      "market_cap",
+      "created_date",
+      "cohort_key",
+      "cohort_size",
+      "cohort_mean_outcome",
+      "cohort_std_outcome"
+    ],
+    "label_field_binary": "top_25_percent",
+    "label_field_regression": "log_market_cap"
+  },
+  "metadata": {
+    "domain": "cryptocurrency_market_performance",
+    "n_samples": 3514,
+    "n_features": 24,
+    "n_classes_binary": 2,
+    "task_binary": "binary_classification",
+    "task_regression": "regression",
+    "description": "Cryptocurrency naming and market performance prediction",
+    "source": "crypto_with_competitive_context.json",
+    "transformation_date": "2025-11-10",
+    "class_distribution": {
+      "class_0": 2635,
+      "class_1": 879
+    },
+    "market_cap_stats": {
+      "min": 297211.0,
+      "max": 2034159815082.0,
+      "mean": 1059885789.8813318,
+      "median": 10199996.0,
+      "std": 35363416449.35866,
+      "threshold_75th": 37714459.5
+    }
+  },
+  "sample_texts": [
+    "Bitcoin (BTC). dominant market leader (rank 1). employs technical terminology signaling blockchain sophistication. incorporates technical morphemes: 'bit', 'coin'. Features disyllabic, soft phonetic profile. operates in highly saturated market (saturation: 0.90). shorter name than typical in cohort. commands massive market capitalization ($2034.2B). Plays foundational role in cryptocurrency ecosystem.",
+    "Ethereum (ETH). dominant market leader (rank 2). uses straightforward descriptive naming. Features monosyllabic, soft phonetic profile. operates in highly saturated market (saturation: 0.90). shorter name than typical in cohort. commands massive market capitalization ($413.0B). Plays foundational role in cryptocurrency ecosystem.",
+    "Solana (SOL). dominant market leader (rank 6). uses straightforward descriptive naming. Features monosyllabic, soft phonetic profile. operates in highly saturated market (saturation: 0.90). shorter name than typical in cohort. maintains substantial market capitalization ($88.3B). Plays foundational role in cryptocurrency ecosystem.",
+    "Cardano (ADA). major cryptocurrency (rank 11). uses straightforward descriptive naming. Features disyllabic, soft phonetic profile. operates in highly saturated market (saturation: 0.90). shorter name than typical in cohort. maintains substantial market capitalization ($20.5B). Plays foundational role in cryptocurrency ecosystem.",
+    "Dogecoin (DOGE). dominant market leader (rank 10). employs technical terminology signaling blockchain sophistication. incorporates technical morphemes: 'coin', 'doge'. Features soft phonetic profile. operates in highly saturated market (saturation: 0.90). maintains substantial market capitalization ($26.4B). Plays foundational role in cryptocurrency ecosystem."
+  ],
+  "sample_metadata": [
+    {
+      "coin_id": "bitcoin",
+      "name": "Bitcoin",
+      "symbol": "BTC",
+      "rank": 1,
+      "market_cap": 2034159815082.0,
+      "created_date": "2025-10-19 23:59:25.982964",
+      "cohort_key": "unknown",
+      "cohort_size": 3514,
+      "cohort_mean_outcome": 1059885789.8813318,
+      "cohort_std_outcome": 35363416449.35866
+    },
+    {
+      "coin_id": "ethereum",
+      "name": "Ethereum",
+      "symbol": "ETH",
+      "rank": 2,
+      "market_cap": 412955409572.0,
+      "created_date": "2025-10-19 23:59:25.996994",
+      "cohort_key": "unknown",
+      "cohort_size": 3514,
+      "cohort_mean_outcome": 1059885789.8813318,
+      "cohort_std_outcome": 35363416449.35866
+    },
+    {
+      "coin_id": "solana",
+      "name": "Solana",
+      "symbol": "SOL",
+      "rank": 6,
+      "market_cap": 88307899377.0,
+      "created_date": "2025-10-19 23:59:25.999739",
+      "cohort_key": "unknown",
+      "cohort_size": 3514,
+      "cohort_mean_outcome": 1059885789.8813318,
+      "cohort_std_outcome": 35363416449.35866
+    },
+    {
+      "coin_id": "cardano",
+      "name": "Cardano",
+      "symbol": "ADA",
+      "rank": 11,
+      "market_cap": 20481352182.0,
+      "created_date": "2025-10-19 23:59:26.002925",
+      "cohort_key": "unknown",
+      "cohort_size": 3514,
+      "cohort_mean_outcome": 1059885789.8813318,
+      "cohort_std_outcome": 35363416449.35866
+    },
+    {
+      "coin_id": "dogecoin",
+      "name": "Dogecoin",
+      "symbol": "DOGE",
+      "rank": 10,
+      "market_cap": 26425831281.0,
+      "created_date": "2025-10-19 23:59:26.006403",
+      "cohort_key": "unknown",
+      "cohort_size": 3514,
+      "cohort_mean_outcome": 1059885789.8813318,
+      "cohort_std_outcome": 35363416449.35866
+    }
+  ]
+}
